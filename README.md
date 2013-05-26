@@ -1,4 +1,4 @@
-smallworld
+Smallworld
 ==========
 
 Xoops Social network module. 
@@ -30,9 +30,20 @@ INSTALLATION NOTES.
 -------------------
 
 1) Download zip.
+
 2) extract /smallworld folder to /modules dir
+
 3) In admin -> module administration install smallworld module
+
 4) Config module in preferences
+
 5) Done!
 
 Have fun! And feel free to post sugguestions / bugs what ever.
+
+DEMO
+-----
+
+Register on www.culex.dk to see a working demo
+
+
