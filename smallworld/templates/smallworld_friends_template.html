@@ -55,8 +55,9 @@
 								<img height="10px" width="10px" src="images/editavatar.png"/>
 									<a href="javascript:void(0);" id="smallworld_changeAvatar"><{$smarty.const._SMALLWORLD_CHANGEAVATAR}></a><br>
 								<img height="10px" width="10px" src="images/edituserprofile.png"/> 
-									<a href="editprofile.php" id="smallworld_changeEditProfile"><{$smarty.const._SMALLWORLD_EDITPROFILE}></a>
-								
+									<a href="editprofile.php" id="smallworld_changeEditProfile"><{$smarty.const._SMALLWORLD_EDITPROFILE}></a><br>
+								<img height="10px" width="10px" src="images/preferences.png"/> 
+                                    <a href="javascript:void(0);" id="smallworld_changePersSettings"><{$smarty.const._SMALLWORLD_MENU_PRIVSET}></a>
 								<br>
 							</p>
 						  <{/if}>
@@ -415,4 +416,5 @@
 				<{/foreach}>
 			</table>	
 	</div>
-	<div id="smallworldStatsDiv" title="<{$smarty.const._SMALLWORLD_STATS}>" style="display:none;"></div>
+	<{$usersetting}>
+    <div id="smallworldStatsDiv" title="<{$smarty.const._SMALLWORLD_STATS}>" style="display:none;"></div>

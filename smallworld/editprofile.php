@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/editprofile.php $
-* @Last committed:		$Revision: 11576 $
+* @Last committed:		$Revision: 11699 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: editprofile.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:	$Date: 2013-06-16 19:29:32 +0200 (sø, 16 jun 2013) $
+* @ID:					$Id: editprofile.php 11699 2013-06-16 17:29:32Z djculex $
 **/
 include_once("../../mainfile.php");
 $xoopsOption['template_main'] = 'smallworld_userprofile_edittemplate.html';
@@ -135,9 +135,9 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                       $nr2id = "email-".$k;
                       $emailtext .= $item->input_add('smallworld_add2','email','emailtype','.smallworld_clone2',20,$addmore=null,$preset=stripslashes($v),$nr2id);
                      // $emailtext .= $item->input_add('smallworld_add2','email','emailtype','.smallworld_clone2',20,$addmore=null,$preset=stripslashes($v));
-                        $emailtext .= "<span class='smallworld_remove' id='emailremove'><a href='javascript:removelnk (\"#emailremovelnk\",\"input#email\",\"email\");' id='emailremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
+                        $emailtext .= "<span class='smallworld_remove' id='emailremove'><a href='javascript:void(0);' id='emailremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
                     }
-                    $emailtext .= "<a class='smallworld_addemail' href='javascript:void();' id='emailAdd'>"._SMALLWORLD_ADDMORE."</a><br><br>";
+                    $emailtext .= "<a class='smallworld_addemail' href='javascript:void(0);' id='emailAdd'>"._SMALLWORLD_ADDMORE."</a><br><br>";
                     $xoopsTpl->append('emailtext',$emailtext);
                 } else {
                     $xoopsTpl->assign('show_emails','no');
@@ -157,7 +157,7 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                          if ($cnt1 < $count1-1) {$addmore1 ="";} else {$addmore1 = _SMALLWORLD_ADDMORE;}
                             $screenname .= $item->dropdown_add('smallworld_add','screenname', 'screenname_type', '.smallworld_clone',$arr06,$addmore1,$selected=stripslashes($nr4[$k]),$preset=stripslashes($v));
                             $screenname .= "<span class='smallworld_remove' id='screennameremove'>";
-                             $screenname .= "<a href='javascript:removelnk (\"#screennameremovelnk\",\"span#screenname\",\"screenname\");' id='screennameremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
+                             $screenname .= "<a href='javascript:void(0);' id='screennameremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
                             $cnt1++;
                     }
                      $screenname .= "<a class='smallworld_addscreenname' href='javascript:void(0);' id='screennameAdd'>"._SMALLWORLD_ADDMORE."</a><br><br>";
@@ -269,7 +269,7 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                         $school .= $item->school_add ('smallworld_add3', 'school', 'school_type', 
                          '.smallworld_clone3', $arr7, _SMALLWORLD_ADDMORE, $selected=stripslashes($nr6[$k]),$preset=$v, $selectedstart=date("Y",$nr7[$k]),$selectedstop=date("Y",$nr8[$k]));
                         $school .= "<span class='smallworld_remove2' id='schoolremove'>";
-                         $school .= "<a href='javascript:removelnk (\"#schoolremovelnk\",\"div#school\",\"school\");' id='schoolremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
+                         $school .= "<a href='javascript:void(0);' id='schoolremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
                     } 
                      $school .= "<a class='smallworld_addschool' href='javascript:void(0);' id='schoolAdd'>"._SMALLWORLD_ADDMORE."</a><br><br>";
                      $xoopsTpl->append('school',$school);
@@ -289,7 +289,7 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                      $job .= $item->job('smallworld_add4', 'job', 'job_type', '.smallworld_clone4', _SMALLWORLD_ADDMORE, $employer=stripslashes($v), $position=stripslashes($nr10[$k]), 
                      $selectedstart = ($nr11[$k] != '') ? date("Y",$nr11[$k]):'', $selectedstop=($nr12[$k] != '') ? date("Y",$nr12[$k]):'',$description=$nr13[$k]);
                       $job .= "<span class='smallworld_remove3' id='jobremove'>";
-                        $job .= "<a href='javascript:removelnk (\"#jobremovelnk\",\"div#job\",\"job\");' id='jobremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
+                        $job .= "<a href='javascript:void(0);' id='jobremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
                     } 
                     $job .= "<a class='smallworld_addjob' href='javascript:void(0);' id='jobAdd'>"._SMALLWORLD_ADDMORE."</a><br><br>";
                      $xoopsTpl->append('job',$job); 
@@ -315,13 +315,6 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                  $xoopsTpl->assign('smallworld_beforesubmit',_SMALLWORLD_TEXTBEFORESUBMIT);
                  $xoopsTpl->assign('smallworld_save',_SMALLWORLD_SUBMIT);	
                  $xoopsTpl->assign('smallworld_user_website',$r['website']);	
-                 
-                $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
-                $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.validate.js');
-                $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.validation.functions.js');
-                $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.stepy.js');
-                $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
-                $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');  
             }	 
 		} elseif ($profile < 2) {
 			redirect_header(XOOPS_URL . "/modules/smallworld/register.php");

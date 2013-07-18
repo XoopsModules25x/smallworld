@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/message_ajax.php $
-* @Last committed:		$Revision: 11576 $
+* @Last committed:		$Revision: 11843 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: message_ajax.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:	$Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
+* @ID:					$Id: message_ajax.php 11843 2013-07-18 17:29:48Z djculex $
 **/
 
 include_once("../../mainfile.php");
@@ -27,10 +27,12 @@ global $xoopsUser, $xoopsModule,$xoopsLogger,$xoopsTpl;
 $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
 $page  = 'index';
+$id = $xoopsUser->getVar('uid');
+$check = new SmallWorldUser;
+$profile = ($xoopsUser) ? $check->checkIfProfile($id) : 0;
 
-
-if ($xoopsUser) { 	
-	$id = $xoopsUser->getVar('uid');
+if ($profile >= 2) { 	
+	
 	$Xuser = new XoopsUser($id);
 	$username = $Xuser->getVar('uname');
 	$Wall = new Wall_Updates();
@@ -57,14 +59,12 @@ if ($xoopsUser) {
 		$insdata=$Wall->Insert_Update($id,$update,$priv);
 		 if($insdata) {
 		 //$updatesarray=$Wall->Updates('a', $id, $followers,$page);
-			foreach ($insdata as $data) {
-            
-            $USW = array();
-                        $USW['posts'] = 0;
-                        $USW['comments'] = 0;
+			foreach ($insdata as $data) {  
+                $USW = array();
+                $USW['posts'] = 0;
+                $USW['comments'] = 0;
                     
-                    if ($xoopsUser) {
-                        
+                    if ($xoopsUser) {   
                         if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) && $data['uid_fk'] == $id) {
                             $USW['posts'] = 1;
                             $USW['comments'] = 1;
@@ -78,8 +78,8 @@ if ($xoopsUser) {
                     }
             
 				$wm['msg_id']		    = 	$data['msg_id'];
-				$wm['orimessage']		=	($USW['posts'] == 1) ? str_replace(array("\r", "\n"), '',Smallworld_stripWordsKeepUrl($data['message'])):'';
-				$wm['message']			=	($USW['posts'] == 1) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']):_SMALLWORLD_MESSAGE_PRIVSETPOSTS;
+				$wm['orimessage']		=	($USW['posts'] == 1 || $profile >= 2) ? str_replace(array("\r", "\n"), '',Smallworld_stripWordsKeepUrl($data['message'])):'';
+				$wm['message']			=	($USW['posts'] == 1 || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']):_SMALLWORLD_MESSAGE_PRIVSETPOSTS;
 				$wm['message']          =   Smallworld_cleanup($wm['message']);
                 $wm['created']		    =	smallworld_time_stamp($data['created']);
 				$wm['username']		    =	$data['username'];
@@ -100,8 +100,17 @@ if ($xoopsUser) {
 				$wm['usernameTitle']	=	$wm['username']._SMALLWORLD_UPDATEONSITEMETA.$xoopsConfig['sitename'];
 				$wm['linkimage']        =   XOOPS_URL."/modules/smallworld/images/link.png";
                 $wm['permalink']        =   XOOPS_URL."/modules/smallworld/permalink.php?ownerid=".$data['uid_fk']."&updid=".$data['msg_id'];
-                $wm['sharelink']		=	$Wall->GetSharing ($wm['msg_id'],$wm['priv']);
-				$wm['sharediv']			=	$Wall->GetSharingDiv ($wm['msg_id'],$wm['priv'], $wm['sharelinkurl'],$wm['orimessage'],$wm['usernameTitle']);						
+                    if ($USW['posts'] == 1 || $profile >= 2) {
+                        $wm['sharelink'] = $Wall->GetSharing ($wm['msg_id'],$wm['priv']);
+                    } else {
+                        $wm['sharelink'] = $Wall->GetSharing ($wm['msg_id'],1);
+                    }
+                    
+                    if ($USW['posts'] == 1 || $profile >= 2) {
+                        $wm['sharediv']	= $Wall->GetSharingDiv ($wm['msg_id'],$wm['priv'], $wm['sharelinkurl'],$wm['orimessage'],$wm['usernameTitle']);
+                    } else {
+                        $wm['sharediv']	= $Wall->GetSharingDiv ($wm['msg_id'],1, $wm['sharelinkurl'],$wm['orimessage'],$wm['usernameTitle']);
+                    }					
 				$wm['commentsarray']	=	$Wall->Comments($data['msg_id']);	                
                 
                 //Send mail if tagged
@@ -113,13 +122,11 @@ if ($xoopsUser) {
 						
 						if (!empty($wm['commentsarray'])){
 							foreach($wm['commentsarray'] as $cdata) {
-								
                                 $USC = array();
                                     $USC['posts'] = 0;
                                     $USC['comments'] = 0;
                                 
-                                if ($xoopsUser) {
-                                    
+                                if ($xoopsUser) { 
                                     if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) && $cdata['uid_fk'] == $id) {
                                         $USC['posts'] = 1;
                                         $USC['comments'] = 1;
@@ -134,7 +141,9 @@ if ($xoopsUser) {
                                 
                                 $wc['msg_id_fk']	    =	$cdata['msg_id_fk'];
 								$wc['com_id']		    =	$cdata['com_id'];
-								$wc['comment']		    =	($USC['comments']  == 1) ? smallworld_tolink(htmlspecialchars_decode($cdata['comment']),$cdata['uid_fk']):_SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
+								$wc['comment']		    =	($USC['comments']  == 1 || $profile >= 2) ? 
+                                                                smallworld_tolink(htmlspecialchars_decode($cdata['comment']),$cdata['uid_fk']):
+                                                                _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
                                 $wc['comment']		    =		Smallworld_cleanup($wc['comment']);
 								$wc['time']			    =		smallworld_time_stamp($cdata['created']);
 								$wc['username']		    =		$cdata['username'];

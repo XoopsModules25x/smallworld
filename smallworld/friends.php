@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/friends.php $
-* @Last committed:		$Revision: 11576 $
+* @Last committed:		$Revision: 11843 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: friends.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:	$Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
+* @ID:					$Id: friends.php 11843 2013-07-18 17:29:48Z djculex $
 **/
 include_once("../../mainfile.php");
 $xoopsOption['template_main'] = 'smallworld_friends_template.html';
@@ -169,7 +169,12 @@ global $xoopsUser;
 		$xoopsTpl->append('nousersfollowingme',_SMALLWORLD_NOUSERS);
 	}
 		
-		// Get usermenu to template
+            // Create form for private settings
+            $form = new SmallWorldForm;
+            $usersettings = $form->usersettings ($yourid, $selected=null);
+            $xoopsTpl->assign('usersetting', $usersettings);
+            
+            // Get usermenu to template
 			$menu_home = "<a href='".XOOPS_URL."/modules/smallworld/'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/house.png'>"._SMALLWORLD_HOME."</a>";
 			$menu_profile = "<a href='".XOOPS_URL."/modules/smallworld/userprofile.php?username=".$Xusername."'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/user_silhouette.png'>"._SMALLWORLD_PROFILEINDEX."</a>";
 			$menu_gallery = "<a href='".XOOPS_URL."/modules/smallworld/galleryshow.php?username=".$Xusername."'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/picture.png'>"._SMALLWORLD_GALLERY."</a>";
@@ -202,21 +207,9 @@ global $xoopsUser;
 			$xoopsTpl->assign('myavatarlink',$myavatarlink);	
 			$xoopsTpl->assign('myusername',$username);
 			$xoopsTpl->assign('username',$Xusername);
-		}	else {
+		} else {
 				$check->chkUser ();
-			}
-
-			global $xoTheme;
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/apprise-1.5.full.js');
-			$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/jquery.fileupload-ui.css');
-			$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.oembed.js');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/wall.js');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ajaxupload.3.5.js');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.avatar_helper.js');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.innerfade.js');			
-            $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
-            //$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/colorbox.css');            
+		}           
 	
 	} else {
 		redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);

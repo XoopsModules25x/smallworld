@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/admin/index.php $
-* @Last committed:		$Revision: 11335 $
+* @Last committed:		$Revision: 11723 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-04-01 01:56:08 +0200 (ma, 01 apr 2013) $
-* @ID:					$Id: index.php 11335 2013-03-31 23:56:08Z djculex $
+* @Last changed date:	$Date: 2013-06-19 18:48:22 +0200 (on, 19 jun 2013) $
+* @ID:					$Id: index.php 11723 2013-06-19 16:48:22Z djculex $
 **/
 
 
@@ -33,6 +33,8 @@ $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 
 
 $admin = new SmallworldAdmin();
+$d = new SmallWorldDoSync;
+$d->checkOrphans ();
 
 // Find oldest message and apply to template
 $dfm = $admin->oldestMsg();

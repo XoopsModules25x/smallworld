@@ -187,7 +187,7 @@
                                         </div> 
                                         <div class="smallworld_stcommenttext" >
                                             <form method="post" action="">
-                                                <textarea name="smallworld_comment" class="smallworld_comment" maxlength="200"  id="smallworld_ctextarea<{$post.msg_id}>"></textarea>
+                                                <textarea name="smallworld_comment" class="smallworld_comment" id="smallworld_ctextarea<{$post.msg_id}>"></textarea>
                                                 <br />
                                                 <input type="submit"  value="<{$smarty.const._SMALLWORLD_COMMENTBUTTONTEXT}>"  id="<{$post.msg_id}>" class="smallworld_comment_button"/>
                                             </form>
@@ -245,7 +245,7 @@
             <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
                 <tr>
                 <label for="register"></label>										
-                    <td><p id="smallworld_notyetusercontent"><{$notyetusercontent}></p></td>
+                    <td><p id="smallworld_notyetusercontent"><{$smarty.const._SMALLWORLD_NOTYETUSER_BOXTEXT}></p></td>
                 </tr>	
             </table>
         </div>

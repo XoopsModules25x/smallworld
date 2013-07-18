@@ -13,10 +13,10 @@
 * @Author:                Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:            2011 Culex
 * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/profile.php $
-* @Last committed:        $Revision: 11574 $
+* @Last committed:        $Revision: 11843 $
 * @Last changed by:        $Author: djculex $
-* @Last changed date:    $Date: 2013-05-22 15:04:57 +0200 (on, 22 maj 2013) $
-* @ID:                    $Id: profile.php 11574 2013-05-22 13:04:57Z djculex $
+* @Last changed date:    $Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
+* @ID:                    $Id: profile.php 11843 2013-07-18 17:29:48Z djculex $
 **/
 
  
@@ -254,8 +254,7 @@ class SmallWorldProfile {
                 $xoopsTpl->assign('website', $website);     
                 $xoopsTpl->assign('addsomeinfo', _SMALLWORLD_ADDSOMEINFO);         
                 $xoopsTpl->assign('pagename','profile');
-        } else{
-        }
+        } 
     }
 
     

@@ -13,10 +13,10 @@
 * @Author:                Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:            2011 Culex
 * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/db.php $
-* @Last committed:        $Revision: 11575 $
+* @Last committed:        $Revision: 11723 $
 * @Last changed by:        $Author: djculex $
-* @Last changed date:    $Date: 2013-05-22 15:08:31 +0200 (on, 22 maj 2013) $
-* @ID:                    $Id: db.php 11575 2013-05-22 13:08:31Z djculex $
+* @Last changed date:    $Date: 2013-06-19 18:48:22 +0200 (on, 19 jun 2013) $
+* @ID:                    $Id: db.php 11723 2013-06-19 16:48:22Z djculex $
 **/
 
 class SmallWorldDB 
@@ -124,7 +124,7 @@ class SmallWorldDB
         $sql = "SELECT ".$var." FROM ".$xoopsDB->prefix('smallworld_user')." WHERE userid = '".$id."'";
         $result = $xoopsDB->queryF($sql);
         if ($xoopsDB->getRowsNum($result) < 1) {
-            return _SMALLWORLD_REPLY_NOTSPECIFIED;
+            return 0;//_SMALLWORLD_REPLY_NOTSPECIFIED;
         }
             while ($row = $xoopsDB->fetchArray($result)) { 
                 $msg[$var] = $row[$var];
@@ -560,6 +560,11 @@ class SmallWorldDB
             . $xoopsDB->prefix('smallworld_user')." WHERE userid = '".$userid."'";
         $sql08 = "DELETE FROM "
             . $xoopsDB->prefix('smallworld_vote')." WHERE user_id = '".$userid."'";
+        $sql09 = "DELETE FROM "
+            . $xoopsDB->prefix('smallworld_complaints')." WHERE owner = '".$userid."' OR byuser_id = '".$userid."'";
+        $sql10 = "DELETE FROM "
+            . $xoopsDB->prefix('smallworld_settings')." WHERE userid = '".$userid."'";
+            
         $result01 = $xoopsDB->queryF($sql01);
         $result02 = $xoopsDB->queryF($sql02);
         $result03 = $xoopsDB->queryF($sql03);
@@ -568,6 +573,8 @@ class SmallWorldDB
         $result06 = $xoopsDB->queryF($sql06);
         $result07 = $xoopsDB->queryF($sql07);
         $result08 = $xoopsDB->queryF($sql08);
+        $result08 = $xoopsDB->queryF($sql09);
+        $result08 = $xoopsDB->queryF($sql10);
         // Remove picture dir
         $dirname = XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . "/" . $userid . "/";
         $this->smallworld_remDir ($userid, $dirname, $empty = false);

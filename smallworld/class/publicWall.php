@@ -135,6 +135,7 @@ class Public_Wall_Updates
         }
     }
     
+    
     /**
      * @Get user image based on uid
      * @param int $uid
@@ -160,8 +161,7 @@ class Public_Wall_Updates
         $ext = explode(".",$image);
         
         if (@!in_array(strtolower ($ext[1]), $type) || $image == '') {
-            $avt = new XoopsUser($uid);
-            $avatar = $avt->user_avatar(); 
+            $avatar = ''; 
         } else {
             $avatar = $image;
         }

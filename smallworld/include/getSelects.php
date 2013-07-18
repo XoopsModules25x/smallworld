@@ -12,11 +12,11 @@
 * @module:				Smallworld
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
-* @Repository path:		$HeadURL: https://xoops.svn.sourceforge.net/svnroot/xoops/XoopsModules/smallworld/trunk/smallworld/include/getSelects.php $
-* @Last committed:		$Revision: 8973 $
+* @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/include/getSelects.php $
+* @Last committed:		$Revision: 11699 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2012-02-15 01:39:40 +0100 (on, 15 feb 2012) $
-* @ID:					$Id: getSelects.php 8973 2012-02-15 00:39:40Z djculex $
+* @Last changed date:	$Date: 2013-06-16 19:29:32 +0200 (sø, 16 jun 2013) $
+* @ID:					$Id: getSelects.php 11699 2013-06-16 17:29:32Z djculex $
 **/
 include_once("../../../mainfile.php");
 include XOOPS_ROOT_PATH.'/header.php';
@@ -34,6 +34,9 @@ $xoopsLogger->activated = false;
 		$politic = $db->getVar($id,'politic');
 		$religion = $db->getVar($id,'religion');
         header('Content-type: "application/json"');
-        echo "{\"relat\":\"$relat \", \"partner\":\"$partner \", \"gender\":\"$gender \", \"politic\":\"$politic \", \"religion\":\"$religion \"}";
-	}
+        echo "{\"relat\":\"$relat\", \"partner\":\"$partner\", \"gender\":\"$gender\", \"politic\":\"$politic\", \"religion\":\"$religion\"}";
+	} else {
+        header('Content-type: "application/json"');
+        echo "{\"relat\":\"\", \"partner\":\"\", \"gender\":\"\", \"politic\":\"\", \"religion\":\"\"}";
+    }
 ?>

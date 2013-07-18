@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/permalink.php $
-* @Last committed:		$Revision: 11576 $
+* @Last committed:		$Revision: 11843 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: permalink.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:	$Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
+* @ID:					$Id: permalink.php 11843 2013-07-18 17:29:48Z djculex $
 **/
 include_once("../../mainfile.php");
 $xoopsOption['template_main'] = 'smallworld_permalink.html';
@@ -85,8 +85,7 @@ global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
                         $USW['posts'] = 0;
                         $USW['comments'] = 0;
                     
-                        if ($xoopsUser) {
-                            
+                        if ($xoopsUser) { 
                             if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) && $data['uid_fk'] == $id) {
                                 $USW['posts'] = 1;
                                 $USW['comments'] = 1;
@@ -100,8 +99,10 @@ global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
                         }
 
                             $wm['msg_id']			= 	$data['msg_id'];
-                            $wm['orimessage']		=	($USW['posts'] == 1) ? str_replace(array("\r", "\n"), '',Smallworld_stripWordsKeepUrl($data['message'])):'';
-                            $wm['message']			=	($USW['posts'] == 1) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']):_SMALLWORLD_MESSAGE_PRIVSETPOSTS;
+                            $wm['orimessage']		=	($USW['posts'] == 1 || $profile >= 2) ? 
+                                                            str_replace(array("\r", "\n"), '',Smallworld_stripWordsKeepUrl($data['message'])):'';
+                            $wm['message']			=	($USW['posts'] == 1 || $profile >= 2) ? 
+                                                            smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']):_SMALLWORLD_MESSAGE_PRIVSETPOSTS;
                             $wm['message']          =   Smallworld_cleanup($wm['message']);
                             $wm['created']			=	smallworld_time_stamp($data['created']);
                             $wm['username']			=	$data['username'];
@@ -116,8 +117,17 @@ global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
                             $wm['sharelinkurl']		=	XOOPS_URL."/modules/smallworld/smallworldshare.php?ownerid=".$data['uid_fk'];
                             $wm['sharelinkurl']	   .=	"&updid=".$data['msg_id']."";
                             $wm['usernameTitle']	=	$wm['username']._SMALLWORLD_UPDATEONSITEMETA.$xoopsConfig['sitename'];
-                            $wm['sharelink']		=	$Wall->GetSharing ($wm['msg_id'],$wm['priv']);
-                            $wm['sharediv']			=	$Wall->GetSharingDiv ($wm['msg_id'],$wm['priv'], $wm['sharelinkurl'],$wm['orimessage'],$wm['usernameTitle']);					
+                                if ($USW['posts'] == 1 || $profile >= 2) {
+                                    $wm['sharelink'] = $Wall->GetSharing ($wm['msg_id'],$wm['priv']);
+                                } else {
+                                    $wm['sharelink'] = $Wall->GetSharing ($wm['msg_id'],1);
+                                }
+                                
+                                if ($USW['posts'] == 1 || $profile >= 2) {
+                                    $wm['sharediv']	= $Wall->GetSharingDiv ($wm['msg_id'],$wm['priv'], $wm['sharelinkurl'],$wm['orimessage'],$wm['usernameTitle']);
+                                } else {
+                                    $wm['sharediv']	= $Wall->GetSharingDiv ($wm['msg_id'],1, $wm['sharelinkurl'],$wm['orimessage'],$wm['usernameTitle']);
+                                }					
                             $wm['commentsarray']	=	$Wall->Comments($data['msg_id']);	
                             $xoopsTpl->append('walldata', $wm);
                             
@@ -128,7 +138,6 @@ global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
                                     $USC['comments'] = 0;
                                     
                                     if ($xoopsUser) {
-                                        
                                         if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) && $cdata['uid_fk'] == $id) {
                                             $USC['posts'] = 1;
                                             $USC['comments'] = 1;
@@ -143,7 +152,9 @@ global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
                                 
                                     $wc['msg_id_fk']		=		$cdata['msg_id_fk'];
                                     $wc['com_id']			=		$cdata['com_id'];
-                                    $wc['comment']			=		($USC['comments']  == 1) ? smallworld_tolink(htmlspecialchars_decode($cdata['comment']),$cdata['uid_fk']):_SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
+                                    $wc['comment']			=		($USC['comments']  == 1 || $profile >= 2) ? 
+                                                                        smallworld_tolink(htmlspecialchars_decode($cdata['comment']),$cdata['uid_fk']):
+                                                                        _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
                                     $wc['comment']		    =		Smallworld_cleanup($wc['comment']);
                                     $wc['time']				=		smallworld_time_stamp($cdata['created']);
                                     $wc['username']			=		$cdata['username'];
@@ -171,13 +182,7 @@ global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
 				$xoopsTpl->assign('myavatarlink',$myavatarlink);
                 $xoopsTpl->assign('myavatar_highwide',$myavatar_highwide);
 
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.oembed.js');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/wall.js');
-			$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
-			$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.innerfade.js');
-            $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.bookmark.js'); 
+ 
 
 include(XOOPS_ROOT_PATH."/footer.php");
 ?>

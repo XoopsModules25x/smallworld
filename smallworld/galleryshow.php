@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/galleryshow.php $
-* @Last committed:		$Revision: 11576 $
+* @Last committed:		$Revision: 11659 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: galleryshow.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:	$Date: 2013-06-12 19:42:10 +0200 (on, 12 jun 2013) $
+* @ID:					$Id: galleryshow.php 11659 2013-06-12 17:42:10Z djculex $
 **/
 include_once("../../mainfile.php");
 $xoopsOption['template_main'] = 'smallworld_galleryshow.html';
@@ -25,16 +25,7 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 global $xoopsUser, $xoTheme;
 	
-	if ($xoopsUser) {
- 		$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/galleriffic-5.css');
-        //$xoTheme->addScript("http://code.jquery.com/jquery-migrate-1.0.0.js");
-		$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.galleriffic.js');
-		$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.history.js');
-		$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.opacityrollover.js');
-		$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/gallery_mod.js');
-		$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.innerfade.js');
-		$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');	
-			
+	if ($xoopsUser) {			
 		$id = $xoopsUser->getVar('uid');
 		$check = new SmallWorldUser;
 		$image = new SmallWorldImages;

@@ -13,7 +13,7 @@
  */
 xoops_smallworld(function() {	
     //Attach function for avatar
-    attachAvatarOpen ();
+    Smallworld_attachAvatarOpen ();
     
     // Get page url and page title (index.php)
     var smallworld_pageUrl = window.location.pathname;
@@ -21,7 +21,7 @@ xoops_smallworld(function() {
     
     // GET pop for statistics
     xoops_smallworld('#smallworld_statistics_lnk').on('click',function(e) {
-        if (userHasProfile == 0) {
+        if (Smallworld_userHasProfile == 0) {
             alert (SmallworldDialogNotUser);
             return false;
         }
@@ -46,15 +46,15 @@ xoops_smallworld(function() {
     
     // GET pop for recentactivities
     xoops_smallworld('#smallworld_recentactivities').on('click',function(e) {
-        if (userHasProfile == 0) {
+        if (Smallworld_userHasProfile <= 1) {
             alert (SmallworldDialogNotUser);
             return false;
         }
         e.preventDefault();
-        var uname = xoops_smallworld(this).attr('rel');
+        var Smallworld_uname = xoops_smallworld(this).attr('rel');
         if (xoops_smallworld('#smallworld_recentactivities').length) { // implies *not* zero
             xoops_smallworld('#smallworld_recentactivitiesDiv').show();
-            xoops_smallworld("#smallworld_recentactivitiesDiv").load('recentactivities.php?username='+uname);
+            xoops_smallworld("#smallworld_recentactivitiesDiv").load('recentactivities.php?username='+Smallworld_uname);
             xoops_smallworld.colorbox({
                 width:"35%", 
                 height:"50%",
@@ -72,24 +72,29 @@ xoops_smallworld(function() {
 
     // Attach colorbox.js to selector in register.php and edit_profile.php
     // If other page / no presence of #smallworld_regform1 then exit function and continue
-    xoops_smallworld(function() {
+    xoops_smallworld(document).ready(function() {
         if (xoops_smallworld('#smallworld_regform1').length) { // implies *not* zero
             xoops_smallworld('#smallworld_regform1').show();
-            xoops_smallworld.colorbox({
-                innerWidth:"75%", 
-                innerHeight:"70%",
-                inline:true, 
-                html:true,
-                onComplete: function() {
+            xoops_smallworld( "#smallworld_regform1" ).dialog({
+                height: 'auto',
+                width: 1150,
+                modal: true,
+                closeOnEscape:true,
+                position: 'center',
+                open: function(event, ui) { 
                     smallworld_DoValStart ();
+                    xoops_smallworld("input#realname").val();
+                    xoops_smallworld(".ui-widget-overlay").css({
+                        background: 'none repeat scroll 0 0 #222222',
+                        opacity: 0.89
+                    });
                 },
-                onCleanup:function() {
+                beforeClose: function( event, ui ) {
                     xoops_smallworld('#smallworld_regform1').hide();
                 },
-                onClosed:function() {
-                    location.href = 'index.php'; 
-                },
-                href:"#smallworld_regform1"
+                close: function(event, ui) { 
+                    location.href = 'publicindex.php'; 
+                }
             });
         };
     }); 
@@ -97,7 +102,7 @@ xoops_smallworld(function() {
     // Function to make friend invitations form into ui dialog
     xoops_smallworld(function() {
         xoops_smallworld('#friendInvitations_box').css('display','none');
-        if (hasmessages > 0) {		
+        if (Smallworld_hasmessages > 0) {		
             if (xoops_smallworld('#friendInvitations_box').length) { // implies *not* zero
                 xoops_smallworld('#friendInvitations_box').show();
                 xoops_smallworld.colorbox({
@@ -182,22 +187,31 @@ xoops_smallworld(function() {
 
     // If user does not have a profile in smallworld then goto register.
     // If user has already a profile then goto edit profile dialog
-    if (userHasProfile === 0) {
-        var buttons = {};
-        buttons[_smallworldContinueToReg] = function() { 
-            location.href = smallworld_url+'register.php';
+        if (Smallworld_userHasProfile <= 1) {
+            var buttons = {};
+            buttons[_smallworldContinueToReg] = function() { 
+                location.href = smallworld_url+'register.php';
+            }
+            buttons[_smallworldCancel] = function() { 
+                xoops_smallworld( this ).dialog( "close" ); 
+                location.href = smallworld_url+'publicindex.php';
+            } 	
+            buttons[_smallworldClose] = function() {
+                xoops_smallworld( this ).dialog( "close" ); 
+                location.href = smallworld_url+'publicindex.php';
+            }
+
+            xoops_smallworld('#smallworld_notyetusercontent').dialog({
+                minWidth: 500,
+                show: "blind",
+                hide: "explode",
+                width: "550px",
+                close: function(event, ui) { 
+                    location.href = smallworld_url+'publicindex.php';
+                },
+                buttons: buttons
+            });	
         }
-        buttons[_smallworldCancel] = function() { 
-            xoops_smallworld( this ).dialog( "close" ); 
-        } 	
-        xoops_smallworld('#smallworld_notyetregistered').dialog({
-            minWidth: 500,
-            show: "blind",
-            hide: "explode",
-            width: "550px",
-            buttons: buttons
-        });	
-    }
 		
 	// Attach jquery-ui datepicker to form.	
 	xoops_smallworld("#birthday" ).datepicker({
@@ -319,6 +333,7 @@ xoops_smallworld(document).ready(function() {
         // if @ is pressed 
         if (event.keyCode === 50) {
             xoops_smallworld(this).autocomplete({
+                disabled: false,
                 minLength: 3,
                 source : function (request, response) {
                    xoops_smallworld.ajax({
@@ -365,6 +380,8 @@ xoops_smallworld(document).ready(function() {
                     return false;
                 }
             });
+        } else {
+            xoops_smallworld(this).autocomplete({ disabled: true });
         }
     });
 });
@@ -481,8 +498,18 @@ xoops_smallworld(document).ready(function() {
         e.preventDefault();
 		xoops_smallworld('div#job:last').clone(true).insertBefore(this).find('input').val('');
 		xoops_smallworld('span#jobremove:last').clone(true).insertBefore(this);
-		xoops_smallworld('.jobstart').removeClass("hasDatepicker").attr('id',"").datepicker();
-		xoops_smallworld('.jobstop').removeClass("hasDatepicker").attr('id',"").datepicker();
+		xoops_smallworld('.jobstart').removeClass("hasDatepicker").attr('id',"").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy',
+            yearRange: '-100:+0'
+        });
+		xoops_smallworld('.jobstop').removeClass("hasDatepicker").attr('id',"").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy',
+            yearRange: '-100:+0'
+        });
 	});		
 	
 	
@@ -690,7 +717,7 @@ xoops_smallworld(document).ready(function() {
                         xoops_smallworld('#_smallworld_birthplace_map').hide();
                     },
                     onComplete:function() {
-                        initialize_birthplace(smallworld_birthlng,smallworld_birthlatt);
+                        Smallworld_initialize_birthplace(smallworld_birthlng,smallworld_birthlatt);
                         xoops_smallworld('#_smallworld_birthplace_map').show();
                     },
                     title: function() {
@@ -716,7 +743,7 @@ xoops_smallworld(document).ready(function() {
 					xoops_smallworld('#_smallworld_present_map').hide();
 				},
 				onComplete:function(){
-					initialize_currplace(smallworld_currlng,smallworld_currlatt);
+					Smallworld_initialize_currplace(smallworld_currlng,smallworld_currlatt);
 					xoops_smallworld('#_smallworld_present_map').show();
 				},
 				title: function() {
@@ -730,20 +757,20 @@ xoops_smallworld(document).ready(function() {
 	
 	
 	// Function to rewrite urls used in xoops core for directing to profile.php
-	// Sets var uname = link text()
+	// Sets var Smallworld_uname = link text()
 	// removes /userinfo.php?uid=#
-	// replaces with /modules/smallworld/userprofile.php?username=uname
+	// replaces with /modules/smallworld/userprofile.php?username=Smallworld_uname
 	// culex okt 2011
 	if (smallworldTakeOverLinks != 0) {
 		xoops_smallworld('a[href*="userinfo.php?"]').each(function() {
-			var oldurl = xoops_smallworld(this).attr("href");
-			var uname = xoops_smallworld(this).text();
-            if (oldurl.match(/.*xoops.*/)) {
-                return oldurl;
+			var Smallworld_oldurl = xoops_smallworld(this).attr("href");
+			var Smallworld_uname = xoops_smallworld(this).text();
+            if (Smallworld_oldurl.match(/.*xoops.*/)) {
+                return Smallworld_oldurl;
             } else {
-                var tempArray = xoops_smallworld(this).attr("href").split("/");
-                var baseURL = tempArray[0];
-                this.href = this.href.replace(oldurl, smallworld_url + "userprofile.php?username="+uname);
+                var Smallworld_tempArray = xoops_smallworld(this).attr("href").split("/");
+                var Smallworld_baseURL = Smallworld_tempArray[0];
+                this.href = this.href.replace(Smallworld_oldurl, smallworld_url + "userprofile.php?username="+Smallworld_uname);
             }
 		});
 	}
@@ -771,7 +798,7 @@ xoops_smallworld(document).ready(function() {
 			var username = xoops_smallworld('span[name="' + id + '"]').attr('rel2');
 			xoops_smallworld('[name="' + id + '"]').toggle();
 			xoops_smallworld('span[name="' + id + '"]').bookmark({
-				onSelect: customBookmark,
+				onSelect: Smallworld_customBookmark,
 				url:ref,
 				description:desc,
 				title:username
@@ -875,6 +902,7 @@ function smallworldCheckNumDivs() {
 
         xoops_smallworld('.smallworld_commentcontainer').each(function(){ 
             var hiddenElements = xoops_smallworld(this).children('div:gt(1)').hide();
+            //var counts = xoops_smallworld(this).children().size();
             if (hiddenElements.size() > 0) {
                 var showCaption = _smallworldCommentsMoreMore;
                 xoops_smallworld(this).children('div:gt(1)').hide();
@@ -896,13 +924,13 @@ function smallworldCheckNumDivs() {
 
 
 // Open custom boomark window
-function customBookmark(id, display, url) { 
+function Smallworld_customBookmark(id, display, url) { 
     window.open(url, '_blank', 
         'width=600,height=400,menubar=no,toolbar=no,scrollbars=yes'); 
 }
 
 // Init birthplace_map
-function initialize_birthplace(smallworld_birthlng,smallworld_birthlatt) {
+function Smallworld_initialize_birthplace(smallworld_birthlng,smallworld_birthlatt) {
 	
 	var birth_myLatlng = new google.maps.LatLng(smallworld_birthlatt, smallworld_birthlng);
 	var birth_myOptions = {
@@ -919,7 +947,7 @@ function initialize_birthplace(smallworld_birthlng,smallworld_birthlatt) {
 }
 
 // Init currentcity_map
-function initialize_currplace(smallworld_currlng,smallworld_currlatt) {
+function Smallworld_initialize_currplace(smallworld_currlng,smallworld_currlatt) {
 	var currplace_myLatlng = new google.maps.LatLng(smallworld_currlatt, smallworld_currlng);
 	var currplace_myOptions = {
 	  zoom: 8,
@@ -936,7 +964,7 @@ function initialize_currplace(smallworld_currlng,smallworld_currlatt) {
 
 // Function to send invitation of friendship to userid
 //get friends email ids and message to send invitation
-function inviteFriends(friendID,myuid) {
+function Smallworld_inviteFriends(friendID,myuid) {
 	xoops_smallworld('#resultMsg').hide();
 	var txtMsgModal = xoops_smallworld('#friendship').text().replace(/\t/g, '');
 	var frNa = xoops_smallworld('#smallworld_capname').text();
@@ -964,7 +992,7 @@ function inviteFriends(friendID,myuid) {
 }
 
 // function to follow / unfollow friends
-function FollowFriend(friendID,myuid) {
+function Smallworld_FollowFriend(friendID,myuid) {
 	xoops_smallworld('#resultMsgFollow').hide();	
 	xoops_smallworld.ajax({
 		type: 'POST',
@@ -1016,7 +1044,7 @@ function SmallworldGetMoreMsg () {
 	});
 }
 // function to Accept / deny friendships
-function AcceptDenyFriend(stat,friendID,myuid,targetID) {
+function Smallworld_AcceptDenyFriend(stat,friendID,myuid,targetID) {
 		xoops_smallworld.ajax({
 		type: 'POST',
 		url: smallworld_url+ 'friendinvite.php?' + Math.random(),
@@ -1073,7 +1101,8 @@ function smallworld_getCountFriendMessagesEtcJS() {
 };
 
 function smallworld_DoValStart () {
-		// Attact validation to registeration parts in register form
+	xoops_smallworld(document).ready(function() {  
+        // Attact validation to registeration parts in register form
 		if (smallworldvalidationstrenght != 0) {		
 			xoops_smallworld("#smallworld_profileform-next-0").hide();
 			xoops_smallworld("#smallworld_profileform-next-1").hide();
@@ -1173,10 +1202,11 @@ function smallworld_DoValStart () {
 				xoops_smallworld('#smallworld_profileform-next-0').show();
 				xoops_smallworld('#smallworld_profileform-next-1').show();
 		}		
+    });
         return false;
 }
 
-function attachAvatarOpen () {
+function Smallworld_attachAvatarOpen () {
     // Open comment and update avatar imagen in new window on click
 	xoops_smallworld(function() {
         xoops_smallworld('.smallworld_big_face, .smallworld_small_face, .smallworldAttImg').css('cursor', 'pointer');

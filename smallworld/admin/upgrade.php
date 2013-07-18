@@ -7,6 +7,7 @@
 function smallworld_doUpgrade () {
     global $xoopsDB, $xoopsUser;
     varcharToBlog ();
+    smallworld_comToBlog ();
     if (smallworld_DoTableExists($xoopsDB->prefix('smallworld_settings'))) {
         // Table exists
         Return false;
@@ -38,4 +39,14 @@ function varcharToBlog () {
     $sql ="ALTER TABLE ".$xoopsDB->prefix('smallworld_messages')." CHANGE message message TEXT";
     $result = $xoopsDB->queryF($sql);
 }
+
+/**
+ * function to correct the comments from varchar to text
+ * @return void
+ */
+ function smallworld_comToBlog () {
+    global $xoopsDB;
+    $sql ="ALTER TABLE ".$xoopsDB->prefix('smallworld_comments')." CHANGE 'comments' 'comments' TEXT";
+    $result = $xoopsDB->queryF($sql);
+ }
 ?>

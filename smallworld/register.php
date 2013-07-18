@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/register.php $
-* @Last committed:		$Revision: 11576 $
+* @Last committed:		$Revision: 11843 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: register.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:	$Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
+* @ID:					$Id: register.php 11843 2013-07-18 17:29:48Z djculex $
 **/
 
 include_once("../../mainfile.php");
@@ -49,8 +49,8 @@ global $xoopsUser,$xoopsTpl,$xoTheme;
 		
 		// Real name
 		if (smallworldGetValfromArray ('realname', 'smallworldusethesefields') != 0) {
-		$realname = $item->input('realname', 'realname', 'realname',$size=30, $preset=$xoopsUser->getVar('name'));
-		 $xoopsTpl->append('realname',$realname);
+            $realname = $item->input('realname', 'realname', 'realname',$size=30);
+            $xoopsTpl->append('realname',$realname);
 		} else {
 			 $xoopsTpl->assign('show_realname','no');
 		}
@@ -191,7 +191,7 @@ global $xoopsUser,$xoopsTpl,$xoTheme;
 		// Textarea for interests
 		//textarea($name, $id, $title, $rows, $cols, $class) 
 		if (smallworldGetValfromArray ('interests', 'smallworldusethesefields') != 0) {
-			$interests = $item->textarea('interests','interests',_SMALLWORLD_INTERESTS,1,20,'favourites');
+			$interests = $item->textarea('interests','interests',_SMALLWORLD_INTERESTS,1,20,'favourites',$preset = $xoopsUser->getVar('user_intrest'));
 			$xoopsTpl->append('interests',$interests);
 		} else {
 			$xoopsTpl->assign('show_interests','no');
@@ -231,7 +231,7 @@ global $xoopsUser,$xoopsTpl,$xoTheme;
 		 
 		// Textarea for About me
 		if (smallworldGetValfromArray ('aboutme', 'smallworldusethesefields') != 0) {
-			$aboutme = $item->textarea('aboutme','aboutme',_SMALLWORLD_ABOUTME,2,20,'favourites');
+			$aboutme = $item->textarea('aboutme','aboutme',_SMALLWORLD_ABOUTME,2,20,'favourites',$preset = $xoopsUser->getVar('bio', 'N'));
 			$xoopsTpl->append('aboutme',$aboutme);		
 		 } else {
 			$xoopsTpl->assign('show_aboutme','no');
@@ -286,12 +286,7 @@ global $xoopsUser,$xoopsTpl,$xoTheme;
 		 $xoopsTpl->assign('smallworld_beforesubmit',_SMALLWORLD_TEXTBEFORESUBMIT);
 		 $xoopsTpl->assign('smallworld_save',_SMALLWORLD_SUBMIT);
 		 
-		 $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
-         $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.validate.js');
-         $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.validation.functions.js');
-         $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.stepy.js');
-         $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
-		 $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');  
+		 
 		}
 	} else {
 		redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);

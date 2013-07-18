@@ -13,10 +13,10 @@
 * @Author:                Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:            2011 Culex
 * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/include/functions.php $
-* @Last committed:        $Revision: 11574 $
+* @Last committed:        $Revision: 11719 $
 * @Last changed by:        $Author: djculex $
-* @Last changed date:    $Date: 2013-05-22 15:04:57 +0200 (on, 22 maj 2013) $
-* @ID:                    $Id: functions.php 11574 2013-05-22 13:04:57Z djculex $
+* @Last changed date:    $Date: 2013-06-19 16:37:48 +0200 (on, 19 jun 2013) $
+* @ID:                    $Id: functions.php 11719 2013-06-19 14:37:48Z djculex $
 **/
 
 
@@ -257,7 +257,7 @@ function smallworld_tolink($text, $uid)
             $text = preg_replace('/(((f|ht){1}tp:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
                     '<img class="smallworldAttImg" src="\\1"><a class="smallworldAttImgTxt" href="\\1">'._SMALLWORLD_CLICKIMAGETHUMB.' </a><br>', $text);
             $text = preg_replace('/(((f|ht){1}tps:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
-                    '<a href="\\1">lala</a>', $text);
+                    '<img class="smallworldAttImg" src="\\1"><a class="smallworldAttImgTxt" href="\\1">'._SMALLWORLD_CLICKIMAGETHUMB.' </a><br>', $text);
             $text = preg_replace('/([[:space:]()[{}])(www.[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
             '\\1<img class="smallworldAttImg" src="//\\2"><a class="smallworldAttImgTxt" href="//\\2">'._SMALLWORLD_CLICKIMAGETHUMB.'</a><br>', $text);
              $text = html_entity_decode($text,ENT_QUOTES,"UTF-8");
@@ -415,6 +415,24 @@ function smallworld_checkForXim()
     } else {
        return false;
     } 
+}
+
+/**
+ * Get version number of xim if exists
+ * @return int $version
+ */
+function smallworld_XIMversion () {
+    global $xoopsDB;
+    $sql = "SELECT version FROM ".$xoopsDB->prefix('modules')." WHERE dirname = 'xim'";
+    $result = $xoopsDB->queryF($sql);
+    if ($result) {
+        while ($r = $xoopsDB->fetchArray($result)) { 
+            $version = $r['version'];
+        }
+    } else {
+        $version = 0;
+    }
+    return $version;
 }
 
 /*
@@ -1044,23 +1062,22 @@ function smallworld_getImageSize($w, $h, $url)
                
         // Set javascript vars but only if not already defined.
         // Check prevents multible loads      
-        $script = "if (myID === undefined) {"."\n";
+        $script = "var Smallworld_myID;"."\n";
+        $script .= "if (typeof Smallworld_myID === 'undefined') {"."\n";
         $script .= "var smallworld_url = '" . $xoops_url . "/modules/smallworld/" . "';\n";
         $script .= "var smallworld_uploaddir = '" . $xoops_url . "/uploads/avatars/" . "';\n";
         $script .= "var xoops_smallworld = jQuery.noConflict();\n";
-        $script .= "var myID = " . $myid . ";\n";
-        $script .= "var userHasProfile = " . $ChkProf . ";\n";
+        $script .= "var Smallworld_myID = " . $myid . ";\n";
+        $script .= "var Smallworld_userHasProfile = " . $ChkProf . ";\n";
         $script .= "var smallworldTakeOverLinks = " . $takeoverlinks . ";\n";
-        $script .= "var geocomplete = '';\n";
+        $script .= "var Smallworld_geocomplete = '';\n";
         $script .= "var smallworldVerString = '" . $smallworldUV . "';\n";
         $script .= "var smallworlduseverification = new Array();\n";
         $script .= "smallworlduseverification = smallworldVerString.split(',');\n";
-        $script .= "var hasmessages = " . $count_invit . ";\n";
+        $script .= "var Smallworld_hasmessages = " . $count_invit . ";\n";
         $script .= "var smallworldvalidationstrenght = " . $validate . ";\n";
         $script .= "var smallworld_getFriendsMsgComCount = " . $getUserMsgNum . ";\n";              
-        $script .= "var $ = jQuery();\n";
-        $script .= "} else {"."\n";
-        $script .= "\n";
+        //$script .= "var $ = jQuery();\n";
         $script .= "}"."\n";
         $xoTheme->addScript('','',$script);
         
@@ -1068,8 +1085,143 @@ function smallworld_getImageSize($w, $h, $url)
         $xoTheme->addScript("https://maps.googleapis.com/maps/api/js?sensor=false&language="._LANGCODE);
         $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ui.geo_autocomplete.js');
         $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ui.geo_autocomplete_now.js');
+        
+        smallworld_includeScripts ();
+        
     }
+    
+    /**
+     * Include script files based on $page
+     * @return void
+     */
+     
+     function smallworld_includeScripts () {
+        global $xoopsUser, $xoopsConfig, $xoTheme;
+            $page = basename ($_SERVER['PHP_SELF'],".php");
+            switch ($page) {
+                case 'register':
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.validate.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.validation.functions.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.stepy.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');  
+                break;
+                
+                case 'publicindex':
+              		$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.oembed.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/wall.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ajaxupload.3.5.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.avatar_helper.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.bookmark.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');  
+                break;
+                
+                case 'permalink':
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.oembed.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/wall.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.innerfade.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.bookmark.js');  
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');                    
+                break;
+                
+                case 'index':
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.oembed.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/wall.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ajaxupload.3.5.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.avatar_helper.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.bookmark.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');                 
+                break;
+                
+                case 'img_upload':
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/uploader/bootstrap.min.css');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/uploader/style.css');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/uploader/bootstrap-responsive.min.css');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/uploader/bootstrap-image-gallery.min.css');
 
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/vendor/jquery.ui.widget.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/uploader/tmpl.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/uploader/load-image.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/uploader/canvas-to-blob.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/uploader/bootstrap.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/uploader/bootstrap-image-gallery.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.iframe-transport.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.fileupload.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.fileupload-fp.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.fileupload-ui.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/main.js');    
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
+                break;
+                
+                case 'galleryshow':
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/galleriffic-5.css');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.galleriffic.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.history.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.opacityrollover.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/gallery_mod.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.innerfade.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');	                
+                break;
+                
+                case 'friends':
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/apprise-1.5.full.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/jquery.fileupload-ui.css');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.oembed.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/wall.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ajaxupload.3.5.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.avatar_helper.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.innerfade.js');			
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
+                    //$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/colorbox.css');                 
+                break;
+                
+                case 'editprofile':                    
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.validate.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.validation.functions.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.stepy.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css'); 
+                break;
+                
+                case 'smallworldshare':
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.oembed.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/wall.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.innerfade.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.bookmark.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
+                break;   
+
+                case 'userprofile':
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/apprise-1.5.full.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/jquery.fileupload-ui.css');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.oembed.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/wall.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ajaxupload.3.5.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.avatar_helper.js');	
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.bookmark.js');		
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.countdown.js');
+                    $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');  
+            break;
+            }
+     }
+    
     /**
      * Check if permission is set for userid to post publicly
      * @return array

@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/smallworldshare.php $
-* @Last committed:		$Revision: 11399 $
+* @Last committed:		$Revision: 11659 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-04-17 17:22:31 +0200 (on, 17 apr 2013) $
-* @ID:					$Id: smallworldshare.php 11399 2013-04-17 15:22:31Z djculex $
+* @Last changed date:	$Date: 2013-06-12 19:42:10 +0200 (on, 12 jun 2013) $
+* @ID:					$Id: smallworldshare.php 11659 2013-06-12 17:42:10Z djculex $
 **/
 include_once("../../mainfile.php");
 $xoopsOption['template_main'] = 'smallworld_share.html';
@@ -81,13 +81,6 @@ if (isset($_GET['updid']) && isset($_GET['ownerid'])) {
 	} else {
         $xoTheme->addMeta( 'meta', 'og:image', XOOPS_URL.'/modules/smallworld/images/smallworld.png');   
 	}	
-
-	$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.oembed.js');
-	$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/wall.js');
-	$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.innerfade.js');
-	$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.bookmark.js');
-	$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
-	$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');
     	
 include(XOOPS_ROOT_PATH."/footer.php"); 
 ?>

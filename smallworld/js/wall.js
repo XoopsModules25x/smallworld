@@ -68,7 +68,7 @@ xoops_smallworld(document).ready(function() {
 	// commentopen 
 	xoops_smallworld('body').on("click", '.smallworld_commentopen', function(e) {
         e.preventDefault();
-		if (userHasProfile == 0) {
+		if (Smallworld_userHasProfile <= 1) {
             alert (SmallworldDialogNotUser);
             return false;
         }
@@ -131,7 +131,7 @@ xoops_smallworld(document).ready(function() {
 	xoops_smallworld("body").on('click', '.smallworld_stcomment_vote',
 	function(e) {
         e.preventDefault();
-        if (userHasProfile == 0) {
+        if (Smallworld_userHasProfile <= 1) {
             alert (SmallworldDialogNotUser);
             return false;
         }
@@ -180,7 +180,7 @@ xoops_smallworld(document).ready(function() {
 	xoops_smallworld("body").on('click', '.smallworld_comment_complaint',
 	function(e) {
         e.preventDefault();
-		if (userHasProfile == 0) {
+		if (Smallworld_userHasProfile <= 1) {
             alert (SmallworldDialogNotUser);
             return false;
         }

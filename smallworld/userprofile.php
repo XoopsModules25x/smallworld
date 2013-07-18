@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/userprofile.php $
-* @Last committed:		$Revision: 11576 $
+* @Last committed:		$Revision: 11843 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: userprofile.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:	$Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
+* @ID:					$Id: userprofile.php 11843 2013-07-18 17:29:48Z djculex $
 **/
 include_once("../../mainfile.php");
 $xoopsOption['template_main'] = 'smallworld_userprofile_template.html';
@@ -24,7 +24,7 @@ include XOOPS_ROOT_PATH.'/header.php';
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/arrays.php");
-global $xoopsUser;
+global $xoopsUser,$xoopsLogger;
  $xoopsLogger->activated = false;
       //error_reporting(E_ALL); 
 	if ($xoopsUser) {
@@ -34,12 +34,13 @@ global $xoopsUser;
 		$Xuser = new XoopsUser($id);
 		$Xusername = $Xuser->getVar('uname');
 		$check = new SmallWorldUser;
-		$profile = $check->CheckIfProfile($id);
+		$profile = $check->CheckIfProfile($yourid);
 		$fr[0] = '';
 		$fl[0] = '';
 		
 		if ($profile >= 2) {
 			$user = new SmallWorldProfile;
+            $dBase = new SmallWorldDB;
 			$user->ShowUser($id);
 			$username = $xoopsUser->getVar('uname'); //Myusername
 			$inspected = Smallworld_isInspected($id);
@@ -107,73 +108,126 @@ global $xoopsUser;
 		// Follow array here
 		$followers = $Wall->getFollowers($id);
 		$updatesarray=$Wall->Updates(0,$id, $id);
-		//Srinivas Tamada http://9lessons.info
-		//Loading Comments link with load_updates.php 
-	if (!empty($updatesarray)) {	
-		foreach ($updatesarray as $data) {
-			$wm['msg_id']		    = 	$data['msg_id'];
-			$wm['orimessage']	    =	str_replace(array("\r", "\n"), '',$data['message']);
-			$wm['message']		    =	smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']);
-			$wm['message']          =   Smallworld_cleanup($wm['message']);
-			$wm['created']		    =	smallworld_time_stamp($data['created']);
-			$wm['username']		    =	$data['username'];
-			$wm['uid_fk']		    =	$data['uid_fk'];
-			$wm['priv']			    =	$data['priv'];
-			$wm['avatar']		    =	$Wall->Gravatar($data['uid_fk']);
-			$wm['avatar_link']		=	smallworld_getAvatarLink ($data['uid_fk'], $wm['avatar']);
-            $wm['avatar_size']      =   smallworld_getImageSize(80, 100, $wm['avatar_link']);
-            $wm['avatar_highwide']  =   smallworld_imageResize($wm['avatar_size'][0], $wm['avatar_size'][1], 50);            
-			$wm['compl_msg_lnk']	=		"<a href='".XOOPS_URL."/modules/smallworld/permalink.php?ownerid=".$data['uid_fk'];
-			$wm['compl_msg_lnk']   .=		"&updid=".$data['msg_id']."'>"._SMALLWORLD_COMP_MSG_LNK_DESC."</a>";							
-			$wm['vote_up']			= 	$Wall->countVotes ('msg', 'up', $data['msg_id']);
-			$wm['vote_down']		= 	$Wall->countVotes ('msg', 'down', $data['msg_id']);	
-			$wm['sharelinkurl']		=	XOOPS_URL."/modules/smallworld/smallworldshare.php?ownerid=".$data['uid_fk'];
-			$wm['sharelinkurl']	   .=	"&updid=".$data['msg_id']."";
-			$wm['usernameTitle']	=	$wm['username']._SMALLWORLD_UPDATEONSITEMETA.$xoopsConfig['sitename'];
-			$wm['sharelink']		=	$Wall->GetSharing ($wm['msg_id'],$wm['priv']);
-            $wm['linkimage']        =   XOOPS_URL."/modules/smallworld/images/link.png";
-            $wm['permalink']        =   XOOPS_URL."/modules/smallworld/permalink.php?ownerid=".$data['uid_fk']."&updid=".$data['msg_id'];            
-			$wm['sharediv']			=	$Wall->GetSharingDiv ($wm['msg_id'],$wm['priv'], $wm['sharelinkurl'],$wm['orimessage'],$wm['usernameTitle']);			
-			$wm['commentsarray']	=	$Wall->Comments($data['msg_id']);	
-			$xoopsTpl->append('walldata', $wm);
+        if (!empty($updatesarray)) {
+            foreach ($updatesarray as $data) {
+                
+                // Is update's user a friend ?
+                $frU = $check->friendcheck($id,$data['uid_fk']);
+                
+                $USW = array();
+                $USW['posts'] = 0;
+                $USW['comments'] = 0;
+            
+                if ($xoopsUser) {
+                    
+                    if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) && $data['uid_fk'] == $id) {
+                        $USW['posts'] = 1;
+                        $USW['comments'] = 1;
+                        $frU[0] == 2;
+                    } else {
+                        $USW = json_decode($dBase->GetSettings($data['uid_fk']), true);
+                    } 
+                }
+                
+                if (!$xoopsUser) {
+                    $USW = json_decode($dBase->GetSettings($data['uid_fk']), true);
+                }
+
+                    $wm['msg_id']			= 	$data['msg_id'];
+                    $wm['orimessage']		=	($USW['posts'] == 1 || $profile >= 2) ? 
+                                                    str_replace(array("\r", "\n"), '',Smallworld_stripWordsKeepUrl($data['message'])):'';
+                    $wm['message']			=	($USW['posts'] == 1 || $profile >= 2) ? 
+                                                    smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']):_SMALLWORLD_MESSAGE_PRIVSETPOSTS;
+                    $wm['message']          =   Smallworld_cleanup($wm['message']);
+                    $wm['created']			=	smallworld_time_stamp($data['created']);
+                    $wm['username']			=	$data['username'];
+                    $wm['uid_fk']			=	$data['uid_fk'];
+                    $wm['priv']				=	$data['priv'];
+                    $wm['avatar']			=	$Wall->Gravatar($data['uid_fk']);
+                    $wm['avatar_link']		=	smallworld_getAvatarLink ($data['uid_fk'], $wm['avatar']);
+                    $wm['avatar_size']      =   smallworld_getImageSize(80, 100, $wm['avatar_link']);
+                    $wm['avatar_highwide']  =   smallworld_imageResize($wm['avatar_size'][0], $wm['avatar_size'][1], 50);                    
+                    $wm['vote_up']			= 	$Wall->countVotes ('msg', 'up', $data['msg_id']);
+                    $wm['vote_down']		= 	$Wall->countVotes ('msg', 'down', $data['msg_id']);
+                    $wm['sharelinkurl']		=	XOOPS_URL."/modules/smallworld/smallworldshare.php?ownerid=".$data['uid_fk'];
+                    $wm['sharelinkurl']	   .=	"&updid=".$data['msg_id']."";
+                    $wm['usernameTitle']	=	$wm['username']._SMALLWORLD_UPDATEONSITEMETA.$xoopsConfig['sitename'];
+                        if ($USW['posts'] == 1 || $frU[0] == 2) {
+                            $wm['sharelink'] = $Wall->GetSharing ($wm['msg_id'],$wm['priv']);
+                        } else {
+                            $wm['sharelink'] = $Wall->GetSharing ($wm['msg_id'],1);
+                        }
+                        
+                        if ($USW['posts'] == 1 || $profile >= 2) {
+                            $wm['sharediv']	= $Wall->GetSharingDiv ($wm['msg_id'],$wm['priv'], $wm['sharelinkurl'],$wm['orimessage'],$wm['usernameTitle']);
+                        } else {
+                            $wm['sharediv']	= $Wall->GetSharingDiv ($wm['msg_id'],1, $wm['sharelinkurl'],$wm['orimessage'],$wm['usernameTitle']);
+                        }					
+                    $wm['commentsarray']	=	$Wall->Comments($data['msg_id']);	
+                    $xoopsTpl->append('walldata', $wm);
+                    
+                    if (!empty($wm['commentsarray'])){
+                        foreach($wm['commentsarray'] as $cdata) {                           
+                            $USC = array();
+                            $USC['posts'] = 0;
+                            $USC['comments'] = 0;
+                            
+                            if ($xoopsUser) {
+                                
+                                if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) && $cdata['uid_fk'] == $id) {
+                                    $USC['posts'] = 1;
+                                    $USC['comments'] = 1;
+                                  } else {
+                                    $USC = json_decode($dBase->GetSettings($cdata['uid_fk']), true);
+                                } 
+                            }
+                            
+                            if (!$xoopsUser) {
+                                $USC = json_decode($dBase->GetSettings($cdata['uid_fk']), true);
+                            }
+                        
+                            $wc['msg_id_fk']		=		$cdata['msg_id_fk'];
+                            $wc['com_id']			=		$cdata['com_id'];
+                            $wc['comment']			=		($USC['comments']  == 1 || $profile >= 2) ? 
+                                                                smallworld_tolink(htmlspecialchars_decode($cdata['comment']),$cdata['uid_fk']):
+                                                                _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
+                            $wc['comment']		    =		Smallworld_cleanup($wc['comment']);
+                            $wc['time']				=		smallworld_time_stamp($cdata['created']);
+                            $wc['username']			=		$cdata['username'];
+                            $wc['uid']				=		$cdata['uid_fk'];
+                            $wc['myavatar']			=		$Wall->Gravatar($id);
+                            $wc['myavatar_link']	=		$myavatarlink;
+                            $wc['avatar_size']      =       smallworld_getImageSize(80, 100, $wc['myavatar_link']);
+                            $wc['avatar_highwide']  =       smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);                             
+                            $wc['cface']			=		$Wall->Gravatar($cdata['uid_fk']);
+                            $wc['avatar_link']		=		smallworld_getAvatarLink ($cdata['uid_fk'], $wc['cface']);
+                            $wc['vote_up']			= 		$Wall->countVotesCom ('com', 'up', $cdata['msg_id_fk'],$cdata['com_id']);
+                            $wc['vote_down']		= 		$Wall->countVotesCom ('com', 'down', $cdata['msg_id_fk'],$cdata['com_id']);			
+                            $xoopsTpl->append('comm', $wc);
+                        }
+                    }
+            }
+        } 
 			
-			
-			if (!empty($wm['commentsarray'])){
-				foreach($wm['commentsarray'] as $cdata) {
-					$wc['msg_id_fk']	=		$cdata['msg_id_fk'];
-					$wc['com_id']		=		$cdata['com_id'];
-					$wc['comment']		=		smallworld_tolink(htmlspecialchars_decode($cdata['comment']), $cdata['uid_fk']);
-                    $wc['comment']		=		Smallworld_cleanup($wc['comment']);
-					$wc['time']			=		smallworld_time_stamp($cdata['created']);
-					$wc['username']		=		$cdata['username'];
-					$wc['uid']			=		$cdata['uid_fk'];
-					$wc['myavatar']		=		$myavatar;
-					$wc['myavatar_link']=		$myavatarlink;
-                    $wc['avatar_size']      =       smallworld_getImageSize(80, 100, $wc['myavatar_link']);
-                    $wc['avatar_highwide']  =       smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);                         
-					$wc['cface']		=		$Wall->Gravatar($cdata['uid_fk']);
-					$wc['avatar_link']		=	smallworld_getAvatarLink($cdata['uid_fk'],$wc['cface']);
-					$wc['compl_msg_lnk']	=		"<a href='".XOOPS_URL."/modules/smallworld/permalink.php?ownerid=".Smallworld_getOwnerFromComment($cdata['msg_id_fk']);
-					$wc['compl_msg_lnk']   .=		"&updid=".$cdata['msg_id_fk']."#".$cdata['com_id']."'>"._SMALLWORLD_COMP_MSG_LNK_DESC."</a>";						
-					$wc['vote_up']			= 		$Wall->countVotesCom ('com', 'up', $cdata['msg_id_fk'],$cdata['com_id']);
-					$wc['vote_down']		= 		$Wall->countVotesCom ('com', 'down', $cdata['msg_id_fk'],$cdata['com_id']);						
-					$xoopsTpl->append('comm', $wc);
-					
-				}
-			}
-		}
-	} else {}
-			
+            // Create form for private settings
+            $form = new SmallWorldForm;
+            $usersettings = $form->usersettings ($yourid, $selected=null);
+            $xoopsTpl->assign('usersetting', $usersettings);
 		
-		
-		// Get usermenu to template
+            // Get usermenu to template
 			$menu_startpage = "<a href='".XOOPS_URL."/modules/smallworld/publicindex.php'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/highrise.png'>"._SMALLWORLD_STARTPAGE."</a>";
             $menu_home = "<a href='".XOOPS_URL."/modules/smallworld/'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/house.png'>"._SMALLWORLD_HOME."</a>";
 			$menu_profile = "<a href='".XOOPS_URL."/modules/smallworld/userprofile.php?username=".$Xusername."'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/user_silhouette.png'>"._SMALLWORLD_PROFILEINDEX."</a>";
 			$menu_gallery = "<a href='".XOOPS_URL."/modules/smallworld/galleryshow.php?username=".$Xusername."'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/picture.png'>"._SMALLWORLD_GALLERY."</a>";
 			$menu_friends = "<a href='".XOOPS_URL."/modules/smallworld/friends.php?username=".$Xusername."'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/group.png'>"._SMALLWORLD_FRIENDSPAGE."</a>";
-			$menu_xim_js = "javascript:chatWith('".$id."','".$Xusername."')";
-			$menu_ximme = "<a href='javascript:void(0);' onClick=".$menu_xim_js."><img height='10px' width='10px' src='".XOOPS_URL."/modules/smallworld/images/messenger.png'>"._SMALLWORLD_XIMUSER.$Xusername."</a>";
+			
+            if (smallworld_XIMversion () > 102) {
+                    $menu_xim_js = "javascript:xim_chatWith('".$id."','".$Xusername."')";
+            } else {
+                $menu_xim_js = "javascript:chatWith('".$id."','".$Xusername."')";
+            }
+			
+            $menu_ximme = "<a href='javascript:void(0);' onClick=".$menu_xim_js."><img height='10px' width='10px' src='".XOOPS_URL."/modules/smallworld/images/messenger.png'>"._SMALLWORLD_XIMUSER.$Xusername."</a>";
 			
 			// Check for folder xim to add messenger user to menu items
 			$hasxim = smallworld_checkForXim ();
@@ -213,24 +267,11 @@ global $xoopsUser;
 			$xoopsTpl->assign('bdaynow',$birthday_today_text);
 			$xoopsTpl->assign('isfollowing',$fl[0]);	
 			$xoopsTpl->assign('flds',smallworld_GetModuleOption('smallworldusethesefields', $repmodule='smallworld'));
-		}	else {
-				redirect_header("index.php", 1, _SMALLWORLD_NOUSER_ERROR);
-			}
-
-			global $xoTheme;
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/apprise-1.5.full.js');
-			$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/jquery.fileupload-ui.css');
-			$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.oembed.js');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/wall.js');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ajaxupload.3.5.js');
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.avatar_helper.js');	
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.bookmark.js');		
-			$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
-            $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
-            $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.countdown.js');
-			$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');  
-			
+		}
+        
+        if ($profile < 2) {
+           redirect_header(XOOPS_URL . "/modules/smallworld/index.php");
+        } 
 			//Check Language
 			$lang = $xoopsConfig['language'];
 			

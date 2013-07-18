@@ -1,20 +1,53 @@
 ------------------------------
-Changelog v.1.15 RC 14
+Changelog v.1.15 RC 18
 ------------------------------
-22. may 2013 15:31 revision: 11573 - 11576
+Date: 18. juli 2013 19:29:48: Revision: 11843
 
-NEW: Inplementing settings for post/comment/notify
-NEW: Adding tagging
-NEW: Language defines for tagging and image uploader
-Bugfix: Fixing selector for like/dislike
-Bugfix: Check permissions return array
-Change: Sql messages from varchar to text
-Bugfix: Fixing appearance of admin
-Bugfix: Problem with installation
-Bugfix: undeclared methods
-Bugfix: Permissions set and read
-Bugfix: reading geolocate correct
-Bugfix: If no users and xoopsuser redirect to register. Cancel array_unique error
+Bugfix: Css adjusting
+Bugfix: reinventing relocates (user/noUser)
+Bugfix: Privacy settings masking unnessesarily. Reinvented
+Bugfix: Register message not showing
+Bugfix: Setting missing in friends and profile
+Bugfix: Avatars rendering wrong
+
+------------------------------
+Changelog v.1.15 RC 17
+------------------------------
+16 & 19. june 2013 Revision: 11699 - 11723
+
+NEW : Added a sync class to remove orphans in smallworld module when accessing admin/index 
+Bugfix: When deleting user remove also settings and complaints of user and against user
+bugfix: Recognizing https as ok protocol for image upload message to wall
+bugfix: removing maxlenght fron textareas (who needs them)
+bugfix: double execution of function smallworld_corescript (preloads and publicindex.php)
+Bugfix: Missing settings and colorbox in a few places
+Bugfix: html tags breaks up changelog.txt (mamba)
+Bugfix: Global vars and functions prefixing (security fix)
+
+------------------------------
+Changelog v.1.15 RC 16
+------------------------------
+12. June 2013 19:42 revision: 11659
+
+Bugfix: Attached colorbox to relevant pages after smallworld.js init
+Bugfix: Revert colorbox -> dialog i register and edit register
+Bugfix: datepicker does not work with colorbog - jquery.ui issue
+Bugfix: Attached plugin read to switch ie. better organized
+Bugfix: Smallworld changes to run also with xoops 2.5.5 core
+
+16. June 2013 19:25 revision: 11699
+
+Bugfix: Global javascript vars and function prefixing (security bug)
+
+------------------------------
+Changelog v.1.15 RC 15
+------------------------------
+03. june 2013 03:44 revision: 11573 - 11576
+
+Bugfix: Fixing permission redirect if XoopsUser bot not Smalluser 
+		and privacy permissions are set to 0
+Bugfix: Extended test when returning access values to script
+Bugfix: Updated installation details when upgrading
 
 ------------------------------
 Changelog v.1.15 RC 13
@@ -25,7 +58,7 @@ bugfix: Mayor blunder.. selecting user allowed to post in homepage now by userid
 Bugfix : Parsing links double
 Bugfix : Removing nl2br (module.sanitizer already does this)
 bugfix : Min xoops is 2.5.5 not 2.55
-Bugfix : Aparently function smallworld_xv_getGroupd (); needs to be defined. Solution include function file
+Bugfix : Aparently function smallworld_xv_getGroupd () needs to be defined. Solution include function file
 
 
 
@@ -203,7 +236,7 @@ Changelog v.1.12 RC 4
 - Bugfix: Merging a few css files into smallworld.css
 - Bugfix: Correction language/danish/js/bookmark.js
 - Bugfix: Calculating age in profile was (-1 year) when month == this month. Now only if day < this day
-- Bugfix: added some return false; or e.preventDefault; to js functions
+- Bugfix: added some return false or e.preventDefault to js functions
 - Bugfix: After pressing 'more' - avatar size in comment is wrong
 - Change: Preparing test for adding js / css to templates via function based on request page
 
@@ -256,9 +289,9 @@ Changelog v.1.11 RC 3
 - Bugfix: Added check for preloads javascript vars to see if vars is already defined (djculex)
 - Bugfix: html_entity_decode is not set in returning image link or post from image uploads (djculex)
 - Bugfix: Spelling error in english/main.php (tanks -> thanks) (djculex)
-- Bugfix: on close upload new images do (location.href = 'editimages.php';) instead of index.php
+- Bugfix: on close upload new images do (location.href = 'editimages.php') instead of index.php
 - Bugfix: css url() pointing to wrong folder (djculex)
-- Bugfix: Removed empty <td></td>
+- Bugfix: Removed empty 
 - Bugfix: moved ui-anim_basic_16x16.gif to ..images/
 - Change: Changed update text when upload new images to use image and default uploaded new text (djculex)
 
@@ -267,7 +300,7 @@ Changelog v.1.11 RC 3
 - Bugfix: Discovered jquery was 1.5.1 -> Updated to 1.7.1
 - Bugfix: Jquery 1.7.1 revealed bugs in show more/less on updates (djculex)
 - Bugfix: changed selector name .finish to .smallworld_finish
-- Bugfix: Changed multible return false; to e.preventDefault();
+- Bugfix: Changed multible return false to e.preventDefault()
 - Changed: css, jquery for new addions
 - Changed: claning up code etc
 
@@ -307,7 +340,7 @@ Changelog v.1.10 RC 2
 - change $modversion name due to name too long for mysql thus being cut short (djculex)
 
 25. januar 2012
-- Implimenting colorbox instead of jquery dialog(); (djculex)
+- Implimenting colorbox instead of jquery dialog() (djculex)
 - Correction in stats() function to show correct user avatar (djculex)
 - Css adjustments (djculex)
 - Re-attach validate to colorbox forms (djculex)

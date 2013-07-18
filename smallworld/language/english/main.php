@@ -15,10 +15,10 @@
 * @since:             Xoops 2.5.4
 * @Author:            Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:         2011 Culex
-* @Last committed:    $Revision: 11575 $
+* @Last committed:    $Revision: 11843 $
 * @Last changed by:   $Author: djculex $
-* @Last changed date: $Date: 2013-05-22 15:08:31 +0200 (on, 22 maj 2013) $
-* @ID:                $Id: main.php 11575 2013-05-22 13:08:31Z djculex $
+* @Last changed date: $Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
+* @ID:                $Id: main.php 11843 2013-07-18 17:29:48Z djculex $
 **/
 
 /*----------------- Menu items ---------------*/
@@ -197,13 +197,13 @@ define("_SMALLWORLD_ANCIENTALIENTHEORIST","Ancient alien theorist");
 define("_SMALLWORLD_ROTHER","Other");
 define("_SMALLWORLD_SUBMIT","Save");
 define("_SMALLWORLD_EMAILADRESSES","E-mail adress(es)");
-define ("_SMALLWORLD_SHOWIFPUBLICORPRIVATE","Privacy settings. What to show if wall is public");
+define ("_SMALLWORLD_SHOWIFPUBLICORPRIVATE","Privacy settings. Unchecked items is visible by smallworld users only.<br> Checked is visible by all users if wall is public. ");
 define ("_SMALLWORLD_SHOWMYPOSTS","Show my posts");
 define ("_SMALLWORLD_SHOWMYCOMMENTS","Show my comments");
 define ("_SMALLWORLD_NOTIFYME","Notify me on posts / references etc");
 define ("_SMALLWORLD_MENU_PRIVSET","Pri. Settings");
-define ("_SMALLWORLD_MESSAGE_PRIVSETPOSTS","Posts from this user are only visible for followers or friends...Please register.");
-define ("_SMALLWORLD_MESSAGE_PRIVSETCOMMENTS","Comments from this user are only visible for followers or friends...Please register.");
+define ("_SMALLWORLD_MESSAGE_PRIVSETPOSTS","Posts from this user are only visible for smallworld users...<a href='register.php'>Please register.</a>");
+define ("_SMALLWORLD_MESSAGE_PRIVSETCOMMENTS","Comments from this user are only visible  for smallworld users...Please <a href='register.php'>register.</a>");
 
 // dropdown screen names
 define("_SMALLWORLD_SCREENNAME_AIM","MSN (uname) ");

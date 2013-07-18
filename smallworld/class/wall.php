@@ -13,10 +13,10 @@
 * @Author:                Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:            2011 Culex
 * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/wall.php $
-* @Last committed:        $Revision: 11335 $
+* @Last committed:        $Revision: 11843 $
 * @Last changed by:        $Author: djculex $
-* @Last changed date:    $Date: 2013-04-01 01:56:08 +0200 (ma, 01 apr 2013) $
-* @ID:                    $Id: wall.php 11335 2013-03-31 23:56:08Z djculex $
+* @Last changed date:    $Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
+* @ID:                    $Id: wall.php 11843 2013-07-18 17:29:48Z djculex $
 **/
 
 
@@ -123,7 +123,7 @@ class Wall_Updates
         if(!empty($data)) {
             return $data;
         }
-    }
+    }    
     
     /**
      * @Get user image based on uid
@@ -150,8 +150,7 @@ class Wall_Updates
         $ext = explode(".",$image);
         
         if (@!in_array(strtolower ($ext[1]), $type) || $image == '') {
-            $avt = new XoopsUser($uid);
-            $avatar = $avt->user_avatar(); 
+            $avatar = ''; 
         } else {
             $avatar = $image;
         }
@@ -300,7 +299,7 @@ class Wall_Updates
     }
     
     /**
-     * @Check is user is friend
+     * @Check if user is friend
      * @param int $userid
      * @param string $type
      * @param int $comid

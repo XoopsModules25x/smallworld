@@ -94,18 +94,18 @@
 							<br/>
 						<{if $friendID != $myUid}>					
 							<p class="smallworld_friendshipFollowersHolder">						
-								<a id="friendship" href="javascript:inviteFriends(<{$friendID}>,<{$myUid}>);">
+								<a id="friendship" href="javascript:Smallworld_inviteFriends(<{$friendID}>,<{$myUid}>);">
 									<{$friendship_text}>
 								</a> 
 								<{if $isuserafriend == 'yes' || $friendID == $myUid || $isadminuser == 'YES'}>
-									<a id="followfriend" href="javascript:FollowFriend(<{$friendID}>,<{$myUid}>);">
+									<a id="followfriend" href="javascript:Smallworld_FollowFriend(<{$friendID}>,<{$myUid}>);">
 										<{$followfriend_text}>
 									</a>
 								<{/if}>							
 							</p>
 						<{/if}>
 						 <{if $isuserafriend == 'yes'}>
-							<div style="display:none" id = "smallworld_bdayDiv" title="<{$smarty.const._SMALLWORLD_BDAY_ISIN}>">
+							<div style="display:none;overflow:visible" id = "smallworld_bdayDiv" title="<{$smarty.const._SMALLWORLD_BDAY_ISIN}>">
 								<span style="display:inline" id="smallworldUserBirthday"></span>
 							</div>
 									<script type='text/javascript'>
@@ -122,10 +122,10 @@
 
 											xoops_smallworld('#smallworldBdayLink').on('click',function() {
 												xoops_smallworld('#smallworld_bdayDiv').dialog({
-													maxHeight: 90,
+													maxHeight: 100,
 													maxWidth:350,
-													height:70,
-													width:250,
+													height:100,
+													width:300,
 													modal: true
 												});
 											});

@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/img_upload.php $
-* @Last committed:		$Revision: 11576 $
+* @Last committed:		$Revision: 11659 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: img_upload.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:	$Date: 2013-06-12 19:42:10 +0200 (on, 12 jun 2013) $
+* @ID:					$Id: img_upload.php 11659 2013-06-12 17:42:10Z djculex $
 **/
 include_once("../../mainfile.php");
 $xoopsOption['template_main'] = 'smallworld_userprofile_imgupload.html';
@@ -28,24 +28,6 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 	if ($xoopsUser) {
 		global $xoTheme;	
         $xoopsLogger->activated = false;        
-        $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/uploader/bootstrap.min.css');
-        $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/uploader/style.css');
-        $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/uploader/bootstrap-responsive.min.css');
-        $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/uploader/bootstrap-image-gallery.min.css');
-
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/vendor/jquery.ui.widget.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/uploader/tmpl.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/uploader/load-image.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/uploader/canvas-to-blob.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/uploader/bootstrap.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/uploader/bootstrap-image-gallery.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.iframe-transport.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.fileupload.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.fileupload-fp.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.fileupload-ui.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/main.js');    
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
-        //$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/colorbox.css');	
 		
         $id = $xoopsUser->getVar('uid');
 		$check = new SmallWorldUser;

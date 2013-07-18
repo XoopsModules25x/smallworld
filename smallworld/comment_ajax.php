@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/comment_ajax.php $
-* @Last committed:		$Revision: 11576 $
+* @Last committed:		$Revision: 11843 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: comment_ajax.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:	$Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
+* @ID:					$Id: comment_ajax.php 11843 2013-07-18 17:29:48Z djculex $
 **/
 include_once("../../mainfile.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
@@ -25,8 +25,12 @@ include_once (XOOPS_ROOT_PATH.'/class/template.php');
 global $xoopsUser, $xoopsModule,$xoopsLogger,$xoopsTpl;
 $xoopsLogger->activated = false;
 $page  = 'index';
-if ($xoopsUser) { 	
-	$id = $xoopsUser->getVar('uid');
+$check = new SmallWorldUser;
+$id = $xoopsUser->getVar('uid');
+$profile = ($xoopsUser) ? $check->checkIfProfile($id) : 0;
+
+if ($profile >= 2) { 		
+	
 	$Xuser = new XoopsUser($id);
 	$username = $Xuser->getVar('uname');
 	$Wall = new Wall_Updates();
@@ -51,6 +55,9 @@ if ($xoopsUser) {
 		$data=$Wall->Insert_Comment($id,$msg_id,$comment);
 		if($data) {
 			
+            // Is comments's user a friend ?
+            $frC = $check->friendcheck($id,$cdata['uid_fk']);
+            
             $USC = array();
                 $USC['posts'] = 0;
                 $USC['comments'] = 0;
@@ -71,7 +78,9 @@ if ($xoopsUser) {
             
             $wc['msg_id_fk']	=		$data['msg_id_fk'];
 			$wc['com_id']		=		$data['com_id'];
-			$wc['comment']		=		($USC['comments']  == 1) ? smallworld_tolink(htmlspecialchars_decode($data['comment']),$data['uid_fk']):_SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
+			$wc['comment']		=		($USC['comments']  == 1 || $frC[0] == 2) ? 
+                                            smallworld_tolink(htmlspecialchars_decode($data['comment']),$data['uid_fk']):
+                                            _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
             $wc['comment']	    =		Smallworld_cleanup($wc['comment']);                        
             $wc['time']			=		smallworld_time_stamp($data['created']);
 			$wc['username']		=		$data['username'];
