@@ -24,17 +24,17 @@ class SmallWorldProfile {
 
     /**
      * @Show user
-     * @param int $id
+     * @param  int  $id
      * @return void
-     */  
+     */
     function ShowUser ($id) {
         global $xoopsUser, $xoTheme, $xoopsTpl, $arr04, $arr05, $xoopsDB;
-        if ($xoopsUser) {    
+        if ($xoopsUser) {
         
             $module_handler =& xoops_gethandler('module');
             $module = $module_handler->getByDirname('smallworld');
             $config_handler =& xoops_gethandler('config');
-            $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));						
+            $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
         
                 $user = new XoopsUser($id);
                 $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
@@ -67,7 +67,7 @@ class SmallWorldProfile {
                     $educationArray = unserialize($r['school_type']);
                     $education = "<a href='javascript:void(0)' id='_smallworld_educationmore'>".$educationArray[0]." ("._SMALLWORLD_MORE.")</a>";
                     $lng = $r['birthplace_lng'];
-                    $latt = $r['birthplace_lat'];    
+                    $latt = $r['birthplace_lat'];
                     $country = $r['birthplace_country'];
                     $rank = $user->rank();
                     $rank_title = $rank['title'];
@@ -126,7 +126,7 @@ class SmallWorldProfile {
                         } else {
                             $spouse = $r['partner'];
                         }
-                    }                    
+                    }
                     if ($relationship == 0) {
                         $status = _SMALLWORLD_ISMARRIED;
                         if ($spouseExists > 0) {
@@ -134,7 +134,7 @@ class SmallWorldProfile {
                          } else {
                           $spouse = $r['partner'];
                          }
-                    }                    
+                    }
                     if ($relationship == 1) {
                         $status = _SMALLWORLD_ISENGAGED;
                         if ($spouseExists > 0) {
@@ -142,7 +142,7 @@ class SmallWorldProfile {
                         } else {
                             $spouse = $r['partner'];
                         }
-                    }                        
+                    }
                     if ($relationship == 5) {
                         $status = _SMALLWORLD_ISCOMPLICATED;
                         if ($spouseExists > 0) {
@@ -150,7 +150,7 @@ class SmallWorldProfile {
                         } else {
                             $spouse = $r['partner'];
                         }
-                    }            
+                    }
                     if ($relationship == 4) {
                         $status = _SMALLWORLD_OPENRELATIONSHIP;
                         if ($spouseExists > 0) {
@@ -158,22 +158,22 @@ class SmallWorldProfile {
                         } else {
                             $spouse = $r['partner'];
                         }
-                    }                            
+                    }
                         
                     //Personal info
                     $aboutme = $r['aboutme'];
-                    $religion = $arr05[$r['religion']];     
-                    $politic = $arr04[$r['politic']];     
+                    $religion = $arr05[$r['religion']];
+                    $politic = $arr04[$r['politic']];
                     
                     //Interests
-                    $favbook = $r['books'];     
-                    $favmusic = $r['music'];     
-                    $favmovie = $r['movie'];     
+                    $favbook = $r['books'];
+                    $favmusic = $r['music'];
+                    $favmovie = $r['movie'];
                     $favtvshow = $r['tvshow'];
                     $favinterests = $r['interests'];
                     
                     // Contact and adresses
-                    $email = unserialize($r['emailtype']);                     
+                    $email = unserialize($r['emailtype']);
                     $screenname = $db->getScreennamesToDiv($id);
                     if($r['phone'] == '' || $r['phone'] == 0) {
                         $phone = "xxx-xxx-xxxx";
@@ -184,19 +184,19 @@ class SmallWorldProfile {
                     if ($r['mobile'] == '' || $r['mobile'] == 0) {
                         $gsm = "xxx-xxx-xxxx";
                     } else {
-                        $gsm = $r['mobile']; 
+                        $gsm = $r['mobile'];
                     }
                         
-                    $adress = $r['adress']; 
+                    $adress = $r['adress'];
                     $website = $r['website'];
                     $age = Smallworld_Birthday($r['birthday']);
-                }    
+                }
             
                 //SW_CheckIfUser ($userid);
                 $xoopsTpl->assign('userid', $id);
 
                 // ----- LANG DEFINES ------
-                $xoopsTpl->assign('username', $uname); 
+                $xoopsTpl->assign('username', $uname);
                 $xoopsTpl->assign('MyUserName', $myName);
                 $xoopsTpl->assign('avatar', $user_img);
                 $xoopsTpl->assign('realname', $realname);
@@ -233,30 +233,29 @@ class SmallWorldProfile {
                 $xoopsTpl->assign('status', $status);
                 $xoopsTpl->assign('spouse', $spouse);
                 $xoopsTpl->assign('aboutme',$aboutme);
-                $xoopsTpl->assign('lang.avatar', _SMALLWORLD_AVATAR);    
+                $xoopsTpl->assign('lang.avatar', _SMALLWORLD_AVATAR);
 
                 // Pers info language define
-                $xoopsTpl->assign('politic', $politic); 
-                $xoopsTpl->assign('religion', $religion); 
+                $xoopsTpl->assign('politic', $politic);
+                $xoopsTpl->assign('religion', $religion);
                 
-                $xoopsTpl->assign('favbook', $favbook); 
-                $xoopsTpl->assign('favmusic', $favmusic); 
-                $xoopsTpl->assign('favmovie', $favmovie); 
+                $xoopsTpl->assign('favbook', $favbook);
+                $xoopsTpl->assign('favmusic', $favmusic);
+                $xoopsTpl->assign('favmovie', $favmovie);
                 $xoopsTpl->assign('favtvshow',$favtvshow);
                 $xoopsTpl->assign('favinterests',$favinterests);
 
-                $xoopsTpl->assign('email', $email); 
-                $xoopsTpl->assign('screenname', $screenname); 
-                $xoopsTpl->assign('phone', $phone); 
-                $xoopsTpl->assign('mobile', $gsm); 
-                $xoopsTpl->assign('adress', $adress); 
+                $xoopsTpl->assign('email', $email);
+                $xoopsTpl->assign('screenname', $screenname);
+                $xoopsTpl->assign('phone', $phone);
+                $xoopsTpl->assign('mobile', $gsm);
+                $xoopsTpl->assign('adress', $adress);
                 
-                $xoopsTpl->assign('website', $website);     
-                $xoopsTpl->assign('addsomeinfo', _SMALLWORLD_ADDSOMEINFO);         
+                $xoopsTpl->assign('website', $website);
+                $xoopsTpl->assign('addsomeinfo', _SMALLWORLD_ADDSOMEINFO);
                 $xoopsTpl->assign('pagename','profile');
-        } 
+        }
     }
 
     
 }
-?>

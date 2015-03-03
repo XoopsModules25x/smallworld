@@ -34,16 +34,15 @@ $br_users = Smallworld_topratedusers();
 $wo_users = Smallworld_worstratedusers();
 $birth = smallworld_nextBirthdays ();
 $sp = smallworld_sp ();
-$tpl->assign('newusers',$newusers);		
-$tpl->assign('mostactiveU',$m_a_users);	
+$tpl->assign('newusers',$newusers);
+$tpl->assign('mostactiveU',$m_a_users);
 $tpl->assign('bestratedU',$br_users);
 $tpl->assign('worstratedU',$wo_users);
 $tpl->assign('sp',$sp);
 
 if (!empty($birth)) {
-	$tpl->assign('birthdays',$birth);
+    $tpl->assign('birthdays',$birth);
 } else {
-	$tpl->assign('birthdays',0);
+    $tpl->assign('birthdays',0);
 }
 $tpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/getStat.html');
-?>

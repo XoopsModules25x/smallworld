@@ -22,8 +22,7 @@
 include_once dirname(__FILE__) . '/admin_header.php';
 
 xoops_cp_header();
-global $xoTheme;        
-
+global $xoTheme;
 
 $aboutAdmin = new ModuleAdmin();
 
@@ -32,8 +31,8 @@ echo $aboutAdmin->renderAbout('', false);
 
 $xoTheme->addStylesheet(
     XOOPS_URL . '/modules/smallworld/css/SmallworldAdmin.css'
-);     
+);
 $xoTheme->addScript(
     XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js'
-);  
+);
 include 'admin_footer.php';

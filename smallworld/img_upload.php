@@ -1,4 +1,4 @@
-<?php			
+<?php
 /**
 * You may not change or alter any portion of this comment or credits
 * of supporting developers from this source code or any supporting source code
@@ -25,27 +25,26 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/arrays.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 
-	if ($xoopsUser) {
-		global $xoTheme;	
-        $xoopsLogger->activated = false;        
-		
+    if ($xoopsUser) {
+        global $xoTheme;
+        $xoopsLogger->activated = false;
+        
         $id = $xoopsUser->getVar('uid');
-		$check = new SmallWorldUser;
-		$profile = $check->CheckIfProfile($id);
-		if ($profile >= 2) {
-		$xoopsTpl->assign('check',$profile);
-		$item = new SmallWorldForm;
-		$db = new SmallWorldDB;
-		
-		// ------------ DISPLAY IMAGES ------------ // 
-		// ------------ IMAGE UPLOADER ------------ // 
-		// Image upload form
-		$upload = $item->uploadform ($id);
-		} else {
-		  redirect_header("register.php", 1); 
-		}
-	} else {
-		redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
-	}
+        $check = new SmallWorldUser;
+        $profile = $check->CheckIfProfile($id);
+        if ($profile >= 2) {
+        $xoopsTpl->assign('check',$profile);
+        $item = new SmallWorldForm;
+        $db = new SmallWorldDB;
+        
+        // ------------ DISPLAY IMAGES ------------ //
+        // ------------ IMAGE UPLOADER ------------ //
+        // Image upload form
+        $upload = $item->uploadform ($id);
+        } else {
+          redirect_header("register.php", 1);
+        }
+    } else {
+        redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
+    }
 include(XOOPS_ROOT_PATH."/footer.php");
-?>

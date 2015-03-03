@@ -26,27 +26,26 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 global $xoopsUser,$xoopsDB,$xoopsLogger;
 $xoopsLogger->activated = false;
-	if($_GET) {
-		$q=Smallworld_sanitize($_GET['term']);
-		$sql = "select * from ".$xoopsDB->prefix('smallworld_user')." where realname like '%".$q."%' or username like '%".$q."%' order by userid LIMIT 5";
-		$result = $xoopsDB->query($sql);
-		$data = array();
+    if($_GET) {
+        $q=Smallworld_sanitize($_GET['term']);
+        $sql = "select * from ".$xoopsDB->prefix('smallworld_user')." where realname like '%".$q."%' or username like '%".$q."%' order by userid LIMIT 5";
+        $result = $xoopsDB->query($sql);
+        $data = array();
 
-		while ($row=$xoopsDB->fetchArray($result)) {
-			$user = new xoopsUser($row['userid']);
-			$image = '<img src="'.smallworld_getAvatarLink ($row['userid'], $row['userimage']).'" height="20" />';
-			$data[] = array(
-			'label' => $image.' '.'<span class="searchusername">'.$row['realname']." (".$row['username'].")</span>",
-			'value' => $user->uname()
-			);
-		}
-		// jQuery wants JSON data
-		    header('Content-Type: text/javascript; charset=utf8');
+        while ($row=$xoopsDB->fetchArray($result)) {
+            $user = new xoopsUser($row['userid']);
+            $image = '<img src="'.smallworld_getAvatarLink ($row['userid'], $row['userimage']).'" height="20" />';
+            $data[] = array(
+            'label' => $image.' '.'<span class="searchusername">'.$row['realname']." (".$row['username'].")</span>",
+            'value' => $user->uname()
+            );
+        }
+        // jQuery wants JSON data
+            header('Content-Type: text/javascript; charset=utf8');
             header('Access-Control-Allow-Origin: *');
             header('Access-Control-Max-Age: 3628800');
             header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
         echo json_encode($data);
-		flush();
-	}
-	else {}
-?>
+        flush();
+    }
+    else {}

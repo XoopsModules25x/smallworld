@@ -23,18 +23,17 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 global $xoopsUser, $xoopsModule,$xoopsLogger;
 $xoopsLogger->activated = false;
-	
-	$id = $xoopsUser->getVar('uid');
-	$msgowner = $_POST['msgowner'];
-	
-if ($xoopsUser) { 
-	
+    
+    $id = $xoopsUser->getVar('uid');
+    $msgowner = $_POST['msgowner'];
+    
+if ($xoopsUser) {
+    
   if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) || $id == $msgowner) {
-	$db = new SmallWorldDB;
-	if (isset($_POST['smallworld_com_id'])) {
-		$smallworld_com_id	= $_POST['smallworld_com_id'];
-		$data	= $db->deleteWallComment($smallworld_com_id);
-	}
+    $db = new SmallWorldDB;
+    if (isset($_POST['smallworld_com_id'])) {
+        $smallworld_com_id    = $_POST['smallworld_com_id'];
+        $data    = $db->deleteWallComment($smallworld_com_id);
+    }
  }
 }
-?>

@@ -28,10 +28,9 @@ $xoopsLogger->activated = false;
 $xoopsTpl->caching = 0;
 $_COOKIE[session_name()] = session_id();
 if ($xoopsUser) {
-	if($_GET['SmallworldGetUserMsgCount']) {
+    if($_GET['SmallworldGetUserMsgCount']) {
         $counts = smallworld_getCountFriendMessagesEtc();
         header('Content-type: application/json');
         echo "{\"NewUserMsgCount\":$counts}";
-	}
+    }
 }
-?>

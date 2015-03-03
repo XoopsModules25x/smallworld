@@ -30,27 +30,26 @@ $xoopsLogger->activated = false;
 $db = new SmallWorldDB;
 
 if ($xoopsUser) {
-	if($_POST['byuser']) {
-		$by_userid = $xoopsUser->getVar('uid');
-		$a_user = addslashes($_POST['a_user']);
-		$auserid = intval($_POST['auserid']);
-		$byuser	= addslashes($_POST['byuser']);
-		$id	= addslashes($_POST['id']);
-		$name	= addslashes($_POST['name']);
-		$time = time();
-		$data = array('time' => $time, 'a_user'=>$a_user,'byuser'=>$byuser,'link'=>$id, 'a_userid'=>$auserid);
-		$already = $db->alreadycomplaint ($id, $by_userid, $auserid);
-		
-		if ($already != 1) {
-		 $mail = new smallworld_mail;
-		 if(smallworld_GetModuleOption('smallworldusemailnotis', $repmodule='smallworld') != 0) {
-			$mail->sendMails($by_userid, '', 'complaint', $link=null, $data);	
-		 }
-		 $db->updateComplaint ($auserid);
-		 echo _SMALLWORLD_JS_COMPLAINTSENT;
-		} else {
-		 echo _SMALLWORLD_JS_COMPLAINT_ALREADY_SENT;
-		}
-	}
+    if($_POST['byuser']) {
+        $by_userid = $xoopsUser->getVar('uid');
+        $a_user = addslashes($_POST['a_user']);
+        $auserid = intval($_POST['auserid']);
+        $byuser    = addslashes($_POST['byuser']);
+        $id    = addslashes($_POST['id']);
+        $name    = addslashes($_POST['name']);
+        $time = time();
+        $data = array('time' => $time, 'a_user'=>$a_user,'byuser'=>$byuser,'link'=>$id, 'a_userid'=>$auserid);
+        $already = $db->alreadycomplaint ($id, $by_userid, $auserid);
+        
+        if ($already != 1) {
+         $mail = new smallworld_mail;
+         if(smallworld_GetModuleOption('smallworldusemailnotis', $repmodule='smallworld') != 0) {
+            $mail->sendMails($by_userid, '', 'complaint', $link=null, $data);
+         }
+         $db->updateComplaint ($auserid);
+         echo _SMALLWORLD_JS_COMPLAINTSENT;
+        } else {
+         echo _SMALLWORLD_JS_COMPLAINT_ALREADY_SENT;
+        }
+    }
 }
-?>

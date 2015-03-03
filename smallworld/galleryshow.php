@@ -1,4 +1,4 @@
-<?php		
+<?php
 /**
 * You may not change or alter any portion of this comment or credits
 * of supporting developers from this source code or any supporting source code
@@ -27,50 +27,49 @@ global $xoopsUser, $xoTheme, $xoopsLogger;
 $xoopsLogger->activated = false;
     
     $admin = false;
-	
-    if ($xoopsUser) {			
-		$id = $xoopsUser->getVar('uid');
-		$check = new SmallWorldUser;
-		$image = new SmallWorldImages;
-		$username = $_GET['username'];
+    
+    if ($xoopsUser) {
+        $id = $xoopsUser->getVar('uid');
+        $check = new SmallWorldUser;
+        $image = new SmallWorldImages;
+        $username = $_GET['username'];
         $userID = smallworld_isset_or($_GET['username']); // Id of user wich profile you want to see
         $userisfriend = $check->friendcheck($id,$userID);
-		
+        
         if ( $xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
-			$xoopsTpl->assign('isadminuser', 'YES');
+            $xoopsTpl->assign('isadminuser', 'YES');
             $admin = true;
-		}
+        }
         
         // Check if inspected userid -> redirect to userprofile and show admin countdown
-			$inspect = Smallworld_isInspected ($id);
-			if ($inspect['inspect'] == 'yes') {
-				redirect_header("userprofile.php?username=".$xoopsUser->getVar('uname'), 1, _SMALLWORLD_INSPEC_usermsg); 
-			}		
-		
-		$profile = $check->checkIfProfile($id);
-		if ($profile >= 2 || $userisfriend[0] == 2 || $admin == true) {
-			$myusername = $xoopsUser->getVar('uname');
-			
-			$user = new XoopsUser($id);
-			$countimages = $image->count($userID);
-			
-			//$gallery = $image->viewalbum ($id, $user=$xoopsUser->getVar('uid'));
-			$gallery = $image->viewalbum ($id, $userID);
-			 $xoopsTpl->assign('countimages',$countimages);
-			 $xoopsTpl->assign('userisfriend',$userisfriend[0]);
-			 $xoopsTpl->assign('gallery',$gallery);
-			 $xoopsTpl->assign('closealbum',_SMALLWORLD_ALBUMTITLETEXT);
-			 $xoopsTpl->assign('username',$username);
-			 $xoopsTpl->assign('myusername',$myusername);
-			 $xoopsTpl->assign('gallerytitleheader',_SMALLWORLD_TITLEHEADER);
-			$xoopsTpl->assign('check',1); 
-		} elseif ($profile == 0) {
-			 $check->chkUser ();
-		} else {
+            $inspect = Smallworld_isInspected ($id);
+            if ($inspect['inspect'] == 'yes') {
+                redirect_header("userprofile.php?username=".$xoopsUser->getVar('uname'), 1, _SMALLWORLD_INSPEC_usermsg);
+            }
+        
+        $profile = $check->checkIfProfile($id);
+        if ($profile >= 2 || $userisfriend[0] == 2 || $admin == true) {
+            $myusername = $xoopsUser->getVar('uname');
+            
+            $user = new XoopsUser($id);
+            $countimages = $image->count($userID);
+            
+            //$gallery = $image->viewalbum ($id, $user=$xoopsUser->getVar('uid'));
+            $gallery = $image->viewalbum ($id, $userID);
+             $xoopsTpl->assign('countimages',$countimages);
+             $xoopsTpl->assign('userisfriend',$userisfriend[0]);
+             $xoopsTpl->assign('gallery',$gallery);
+             $xoopsTpl->assign('closealbum',_SMALLWORLD_ALBUMTITLETEXT);
+             $xoopsTpl->assign('username',$username);
+             $xoopsTpl->assign('myusername',$myusername);
+             $xoopsTpl->assign('gallerytitleheader',_SMALLWORLD_TITLEHEADER);
+            $xoopsTpl->assign('check',1);
+        } elseif ($profile == 0) {
+             $check->chkUser ();
+        } else {
             redirect_header("userprofile.php?username=".$xoopsUser->getVar('uname'), 1, _NOPERM);
         }
-	} else {
-		redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
-	}
+    } else {
+        redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
+    }
 include(XOOPS_ROOT_PATH."/footer.php");
-?>

@@ -43,9 +43,9 @@ if ($id <= 0 || $page == 'publicindex' && $set['access'] = 1) {
     $Wall = new Wall_Updates();
 }
 if (isset($_POST['userid'])) {
-	$userid  = intval($_POST['userid']);
+    $userid  = intval($_POST['userid']);
 } else {
-	$userid = ($xoopsUser) ? $xoopsUser->getVar('uid'):0;
+    $userid = ($xoopsUser) ? $xoopsUser->getVar('uid'):0;
 }
 $Xuser = ($id > 0) ? new XoopsUser($id) : 0;
 $username = ($id > 0) ? $Xuser->getVar('uname'):'';
@@ -65,12 +65,12 @@ if ($id > 0) {
 
 if ($id <= 0 && $set['access'] == 1 ) {
     //$pub = $check->allUsers();
-    $followers = $pub;	
+    $followers = $pub;
 } elseif ($id > 0 && $set['access'] == 1 && $page == 'publicindex') {
     //$pub = $check->allUsers();
-    $followers = $pub;	
+    $followers = $pub;
 }else {
-    $followers = Smallworld_array_flatten($Wall->getFollowers($id),0);	
+    $followers = Smallworld_array_flatten($Wall->getFollowers($id),0);
 }
 
 if ($page == 'index') {
@@ -81,16 +81,15 @@ if ($page == 'index') {
     $updatesarray = $Wall->Updates($_POST['last'], $followers);
 }
 
-$Wall->ParsePubArray ($updatesarray, $id);	
+$Wall->ParsePubArray ($updatesarray, $id);
 
-$xoopsTpl->assign('sCountResp',count($updatesarray)); 
-$xoopsTpl->assign('msgtoshow',$hm);	       
-$xoopsTpl->assign('myusername',$username);		
-$xoopsTpl->assign('pagename',$page);	
+$xoopsTpl->assign('sCountResp',count($updatesarray));
+$xoopsTpl->assign('msgtoshow',$hm);
+$xoopsTpl->assign('myusername',$username);
+$xoopsTpl->assign('pagename',$page);
 
 if ($id > 0) {
     $xoopsTpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/getmore.html');
 } else {
     $xoopsTpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/getmorepublic.html');
 }
-?>

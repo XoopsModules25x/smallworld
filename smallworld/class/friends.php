@@ -20,18 +20,18 @@
 **/
 
  
-class SmallWorldFriends 
+class SmallWorldFriends
 {
 
     /**
      * @Show friends of ID
-     * @param int $id
+     * @param  int    $id
      * @return string
      */
-    function Showfriends($id) 
+    function Showfriends($id)
     {
         global $xoopsUser, $xoTheme, $xoopsTpl, $arr04,$arr05,$xoopsDB;
-        if ($xoopsUser) {    
+        if ($xoopsUser) {
             $user = new XoopsUser($id);
             $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
             $db = new SmallWorldDB;
@@ -42,15 +42,15 @@ class SmallWorldFriends
 
     /**
      * @Get friends array of ID
-     * @param int $id
-     * @param string $action
+     * @param  int    $id
+     * @param  string $action
      * @return array
-     */       
+     */
     function getFriends($id, $action) {
         global $xoopsUser, $xoopsDB;
         $meuser = $xoopsUser->getVar('uid');
         $data = array();
-        if ($xoopsUser) {    
+        if ($xoopsUser) {
                 if ($action == 'pending') {
                     $sql = "SELECT * FROM ".$xoopsDB->prefix('smallworld_friends')." WHERE me = '".$id."' and status = 1";
                 } elseif ($action == 'friends') {
@@ -65,12 +65,12 @@ class SmallWorldFriends
             if ($count < 1) {
                 return false;
             } else {
-                while ($row = $xoopsDB->fetchArray($result)) { 
+                while ($row = $xoopsDB->fetchArray($result)) {
                     $data[]=$row;
                 }
             }
         }
+
     return $data;
     }
 }
-?>

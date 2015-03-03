@@ -19,7 +19,7 @@
 * @ID:					$Id: moduleinfo.php 9412 2012-04-30 04:07:58Z beckmi $
 **/
 
-require_once 'admin_header.php'; 
+require_once 'admin_header.php';
 require_once '../../../include/cp_header.php';
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
@@ -42,19 +42,18 @@ $installdate = $admin->ModuleInstallDate ();
 $installCheck = $admin->doCheckUpdate ();
 
 // template assignments
-	$xoopsTpl->assign('lang_moduleinfo', _AM_SMALLWORLD_MODULEINFO); 
-	$xoopsTpl->assign('lang_installversion', _AM_SMALLWORLD_MODULEINSTALL); 
-	$xoopsTpl->assign('lang_installversion_status', _AM_SMALLWORLD_UPDATE_STATUS); 
-	$xoopsTpl->assign('lang_installdate', _AM_SMALLWORLD_INSTALLDATE); 
-	
-	$xoopsTpl->assign('installversion', $installversion);
-	$xoopsTpl->assign('installdate', $installdate); 
-	$xoopsTpl->assign('installversion_status',$installCheck);
-	$xoopsTpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/admin_moduleinfo.html');
-	
-	global $xoTheme; 
-	$xoTheme->addStyleSheet('modules/smallworld/css/SmallworldAdmin.css');
-	$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
-	
+    $xoopsTpl->assign('lang_moduleinfo', _AM_SMALLWORLD_MODULEINFO);
+    $xoopsTpl->assign('lang_installversion', _AM_SMALLWORLD_MODULEINSTALL);
+    $xoopsTpl->assign('lang_installversion_status', _AM_SMALLWORLD_UPDATE_STATUS);
+    $xoopsTpl->assign('lang_installdate', _AM_SMALLWORLD_INSTALLDATE);
+    
+    $xoopsTpl->assign('installversion', $installversion);
+    $xoopsTpl->assign('installdate', $installdate);
+    $xoopsTpl->assign('installversion_status',$installCheck);
+    $xoopsTpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/admin_moduleinfo.html');
+    
+    global $xoTheme;
+    $xoTheme->addStyleSheet('modules/smallworld/css/SmallworldAdmin.css');
+    $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
+    
 xoops_cp_footer();
-?>

@@ -19,18 +19,15 @@
 * @ID:					$Id: index.php 11723 2013-06-19 16:48:22Z djculex $
 **/
 
-
 //require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
 include_once dirname(__FILE__) . '/admin_header.php';
 
 xoops_cp_header();
-global $xoTheme;        
+global $xoTheme;
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 
-
-	$indexAdmin = new ModuleAdmin();
-
+    $indexAdmin = new ModuleAdmin();
 
 $admin = new SmallworldAdmin();
 $d = new SmallWorldDoSync;
@@ -39,9 +36,9 @@ $d->checkOrphans ();
 // Find oldest message and apply to template
 $dfm = $admin->oldestMsg();
 if ($dfm==0) {
-	$dfm = _AM_SMALLWORLD_NONEYET;
+    $dfm = _AM_SMALLWORLD_NONEYET;
 } else {
-	$dfm = date(_SHORTDATESTRING, $admin->oldestMsg());
+    $dfm = date(_SHORTDATESTRING, $admin->oldestMsg());
 }
 $dateoffirstmessage = $dfm;
 
@@ -59,115 +56,115 @@ $installCheck = $admin->doCheckUpdate ();
 $sumallusers = $admin->TotalUsers ();
 // Find list of most active users (total)
 $maAllround = $admin->mostactiveusers_allround();
-	$ma_cnt = 0;
-		if (!empty($maAllround)) {
-			$count = count($maAllround['cnt']);
-		} else {
-			$count=0;
-		}
-	$mat_cnt = 0;
-	if ($count != 0) {
-		$ma_cnt = 1;
-		$ma = "<table class='smallworldadmin'><tr>";
-		$ma .= "<td><b>"._AM_SMALLWORLD_STATS_POS."</b></td><td><b>"._AM_SMALLWORLD_STATS_IMG."</b></td><td><b>"._AM_SMALLWORLD_STATS_AMOUNT."</b></td><td><b>"._AM_SMALLWORLD_STATS_NAME."</b></td></tr>";
-		$i = 1;
+    $ma_cnt = 0;
+        if (!empty($maAllround)) {
+            $count = count($maAllround['cnt']);
+        } else {
+            $count=0;
+        }
+    $mat_cnt = 0;
+    if ($count != 0) {
+        $ma_cnt = 1;
+        $ma = "<table class='smallworldadmin'><tr>";
+        $ma .= "<td><b>"._AM_SMALLWORLD_STATS_POS."</b></td><td><b>"._AM_SMALLWORLD_STATS_IMG."</b></td><td><b>"._AM_SMALLWORLD_STATS_AMOUNT."</b></td><td><b>"._AM_SMALLWORLD_STATS_NAME."</b></td></tr>";
+        $i = 1;
             while ($i <= count($maAllround['cnt'])) {
-				$ma .= vsprintf('<tr><td>%s</td>',array($maAllround['counter'][$i]));
-				$ma .= vsprintf('<td>%s</td>',array($maAllround['img'][$i]));
-				$ma .= vsprintf('<td>%s</td>',array($maAllround['cnt'][$i]));
-				$ma .= vsprintf('<td>%s</td></tr>',array($maAllround['from'][$i]));
-			$i++;
-			}
-		$ma .= "</tr></table>";
-	} else {
-		$maAllround = 0;
-	}
+                $ma .= vsprintf('<tr><td>%s</td>',array($maAllround['counter'][$i]));
+                $ma .= vsprintf('<td>%s</td>',array($maAllround['img'][$i]));
+                $ma .= vsprintf('<td>%s</td>',array($maAllround['cnt'][$i]));
+                $ma .= vsprintf('<td>%s</td></tr>',array($maAllround['from'][$i]));
+            $i++;
+            }
+        $ma .= "</tr></table>";
+    } else {
+        $maAllround = 0;
+    }
 // Find list of most active users (24 hours)
 $maToday = $admin->mostactiveusers_today();
-	if (!empty($maToday)) {
-		$count = count($maToday['cnt']);
-	} else {
-		$count=0;
-	}
-	$mat_cnt = 0;
-	if ($count != 0) {
-		$mat_cnt = 1;
-		$mat = "<table class='smallworldadmin'><tr>";
-		$mat .= "<td><b>"._AM_SMALLWORLD_STATS_POS."</b></td><td><b>"._AM_SMALLWORLD_STATS_IMG."</b></td><td><b>"._AM_SMALLWORLD_STATS_AMOUNT."</b></td><td><b>"._AM_SMALLWORLD_STATS_NAME."</b></td></tr>";
-		$i = 1;
-			while ($i <= $count) {
-				$mat .= vsprintf('<tr><td>%s</td>',array($maToday['counter'][$i]));
-				$mat .= vsprintf('<td>%s</td>',array($maToday['img'][$i]));
-				$mat .= vsprintf('<td>%s</td>',array($maToday['cnt'][$i]));
-				$mat .= vsprintf('<td>%s</td></tr>',array($maToday['from'][$i]));
-			$i++;
-			}
-		$mat .= "</tr></table>";
-	} else {
-		$mat = 0;
-	}
+    if (!empty($maToday)) {
+        $count = count($maToday['cnt']);
+    } else {
+        $count=0;
+    }
+    $mat_cnt = 0;
+    if ($count != 0) {
+        $mat_cnt = 1;
+        $mat = "<table class='smallworldadmin'><tr>";
+        $mat .= "<td><b>"._AM_SMALLWORLD_STATS_POS."</b></td><td><b>"._AM_SMALLWORLD_STATS_IMG."</b></td><td><b>"._AM_SMALLWORLD_STATS_AMOUNT."</b></td><td><b>"._AM_SMALLWORLD_STATS_NAME."</b></td></tr>";
+        $i = 1;
+            while ($i <= $count) {
+                $mat .= vsprintf('<tr><td>%s</td>',array($maToday['counter'][$i]));
+                $mat .= vsprintf('<td>%s</td>',array($maToday['img'][$i]));
+                $mat .= vsprintf('<td>%s</td>',array($maToday['cnt'][$i]));
+                $mat .= vsprintf('<td>%s</td></tr>',array($maToday['from'][$i]));
+            $i++;
+            }
+        $mat .= "</tr></table>";
+    } else {
+        $mat = 0;
+    }
 // FInd list of best rated users overall
 $topusers = $admin->topratedusers('up');
-	if (!empty($topusers)){
-		$count = count($topusers['cnt']);
-	} else {
-		$count = 0;
-	}
-	$top_cnt = 0;
-	if ($count != 0) {
-		$top_cnt = 1;
-		$top  = "<table class='smallworldadmin'><tr>";
-		$top .= "<td><b>"._AM_SMALLWORLD_STATS_POS."</b></td><td><b>"._AM_SMALLWORLD_STATS_IMG."</b></td><td><b>"._AM_SMALLWORLD_STATS_AMOUNT."</b></td><td><b>"._AM_SMALLWORLD_STATS_NAME."</b></td></tr>";
-		$i = 1;
-			while ($i <= $count) {
-				$top .= vsprintf('<tr><td>%s</td>',array($topusers['counter'][$i]));
-				$top .= vsprintf('<td>%s</td>',array($topusers['img'][$i]));
-				$top .= vsprintf('<td>%s</td>',array($topusers['cnt'][$i]));
-				$top .= vsprintf('<td>%s</td></tr>',array($topusers['user'][$i]));
-			$i++;
-			}
-		$top .= "</tr></table>";
-	} else {
-		$top = 0;
-	}
+    if (!empty($topusers)){
+        $count = count($topusers['cnt']);
+    } else {
+        $count = 0;
+    }
+    $top_cnt = 0;
+    if ($count != 0) {
+        $top_cnt = 1;
+        $top  = "<table class='smallworldadmin'><tr>";
+        $top .= "<td><b>"._AM_SMALLWORLD_STATS_POS."</b></td><td><b>"._AM_SMALLWORLD_STATS_IMG."</b></td><td><b>"._AM_SMALLWORLD_STATS_AMOUNT."</b></td><td><b>"._AM_SMALLWORLD_STATS_NAME."</b></td></tr>";
+        $i = 1;
+            while ($i <= $count) {
+                $top .= vsprintf('<tr><td>%s</td>',array($topusers['counter'][$i]));
+                $top .= vsprintf('<td>%s</td>',array($topusers['img'][$i]));
+                $top .= vsprintf('<td>%s</td>',array($topusers['cnt'][$i]));
+                $top .= vsprintf('<td>%s</td></tr>',array($topusers['user'][$i]));
+            $i++;
+            }
+        $top .= "</tr></table>";
+    } else {
+        $top = 0;
+    }
 
 // FInd list of worst rated users overall
 $lowusers = $admin->topratedusers('down');
-	$low_cnt = 0;
-		if (!empty($lowusers)) {
-	$count = count($lowusers['cnt']);
-	} else {
-		$count=0;
-	}
-	if ($count != 0) {
-		$low_cnt = 1;
-		$low = "<table class='smallworldadmin'><tr>";
-		$low .= "<td><b>"._AM_SMALLWORLD_STATS_POS."</b></td><td><b>"._AM_SMALLWORLD_STATS_IMG."</b></td><td><b>"._AM_SMALLWORLD_STATS_AMOUNT."</b></td><td><b>"._AM_SMALLWORLD_STATS_NAME."</b></td></tr>";
-		$i = 1;
-			while ($i <= $count) {
-				$low .= vsprintf('<tr><td>%s</td>',array($lowusers['counter'][$i]));
-				$low .= vsprintf('<td>%s</td>',array($lowusers['img'][$i]));
-				$low .= vsprintf('<td>%s</td>',array($lowusers['cnt'][$i]));
-				$low .= vsprintf('<td>%s</td></tr>',array($lowusers['user'][$i]));
-			$i++;
-			}
-		$low .= "</tr></table>";
-	} else {
-		$low = 0;
-	}
+    $low_cnt = 0;
+        if (!empty($lowusers)) {
+    $count = count($lowusers['cnt']);
+    } else {
+        $count=0;
+    }
+    if ($count != 0) {
+        $low_cnt = 1;
+        $low = "<table class='smallworldadmin'><tr>";
+        $low .= "<td><b>"._AM_SMALLWORLD_STATS_POS."</b></td><td><b>"._AM_SMALLWORLD_STATS_IMG."</b></td><td><b>"._AM_SMALLWORLD_STATS_AMOUNT."</b></td><td><b>"._AM_SMALLWORLD_STATS_NAME."</b></td></tr>";
+        $i = 1;
+            while ($i <= $count) {
+                $low .= vsprintf('<tr><td>%s</td>',array($lowusers['counter'][$i]));
+                $low .= vsprintf('<td>%s</td>',array($lowusers['img'][$i]));
+                $low .= vsprintf('<td>%s</td>',array($lowusers['cnt'][$i]));
+                $low .= vsprintf('<td>%s</td></tr>',array($lowusers['user'][$i]));
+            $i++;
+            }
+        $low .= "</tr></table>";
+    } else {
+        $low = 0;
+    }
 
 //-----------------------
 
 // template assignments
-	$xoopsTpl->assign('lang_moduleinfo', _AM_SMALLWORLD_MODULEINFO);
-	$xoopsTpl->assign('lang_installversion', _AM_SMALLWORLD_MODULEINSTALL);
-	$xoopsTpl->assign('lang_installversion_status', _AM_SMALLWORLD_UPDATE_STATUS);
-	$xoopsTpl->assign('lang_installdate', _AM_SMALLWORLD_INSTALLDATE);
+    $xoopsTpl->assign('lang_moduleinfo', _AM_SMALLWORLD_MODULEINFO);
+    $xoopsTpl->assign('lang_installversion', _AM_SMALLWORLD_MODULEINSTALL);
+    $xoopsTpl->assign('lang_installversion_status', _AM_SMALLWORLD_UPDATE_STATUS);
+    $xoopsTpl->assign('lang_installdate', _AM_SMALLWORLD_INSTALLDATE);
 
-	//$xoopsTpl->assign('installversion', $installversion);
-	//$xoopsTpl->assign('installdate', $installdate);
-	//$xoopsTpl->assign('installversion_status',$installCheck);
-	//$xoopsTpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/admin_moduleinfo.html');
+    //$xoopsTpl->assign('installversion', $installversion);
+    //$xoopsTpl->assign('installdate', $installdate);
+    //$xoopsTpl->assign('installversion_status',$installCheck);
+    //$xoopsTpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/admin_moduleinfo.html');
 
 //-----------------------
 
@@ -181,17 +178,17 @@ $indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'
 $indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'>"._AM_SMALLWORLD_TOTALUSERS." : %s</br>",$sumallusers, 'Red','default');
 
 if ($avgperday > 0) {
-	$indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'>"._AM_SMALLWORLD_AVERAGEMSGPERDAY." : %s</br>", $avgperday, 'Red','default');
+    $indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'>"._AM_SMALLWORLD_AVERAGEMSGPERDAY." : %s</br>", $avgperday, 'Red','default');
 }
 
 if ($mat_cnt != 0 ) {
-	$indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>"._AM_SMALLWORLD_TOPCHATTERS_TODAY." : %s</p>", $mat, 'Red','default');
+    $indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>"._AM_SMALLWORLD_TOPCHATTERS_TODAY." : %s</p>", $mat, 'Red','default');
 }
 if ($ma_cnt != 0 ) {
-	$indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>"._AM_SMALLWORLD_TOPCHATTERS." : %s</p>", $ma, 'Red','default');
+    $indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>"._AM_SMALLWORLD_TOPCHATTERS." : %s</p>", $ma, 'Red','default');
 }
 if ($top_cnt != 0 ) {
-	$indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>"._AM_SMALLWORLD_TOPRATEDUSERS." : %s</p>", $top, 'Red','default');
+    $indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>"._AM_SMALLWORLD_TOPRATEDUSERS." : %s</p>", $top, 'Red','default');
 }
 if ($low_cnt != 0 ) {
 $indexAdmin->addInfoBoxLine( _AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>"._AM_SMALLWORLD_BOTTOMRATEDUSERS." : %s</p>", $low, 'Red','default');

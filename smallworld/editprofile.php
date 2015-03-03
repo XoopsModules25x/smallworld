@@ -1,4 +1,4 @@
-<?php				
+<?php
 /**
 * You may not change or alter any portion of this comment or credits
 * of supporting developers from this source code or any supporting source code
@@ -26,18 +26,18 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/arrays.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
 
-	if ($xoopsUser) {
-		$id = $xoopsUser->getVar('uid');
-		$check = new SmallWorldUser;
-		$profile = $check->CheckIfProfile($id);
+    if ($xoopsUser) {
+        $id = $xoopsUser->getVar('uid');
+        $check = new SmallWorldUser;
+        $profile = $check->CheckIfProfile($id);
 
-		// Check if inspected userid -> redirect to userprofile and show admin countdown
+        // Check if inspected userid -> redirect to userprofile and show admin countdown
         $inspect = Smallworld_isInspected ($id);
         if ($inspect['inspect'] == 'yes') {
-            redirect_header("userprofile.php?username=".$xoopsUser->getVar('uname'), 1); 
+            redirect_header("userprofile.php?username=".$xoopsUser->getVar('uname'), 1);
         }
 
-	if ($profile == 2) {
+    if ($profile == 2) {
             $xoopsTpl->assign('check',$profile);
             $item = new SmallWorldForm;
             $db = new SmallWorldDB;
@@ -46,7 +46,7 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
             $result = $xoopsDB->queryF($cdb);
             $cnt = $xoopsDB->getRowsNum($result);
             while ($r = $xoopsDB->fetchArray($result)) {
-                // ------------ PERSONAL INFO ------------ // 
+                // ------------ PERSONAL INFO ------------ //
                 
                 // Real name
                 if (smallworldGetValfromArray ('realname', 'smallworldusethesefields') != 0) {
@@ -74,19 +74,19 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                 }
                 
                 // Dropdown for marital status
-                if (smallworldGetValfromArray ('relationshipstatus', 'smallworldusethesefields') != 0) {	
+                if (smallworldGetValfromArray ('relationshipstatus', 'smallworldusethesefields') != 0) {
                     $relationshipstatus = $item->dropdown('relationship',$arr02,0);
                     $xoopsTpl->append('relationshipstatus',$relationshipstatus);
                 
 
                 // Partner. Only shown if marital status is married, it's complicated, engaged)
                 $partner = $item->input('partner', 'partner', 'partner',$size='30', stripslashes($r['partner']));
-                 $xoopsTpl->append('partner',$partner); 
+                 $xoopsTpl->append('partner',$partner);
                 } else {
                     $xoopsTpl->assign('show_relationshipstatus','no');
                 }
                 
-                if (smallworldGetValfromArray ('lookingfor', 'smallworldusethesefields') != 0) {	
+                if (smallworldGetValfromArray ('lookingfor', 'smallworldusethesefields') != 0) {
                 $nr1 = unserialize($r['searchrelat']);
                 $searchrelat = $item->RetrieveRadio('searchrelat',$arr03,$nr1, $selected=null);
                 $xoopsTpl->append('searchrelat',$searchrelat);
@@ -126,7 +126,7 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                     $xoopsTpl->assign('show_religion','no');
                 }
                 
-                // ------------ CONTACT INFO ------------ // 		
+                // ------------ CONTACT INFO ------------ //
                 // Add email test
                 if (smallworldGetValfromArray ('emails', 'smallworldusethesefields') != 0) {
                     $nr2 = unserialize($r['emailtype']);
@@ -192,7 +192,7 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                 
                 if (smallworldGetValfromArray ('presentcity', 'smallworldusethesefields') != 0) {
                  $present_city = $item->input('present_city', 'present_city', 'present_city',50, $preset=stripslashes($r['present_city']));
-                 $xoopsTpl->append('present_city',$present_city); 
+                 $xoopsTpl->append('present_city',$present_city);
                  
                  $present_country = $item->input('present_country', 'present_country', 'present_country',$size='50', $preset=stripslashes($r['present_country']));
                  $xoopsTpl->append('present_country',$present_country);
@@ -204,10 +204,10 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                  $xoopsTpl->assign('show_website','no');
                 }
                 
-                // ------------ INTERESTS ------------ // 
+                // ------------ INTERESTS ------------ //
                 
                 // Textarea for interests
-                //textarea($name, $id, $title, $rows, $cols, $class) 
+                //textarea($name, $id, $title, $rows, $cols, $class)
                 if (smallworldGetValfromArray ('interests', 'smallworldusethesefields') != 0) {
                  $interests = $item->textarea('interests','interests',_SMALLWORLD_INTERESTS,1,20,'favourites',$preset=stripslashes($r['interests']));
                  $xoopsTpl->append('interests',$interests);
@@ -226,7 +226,7 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                 // Textarea for Tvshow
                 if (smallworldGetValfromArray ('favouritetvshows', 'smallworldusethesefields') != 0) {
                  $tvshow = $item->textarea('tvshow','tvshow',_SMALLWORLD_TVSHOW,1,20,'favourites',$preset=stripslashes($r['tvshow']));
-                 $xoopsTpl->append('tvshow',$tvshow);	
+                 $xoopsTpl->append('tvshow',$tvshow);
                 } else {
                     $xoopsTpl->assign('show_tv','no');
                 }
@@ -234,7 +234,7 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                 // Textarea for Movie
                 if (smallworldGetValfromArray ('favouritemovies', 'smallworldusethesefields') != 0) {
                  $movie = $item->textarea('movie','movie',_SMALLWORLD_MOVIE,1,20,'favourites',$preset=stripslashes($r['movie']));
-                 $xoopsTpl->append('movie',$movie);	
+                 $xoopsTpl->append('movie',$movie);
                 } else {
                     $xoopsTpl->assign('show_movies','no');
                 }
@@ -242,7 +242,7 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                 // Textarea for Books
                 if (smallworldGetValfromArray ('favouritebooks', 'smallworldusethesefields') != 0) {
                  $books = $item->textarea('books','books',_SMALLWORLD_BOOKS,1,20,'favourites',$preset=stripslashes($r['books']));
-                 $xoopsTpl->append('books',$books);	
+                 $xoopsTpl->append('books',$books);
                 } else {
                     $xoopsTpl->assign('show_books','no');
                 }
@@ -250,13 +250,13 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                 // Textarea for About me
                 if (smallworldGetValfromArray ('aboutme', 'smallworldusethesefields') != 0) {
                  $aboutme = $item->textarea('aboutme','aboutme',_SMALLWORLD_ABOUTME,2,20,'favourites',$preset=stripslashes($r['aboutme']));
-                 $xoopsTpl->append('aboutme',$aboutme);	
+                 $xoopsTpl->append('aboutme',$aboutme);
                 } else {
                     $xoopsTpl->assign('show_aboutme','no');
                 }
                  
                  
-                // ------------ SCHOOL ------------ // 
+                // ------------ SCHOOL ------------ //
                 
                 //School name
                 if (smallworldGetValfromArray ('education', 'smallworldusethesefields') != 0) {
@@ -265,12 +265,12 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                     $nr7 = unserialize($r['schoolstart']);
                     $nr8 = unserialize($r['schoolstop']);
                     $school = "";
-                    foreach ($nr5 as $k => $v) {		 
-                        $school .= $item->school_add ('smallworld_add3', 'school', 'school_type', 
+                    foreach ($nr5 as $k => $v) {
+                        $school .= $item->school_add ('smallworld_add3', 'school', 'school_type',
                          '.smallworld_clone3', $arr7, _SMALLWORLD_ADDMORE, $selected=stripslashes($nr6[$k]),$preset=$v, $selectedstart=$nr7[$k],$selectedstop=$nr8[$k]);
                         $school .= "<span class='smallworld_remove2' id='schoolremove'>";
                          $school .= "<a href='javascript:void(0);' id='schoolremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
-                    } 
+                    }
                      $school .= "<a class='smallworld_addschool' href='javascript:void(0);' id='schoolAdd'>"._SMALLWORLD_ADDMORE."</a><br><br>";
                      $xoopsTpl->append('school',$school);
                 } else {
@@ -283,16 +283,16 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                     $nr10 = unserialize($r['position']);
                     $nr11 = unserialize($r['jobstart']);
                     $nr12 = unserialize($r['jobstop']);
-                    $nr13 = unserialize(stripslashes($r['description']));	
+                    $nr13 = unserialize(stripslashes($r['description']));
                     $job="";
-                    foreach ($nr9 as $k=>$v) { 
-                     $job .= $item->job('smallworld_add4', 'job', 'job_type', '.smallworld_clone4', _SMALLWORLD_ADDMORE, $employer=stripslashes($v), $position=stripslashes($nr10[$k]), 
+                    foreach ($nr9 as $k=>$v) {
+                     $job .= $item->job('smallworld_add4', 'job', 'job_type', '.smallworld_clone4', _SMALLWORLD_ADDMORE, $employer=stripslashes($v), $position=stripslashes($nr10[$k]),
                      $selectedstart = ($nr11[$k] != '') ? date("Y",$nr11[$k]):'', $selectedstop=($nr12[$k] != '') ? date("Y",$nr12[$k]):'',$description=$nr13[$k]);
                       $job .= "<span class='smallworld_remove3' id='jobremove'>";
                         $job .= "<a href='javascript:void(0);' id='jobremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
-                    } 
+                    }
                     $job .= "<a class='smallworld_addjob' href='javascript:void(0);' id='jobAdd'>"._SMALLWORLD_ADDMORE."</a><br><br>";
-                     $xoopsTpl->append('job',$job); 
+                     $xoopsTpl->append('job',$job);
                 } else {
                     $xoopsTpl->assign('show_jobs','no');
                 }
@@ -313,14 +313,13 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                  
                  $xoopsTpl->append('smallworld_register_title',_SMALLWORLD_REGRISTATION_TITLE);
                  $xoopsTpl->assign('smallworld_beforesubmit',_SMALLWORLD_TEXTBEFORESUBMIT);
-                 $xoopsTpl->assign('smallworld_save',_SMALLWORLD_SUBMIT);	
-                 $xoopsTpl->assign('smallworld_user_website',$r['website']);	
-            }	 
-		} elseif ($profile < 2) {
-			redirect_header(XOOPS_URL . "/modules/smallworld/register.php");
+                 $xoopsTpl->assign('smallworld_save',_SMALLWORLD_SUBMIT);
+                 $xoopsTpl->assign('smallworld_user_website',$r['website']);
+            }
+        } elseif ($profile < 2) {
+            redirect_header(XOOPS_URL . "/modules/smallworld/register.php");
         }
-	} else {
-		redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
-	}
+    } else {
+        redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
+    }
 include(XOOPS_ROOT_PATH."/footer.php");
-?>

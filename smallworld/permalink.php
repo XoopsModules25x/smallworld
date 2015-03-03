@@ -1,4 +1,4 @@
-<?php			
+<?php
 /**
 * You may not change or alter any portion of this comment or credits
 * of supporting developers from this source code or any supporting source code
@@ -31,23 +31,23 @@ global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
     $module_handler =& xoops_gethandler('module');
         $module = $module_handler->getByDirname('smallworld');
         $config_handler =& xoops_gethandler('config');
-        $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));	
+        $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
     
     $set = smallworld_checkPrivateOrPublic ();
-	$check = new SmallWorldUser;
+    $check = new SmallWorldUser;
     $pub = smallworld_checkUserPubPostPerm ();
     $dBase = new SmallWorldDB;
     
-		if (isset($_GET['updid']) AND isset($_GET['ownerid'])) {
+        if (isset($_GET['updid']) AND isset($_GET['ownerid'])) {
             $updID = $_GET['updid'];
             $ownerID = $_GET['ownerid'];
-		} else {
+        } else {
             redirect_header(XOOPS_URL . "/modules/smallworld/index.php", 5, _SMALLWORLD_UPDATEID_NOT_EXIST);
-		}
+        }
         
-		$id = ($xoopsUser) ? $xoopsUser->getVar('uid'):0;
-		$user = ($xoopsUser) ? new XoopsUser($id) : 0;
-		
+        $id = ($xoopsUser) ? $xoopsUser->getVar('uid'):0;
+        $user = ($xoopsUser) ? new XoopsUser($id) : 0;
+        
         if ($xoopsUser) {
             if ( $xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
                 $pub = $check->allUsers();
@@ -57,31 +57,30 @@ global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
                 $xoopsTpl->assign('isadminuser', 'NO');
             }
         }
-		$username = ($xoopsUser) ? $user->getVar('uname'):"";
-		
-		$friend = $check->friendcheck($id,$ownerID);
+        $username = ($xoopsUser) ? $user->getVar('uname'):"";
+        
+        $friend = $check->friendcheck($id,$ownerID);
 
-			$profile = $check->checkIfProfile($id);
-				$menu_startpage = "<a href='".XOOPS_URL."/modules/smallworld/publicindex.php'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/highrise.png'>"._SMALLWORLD_STARTPAGE."</a>";
+            $profile = $check->checkIfProfile($id);
+                $menu_startpage = "<a href='".XOOPS_URL."/modules/smallworld/publicindex.php'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/highrise.png'>"._SMALLWORLD_STARTPAGE."</a>";
                 $menu_home = "<a href='".XOOPS_URL."/modules/smallworld/'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/house.png'>"._SMALLWORLD_HOME."</a>";
-				
-				// Things to do with wall
-				$Wall = new Wall_Updates();
-				
-				
-				// Follow array here
-				$followers = Smallworld_array_flatten($Wall->getFollowers($id),0);	
+                
+                // Things to do with wall
+                $Wall = new Wall_Updates();
+                
+                
+                // Follow array here
+                $followers = Smallworld_array_flatten($Wall->getFollowers($id),0);
 
-				$updatesarray=$Wall->UpdatesPermalink ($updID,$id, $ownerID);
+                $updatesarray=$Wall->UpdatesPermalink ($updID,$id, $ownerID);
                 $Wall->ParsePubArray ($updatesarray, $id);
-				
+                
                 $xoopsTpl->assign('menu_startpage',$menu_startpage);
                 $xoopsTpl->assign('menu_home',$menu_home);
-				$xoopsTpl->assign('myusername',$username);
-				$xoopsTpl->assign('pagename','index');
-				$xoopsTpl->assign('check',$profile); 
+                $xoopsTpl->assign('myusername',$username);
+                $xoopsTpl->assign('pagename','index');
+                $xoopsTpl->assign('check',$profile);
 
  
 
 include(XOOPS_ROOT_PATH."/footer.php");
-?>

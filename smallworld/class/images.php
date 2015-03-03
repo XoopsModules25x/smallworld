@@ -20,18 +20,18 @@
 **/
 
  
-class SmallWorldImages 
+class SmallWorldImages
 {
     /**
      * @Create folders
-     * @param int $userID
+     * @param  int  $userID
      * @return void
-     */       
+     */
     function createAlbum ($userID)
     {
         $dir  = XOOPS_ROOT_PATH.'/uploads/albums_smallworld';
         if (!file_exists($dir.'/'.$userID.'/thumbnails') || !file_exists($dir.'/'.$userID.'/')) {
-            if(!is_dir($dir."/")) { 
+            if(!is_dir($dir."/")) {
                 mkdir($dir, 0777);
             } else {
                 mkdir($dir.'/'.$userID, 0777);
@@ -45,11 +45,11 @@ class SmallWorldImages
     
     /**
      * @View user album. Userid = owner, user = visitor
-     * @param int $userID
-     * @param int $user
+     * @param  int   $userID
+     * @param  int   $user
      * @return array
-     */  
-    function viewalbum ($userID, $user) 
+     */
+    function viewalbum ($userID, $user)
     {
         global $xoopsUser, $xoopsDB, $xoopsTpl;
         $post=array();
@@ -75,18 +75,18 @@ class SmallWorldImages
             //Not a friends album
             return false;
         }
-    }    
+    }
     
     /**
      * @Get image count for user
-     * @param int $userid
+     * @param  int $userid
      * @return int
-     */ 
+     */
     function count ($userid) {
         global $xoopsDB;
         $sql = "SELECT * FROM ".$xoopsDB->prefix("smallworld_images")." WHERE userid = '".$userid."'";
         $result = $xoopsDB->queryF($sql);
+
         return $xoopsDB->getRowsNum($result);
-    }    
+    }
 }
-?>

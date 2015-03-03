@@ -21,20 +21,19 @@
 include_once("../../mainfile.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
-	global $xoopsUser, $xoTheme, $xoopsTpl,$xoopsLogger;
-	$xoopsLogger->activated = false;
-	$db = new SmallWorldDB;
-	$upd = new Wall_Updates;
-	 $userID = $xoopsUser->getVar('uid');
-	 $user = new XoopsUser($userID);
-	 $username = $user->getVar('uname');
+    global $xoopsUser, $xoTheme, $xoopsTpl,$xoopsLogger;
+    $xoopsLogger->activated = false;
+    $db = new SmallWorldDB;
+    $upd = new Wall_Updates;
+     $userID = $xoopsUser->getVar('uid');
+     $user = new XoopsUser($userID);
+     $username = $user->getVar('uname');
      $ri = smallworld_getRndImg($userID);
      if ($ri != '') {
         $riUrl = XOOPS_URL."/uploads/albums_smallworld/".$userID."/".$ri;
      }
-		
-	$update = "UPLIMAGE" . " " . $riUrl;
+        
+    $update = "UPLIMAGE" . " " . $riUrl;
 
-	$upd->Insert_Update($userID, $update);
-	$db->handleImageEdit ();
-?>
+    $upd->Insert_Update($userID, $update);
+    $db->handleImageEdit ();

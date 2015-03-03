@@ -1,8 +1,8 @@
 <?php
 /**
 * You may not change or alter any portion of this comment or credits
-* of supporting developers from this source code or any supporting 
-* source code which is considered copyrighted (c) material of the 
+* of supporting developers from this source code or any supporting
+* source code which is considered copyrighted (c) material of the
 * original comment or credit authors.
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -102,7 +102,7 @@ define("_SMALLWORLD_MOREINFO","More info click here");
 define("_SMALLWORLD_NOTYETUSER_GREETING","Welcome");
 define("_SMALLWORLD_NOTYETUSER_BOXTEXT","In order to use this module, you'll need to fill out an extra profile-form.
 		<br><br>Press ok to continue to registration or press cancel<br><br>to go back to your index page.");
-define("_SMALLWORLD_NOTYETREGISTERED_TITLE","Continue to finish setup");	
+define("_SMALLWORLD_NOTYETREGISTERED_TITLE","Continue to finish setup");
 define("_SMALLWORLD_TEXTBEFORESUBMIT","Continue to save your information to the database.<br><br>After this you are able to visit your page,<br>and other users pages.<br><br>Thank you for your time.");
 define("_SMALLWORLD_FRIENDSINVITATIONS","Friendship requests");
 define("_SMALLWORLD_DATERECIEVED","Date");
@@ -289,7 +289,6 @@ define("_SMALLWORLD_GALLERY_DOWNLOADORIGINAL","Download Original");
 define("_SMALLWORLD_GALLEY_NEXTPAGE","Next Page");
 define("_SMALLWORLD_GALLEY_PREVIOUSPAGE","Previous page");
 
-
 /*-------------- Search ----------------*/
 define("_SMALLWORLD_SEARCHMEMBER","Search by username or realname");
 
@@ -376,7 +375,6 @@ define("_SMALLWORLD_MAIL_NEWFRIENDFOLLOWER","New friend request or new user foll
 
 define("_SMALLWORLD_MAIL_FRIENDTAGGEDYOU","A friend tagged you at ");
 
-
 /* ------------ Inspection & countdown ---------------- */
 define("_SMALLWORLD_INSPEC_DESC","Admin has taken this account down for inspection.<br/><br/>Estimated inspection time will finish in");
 define("_SMALLWORLD_INSPEC_DESC2","Try again at this time.");
@@ -402,4 +400,3 @@ define("_SMALLWORLD_STATS_LIKETHISMODULE","Like this module ???");
 
 /* ----------------- donate link -------------- */
 define("_SMALLWORLD_DONATETEXT"," Donate me coffey here ");
-?>

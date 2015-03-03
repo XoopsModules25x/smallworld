@@ -27,7 +27,7 @@ class SmallworldCorePreload extends XoopsPreloadItem
    
    function eventCoreHeaderAddmeta()
    {
-        global $xoTheme,$xoopsUser,$xoopsConfig;         
+        global $xoTheme,$xoopsUser,$xoopsConfig;
         //Load language if not defined
         smallworld_isDefinedLanguage ('_SMALLWORLD_SYSERROR', 'main.php');
         
@@ -36,7 +36,7 @@ class SmallworldCorePreload extends XoopsPreloadItem
         $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jqueryui.min.js');
         //$xoTheme->addScript("http://code.jquery.com/ui/1.10.2/jquery-ui.js");
         $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/base/jquery.ui.all.css');
-        $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');                        
+        $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');
     
         //Get variables
         smallworld_SetCoreScript ();
@@ -45,7 +45,7 @@ class SmallworldCorePreload extends XoopsPreloadItem
          $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.validation.functions.js');
          $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.stepy.js');
          $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.elastic.source.js');
-		 $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');     
+         $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');
         
         $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.countdown.js');
     
@@ -58,11 +58,11 @@ class SmallworldCorePreload extends XoopsPreloadItem
         }
         $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/smallworld.js');
    }
-	
-	function isActive() {
-		$module_handler =& xoops_getHandler('module');
-		$module = $module_handler->getByDirname('smallworld');
-		return ($module && $module->getVar('isactive')) ? true : false;
-	}
+    
+    function isActive() {
+        $module_handler =& xoops_getHandler('module');
+        $module = $module_handler->getByDirname('smallworld');
+
+        return ($module && $module->getVar('isactive')) ? true : false;
+    }
 }
-?>

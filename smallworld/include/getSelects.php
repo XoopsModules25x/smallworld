@@ -26,17 +26,16 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 global $xoopsUser, $xoopsModule,$xoopsLogger;
 $xoopsLogger->activated = false;
     if ($xoopsUser) {
-		$db = new SmallWorldDB;
-		$id = $xoopsUser->getVar('uid');
-		$relat = $db->getVar($id,'relationship');
-		$partner = $db->getVar($id,'partner');
-		$gender = $db->getVar($id,'gender');
-		$politic = $db->getVar($id,'politic');
-		$religion = $db->getVar($id,'religion');
+        $db = new SmallWorldDB;
+        $id = $xoopsUser->getVar('uid');
+        $relat = $db->getVar($id,'relationship');
+        $partner = $db->getVar($id,'partner');
+        $gender = $db->getVar($id,'gender');
+        $politic = $db->getVar($id,'politic');
+        $religion = $db->getVar($id,'religion');
         header('Content-type: "application/json"');
         echo "{\"relat\":\"$relat\", \"partner\":\"$partner\", \"gender\":\"$gender\", \"politic\":\"$politic\", \"religion\":\"$religion\"}";
-	} else {
+    } else {
         header('Content-type: "application/json"');
         echo "{\"relat\":\"\", \"partner\":\"\", \"gender\":\"\", \"politic\":\"\", \"religion\":\"\"}";
     }
-?>

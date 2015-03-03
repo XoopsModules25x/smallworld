@@ -22,19 +22,18 @@ include_once("../../mainfile.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 global $xoopsUser,$xoopsLogger;
-	$xoopsLogger->activated = false;
-	$db = new SmallWorldDB;
-	$mail = new smallworld_mail;
+    $xoopsLogger->activated = false;
+    $db = new SmallWorldDB;
+    $mail = new smallworld_mail;
 
-	$db->handlePosts ();
-	
-	// Create user albums etc
-	$img = new smallWorldImages;
-	$userID = $xoopsUser->getVar('uid');
-	if ($_POST['function'] != 'edit') {
-		$img->createAlbum ($userID);
-		if(smallworld_GetModuleOption('smallworldusemailnotis', $repmodule='smallworld') != 0) {
-			$mail->sendMails ($userID, $userID, 'register', $link=null, array()); 
-		}
-	}
-?>
+    $db->handlePosts ();
+    
+    // Create user albums etc
+    $img = new smallWorldImages;
+    $userID = $xoopsUser->getVar('uid');
+    if ($_POST['function'] != 'edit') {
+        $img->createAlbum ($userID);
+        if(smallworld_GetModuleOption('smallworldusemailnotis', $repmodule='smallworld') != 0) {
+            $mail->sendMails ($userID, $userID, 'register', $link=null, array());
+        }
+    }

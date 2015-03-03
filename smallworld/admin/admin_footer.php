@@ -28,5 +28,4 @@ echo "<div class='adminfooter'>\n"
 
 echo "<span style='margin: 27%; height: 50px; position: relative;'>"._AM_SMALLWORLD_SP."</span>";
 
-
 xoops_cp_footer();

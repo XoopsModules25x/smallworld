@@ -25,10 +25,10 @@ class SmallWorldUser
 
     /**
      * @Check if user has profile
-     * @param int $userID
+     * @param  int $userID
      * @return int
-     */ 
-    function CheckIfProfile ($userID) 
+     */
+    function CheckIfProfile ($userID)
     {
         global $xoopsUser, $xoopsDB;
         $i=0;
@@ -47,28 +47,29 @@ class SmallWorldUser
             // if not xoopsUser ie anonymous user
             $i = 0;
         }
+
         return $i;
     }
 
     /**
      * @Create user
-     * @param int $userid
+     * @param  int  $userid
      * @return void
-     */       
-     function createUser ($userid) 
+     */
+     function createUser ($userid)
     {
         global $xoopsUser, $xoopsDB;
         $a = new $xoopsUser($userid);
         $b = $a->uname();
         $sql = "INSERT INTO ".$xoopsDB->prefix('smallworld_user')." (userid) VALUES (".intval($userid).")";
         $result = $xoopsDB->queryF($sql);
-    } 
+    }
 
     /**
      * @Check is user is smallworld user
      * @return void
-     */      
-    function chkUser() 
+     */
+    function chkUser()
     {
         global $xoopsUser,$xoopsTpl;
         $greeting = "<br>";
@@ -81,16 +82,17 @@ class SmallWorldUser
 
     /**
      * @Check is user is friend
-     * @param int $user
-     * @param int $userID
+     * @param  int $user
+     * @param  int $userID
      * @return int
-     */         
+     */
     function friendcheck($user,$userID)
     {
         global $xoopsUser, $xoopsDB;
         $respons = array();
         if ($user == $userID) {
             $respons[0] = 2;
+
             return $respons;
         }
         $sql  = "SELECT * FROM ".$xoopsDB->prefix('smallworld_friends')." WHERE me = '".intval($user)."' AND you = '".intval($userID)."'";
@@ -112,32 +114,34 @@ class SmallWorldUser
             if ($i == 1 AND $row['status']==2) {
                 $respons[0] = 2;
             }
+
                 return $respons;
         }
     }
 
     /**
      * @Get name from userid
-     * @param int $userID
+     * @param  int    $userID
      * @return string
-     */       
+     */
     function getName($userID){
         global $xoopsUser, $xoopsDB;
         $sql = "SELECT username FROM ".$xoopsDB->prefix('smallworld_user')." WHERE userid = '".intval($userID)."'";
         $result = $xoopsDB->queryf($sql);
-        while ($row = $xoopsDB->fetchArray($result)) { 
+        while ($row = $xoopsDB->fetchArray($result)) {
             $name = $row['username'];
         }
+
         return $name;
     }
 
     /**
      * @Check if user is follower
-     * @param int $userid
-     * @param int $friendid
+     * @param  int $userid
+     * @param  int $friendid
      * @return int
-     */        
-    function following_or ($userid, $friendid) 
+     */
+    function following_or ($userid, $friendid)
     {
         global $xoopsDB,$xoopsUser;
         $respons[0] = 0;
@@ -159,15 +163,16 @@ class SmallWorldUser
             }
         } else {
         }
+
         return $respons;
     }
     
     /**
      * @Get requests
-     * @param int $userid
+     * @param  int   $userid
      * @return array
-     */         
-    function getRequests($userid) 
+     */
+    function getRequests($userid)
     {
         global $xoopsDB,$xoopsUser;
         $msg=array();
@@ -195,21 +200,23 @@ class SmallWorldUser
             $msg[$start]['cnt'] = $start;
             $start++;
         }
+
         return $msg;
     }
 
     /**
      * @Get partner
-     * @param string $name
+     * @param  string $name
      * @return int
-     */     
+     */
     function spousexist($name) {
         global $xoopsUser, $xoopsDB;
         $sql = "SELECT * FROM ".$xoopsDB->prefix('smallworld_user')." WHERE username = '".$name."'";
         $result = $xoopsDB->queryF($sql);
         $i = $xoopsDB->getRowsNum($result);
+
         return $i;
-    }    
+    }
     
     /**
      * Get all users
@@ -233,4 +240,3 @@ class SmallWorldUser
         }
     }
 }
-?>

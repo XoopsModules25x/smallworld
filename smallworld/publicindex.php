@@ -1,4 +1,4 @@
-<?php	
+<?php
 /**
 * You may not change or alter any portion of this comment or credits
 * of supporting developers from this source code or any supporting source code
@@ -35,7 +35,7 @@ global $xoopsUser, $xoTheme,$xoopsConfig,$xoopsLogger;
     $xoopsLogger->activated = false;
      /* error_reporting(E_ALL); */
     
-	$set = smallworld_checkPrivateOrPublic ();
+    $set = smallworld_checkPrivateOrPublic ();
     $dBase = new SmallWorldDB;
     $check = new SmallWorldUser;
     
@@ -46,14 +46,14 @@ global $xoopsUser, $xoTheme,$xoopsConfig,$xoopsLogger;
     $module_handler =& xoops_gethandler('module');
             $module = $module_handler->getByDirname('smallworld');
             $config_handler =& xoops_gethandler('config');
-            $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));						   
-    $pub = smallworld_checkUserPubPostPerm ();   
-    $wall = new Public_Wall_Updates; 
+            $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+    $pub = smallworld_checkUserPubPostPerm ();
+    $wall = new Public_Wall_Updates;
     $updates = $wall->updates(0, $pub);
      
     if ($id > 0) {
         $xoopsTpl->assign('ownerofpage', $id);
-        $xoopsTpl->assign('myusername',$username); 
+        $xoopsTpl->assign('myusername',$username);
     }
     
     if ($xoopsUser) {
@@ -69,21 +69,21 @@ global $xoopsUser, $xoTheme,$xoopsConfig,$xoopsLogger;
         $form = new SmallWorldForm;
             $usersettings = $form->usersettings ($id, $selected=null);
             $xoopsTpl->assign('usersetting', $usersettings);
-		
-			$xuser = new SmallWorldProfile;
+        
+            $xuser = new SmallWorldProfile;
 
-			$menu_home = "<a href='".XOOPS_URL."/modules/smallworld/'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/house.png'>"._SMALLWORLD_HOME."</a>";
-            $menu_register = ($profile < 2) ? "<a href='".XOOPS_URL."/modules/smallworld/register.php'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/join.jpg'>"._MB_SYSTEM_RNOW."</a>":'';			
-			    
-			$updatesarray       =   $wall->updates(0, $pub);                      
-			$wall->ParsePubArray ($updatesarray, $id);
-			
-			$xoopsTpl->assign('menu_home',$menu_home);
+            $menu_home = "<a href='".XOOPS_URL."/modules/smallworld/'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/house.png'>"._SMALLWORLD_HOME."</a>";
+            $menu_register = ($profile < 2) ? "<a href='".XOOPS_URL."/modules/smallworld/register.php'><img id='menuimg' src='".XOOPS_URL."/modules/smallworld/images/join.jpg'>"._MB_SYSTEM_RNOW."</a>":'';
+                
+            $updatesarray       =   $wall->updates(0, $pub);
+            $wall->ParsePubArray ($updatesarray, $id);
+            
+            $xoopsTpl->assign('menu_home',$menu_home);
             $xoopsTpl->assign('menu_register',$menu_register);
-			$xoopsTpl->assign('pagename','publicindex');			
-            $xoopsTpl->assign('check',$profile); 
+            $xoopsTpl->assign('pagename','publicindex');
+            $xoopsTpl->assign('check',$profile);
             $xoopsTpl->assign('access',$set['access']);
-		           
+                   
            
-		
+        
 include(XOOPS_ROOT_PATH."/footer.php");

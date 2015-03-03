@@ -1,4 +1,4 @@
-<?php	
+<?php
 /**
 * You may not change or alter any portion of this comment or credits
 * of supporting developers from this source code or any supporting source code
@@ -83,4 +83,3 @@ foreach ($mids as $mid) {
     }
 }
 $tpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/smallworld_userinfo.html');
-?>

@@ -144,6 +144,7 @@ class UploadHandler
 
     protected function get_full_url() {
         $https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+
         return
             ($https ? 'https://' : 'http://').
             (!empty($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'].'@' : '').
@@ -155,6 +156,7 @@ class UploadHandler
 
     protected function get_user_id() {
         @session_start();
+
         return session_id();
     }
 
@@ -162,12 +164,14 @@ class UploadHandler
         if ($this->options['user_dirs']) {
             return $this->get_user_id().'/';
         }
+
         return '';
     }
 
     protected function get_upload_path($file_name = null, $version = null) {
         $file_name = $file_name ? $file_name : '';
         $version_path = empty($version) ? '' : $version.'/';
+
         return $this->options['upload_dir'].$this->get_user_path()
             .$version_path.$file_name;
     }
@@ -184,9 +188,11 @@ class UploadHandler
             if ($version) {
                 $url .= '&version='.rawurlencode($version);
             }
+
             return $url.'&download=1';
         }
         $version_path = empty($version) ? '' : rawurlencode($version).'/';
+
         return $this->options['upload_url'].$this->get_user_path()
             .$version_path.rawurlencode($file_name);
     }
@@ -210,6 +216,7 @@ class UploadHandler
         if ($size < 0) {
             $size += 2.0 * (PHP_INT_MAX + 1);
         }
+
         return $size;
     }
 
@@ -217,6 +224,7 @@ class UploadHandler
         if ($clear_stat_cache) {
             clearstatcache(true, $file_path);
         }
+
         return $this->fix_integer_overflow(filesize($file_path));
 
     }
@@ -226,6 +234,7 @@ class UploadHandler
         if (is_file($file_path) && $file_name[0] !== '.') {
             return true;
         }
+
         return false;
     }
 
@@ -248,8 +257,10 @@ class UploadHandler
                 }
             }
             $this->set_file_delete_properties($file);
+
             return $file;
         }
+
         return null;
     }
 
@@ -258,6 +269,7 @@ class UploadHandler
         if (!is_dir($upload_dir)) {
             return array();
         }
+
         return array_values(array_filter(array_map(
             array($this, $iteration_method),
             scandir($upload_dir)
@@ -291,6 +303,7 @@ class UploadHandler
             if ($file_path !== $new_file_path) {
                 return copy($file_path, $new_file_path);
             }
+
             return true;
         }
         $new_width = $img_width * $scale;
@@ -334,6 +347,7 @@ class UploadHandler
         // Free up memory (imagedestroy does not delete files):
         @imagedestroy($src_img);
         @imagedestroy($new_img);
+
         return $success;
     }
 
@@ -353,22 +367,26 @@ class UploadHandler
             case 'k':
                 $val *= 1024;
         }
+
         return $this->fix_integer_overflow($val);
     }
 
     protected function validate($uploaded_file, $file, $error, $index) {
         if ($error) {
             $file->error = $this->get_error_message($error);
+
             return false;
         }
         $content_length = $this->fix_integer_overflow(intval($_SERVER['CONTENT_LENGTH']));
         $post_max_size = $this->get_config_bytes(ini_get('post_max_size'));
         if ($post_max_size && ($content_length > $post_max_size)) {
             $file->error = $this->get_error_message('post_max_size');
+
             return false;
         }
         if (!preg_match($this->options['accept_file_types'], $file->name)) {
             $file->error = $this->get_error_message('accept_file_types');
+
             return false;
         }
         if ($uploaded_file && is_uploaded_file($uploaded_file)) {
@@ -381,44 +399,53 @@ class UploadHandler
                 $file->size > $this->options['max_file_size'])
             ) {
             $file->error = $this->get_error_message('max_file_size');
+
             return false;
         }
         if ($this->options['min_file_size'] &&
             $file_size < $this->options['min_file_size']) {
             $file->error = $this->get_error_message('min_file_size');
+
             return false;
         }
         if (is_int($this->options['max_number_of_files']) && (
                 $this->count_file_objects() >= $this->options['max_number_of_files'])
             ) {
             $file->error = $this->get_error_message('max_number_of_files');
+
             return false;
         }
         list($img_width, $img_height) = @getimagesize($uploaded_file);
         if (is_int($img_width)) {
             if ($this->options['max_width'] && $img_width > $this->options['max_width']) {
                 $file->error = $this->get_error_message('max_width');
+
                 return false;
             }
             if ($this->options['max_height'] && $img_height > $this->options['max_height']) {
                 $file->error = $this->get_error_message('max_height');
+
                 return false;
             }
             if ($this->options['min_width'] && $img_width < $this->options['min_width']) {
                 $file->error = $this->get_error_message('min_width');
+
                 return false;
             }
             if ($this->options['min_height'] && $img_height < $this->options['min_height']) {
                 $file->error = $this->get_error_message('min_height');
+
                 return false;
             }
         }
+
         return true;
     }
 
     protected function upcount_name_callback($matches) {
         $index = isset($matches[1]) ? intval($matches[1]) + 1 : 1;
         $ext = isset($matches[2]) ? $matches[2] : '';
+
         return ' ('.$index.')'.$ext;
     }
 
@@ -444,6 +471,7 @@ class UploadHandler
             }
             $name = $this->upcount_name($name);
         }
+
         return $name;
     }
 
@@ -461,6 +489,7 @@ class UploadHandler
             preg_match('/^image\/(gif|jpe?g|png)/', $type, $matches)) {
             $name .= '.'.$matches[1];
         }
+
         return $name;
     }
 
@@ -506,6 +535,7 @@ class UploadHandler
         $success = imagejpeg($image, $file_path);
         // Free up memory (imagedestroy does not delete files):
         @imagedestroy($image);
+
         return $success;
     }
 
@@ -514,19 +544,19 @@ class UploadHandler
         global $xoopsUser, $SmallWorldDB;
         $file = new stdClass();
         
-        $file->name = $this->get_file_name($name, $type, $index, $content_range);       
+        $file->name = $this->get_file_name($name, $type, $index, $content_range);
         $file->size = $this->fix_integer_overflow(intval($size));
         $file->type = $type;
         
         // Save to database for later use
         $db   = new SmallWorldDB;
-		$userid = $xoopsUser->getVar('uid');
+        $userid = $xoopsUser->getVar('uid');
         
         // Generate new name for file
         $file->name = basename(stripslashes($name));
-		$file->name = time().rand(0,99999).".".$this->getFileExtension($name);
+        $file->name = time().rand(0,99999).".".$this->getFileExtension($name);
         $img = XOOPS_URL."/uploads/albums_smallworld/".$userid."/".$file->name;
-		$db->saveImage ("'', '".$userid."', '".$file->name."', '".addslashes($img)."', '".time()."', ''");
+        $db->saveImage ("'', '".$userid."', '".$file->name."', '".addslashes($img)."', '".time()."', ''");
         
         if ($this->validate($uploaded_file, $file, $error, $index)) {
             $this->handle_form_data($file, $index);
@@ -581,14 +611,16 @@ class UploadHandler
             $file->size = $file_size;
             $this->set_file_delete_properties($file);
         }
+
         return $file;
     }
 
-    	//function to return file extension from a path or file name
-	function getFileExtension($path){
-	  $parts=pathinfo($path);
-	  return $parts['extension'];
-	}
+        //function to return file extension from a path or file name
+    function getFileExtension($path){
+      $parts=pathinfo($path);
+
+      return $parts['extension'];
+    }
     
     protected function readfile($file_path) {
         return readfile($file_path);
@@ -609,6 +641,7 @@ class UploadHandler
                 stripslashes($_REQUEST['redirect']) : null;
             if ($redirect) {
                 $this->header('Location: '.sprintf($redirect, rawurlencode($json)));
+
                 return;
             }
             $this->head();
@@ -621,6 +654,7 @@ class UploadHandler
             }
             $this->body($json);
         }
+
         return $content;
     }
 
@@ -649,6 +683,7 @@ class UploadHandler
     protected function download() {
         if (!$this->options['download_via_php']) {
             $this->header('HTTP/1.1 403 Forbidden');
+
             return;
         }
         $file_name = $this->get_file_name_param();
@@ -719,6 +754,7 @@ class UploadHandler
                 $this->options['param_name'] => $this->get_file_objects()
             );
         }
+
         return $this->generate_response($response, $print_response);
     }
 
@@ -771,6 +807,7 @@ class UploadHandler
                 $content_range
             );
         }
+
         return $this->generate_response(
             array($this->options['param_name'] => $files),
             $print_response
@@ -780,14 +817,14 @@ class UploadHandler
     public function delete($print_response = true) {
         global $xoopsUser;
         $userid = $xoopsUser->getVar('uid');
-		$db   	= new SmallWorldDB;
+        $db    = new SmallWorldDB;
         $file_name = $this->get_file_name_param();
         $file_path = $this->get_upload_path($file_name);
         $success = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
         
         // Delete file based on user and filename
-			$db->DeleteImage ($userid, $file_name);
-			$db->DeleteImage ($userid, 'Thumbs.db');
+            $db->DeleteImage ($userid, $file_name);
+            $db->DeleteImage ($userid, 'Thumbs.db');
         
         if ($success) {
             foreach($this->options['image_versions'] as $version => $options) {
@@ -799,6 +836,7 @@ class UploadHandler
                 }
             }
         }
+
         return $this->generate_response(array('success' => $success), $print_response);
     }
 

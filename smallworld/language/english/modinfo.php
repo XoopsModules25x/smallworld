@@ -1,8 +1,8 @@
 <?php
 /**
 * You may not change or alter any portion of this comment or credits
-* of supporting developers from this source code or any supporting 
-* source code which is considered copyrighted (c) material of the 
+* of supporting developers from this source code or any supporting
+* source code which is considered copyrighted (c) material of the
 * original comment or credit authors.
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -101,5 +101,4 @@ define ('_MI_SHOWPUBLICPAGE_DESC', 'Default is "All users" wich means that all u
     If you use a limiter and not newer users are shown here, do a smallworld module update in administration to <br>
     show the latest users.
         ');
-define ('_MI_SMALLWORLD_ALL', 'All users');        
-?>
+define ('_MI_SMALLWORLD_ALL', 'All users');

@@ -48,8 +48,10 @@ class SmallworldUploadHandler
             $file->url = $this->upload_url.rawurlencode($file->name);
             $file->thumbnail = is_file($this->thumbnails_dir.$file_name) ?
                 $this->thumbnails_url.rawurlencode($file->name) : null;
+
             return $file;
         }
+
         return null;
     }
 
@@ -99,31 +101,33 @@ class SmallworldUploadHandler
         // Free up memory (imagedestroy does not delete files):
         @imagedestroy($src_img);
         @imagedestroy($thumbnail_img);
+
         return $success;
     }
     
-	//function to return file extension from a path or file name
-	function getFileExtension($path){
-	  $parts=pathinfo($path);
-	  return $parts['extension'];
-	}
-	
+    //function to return file extension from a path or file name
+    function getFileExtension($path){
+      $parts=pathinfo($path);
+
+      return $parts['extension'];
+    }
+    
     private function handle_file_upload($uploaded_file, $name, $size, $type, $error) {
         global $xoopsUser;
-		$file = new stdClass();
-		$db   = new SmallWorldDB;
-		$userid = $xoopsUser->getVar('uid');
-		
-		// Generate new name for file
+        $file = new stdClass();
+        $db   = new SmallWorldDB;
+        $userid = $xoopsUser->getVar('uid');
+        
+        // Generate new name for file
         //$file->name = basename(stripslashes($name));
-		$file->name = time().rand(0,99999).".".$this->getFileExtension($name);			 
+        $file->name = time().rand(0,99999).".".$this->getFileExtension($name);
         $file->size = intval($size);
         $file->type = $type;
-		$img = XOOPS_URL."/uploads/albums_smallworld/".$userid."/".$file->name;
-		
-		// Save to database for later use
-		$db->saveImage ("'', '".$userid."', '".$file->name."', '".addslashes($img)."', '".time()."', ''");
-		
+        $img = XOOPS_URL."/uploads/albums_smallworld/".$userid."/".$file->name;
+        
+        // Save to database for later use
+        $db->saveImage ("'', '".$userid."', '".$file->name."', '".addslashes($img)."', '".time()."', ''");
+        
         if (!$error && $file->name) {
             if ($file->name[0] === '.') {
                 $file->name = substr($file->name, 1);
@@ -160,12 +164,13 @@ class SmallworldUploadHandler
         } else {
             $file->error = $error;
         }
+
         return $file;
     }
     
     public function get() {
         $file_name = isset($_REQUEST['file']) ?
-            basename(stripslashes($_REQUEST['file'])) : null; 
+            basename(stripslashes($_REQUEST['file'])) : null;
         if ($file_name) {
             $info = $this->get_file_object($file_name);
         } else {
@@ -230,17 +235,17 @@ class SmallworldUploadHandler
     }
     
     public function delete() {
-		global $xoopsUser;
-		$userid = $xoopsUser->getVar('uid');
-		$db   	= new SmallWorldDB;
+        global $xoopsUser;
+        $userid = $xoopsUser->getVar('uid');
+        $db    = new SmallWorldDB;
         $file_name = isset($_REQUEST['file']) ?
             basename(stripslashes($_REQUEST['file'])) : null;
         $file_path = $this->upload_dir.$file_name;
-		$img = XOOPS_URL."/uploads/albums_smallworld/".$userid."/".$file->name;
-		
-		// Delete file based on user and filename
-			$db->DeleteImage ($userid, $file_name);
-			$db->DeleteImage ($userid, 'Thumbs.db');
+        $img = XOOPS_URL."/uploads/albums_smallworld/".$userid."/".$file->name;
+        
+        // Delete file based on user and filename
+            $db->DeleteImage ($userid, $file_name);
+            $db->DeleteImage ($userid, 'Thumbs.db');
         $thumbnail_path = $this->thumbnails_dir.$file_name;
         $success = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
         if ($success && is_file($thumbnail_path)) {
@@ -250,4 +255,3 @@ class SmallworldUploadHandler
         echo json_encode($success);
     }
 }
-?>

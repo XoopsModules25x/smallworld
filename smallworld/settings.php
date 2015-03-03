@@ -25,12 +25,12 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 global $xoopsUser,$xoopsLogger;
 $xoopsLogger->activated = false;
 
-	if ($xoopsUser) {
-		$check = new SmallWorldUser;
-		$db = new SmallWorldDB;
+    if ($xoopsUser) {
+        $check = new SmallWorldUser;
+        $db = new SmallWorldDB;
         $id = $xoopsUser->getVar('uid');
         $settings = array();
-        if (isset($_POST['posts']) && isset($_POST['comments'])) {                      
+        if (isset($_POST['posts']) && isset($_POST['comments'])) {
             $post = serialize(array(
                 'posts' => $_POST['posts'],
                 'comments' => $_POST['comments'],
@@ -49,5 +49,3 @@ $xoopsLogger->activated = false;
     } else {
         header('HTTP/1.1 403 Forbidden');
     }
-				
-?>

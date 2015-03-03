@@ -266,8 +266,7 @@ $modversion['config'][$i]['default'] = array(   'realname',
                                                 'screennames',
                                                 'streetadress',
                                                 'presentcity',
-                                                'country');    
-
+                                                'country');
 
 // Module is private or public
 $i++;
@@ -289,7 +288,7 @@ $modversion['config'][$i]['description'] = '_MI_SHOWPUBLICPAGE_DESC';
 $modversion['config'][$i]['formtype'] = 'select_multi';
 $modversion['config'][$i]['valuetype'] = 'array';
 $modversion['config'][$i]['default'] = 0;
-$modversion['config'][$i]['options'] = array_flip($obj); 
+$modversion['config'][$i]['options'] = array_flip($obj);
 
 $i++;
 $modversion['config'][$i]['name'] = 'smallworldUseGoogleMaps';
@@ -300,8 +299,6 @@ $modversion['config'][$i]['valuetype'] = 'int';
 $modversion['config'][$i]['default'] = 1;
 
 // Search
-$modversion['hasSearch'] = 1;            
+$modversion['hasSearch'] = 1;
 $modversion['search']['file'] = "include/search.inc.php";
-$modversion['search']['func'] = "smallworld_search";                                
-
-?>
+$modversion['search']['func'] = "smallworld_search";

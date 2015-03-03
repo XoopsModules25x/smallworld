@@ -19,7 +19,7 @@
 * @ID:					$Id: help.php 9412 2012-04-30 04:07:58Z beckmi $
 **/
 
-require_once 'admin_header.php'; 
+require_once 'admin_header.php';
 require_once '../../../include/cp_header.php';
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
@@ -34,31 +34,30 @@ $admin = new SmallworldAdmin();
 $tpl = new XoopsTpl();
 
 // template assignments
-	$xoopsTpl->assign('lang_help',_AM_SMALLWORLD_HELP);
-	
-	// help file from admin
-	$xoopsTpl->assign('lang_hlp_about',_AM_SMALLWORLD_HELP_ABOUT);
-	$xoopsTpl->assign('lang_hlp_preface',_AM_SMALLWORLD_HELP_PREFACE);
-	$xoopsTpl->assign('lang_hlp_requirements_t',_AM_SMALLWORLD_HELP_HEADER_REQUIREMENTS);
-	$xoopsTpl->assign('lang_hlp_requirements',_AM_SMALLWORLD_HELP_REQUIREMENTS);
-	$xoopsTpl->assign('lang_hlp_recommended_t',_AM_SMALLWORLD_HELP_HEADER_RECOMMENDED);
-	$xoopsTpl->assign('lang_hlp_recommended',_AM_SMALLWORLD_HELP_RECOMMENDED);
-	$xoopsTpl->assign('lang_hlp_installation_t',_AM_SMALLWORLD_HELP_HEADER_INSTALLATION);
-	$xoopsTpl->assign('lang_hlp_firsttime',_AM_SMALLWORLD_HELP_FIRSTTIMEINSTALL);
-	$xoopsTpl->assign('lang_hlp_hostedplatform_t',_AM_SMALLWORLD_HELP_HEADER_HOSTED_PLATFORM);
-	$xoopsTpl->assign('lang_hlp_hostedplatform',_AM_SMALLWORLD_HELP_HOSTED_PLATFORM);
-	$xoopsTpl->assign('lang_hlp_upgrading_t',_AM_SMALLWORLD_HELP_HEADER_UPGRADING);
-	$xoopsTpl->assign('lang_hlp_upgrading',_AM_SMALLWORLD_HELP_UPGRADING);
-	$xoopsTpl->assign('lang_hlp_faq_t',_AM_SMALLWORLD_HELP_HEADER_FAQ);
-	$xoopsTpl->assign('lang_hlp_commen1_t',_AM_SMALLWORLD_HELP_HEADER_COMMENPROBLEMS1);
-	$xoopsTpl->assign('lang_hlp_commen1',_AM_SMALLWORLD_HELP_COMMENPROBLEMS1);
-	$xoopsTpl->assign('lang_hlp_contacts_t',_AM_SMALLWORLD_HELP_HEADER_CONTACTS);
-	$xoopsTpl->assign('lang_hlp_otherhelp',_AM_SMALLWORLD_HELP_OTHERHELP);
-	
-	$xoopsTpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/admin_help.html');
-	
-	global $xoTheme; 
-	$xoTheme->addStyleSheet('modules/smallworld/css/SmallworldAdmin.css');
-	
+    $xoopsTpl->assign('lang_help',_AM_SMALLWORLD_HELP);
+    
+    // help file from admin
+    $xoopsTpl->assign('lang_hlp_about',_AM_SMALLWORLD_HELP_ABOUT);
+    $xoopsTpl->assign('lang_hlp_preface',_AM_SMALLWORLD_HELP_PREFACE);
+    $xoopsTpl->assign('lang_hlp_requirements_t',_AM_SMALLWORLD_HELP_HEADER_REQUIREMENTS);
+    $xoopsTpl->assign('lang_hlp_requirements',_AM_SMALLWORLD_HELP_REQUIREMENTS);
+    $xoopsTpl->assign('lang_hlp_recommended_t',_AM_SMALLWORLD_HELP_HEADER_RECOMMENDED);
+    $xoopsTpl->assign('lang_hlp_recommended',_AM_SMALLWORLD_HELP_RECOMMENDED);
+    $xoopsTpl->assign('lang_hlp_installation_t',_AM_SMALLWORLD_HELP_HEADER_INSTALLATION);
+    $xoopsTpl->assign('lang_hlp_firsttime',_AM_SMALLWORLD_HELP_FIRSTTIMEINSTALL);
+    $xoopsTpl->assign('lang_hlp_hostedplatform_t',_AM_SMALLWORLD_HELP_HEADER_HOSTED_PLATFORM);
+    $xoopsTpl->assign('lang_hlp_hostedplatform',_AM_SMALLWORLD_HELP_HOSTED_PLATFORM);
+    $xoopsTpl->assign('lang_hlp_upgrading_t',_AM_SMALLWORLD_HELP_HEADER_UPGRADING);
+    $xoopsTpl->assign('lang_hlp_upgrading',_AM_SMALLWORLD_HELP_UPGRADING);
+    $xoopsTpl->assign('lang_hlp_faq_t',_AM_SMALLWORLD_HELP_HEADER_FAQ);
+    $xoopsTpl->assign('lang_hlp_commen1_t',_AM_SMALLWORLD_HELP_HEADER_COMMENPROBLEMS1);
+    $xoopsTpl->assign('lang_hlp_commen1',_AM_SMALLWORLD_HELP_COMMENPROBLEMS1);
+    $xoopsTpl->assign('lang_hlp_contacts_t',_AM_SMALLWORLD_HELP_HEADER_CONTACTS);
+    $xoopsTpl->assign('lang_hlp_otherhelp',_AM_SMALLWORLD_HELP_OTHERHELP);
+    
+    $xoopsTpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/admin_help.html');
+    
+    global $xoTheme;
+    $xoTheme->addStyleSheet('modules/smallworld/css/SmallworldAdmin.css');
+    
 xoops_cp_footer();
-?>

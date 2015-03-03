@@ -2,7 +2,7 @@
 // Upgrade functions used when adding or altering tables etc between versions
 /**
  * Function to do the creatind
- * 
+ *
  */
 function smallworld_doUpgrade () {
     global $xoopsDB, $xoopsUser;
@@ -36,6 +36,7 @@ function smallworld_adminAvatarRename () {
 function smallworld_DoTableExists($tablename) {
     global $xoopsDB;
     $result = $xoopsDB->queryF("SHOW TABLES LIKE '$tablename'");
+
     return ($xoopsDB->getRowsNum($result) > 0);
 }
 
@@ -58,4 +59,3 @@ function varcharToBlog () {
     $sql ="ALTER TABLE ".$xoopsDB->prefix('smallworld_comments')." CHANGE comment comment TEXT";
     $result = $xoopsDB->queryF($sql);
  }
-?>

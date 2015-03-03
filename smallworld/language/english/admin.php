@@ -1,8 +1,8 @@
 <?php
 /**
 * You may not change or alter any portion of this comment or credits
-* of supporting developers from this source code or any supporting 
-* source code which is considered copyrighted (c) material of the 
+* of supporting developers from this source code or any supporting
+* source code which is considered copyrighted (c) material of the
 * original comment or credit authors.
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -25,8 +25,8 @@
 // English language file for Smallworld Admin.php
 
 // tab titles
-	define('_AM_SMALLWORLD_ADMINMESSAGESEND','Post to all'); 
-	define('_AM_SMALLWORLD_LOGSMAINTNANCE','Database maintenance'); 
+    define('_AM_SMALLWORLD_ADMINMESSAGESEND','Post to all');
+    define('_AM_SMALLWORLD_LOGSMAINTNANCE','Database maintenance');
 
 // tab one in admin section
 define('_AM_SMALLWORLD_MODULEINSTALL','Module version installed');
@@ -38,8 +38,8 @@ define('_AM_SMALLWORLD_TOPCHATTERS','Most active users overall');
 define('_AM_SMALLWORLD_TOPCHATTERS_TODAY','Most active users in last 24 hours');
 define('_AM_SMALLWORLD_TOPRATEDUSERS','Highest rated users');
 define('_AM_SMALLWORLD_BOTTOMRATEDUSERS','Worst rated users');
-define('_AM_SMALLWORLD_STATISTICS_TITLE','Smallworld Statistics'); 
-define('_AM_SMALLWORLD_MODULEINFO','Module info'); 
+define('_AM_SMALLWORLD_STATISTICS_TITLE','Smallworld Statistics');
+define('_AM_SMALLWORLD_MODULEINFO','Module info');
 define('_AM_SMALLWORLD_USERSTATS','User stats');
 define('_AM_SMALLWORLD_NONEYET','No messages in database');
 define('_AM_SMALLWORLD_NO','none');
