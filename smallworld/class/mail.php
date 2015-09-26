@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/mail.php $
-* @Last committed:		$Revision: 11574 $
+* @Last committed:		$Revision: 12175 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:04:57 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: mail.php 11574 2013-05-22 13:04:57Z djculex $
+* @Last changed date:	$Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
+* @ID:					$Id: mail.php 12175 2013-10-15 17:41:43Z djculex $
 **/
 
 include_once XOOPS_ROOT_PATH . '/class/mail/xoopsmultimailer.php';
@@ -35,7 +35,7 @@ class smallworld_mail {
 	 */
 	 
 	function sendMails ($fromUserID, $toUserID, $event, $link=null, array $data) {
-        global $xoopsConfig, $xoopsUser;	
+        global $xoopsConfig, $xoopsUser;      
 		$date = date('m-d-Y H:i:s',time());
 		$mail = new XoopsMultiMailer;
 		$wall = new Wall_Updates;
@@ -45,12 +45,11 @@ class smallworld_mail {
 		// From and To user ids
 		$FromUser = new xoopsUser($fromUserID);
 		 $from_avatar = $wall->Gravatar($fromUserID);
-		 $from_avatarlink = "<img class='left' src='".XOOPS_URL."/uploads/".$from_avatar."' height='90px' width='90px'>";
+		 $from_avatarlink = "<img class='left' src='".smallworld_getAvatarLink($fromUserID, $from_avatar)."' height='90px' width='90px'>";
 		
 		$ToUser = new xoopsUser($toUserID);
 		 $To_avatar = $wall->Gravatar($toUserID);
-		 $To_avatarlink = "<img class='left' src='".XOOPS_URL."/uploads/".$To_avatar."' height='90px' width='90px'>";
-		 
+		 $To_avatarlink = "<img class='left' src='".smallworld_getAvatarLink ($toUserID, $To_avatar)."' height='90px' width='90px'>";
 		// Senders username
 		$SendName = $FromUser->getVar('uname');
 		$SendNameUrl = "<a href='".XOOPS_URL."/modules/smallworld/userprofile.php?username=".$SendName."'>".$SendName."</a>";
@@ -64,7 +63,7 @@ class smallworld_mail {
 			$subject = _SMALLWORLD_MAIL_REGISTERSUBJECT.$xoopsConfig['sitename'];
 			
 			$registername = $SendName;
-			$To_avatarlink = "<img class='left' src='".XOOPS_URL."/modules/smallworld/images/genderless.png' height='90px' width='90px'>";
+			$To_avatarlink = "<img class='left' src='".smallworld_getAvatarLink ($fromUserID, $To_avatar)."' height='90px' width='90px'>";
 			
 			$tpl = new XoopsTpl();
 			$tpl->assign('registername',$registername);
@@ -112,7 +111,7 @@ class smallworld_mail {
 				$owner = Smallworld_getOwnerFromComment ($data['msg_id_fk']);              
 				 $OwnerUser = new xoopsUser($owner);
 				  $Owner_avatar = $wall->Gravatar($owner);
-				  $Owner_avatarlink = "<img class='left' src='".XOOPS_URL."/uploads/".$Owner_avatar."' height='90px' width='90px'>";
+				  $Owner_avatarlink = "<img class='left' src='".smallworld_getAvatarLink ($owner, $Owner_avatar)."' height='90px' width='90px'>";
 				  $OwnerName = $OwnerUser->getVar('uname');
 				  $OwnerNameUrl = "<a href='".XOOPS_URL."/modules/smallworld/userprofile.php?username=".$OwnerName."'>".$OwnerName."</a>";
 				
