@@ -13,10 +13,10 @@
 * @Author:                Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:            2011 Culex
 * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/xoops_version.php $
-* @Last committed:        $Revision: 11576 $
+* @Last committed:        $Revision: 11992 $
 * @Last changed by:        $Author: djculex $
-* @Last changed date:    $Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:                    $Id: xoops_version.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:    $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
+* @ID:                    $Id: xoops_version.php 11992 2013-08-31 18:06:22Z djculex $
 **/
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 
@@ -276,7 +276,7 @@ $modversion['config'][$i]['title'] = '_MI_SMALLWORLD_PRIVATEMODULE';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_PRIVATEMODULE_DESC';
 $modversion['config'][$i]['formtype'] = 'yesno';
 $modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
+$modversion['config'][$i]['default'] = 0;
 
 /**
 * Authorized groups to upload
@@ -290,6 +290,14 @@ $modversion['config'][$i]['formtype'] = 'select_multi';
 $modversion['config'][$i]['valuetype'] = 'array';
 $modversion['config'][$i]['default'] = 0;
 $modversion['config'][$i]['options'] = array_flip($obj); 
+
+$i++;
+$modversion['config'][$i]['name'] = 'smallworldUseGoogleMaps';
+$modversion['config'][$i]['title'] = '_MI_SMALLWORLD_USEGOOGLEMAPS';
+$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_USEGOOGLEMAPS_DESC';
+$modversion['config'][$i]['formtype'] = 'yesno';
+$modversion['config'][$i]['valuetype'] = 'int';
+$modversion['config'][$i]['default'] = 1;
 
 // Search
 $modversion['hasSearch'] = 1;            
