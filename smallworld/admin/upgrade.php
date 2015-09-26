@@ -8,6 +8,7 @@ function smallworld_doUpgrade () {
     global $xoopsDB, $xoopsUser;
     varcharToBlog ();
     smallworld_comToBlog ();
+    smallworld_adminAvatarRename ();
     if (smallworld_DoTableExists($xoopsDB->prefix('smallworld_settings'))) {
         // Table exists
         Return false;
@@ -22,6 +23,14 @@ function smallworld_doUpgrade () {
         $sql .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
         $result = $xoopsDB->queryF($sql);
     }
+}
+
+function smallworld_adminAvatarRename () {
+    global $xoopsDB;
+    $sql = "update ".$xoopsDB->prefix('smallworld_admin')." set userimage = '' WHERE userimage = 'blank.gif' || userimage NOT REGEXP '\.(jpe?g|gif|png|bmp)'";
+    $sql2 = "update ".$xoopsDB->prefix('smallworld_user')." set userimage = '' WHERE userimage = 'blank.gif' || userimage NOT REGEXP '\.(jpe?g|gif|png|bmp)'";
+    $result = $xoopsDB->queryF($sql);
+    $result2 = $xoopsDB->queryF($sql2);
 }
 
 function smallworld_DoTableExists($tablename) {
@@ -46,7 +55,7 @@ function varcharToBlog () {
  */
  function smallworld_comToBlog () {
     global $xoopsDB;
-    $sql ="ALTER TABLE ".$xoopsDB->prefix('smallworld_comments')." CHANGE 'comments' 'comments' TEXT";
+    $sql ="ALTER TABLE ".$xoopsDB->prefix('smallworld_comments')." CHANGE comment comment TEXT";
     $result = $xoopsDB->queryF($sql);
  }
 ?>
