@@ -94,7 +94,13 @@
 										</div>										
 									<div id="smallworld_content">																							
 									 <{foreach item=post from=$walldata}>
-									<div class="smallworld_stbody" id="smallworld_stbody<{$post.msg_id}>">
+                                    <{php}>
+                                        if ( count($post.msg_id) < 1 ) {
+                                            echo _SMALLWORLD_EMPTYMSG;
+                                        }
+                                        
+                                    <{/php}>
+                                    <div class="smallworld_stbody" id="smallworld_stbody<{$post.msg_id}>">
 										<script type="text/javascript"> 
 												xoops_smallworld(document).ready(function(){
 													xoops_smallworld('#smallworld_stexpand<{$post.msg_id}>').oembed('<{$post.orimessage}>',{
@@ -191,12 +197,13 @@
 										<div class="smallworld_commentupdate" style="display:none" id="smallworld_commentbox<{$post.msg_id}>">
 											<div class="smallworld_stcommentimg">
 												<{if $xoopsUser}>
-                                                <img src="<{$myavatarlink}>" class='smallworld_small_face' <{$myavatar_highwide}>/>
+                                                <img src="<{$myavatarlink}>" class='smallworld_small_face' width="35px" height="35px"/>
                                                 <{else}>
-                                                <img src="<{$myavatarlink}>" class='smallworld_small_face' width="50px" height="50px"/>
+                                                <img src="<{$myavatarlink}>" class='smallworld_small_face' width="35px" height="35px"/>
                                                 <{/if}>
 											</div> 
-											<div class="smallworld_stcommenttext" >
+											
+                                            <div class="smallworld_stcommenttext" >
 												<form method="post" action="">
 													<textarea name="smallworld_comment" class="smallworld_comment" id="smallworld_ctextarea<{$post.msg_id}>"></textarea>
 													<br />
@@ -221,34 +228,7 @@
 					  </tr>
 					</table>	
 		</div>
-			<div id="friendInvitations_box" title="<{$smarty.const._SMALLWORLD_FRIENDSINVITATIONS}>">
-			<table border="0" class="smallworld_invitetable" cellspacing="0" cellpadding="0">
-			 <{foreach item=post from=$friendinvitations}>
-			 <tr>
-			  <th><{$smarty.const._SMALLWORLD_REALNAME}></th>
-			  <th></th>
-			  <th><{$smarty.const._SMALLWORLD_DATERECIEVED}></th>
-			  <th></th>
-			  <th>  <{$smarty.const._SMALLWORLD_ACTION}></th>
-			  <th></th>
-			 </tr>
-			 
-			 <tr>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			 </tr>
-			 
-			 <tr id="<{$post.cnt}>">
-			  <td><{$post.friendname}></td>
-			  <td><{$post.friendimage}></td>
-			  <td><{$post.frienddate}></td>
-			  <td><{$post.accept}></td><td><{$post.deny}></td><td><{$post.later}></td>
-			 </tr>
-				<{/foreach}>
-			</table>	
-	</div>
+        
     <{$usersetting}>
 	<div id="smallworldStatsDiv" title="<{$smarty.const._SMALLWORLD_STATS}>" style="display:none;"></div>
 	 <{else}>

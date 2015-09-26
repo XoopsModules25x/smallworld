@@ -78,8 +78,10 @@
 							<ul class="smallworld_index_headmenu">
 								<li><{$menu_home}></li>
 								<li><{$menu_profile}></li>
-								<li><{$menu_friends}></li>
-								<li><{$menu_gallery}></li>	
+								<{if $isuserafriend == 'yes'}>
+                                    <li><{$menu_friends}></li>
+                                    <li><{$menu_gallery}></li>
+                                <{/if}>    
 							</ul>
 							<br/> 
 							<br/>
@@ -388,33 +390,25 @@
 	</div>
 	<div id="resultMsgFollow" title="<{$smarty.const._SMALLWORLD_FRIENDSHIPFOLLOW}> <{$username}>">
 	</div>
-	<div id="friendInvitations_box" title="<{$smarty.const._SMALLWORLD_FRIENDSINVITATIONS}>">
-			<table border="0" class="smallworld_invitetable" cellspacing="0" cellpadding="0">
-             <{foreach item=post from=$friendinvitations}>
-			 <tr>
-			  <th><{$smarty.const._SMALLWORLD_REALNAME}></th>
-			  <th></th>
-			  <th><{$smarty.const._SMALLWORLD_DATERECIEVED}></th>
-			  <th></th>
-			  <th>  <{$smarty.const._SMALLWORLD_ACTION}></th>
-			  <th></th>
-			 </tr>
-			 
-			 <tr>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			 </tr>
-			 
-			 <tr id="<{$post.cnt}>">
-			  <td><{$post.friendname}></td>
-			  <td><{$post.friendimage}></td>
-			  <td><{$post.frienddate}></td>
-			  <td><{$post.accept}></td><td><{$post.deny}></td><td><{$post.later}></td>
-			 </tr>
-				<{/foreach}>
-			</table>	
-	</div>
+        <div id="friendInvitations_box" title="<{$smarty.const._SMALLWORLD_FRIENDSINVITATIONS}>">
+            <table border="0" class="smallworld_invitetable" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th><{$smarty.const._SMALLWORLD_REALNAME}></th>
+                    <th></th>
+                    <th><{$smarty.const._SMALLWORLD_DATERECIEVED}></th>
+                    <th></th>
+                    <th>  <{$smarty.const._SMALLWORLD_ACTION}></th>
+                    <th></th>
+                </tr>
+                <{foreach item=post from=$friendinvitations}>
+                <tr id="smallworldfriendrequest_<{$post.friendname}>">
+                    <td><{$post.friendname}></td>
+                    <td><{$post.friendimage}></td>
+                    <td><{$post.frienddate}></td>
+                    <td><{$post.accept}></td><td><{$post.deny}></td><td><{$post.later}></td>
+                </tr>
+                <{/foreach}>
+            </table>	
+        </div>
 	<{$usersetting}>
     <div id="smallworldStatsDiv" title="<{$smarty.const._SMALLWORLD_STATS}>" style="display:none;"></div>

@@ -9,8 +9,7 @@
 						<{else}>
 						<{/if}>
 			<div id="container">
-			<{if $userisfriend >= 2 or $isadminuser == 'YES' or $username == $myusername}>
-			
+            <{if $userisfriend == '2' || $isadminuser == 'YES' or $username == $myusername}>			
 		<{if $countimages == 0}>		
 				<h1><center><{$username}><{$smarty.const._SMALLWORLD_NOIMAGES}></center></h1>
 		 <{else}>
