@@ -321,10 +321,43 @@ xoops_smallworld(function() {
 		});
 	});
 
+// On focus to smallworld update textarea display tags & categories field
+xoops_smallworld('#smallworld_tagIMG').on('click', function() {
+    xoops_smallworld('#tags_input').slideToggle(300);
+    xoops_smallworld('#tags_input').focus().val("");
+    xoops_smallworld("#tags_input").tagit({
+        singleField: true,
+        singleFieldNode: xoops_smallworld('#tags_input'),
+        allowSpaces: true,
+        minLength: 2,
+        removeConfirmation: true,
+        tagSource: function( request, response ) {
+            //console.log("1");
+            xoops_smallworld.ajax({
+                url: smallworld_url+ 'tags.php', 
+                data: { term:request.term },
+                dataType: "json",
+                success: function( data ) {
+                    response( 
+                        xoops_smallworld.map( data, function( item ) {
+                            return {
+                                label: item.label+" ("+ item.id +")",
+                                value: item.value
+                            }
+                        }));
+                }
+            });       
+        }
+    });
+});
+
+xoops_smallworld('#tags_input').on("focus", function() {
+    xoops_smallworld(this).show();
+});
     
 // Autocomplete renders @username to scripted html code or Xcode
 function split(val) {
-    return val.split(/@/);
+    return val.split(/@\s*/);
 }
 
 function split_(val) {
@@ -332,56 +365,56 @@ function split_(val) {
 }
 
 function extractLast(term) {
-    return split( term ).pop();       
+    return split( term ).pop();
 }
 
 // Attach '@' to comment and message for user tagging
 xoops_smallworld(document).ready(function() {
     xoops_smallworld("#smallworld_update, .smallworld_comment").bind("keydown", function(event) {
-        // if TAB or autocomplete already is active
-        if (event.keyCode === 9 && xoops_smallworld(this).data("autocomplete").menu.active) { 
-            event.preventDefault(); 
-        } 
-        // if @ is pressed 
+    // if TAB or autocomplete already is active
+    if (event.keyCode === 9 && xoops_smallworld(this).data("autocomplete").menu.active) {
+            event.preventDefault();
+        }
+        // if @ is pressed
         if (event.keyCode === 50) {
             xoops_smallworld(this).autocomplete({
                 disabled: false,
-                minLength: 3,
+                minLength: 1,
                 source : function (request, response) {
-                   xoops_smallworld.ajax({
-                        // basePath is used for defining contecxt-path of the url.
-                        url: smallworld_url+ 'partnersearch.php',
-                        dataType: "json",
-                        // data to be sent to the server:
-                        data: {
-                            term : extractLast(request.term)
-                        },
-                        success: function(data,type) {
-                            console.log( data);
-                            items = data;
-                            response(items);
-                        },
-                        error: function(data,type){
-                            console.log( type);
-                        }
+                    xoops_smallworld.ajax({
+                    // basePath is used for defining contecxt-path of the url.
+                    url: smallworld_url+ 'search.php',
+                    dataType: "json",
+                    // data to be sent to the server:
+                    data: {
+                    term : extractLast(request.term)
+                    },
+                    success: function(data,type) {
+                        //console.log( data);
+                        items = data;
+                        response(items);
+                    },
+                    error: function(data,type){
+                        console.log( type);
+                    }
                     });
-                },   
+                },
                 focus: function() {
                     return false;
                 },
                 open: function(event, ui){
-                        xoops_smallworld("ul.ui-autocomplete li a").each(function(){
-                            var htmlString = xoops_smallworld(this).html().replace(/&lt;/g, '<');
-                            htmlString = htmlString.replace(/&gt;/g, '>');
-                            xoops_smallworld(this).html(htmlString);
-                            xoops_smallworld('.ui-autocomplete.ui-menu').width(200);
-                        });
+                    xoops_smallworld("ul.ui-autocomplete li a").each(function(){
+                        var htmlString = xoops_smallworld(this).html().replace(/&lt;/g, '<');
+                        htmlString = htmlString.replace(/&gt;/g, '>');
+                        xoops_smallworld(this).html(htmlString);
+                        xoops_smallworld('.ui-autocomplete.ui-menu').width(200);
+                    });
                 },
                 select: function(event, ui) {
                     var terms = split_(this.value);
                     terms.pop();
                     //Add @ to username
-                    ui.item.value = "@" + ui.item.value;   
+                    ui.item.value = "@" + ui.item.value;
                     terms.push(ui.item.value);
                     terms.push("");
                     // Join last username with @
@@ -393,15 +426,16 @@ xoops_smallworld(document).ready(function() {
                 }
             });
         } else {
-            xoops_smallworld(this).autocomplete({ disabled: true });
-        }
+                xoops_smallworld(this).autocomplete({ disabled: true });
+                xoops_smallworld(this).autocomplete( "close" );
+            }
     });
-});
+}); 
     
 	// Search for partner in smallworld users or accept username
     xoops_smallworld(function() {
 		xoops_smallworld("#partner").autocomplete({
-            source: smallworld_url+ 'partnersearch.php', 
+            source: smallworld_url+ 'search.php', 
             minLength:1,
             open: function(event, ui){
                 xoops_smallworld("ul.ui-autocomplete li a").each(function(){
@@ -410,6 +444,9 @@ xoops_smallworld(document).ready(function() {
                     xoops_smallworld(this).html(htmlString);
                     xoops_smallworld('.ui-autocomplete.ui-menu').width(200);
                 });
+            },
+            select: function(event, ui) {
+                xoops_smallworld("input#partner").val(ui.item.value);
             }
 		});
 	});
@@ -425,7 +462,7 @@ xoops_smallworld(document).ready(function() {
 	
 	// Search for user in smallworld users or test for new user
 	xoops_smallworld(function() {
-		xoops_smallworld("#smallworld_searchform").focus().select();
+		//xoops_smallworld("#smallworld_searchform").focus().select();
 		xoops_smallworld("#smallworld_searchform").autocomplete({
             source: smallworld_url+ 'search.php', 
             minLength:1,
@@ -475,7 +512,7 @@ xoops_smallworld(document).ready(function() {
 		
 	// Keep public as default checked in Update field
 	xoops_smallworld(function(){
-		xoops_smallworld("input[name=updatePublic] option[value='private']").attr('checked', false);
+		xoops_smallworld("input[name=updatePublic][value=1]").prop("checked", true);
 	});
 		
 	
