@@ -13,10 +13,10 @@
 * @Author:                Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:            2011 Culex
 * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/db.php $
-* @Last committed:        $Revision: 11723 $
+* @Last committed:        $Revision: 12175 $
 * @Last changed by:        $Author: djculex $
-* @Last changed date:    $Date: 2013-06-19 18:48:22 +0200 (on, 19 jun 2013) $
-* @ID:                    $Id: db.php 11723 2013-06-19 16:48:22Z djculex $
+* @Last changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
+* @ID:                    $Id: db.php 12175 2013-10-15 17:41:43Z djculex $
 **/
 
 class SmallWorldDB 
@@ -77,8 +77,8 @@ class SmallWorldDB
         while ($start<=$end) {
             $msg[$start]['school_type'] = $school_type[$start];
             $msg[$start]['school'] = $arr7[$school[$start]];
-            $msg[$start]['schoolstart'] = date('Y', $schoolstart[$start]);
-            $msg[$start]['schoolstop'] = date('Y', $schoolstop[$start]);
+            $msg[$start]['schoolstart'] = $schoolstart[$start];
+            $msg[$start]['schoolstop'] = $schoolstop[$start];
             $start++;
         }
         return $msg;
@@ -241,14 +241,13 @@ class SmallWorldDB
         $aboutme = Smallworld_sanitize($_POST['aboutme']);
         $school_type = Smallworld_sanitize(serialize($_POST['school_type']));
         $school = Smallworld_sanitize(serialize($_POST['school']));
-        $schoolstart = Smallworld_sanitize(serialize(Smallworld_DateOfArray ($_POST['schoolstart'])));
-        $schoolstop = Smallworld_sanitize(serialize(Smallworld_DateOfArray ($_POST['schoolstop'])));
+        $schoolstart = Smallworld_sanitize(serialize($_POST['schoolstart']));
+        $schoolstop = Smallworld_sanitize(serialize($_POST['schoolstop']));
         $jobemployer = Smallworld_sanitize(serialize($_POST['employer']));
         $jobposition = Smallworld_sanitize(serialize($_POST['position']));
         $jobstart = Smallworld_sanitize(serialize(Smallworld_YearOfArray ($_POST['jobstart'])));
         $jobstop = Smallworld_sanitize(serialize(Smallworld_YearOfArray ($_POST['jobstop'])));
         $jobdescription = Smallworld_sanitize(serialize($_POST['description']));
-        
         
         $sql = '';
         
@@ -422,6 +421,9 @@ class SmallWorldDB
                 ." WHERE me = '".intval($userid)."' AND you = '".intval($friendid)."'";
             $result = $xoopsDB->queryF($sql);
             $result2 = $xoopsDB->queryF($sql2);
+            
+            // Since friendship is canceled also following is deleted
+            $this->toogleFollow (1, $userid, $friendid);
         }
         
     }
@@ -445,7 +447,9 @@ class SmallWorldDB
         if ($following > 0) {
             $sql  = "DELETE FROM ".$xoopsDB->prefix('smallworld_followers')." WHERE you = '".intval($friend)."'";
             $sql .= " AND me = '".intval($myUid)."'";
-            $result = $xoopsDB->queryF($sql);
+            $sql2  = "DELETE FROM ".$xoopsDB->prefix('smallworld_followers')." WHERE me = '".intval($friend)."'";
+            $sql2 .= " AND you = '".intval($myUid)."'";
+            $result2 = $xoopsDB->queryF($sql2);
         }        
     }
 
@@ -683,7 +687,7 @@ class SmallWorldDB
     {
         global $xoopsDB;
         $sql  = "SELECT value FROM ".$xoopsDB->prefix('smallworld_settings')." WHERE userid = ".intval($userid)."";
-        $result = $xoopsDB->query($sql);
+        $result = $xoopsDB->queryF($sql);
         $i = $xoopsDB->getRowsNum($result);
         if ($i < 1) {
             $posts = serialize(array(
@@ -698,8 +702,9 @@ class SmallWorldDB
             while ($row=$xoopsDB->fetchArray($result)) {
                 $data = $row['value'];
             }
+            return json_encode(unserialize(stripslashes($data)));
         }
-        return json_encode(unserialize(stripslashes($data)));
+        
     }
 
 }
