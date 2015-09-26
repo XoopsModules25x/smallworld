@@ -218,7 +218,7 @@ xoops_smallworld(function() {
                 hide: "explode",
                 width: "550px",
                 close: function(event, ui) { 
-                    location.href = smallworld_url+'publicindex.php';
+                    location.href = smallworld_urlReferer;
                 },
                 buttons: buttons
             });	
@@ -243,7 +243,7 @@ xoops_smallworld(function() {
 		changeMonth: true,
 		changeYear: true,
 		dateFormat: 'yy',
-		yearRange: '-100:+0',         
+		yearRange: '-100:+0'         
 	});
 	
 	// Attach jquery-ui datepicker to form.
@@ -271,19 +271,20 @@ xoops_smallworld(function() {
     }
 
     // Attach geolocate autocomplete to forms
-        xoops_smallworld(document).ready(function(){
-            if (xoops_smallworld("#birthplace").length > 0) {
-                if( typeof xoops_smallworld('#birthplace').val() != "undefined" ) {
-                    xoops_smallworld('#birthplace').geo_autocomplete();
-                }   
-            }
-            if (xoops_smallworld("#present_city").length > 0){
-                if ( typeof xoops_smallworld('#present_city').val() != "undefined" ) {
-                    xoops_smallworld('#present_city').geo_autocomplete_now();
+        if (Smallworld_geocomplete == 1) {
+            xoops_smallworld(document).ready(function(){   
+                if (xoops_smallworld("#birthplace").length > 0) {
+                    if( typeof xoops_smallworld('#birthplace').val() != "undefined" ) {
+                        xoops_smallworld('#birthplace').geo_autocomplete();
+                    }   
                 }
-            }
-        });
-    
+                if (xoops_smallworld("#present_city").length > 0){
+                    if ( typeof xoops_smallworld('#present_city').val() != "undefined" ) {
+                        xoops_smallworld('#present_city').geo_autocomplete_now();
+                    }
+                }
+            });
+    }
 
 	// Make Textareas elastic
 	xoops_smallworld(function() {
