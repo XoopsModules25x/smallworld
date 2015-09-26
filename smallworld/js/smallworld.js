@@ -112,12 +112,22 @@ xoops_smallworld(function() {
                         xoops_smallworld('#friendInvitations_box').hide();
                         xoops_smallworld('#friendInvitations_box').css('display','none');
                     },
-                    href:"#friendInvitations_box"
+                    href:"#friendInvitations_box",
+                    onClosed:function() { 
+                        location.reload(true); 
+                    }
                 });
             };
-            xoops_smallworld('#smallworldrequestlink').on('click',function() {
-                xoops_smallworld('#friendInvitations_box').css('display','none');
-                xoops_smallworld.colorbox.close();
+            xoops_smallworld('.smallworldrequestlink').on('click',function() {
+                var smallworld_request_id = xoops_smallworld(this).prop('id');
+                if (xoops_smallworld("tr[id^='smallworldfriendrequest_']").length === 0) {
+                    xoops_smallworld('#friendInvitations_box').css('display','none');
+                } else {
+                    xoops_smallworld('tr#'+smallworld_request_id).remove();
+                    if (xoops_smallworld("tr[id^='smallworldfriendrequest_']").length === 0) {
+                       xoops_smallworld.colorbox.close();
+                    }
+                }
             });
         }
     });
@@ -178,7 +188,8 @@ xoops_smallworld(function() {
                     xoops_smallworld('div#page').hide();
                 },
                 onClosed:function() {
-                    location.href = 'index.php'; 
+                    //location.href = window.location.pathname; 
+                    location.href = smallworld_urlReferer;
                 },
                 href:"div#page"
             });
