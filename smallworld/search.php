@@ -12,11 +12,11 @@
 * @module:				Smallworld
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
-* @Repository path:		$HeadURL: https://xoops.svn.sourceforge.net/svnroot/xoops/XoopsModules/smallworld/trunk/smallworld/search.php $
-* @Last committed:		$Revision: 9502 $
+* @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/search.php $
+* @Last committed:		$Revision: 12175 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2012-05-13 18:15:22 +0200 (sø, 13 maj 2012) $
-* @ID:					$Id: search.php 9502 2012-05-13 16:15:22Z djculex $
+* @Last changed date:	$Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
+* @ID:					$Id: search.php 12175 2013-10-15 17:41:43Z djculex $
 **/
 include_once("../../mainfile.php");
 $xoopsOption['template_main'] = 'smallworld_index.html';
@@ -38,18 +38,8 @@ $xoopsLogger->activated = false;
                             $imageLink = XOOPS_URL.'/uploads/'.trim($row['userimage']);
 							$imageSize = smallworld_getImageSize(30, 30, $imageLink);
                             $imageHw = smallworld_imageResize($imageSize[0], $imageSize[1], 30);
-                            $image = '<img src="'.XOOPS_URL.'/uploads/'.$row['userimage'].'" '.$imageHw.'/>';
-						} else {
-							if ($row['gender'] == 1) {
-								$image = "<img src='".XOOPS_URL."/modules/smallworld/images/ano_woman.png'"." height='30px' width='30px'/>";
-							}
-							if ($row['gender'] == 2) {
-								$image = "<img src='".XOOPS_URL."/modules/smallworld/images/ano_man.png'"." height='30px' width='30px'/>";
-							}
-							if ($row['gender'] == 0) {
-								$image = "<img src='".XOOPS_URL."/modules/smallworld/images/genderless.png'"." height='30px' width='30px'/>";
-							}
-						}
+                            $image = '<img src="'.smallworld_getAvatarLink ($row['userid'], $row['userimage']).'" height="20" />';
+						} 
                     
                     $imageHw = smallworld_imageResize($imageSize[0], $imageSize[1], 30);
 					$data[] = array(
