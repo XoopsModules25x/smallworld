@@ -289,7 +289,7 @@ global $xoopsUser,$xoopsTpl,$xoTheme;
 		 
 		}
 	} else {
-		redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
+		redirect_header(XOOPS_URL . "/register.php", 1, _NOPERM);
 	}
 include(XOOPS_ROOT_PATH."/footer.php");
 ?>
