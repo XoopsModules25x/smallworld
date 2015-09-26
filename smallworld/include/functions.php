@@ -13,10 +13,10 @@
 * @Author:                Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:            2011 Culex
 * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/include/functions.php $
-* @Last committed:        $Revision: 11719 $
+* @Last committed:        $Revision: 12175 $
 * @Last changed by:        $Author: djculex $
-* @Last changed date:    $Date: 2013-06-19 16:37:48 +0200 (on, 19 jun 2013) $
-* @ID:                    $Id: functions.php 11719 2013-06-19 14:37:48Z djculex $
+* @Last changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
+* @ID:                    $Id: functions.php 12175 2013-10-15 17:41:43Z djculex $
 **/
 
 
@@ -240,15 +240,19 @@ function smallworld_tolink($text, $uid)
             $text = str_replace('UPLIMAGE', '', $text); 
             $text = preg_replace('/(((f|ht){1}tp:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
                         '<span class="smallworldUplImgTxt"><br/><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="'
-                        . $gallery . '" target="_SELF">'
+                        . $gallery . '" target="_self">'
                         . $usr->getVar('uname') . _SMALLWORLD_UPLOADEDSOMEIMAGES
                         . '</a><br></span>', $text
                     );
             $text = preg_replace('/(((f|ht){1}tps:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
-                    '<a href="\\1">lala</a>', $text);
+                    '<span class="smallworldUplImgTxt"><br/><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="'
+                        . $gallery . '" target="_self">'
+                        . $usr->getVar('uname') . _SMALLWORLD_UPLOADEDSOMEIMAGES
+                        . '</a><br></span>', $text
+                    );
             $text = preg_replace('/([[:space:]()[{}])(www.[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
                         '\\1<span class="smallworldUplImgTxt"><br/><img class="smallworldAttImg" src="//\\2"><br><br><a id="smallworldUplImgLnk" href="' 
-                        . $gallery . '" target="_SELF">'
+                        . $gallery . '" target="_self">'
                         . $username . _SMALLWORLD_UPLOADEDSOMEIMAGES
                         . '</a><br></span>', $text
                     );
