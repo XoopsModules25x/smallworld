@@ -15,10 +15,10 @@
 * @since:             Xoops 2.5.4
 * @Author:            Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:         2011 Culex
-* @Last committed:    $Revision: 11399 $
+* @Last committed:    $Revision: 11992 $
 * @Last changed by:   $Author: djculex $
-* @Last changed date: $Date: 2013-04-17 17:22:31 +0200 (on, 17 apr 2013) $
-* @ID:                $Id: modinfo.php 11399 2013-04-17 15:22:31Z djculex $
+* @Last changed date: $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
+* @ID:                $Id: modinfo.php 11992 2013-08-31 18:06:22Z djculex $
 **/
 
 define("_MI_SMALLWORLD_MODULE_NAME","Smallworld");
@@ -33,8 +33,8 @@ define('_MI_SMALLWORLDMENU_ABOUT','About');
 /* -------- Configs ---------- */
 
 // Map apis
-define("_MI_SMALLWORLD_USEGOOGLE","Use google maps geolocation Api ?");
-define("_MI_SMALLWORLD_USEGOOGLE_DESC","Default is geonames database. Choose yes to use google maps");
+define("_MI_SMALLWORLD_USEGOOGLEMAPS","Use google maps geolocation Api ?");
+define("_MI_SMALLWORLD_USEGOOGLEMAPS_DESC","Default yes");
 
 // Messages per page
 define("_MI_SMALLWORLD_MSGTOSHOW","Messages to show ?");

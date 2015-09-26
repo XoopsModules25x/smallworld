@@ -15,10 +15,10 @@
 * @since:             Xoops 2.5.4
 * @Author:            Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:         2011 Culex
-* @Last committed:    $Revision: 11843 $
+* @Last committed:    $Revision: 12114 $
 * @Last changed by:   $Author: djculex $
-* @Last changed date: $Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
-* @ID:                $Id: main.php 11843 2013-07-18 17:29:48Z djculex $
+* @Last changed date: $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
+* @ID:                $Id: main.php 12114 2013-10-01 17:11:18Z djculex $
 **/
 
 /*----------------- Menu items ---------------*/
@@ -45,8 +45,8 @@ define("_SMALLWORLD_RELIGIOUSVIEW","Religious Views");
 define("_SMALLWORLD_EMAILS","Emails");
 
 /*--------------- contact info -----------------*/
-define("_SMALLWORLD_MOBILEPHONE","Mobile phone");
-define("_SMALLWORLD_LANDPHONE","Land phone");
+define("_SMALLWORLD_MOBILEPHONE","Mobile phone (numbers only)");
+define("_SMALLWORLD_LANDPHONE","Land phone (numbers only)");
 define("_SMALLWORLD_ADRESS","Street Adress");
 define("_SMALLWORLD_CITY","City");
 
@@ -380,6 +380,7 @@ define("_SMALLWORLD_MAIL_FRIENDTAGGEDYOU","A friend tagged you at ");
 /* ------------ Inspection & countdown ---------------- */
 define("_SMALLWORLD_INSPEC_DESC","Admin has taken this account down for inspection.<br/><br/>Estimated inspection time will finish in");
 define("_SMALLWORLD_INSPEC_DESC2","Try again at this time.");
+define("_SMALLWORLD_INSPEC_usermsg","Admin has taken this account down for inspection.<br/><br/>Access is temporarily denied!");
 define("_SMALLWORLD_BDAY_TODAY","Today");
 define("_SMALLWORLD_BDAY_ISIN","Birthday is in: ");
 define("_SMALLWORLD_BDAY_YEARS","years");
