@@ -1060,6 +1060,9 @@ function smallworld_getImageSize($w, $h, $url)
         $useverification = smallworld_GetModuleOption('smallworldmandatoryfields', $repmodule='smallworld');
         $smallworldUV = implode(',', $useverification);
         
+        // Use googlemaps ?
+        $googlemaps = $moduleConfig['smallworldUseGoogleMaps'];
+        
         // Get users messages count based on users followerArray
         $getUserMsgNum = ($xoopsUser) ? smallworld_getCountFriendMessagesEtc():0;
 
