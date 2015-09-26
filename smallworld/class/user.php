@@ -13,10 +13,10 @@
 * @Author:                Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:            2011 Culex
 * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/user.php $
-* @Last committed:        $Revision: 11699 $
+* @Last committed:        $Revision: 11992 $
 * @Last changed by:        $Author: djculex $
-* @Last changed date:    $Date: 2013-06-16 19:29:32 +0200 (sø, 16 jun 2013) $
-* @ID:                    $Id: user.php 11699 2013-06-16 17:29:32Z djculex $
+* @Last changed date:    $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
+* @ID:                    $Id: user.php 11992 2013-08-31 18:06:22Z djculex $
 **/
 
  
@@ -183,9 +183,15 @@ class SmallWorldUser
             $msg[$start]['img'] = $Wall->Gravatar($row['me']);
             $msg[$start]['friendimage'] = "<img src='".XOOPS_UPLOAD_URL."/".$msg[$start]['img']."' height='40px'/>";
             $msg[$start]['frienddate'] = date('d-m-Y',$row['date']);
-            $msg[$start]['accept'] = '<a id="smallworldrequestlink" href = "javascript:Smallworld_AcceptDenyFriend(1,'.$row['me'].','.$row['you'].','.$start.');">'._SMALLWORLD_ACCEPT.'</a>';
-            $msg[$start]['deny'] = '<a id="smallworldrequestlink" href = "javascript:Smallworld_AcceptDenyFriend(-1,'.$row['me'].','.$row['you'].','.$start.');">'._SMALLWORLD_DENY.'</a>';
-            $msg[$start]['later'] = '<a id="smallworldrequestlink" href = "javascript:Smallworld_AcceptDenyFriend(0,'.$row['me'].','.$row['you'].','.$start.');">'._SMALLWORLD_LATER.'</a>';
+            $msg[$start]['accept'] = '<a class="smallworldrequestlink" id = "smallworldfriendrequest_'.$msg[$start]['friendname'].
+                '" href = "javascript:Smallworld_AcceptDenyFriend(1,'.$row['me'].','.$row['you'].','.$start.');">'.
+                _SMALLWORLD_ACCEPT.'</a>';
+            $msg[$start]['deny'] = '<a class="smallworldrequestlink" id = "smallworldfriendrequest_'.$msg[$start]['friendname'].
+                '" href = "javascript:Smallworld_AcceptDenyFriend(-1,'.$row['me'].','.$row['you'].','.$start.');">'.
+                _SMALLWORLD_DENY.'</a>';
+            $msg[$start]['later'] = '<a class="smallworldrequestlink" id = "smallworldfriendrequest_'.$msg[$start]['friendname'].
+                '" href = "javascript:Smallworld_AcceptDenyFriend(0,'.$row['me'].','.$row['you'].','.$start.');">'.
+                _SMALLWORLD_LATER.'</a>';
             $msg[$start]['cnt'] = $start;
             $start++;
         }
