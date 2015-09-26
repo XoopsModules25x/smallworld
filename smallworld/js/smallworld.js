@@ -757,6 +757,7 @@ xoops_smallworld(document).ready(function() {
 		xoops_smallworld('#_smallworld_birthplace_maplink').on('click',function(event){
             event.preventDefault();
             if (xoops_smallworld('#_smallworld_birthplace_map').length) { // implies *not* zero
+               if (Smallworld_geocomplete == 1) { 
                 xoops_smallworld('#_smallworld_birthplace_map').show();
                 xoops_smallworld.colorbox({
                     innerWidth:"550px", 
@@ -775,7 +776,7 @@ xoops_smallworld(document).ready(function() {
                     },
                     href:"#_smallworld_birthplace_map",
                 });
-			
+			  };
             };
 		});
 	
@@ -783,7 +784,8 @@ xoops_smallworld(document).ready(function() {
 	xoops_smallworld('#_smallworld_present_maplink').on('click',function(event){
         event.preventDefault();
 		if (xoops_smallworld('#_smallworld_present_map').length) { // implies *not* zero
-			xoops_smallworld('#_smallworld_present_map').show();
+		  if (Smallworld_geocomplete == 1) {
+            xoops_smallworld('#_smallworld_present_map').show();
 			xoops_smallworld.colorbox({
 				innerWidth:"550px", 
 				innerHeight:"550px",
@@ -801,6 +803,7 @@ xoops_smallworld(document).ready(function() {
 				},
 				href:"#_smallworld_present_map"
 			});
+          };
 		};	
     }); 
 	
@@ -1130,6 +1133,7 @@ function smallworld_getCountFriendMessagesEtcJS() {
                 var text = smallworldDeletedMessages + diff;
                 xoops_smallworld('#smallworld_messagecounter_id').html(text);
                 xoops_smallworld('#smallworld_messagecounter_id').show();
+                //window.location.reload();
             }
             
             if (diff == 0) {
@@ -1141,6 +1145,7 @@ function smallworld_getCountFriendMessagesEtcJS() {
                 var text = smallworldNewMessages + diff;
                 xoops_smallworld('#smallworld_messagecounter_id').html(text);
                 xoops_smallworld('#smallworld_messagecounter_id').show();
+                //window.location.reload();
             }
         }
             return false;
