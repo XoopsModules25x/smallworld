@@ -1079,11 +1079,12 @@ function smallworld_getImageSize($w, $h, $url)
         $script .= "if (typeof Smallworld_myID === 'undefined') {"."\n";
         $script .= "var smallworld_url = '" . $xoops_url . "/modules/smallworld/" . "';\n";
         $script .= "var smallworld_uploaddir = '" . $xoops_url . "/uploads/avatars/" . "';\n";
+        $script .= "var smallworld_urlReferer = document.referrer;"."\n";
         $script .= "var xoops_smallworld = jQuery.noConflict();\n";
         $script .= "var Smallworld_myID = " . $myid . ";\n";
         $script .= "var Smallworld_userHasProfile = " . $ChkProf . ";\n";
         $script .= "var smallworldTakeOverLinks = " . $takeoverlinks . ";\n";
-        $script .= "var Smallworld_geocomplete = '';\n";
+        $script .= "var Smallworld_geocomplete = " . $googlemaps . ";\n";
         $script .= "var smallworldVerString = '" . $smallworldUV . "';\n";
         $script .= "var smallworlduseverification = new Array();\n";
         $script .= "smallworlduseverification = smallworldVerString.split(',');\n";
@@ -1095,9 +1096,11 @@ function smallworld_getImageSize($w, $h, $url)
         $xoTheme->addScript('','',$script);
         
         // Include geolocate styling
-        $xoTheme->addScript("https://maps.googleapis.com/maps/api/js?sensor=false&language="._LANGCODE);
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ui.geo_autocomplete.js');
-        $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ui.geo_autocomplete_now.js');
+        if ($googlemaps == 1) {
+            $xoTheme->addScript("https://maps.googleapis.com/maps/api/js?sensor=false&language="._LANGCODE);
+            $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ui.geo_autocomplete.js');
+            $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/ui.geo_autocomplete_now.js');
+        }
         
         smallworld_includeScripts ();
         
@@ -1153,6 +1156,7 @@ function smallworld_getImageSize($w, $h, $url)
                     $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.bookmark.js');
                     $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/oembed.css');
                     $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/jquery.colorbox.js');
+                    $xoTheme->addScript(XOOPS_URL.'/modules/smallworld/js/tag-it.js');
                     $xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/smallworld.css');                 
                 break;
                 
@@ -1307,3 +1311,17 @@ function smallworld_getImageSize($w, $h, $url)
 
         }
      }
+     
+     /**
+      * Function to get count of messages in wall
+      * @param int $uid
+      * @return int $count
+      */
+    function smallworld_countUserWallMsges ($uid)
+    {
+        $db =& XoopsDatabaseFactory::getDatabaseConnection();
+        $sql = "SELECT message FROM ".$db->prefix('smallworld_messages')." where uid_fk='".$uid."'"; 
+        $result = $db->queryF($sql);
+        $count = $db->getRowsNum($result);
+        return $count;
+    }
