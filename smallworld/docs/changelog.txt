@@ -1,4 +1,36 @@
 ------------------------------
+Changelog v.1.15 RC 20
+------------------------------
+Date 01. October 2013 19:11 Rev: 12114
+
+NEW : When entering admin automaticly rename user avatars set as blank.gif to void.
+NEW : Parsing array from walls in respective classes clearing multible lines of code
+NEW : smallworld_referer to return after various pages
+NEW : Count all msg in wall
+
+Bugfix : Mysql error in ALTER table comments from varchar to text
+Bugfix : School start/stop displayed wrong. 
+Bugfix : User avatars displayed void if blank. No shows default gender / no-gender user avatar
+Bugfix : User gallery opening in new tab / window. Now direct to _self instead of _SELF (?)
+Bugfix : Error in smallworld_getAvatarLink($userid, $image); Condition changed from || to &&
+Bugfix : comment_ajax. Condition changed from AND to OR if admin or owner of comment. Permission added to condition correctly.
+Bugfix : In edit profile education start/stop displays correct data (date function not needed in this case).
+Bugfix : In gallery only displays if visitor is a friend or admin.
+Bugfix : Heavy code cleanup -> re-arranging to make use of classes / functions.
+Bugfix : Only allow friends to view profile. 
+Bugfix : User posts not showing correctly to friends/followers OR admin.
+Bugfix : jquery.history.js added to code to show hidden iframe in IE correctly.
+Bugfix : After accepting friend request force reload of page to show new friend posts.
+Bugfix : After closing gallery return to refer-page.
+Bugfix : In smallworld.js -> tagging. If @ is followed by /s then close autocomplete indicating email or other. ((this).autocomplete( "close" );)
+Bugfix : When tagging autocomplete is attached after single @ not @@@ (wow strange error)
+Bugfix : Removed test alert() OR console.logs used for testing.
+Bugfix : In friendpage show only gallery menu items for friends.
+Bugfix : Show only wall container if num of messages > 0. [smarty error]
+Bugfix : Rename selector (gave issue with TDMPicture) [mamba]
+
+
+------------------------------
 Changelog v.1.15 RC 18
 ------------------------------
 Date: 18. juli 2013 19:29:48: Revision: 11843
