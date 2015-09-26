@@ -569,9 +569,20 @@ function Smallworld_Gravatar($uid)
     while ($r = $xoopsDB->fetchArray($result)) {
         $image = $r['userimage'];
     }
-    if ($image == 'Not specifiyed' || $image == '') {
-        $avt = new XoopsUser($uid);
-        $avatar = $avt->user_avatar(); 
+    
+    $image = ($image == '' || $image == 'blank.gif') ? smallworld_getAvatarLink($uid, $image) : $image;
+    
+    $type = Array(
+                1 => 'jpg', 
+                2 => 'jpeg', 
+                3 => 'png', 
+                4 => 'gif'
+            );
+    
+    $ext = explode(".",$image);
+    
+    if (@!in_array(strtolower ($ext[1]), $type) || $image == '') {
+        $avatar = ''; 
     } else {
         $avatar = $image;
     }
@@ -1000,7 +1011,7 @@ function smallworld_getImageSize($w, $h, $url)
             while ($r = $db->fetchArray($result)) {
                 $data[$r['userid']] = $r['username'];
             }
-            $ndata = array_merge(array(0 => _MI_SMALLWORLD_ALL), $data);
+            $ndata = array(0 => _MI_SMALLWORLD_ALL) + $data;
         }
         return $ndata;
     } 
