@@ -31,8 +31,13 @@ xoops_smallworld.extend({
 		}
 		
 			// add hidden iframe for IE
-			xoops_smallworld("body").prepend(''
-			);
+			// add hidden iframe for IE
+            xoops_smallworld("body").prepend('<iframe id="xoops_smallworld_history" style="display: none;"'+
+            (xoops_smallworld.historyIframeSrc ? ' src="'+xoops_smallworld.historyIframeSrc+'"' : '')
+            +'></iframe>'
+            );
+            // xoops_smallworld("body").prepend(''
+			// );
 			var ihistory = xoops_smallworld("#xoops_smallworld_history")[0];
 			var iframe = ihistory.contentWindow.document;
 			iframe.open();
