@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/editprofile.php $
-* @Last committed:		$Revision: 11699 $
+* @Last committed:		$Revision: 12114 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-06-16 19:29:32 +0200 (sø, 16 jun 2013) $
-* @ID:					$Id: editprofile.php 11699 2013-06-16 17:29:32Z djculex $
+* @Last changed date:	$Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
+* @ID:					$Id: editprofile.php 12114 2013-10-01 17:11:18Z djculex $
 **/
 include_once("../../mainfile.php");
 $xoopsOption['template_main'] = 'smallworld_userprofile_edittemplate.html';
@@ -267,7 +267,7 @@ global $xoopsUser,$xoopsTpl,$xoopsDB, $xoTheme;
                     $school = "";
                     foreach ($nr5 as $k => $v) {		 
                         $school .= $item->school_add ('smallworld_add3', 'school', 'school_type', 
-                         '.smallworld_clone3', $arr7, _SMALLWORLD_ADDMORE, $selected=stripslashes($nr6[$k]),$preset=$v, $selectedstart=date("Y",$nr7[$k]),$selectedstop=date("Y",$nr8[$k]));
+                         '.smallworld_clone3', $arr7, _SMALLWORLD_ADDMORE, $selected=stripslashes($nr6[$k]),$preset=$v, $selectedstart=$nr7[$k],$selectedstop=$nr8[$k]);
                         $school .= "<span class='smallworld_remove2' id='schoolremove'>";
                          $school .= "<a href='javascript:void(0);' id='schoolremovelnk'>"._SMALLWORLD_REMOVE."</a><br></span>";
                     } 
