@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/message_ajax.php $
-* @Last committed:		$Revision: 11843 $
+* @Last committed:		$Revision: 12114 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
-* @ID:					$Id: message_ajax.php 11843 2013-07-18 17:29:48Z djculex $
+* @Last changed date:	$Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
+* @ID:					$Id: message_ajax.php 12114 2013-10-01 17:11:18Z djculex $
 **/
 
 include_once("../../mainfile.php");
@@ -27,7 +27,7 @@ global $xoopsUser, $xoopsModule,$xoopsLogger,$xoopsTpl;
 $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
 $page  = 'index';
-$id = $xoopsUser->getVar('uid');
+$id = ($xoopsUser) ? $xoopsUser->getVar('uid'):0;
 $check = new SmallWorldUser;
 $profile = ($xoopsUser) ? $check->checkIfProfile($id) : 0;
 
@@ -65,7 +65,7 @@ if ($profile >= 2) {
                 $USW['comments'] = 0;
                     
                     if ($xoopsUser) {   
-                        if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) && $data['uid_fk'] == $id) {
+                        if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) || $data['uid_fk'] == $id) {
                             $USW['posts'] = 1;
                             $USW['comments'] = 1;
                         } else {
