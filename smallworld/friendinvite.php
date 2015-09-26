@@ -13,10 +13,10 @@
 * @Author:				Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:			2011 Culex
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/friendinvite.php $
-* @Last committed:		$Revision: 11576 $
+* @Last committed:		$Revision: 11992 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
-* @ID:					$Id: friendinvite.php 11576 2013-05-22 13:25:30Z djculex $
+* @Last changed date:	$Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
+* @ID:					$Id: friendinvite.php 11992 2013-08-31 18:06:22Z djculex $
 **/
 global $xoopsUser;
 include_once("../../mainfile.php");
@@ -38,6 +38,7 @@ $xoopsLogger->activated = false;
 		$myUid = $_POST['myUid'];
 		$friendName = $check->getName($friend);
 		$yourName = $check->getName($myUid);
+        $USC = json_decode($db->GetSettings($friend), true);
 		
 		if ($invitation == '1') {
 			if ($friendProfile >= 2) {
@@ -46,7 +47,9 @@ $xoopsLogger->activated = false;
 				if ($friendshipExists[0] == 0) {	
 					$resultMsg = _SMALLWORLD_JSON_ADDFRIEND.$friendName._SMALLWORLD_JSON_REQUEST_PENDING;
 					if(smallworld_GetModuleOption('smallworldusemailnotis', $repmodule='smallworld') != 0) {
-						$mail->sendMails ($friend, $friend, 'friendshipfollow', $link=null, array()); 
+						if ($USC['notify'] == 1) {
+                            $mail->sendMails ($friend, $friend, 'friendshipfollow', $link=null, array()); 
+                        }
 					}
 					$db->toogleFriendInvite ($friendshipExists, $friend, $myUid);
 					echo json_encode(array('error' => 'no', 'msg' => $resultMsg, 'msgChange' => _SMALLWORLD_JSON_CANCELFR_TEXT));
