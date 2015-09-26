@@ -379,35 +379,30 @@ function smallworld_getAvatarLink($userid, $image)
             $gender = $row['gender'];
         }
     }
+
+    $image = ($image == 'blank.gif') ? '' : $image;
     
-    $link = XOOPS_UPLOAD_URL."/".$image;
+    if (preg_match("/avatars/i", $image)) {
+        $link = XOOPS_UPLOAD_URL."/".$image;
+    } else {
+        $link = $image;
+    }
+
     if (!in_array($ext,array('jpg','bmp','gif','png','jpeg')) || $image == '' || $image == "blank.gif"){
-        if ($ext == '' || $gender == '1') {
-            $link = XOOPS_URL."/modules/smallworld/images/ano_woman.png";
-        }
-    
-        if ($ext == '' AND $gender == '1') {
+        
+        if ($ext == '' && $gender == '1') {
             $link = XOOPS_URL."/modules/smallworld/images/ano_woman.png";
         }
         
-        if ($ext == '' AND $gender == '2') {
+        if ($ext == '' && $gender == '2') {
             $link = XOOPS_URL."/modules/smallworld/images/ano_man.png";
         }
-        if ($ext == '' AND $gender == '1') {
-            $link = XOOPS_URL."/modules/smallworld/images/ano_woman.png";
-        }
-        if ($ext == '' AND $gender == '2') {
-            $link = XOOPS_URL."/modules/smallworld/images/ano_man.png";
-        }
-        
-        if ($ext == '' AND $gender == '') {
-            $link = XOOPS_URL."/modules/smallworld/images/genderless.png";
-        }
-        
+                
         if ($ext == '' AND $gender == '') {
             $link = XOOPS_URL."/modules/smallworld/images/genderless.png";
         }
     } 
+    //echo $link."<br>";
     return $link;
 }
 
