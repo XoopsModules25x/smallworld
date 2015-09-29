@@ -116,7 +116,7 @@ include_once(XOOPS_ROOT_PATH."/header.php");
     // }
     
     if ($profile == 0 && $set['access'] == 0) {
-        redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
+        //redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
     }
 
 include(XOOPS_ROOT_PATH."/footer.php");
