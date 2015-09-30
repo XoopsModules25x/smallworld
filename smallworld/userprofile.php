@@ -27,6 +27,7 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/arrays.php");
 global $xoopsUser,$xoopsLogger;
  $xoopsLogger->activated = false;
       //error_reporting(E_ALL); 
+	  
 	if ($xoopsUser) {
 		SmallworldDeleteOldInspects ();
 		$id = smallworld_isset_or($_GET['username']); // Id of user wich profile you want to see
