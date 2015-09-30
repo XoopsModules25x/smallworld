@@ -26,8 +26,6 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/publicWall.php");
 global $xoopsUser, $xoTheme,$xoopsConfig,$xoopsLogger, $xoopsModule;
     
 $set = smallworld_checkPrivateOrPublic ();
-$profile = 0;
-
 if ($xoopsUser) {
     $xoopsOption['template_main'] = 'smallworld_index.html';
 } elseif (!$xoopsUser && $set['access'] == 1) {
@@ -36,7 +34,7 @@ if ($xoopsUser) {
     redirect_header(XOOPS_URL . "/user.php", 5, _NOPERM);
 }	
 include_once(XOOPS_ROOT_PATH."/header.php");
-	if ($set['access'] == 1) {
+	if ($set['access']) {
 		$id = ($xoopsUser) ? $xoopsUser->getVar('uid'):0;
 		$user = new XoopsUser($id);
         $dBase = new SmallWorldDB;
@@ -112,6 +110,10 @@ include_once(XOOPS_ROOT_PATH."/header.php");
     if ($profile == 1 && $set['access'] == 0) {
        redirect_header(XOOPS_URL . "/modules/smallworld/register.php");
     } 
+    
+    // if ($profile == 1 && $set['access'] <= 1) {
+       // redirect_header(XOOPS_URL . "/modules/smallworld/register.php");
+    // }
     
     if ($profile == 0 && $set['access'] == 0) {
         //redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
