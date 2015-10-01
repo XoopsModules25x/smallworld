@@ -26,6 +26,8 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/publicWall.php");
 global $xoopsUser, $xoTheme,$xoopsConfig,$xoopsLogger, $xoopsModule;
     
 $set = smallworld_checkPrivateOrPublic ();
+$profile = NULL;
+
 if ($xoopsUser) {
     $xoopsOption['template_main'] = 'smallworld_index.html';
 } elseif (!$xoopsUser && $set['access'] == 1) {
