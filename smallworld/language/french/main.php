@@ -15,10 +15,10 @@
 * @since:             Xoops 2.5.4
 * @Author:            Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:         2011 Culex
-* @Last committed:    $Revision$
-* @Last changed by:   $Author$
-* @Last changed date: $Date$
-* @ID:                $Id$
+* @Last committed:    $Revision: 12114 $
+* @Last changed by:   $Author: djculex $
+* @Last changed date: $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
+* @ID:                $Id: main.php 12114 2013-10-01 17:11:18Z djculex $
 **/
 
 /*----------------- Menu items ---------------*/
@@ -112,6 +112,7 @@ define("_SMALLWORLD_LATER","Reporter à plus tard");
 define("_SMALLWORLD_ACTION","Action");
 define("_SMALLWORLD_UPDATEID_NOT_EXIST","Le message n'existe pas. Retourner à l'accueil");
 define("_SMALLWORLD_NOUSER_ERROR","Aucun utilisateur trouvé. Retour à la page d'accueil");
+define("_SMALLWORLD_ERROR","Erreur");
 
 /* ------------- Registerform ---------------------- */
 
@@ -199,6 +200,7 @@ define("_SMALLWORLD_EMAILADRESSES","Adresse(s) éléctronique(s)");
 define ("_SMALLWORLD_SHOWIFPUBLICORPRIVATE","Privacy settings. What to show if wall is public");
 define ("_SMALLWORLD_SHOWMYPOSTS","Show my posts");
 define ("_SMALLWORLD_SHOWMYCOMMENTS","Show my comments");
+define ("_SMALLWORLD_NOTIFYME","Informez-moi sur les messages / références, etc.");
 define ("_SMALLWORLD_MENU_PRIVSET","Pri. Settings");
 define ("_SMALLWORLD_MESSAGE_PRIVSETPOSTS","Posts from this user are only visible for followers or friends...Please register.");
 define ("_SMALLWORLD_MESSAGE_PRIVSETCOMMENTS","Comments from this user are only visible for followers or friends...Please register.");
@@ -269,6 +271,12 @@ define("_SMALLWORLD_IMAGES_DELETE","Supprimer");
 define("_SMALLWORLD_IMAGES_STARTALL","Tout envoyer");
 define("_SMALLWORLD_IMAGES_CANCELALL","Tout annuler");
 define("_SMALLWORLD_IMAGES_DELETEALL","Tout supprimer");
+define("_SMALLWORLD_IMAGES_ADDFILES","Ajout de fichiers...");
+define("_SMALLWORLD_IMAGES_DEMONOTES","Notes de démonstration");
+define("_SMALLWORLD_IMAGES_INSTRUCTIONS","<li>La taille maximale des fichiers pour les téléchargements dans cette démo est de <strong>5 MB</strong> (la taille des fichiers par défaut est illimitée).</li>
+                    <li>Seuls les fichiers d'image (<strong>JPG, GIF, PNG</strong>) sont autorisés dans cette démo (par défaut il n'y a pas de restriction de type de fichier)</li>
+                    <li>Les fichiers téléchargés seront supprimés automatiquement après <strong>5 minutes</strong> (réglage de démonstration).</li>
+                    <li>Vous pouvez <strong>glisser & déposer</strong> les fichiers de votre bureau vers cette page internet avec Google Chrome, Mozilla Firefox and Apple Safari.</li>");
 
 /*-------------- Image gallery -------------*/
 define("_SMALLWORLD_ALBUMTITLETEXT","Fermer l'album");
@@ -311,6 +319,7 @@ define("_SMALLWORLD_JS_COMPLAINTSENT","Votre plainte a été envoyée au modéra
 define("_SMALLWORLD_JS_COMPLAINT_ALREADY_SENT","Vous avez déjà envoyé une plainte à ce sujet&thinsp;!");
 
 /*----------- Indexpage menu --------------*/
+define ("_SMALLWORLD_STARTPAGE","Page de démarrage");
 define("_SMALLWORLD_HOME","Accueil");
 define("_SMALLWORLD_PROFILEINDEX","Profil");
 define("_SMALLWORLD_FRIENDSPAGE","Amis");
@@ -365,9 +374,11 @@ define("_SMALLWORLD_MAIL_COMPLAINT","Signalement de plainte à ");
 define("_SMALLWORLD_COMP_MSG_LNK_DESC","Cliquez ici pour voir le message en cause");
 define("_SMALLWORLD_MAIL_NEWFRIENDFOLLOWER","Nouvelle demande d'ami ou nouvel utilisateur qui vous suit à ");
 
+define("_SMALLWORLD_MAIL_FRIENDTAGGEDYOU","Un ami vous a tagué dans ");
 /* ------------ Inspection & countdown ---------------- */
 define("_SMALLWORLD_INSPEC_DESC","L'Administrateur a suspendu ce compte afin effectuer un contrôle.<br/><br/>Temps estimé de l'inspection&thinsp;:");
 define("_SMALLWORLD_INSPEC_DESC2","Revenez à ce moment là.");
+define("_SMALLWORLD_INSPEC_usermsg","L'Administrateur a désactivé ce compte pour inspection.<br/><br/>Accès temporairement refusé !");
 define("_SMALLWORLD_BDAY_TODAY","Aujourd'hui");
 define("_SMALLWORLD_BDAY_ISIN","Anniversaire dans&thinsp;: ");
 define("_SMALLWORLD_BDAY_YEARS","ans");
@@ -389,5 +400,5 @@ define("_SMALLWORLD_STATS_LIKETHISMODULE","Vous aimez ce module&thinsp;?");
 
 /* ----------------- donate link -------------- */
 define("_SMALLWORLD_DONATETEXT"," Offrez-moi un café ici ");
-//Traduit par Cesag (frxoops.org) le 5 Mai 2012
+//Traduit par Cesagonchu (frxoops.org) le 1er Octobre 2015
 ?>

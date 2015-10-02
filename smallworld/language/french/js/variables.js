@@ -54,6 +54,7 @@ var args = 	{
 				'textYes'		:	'Oui !',	    // Boutton "Oui !", texte par défaut
 				'textNo'		:	'Non !'	        // Boutton "Non !", texte par défaut
 			}
+
 // Variables pour la Galerie de photos
 var SmallworldPhotoPlaySlideshow = 'Lancer le Diaporama';            
 var SmallworldPhotoPauseSlideshow = 'Pause';
@@ -63,4 +64,4 @@ var SmallworldPhotoNextLink = 'Suivant &rsaquo;';
 var SmallworldPhotoPrevLink = '&lsaquo; Précédent';
 
 // error messages
-var SmallworldDialogNotUser = 'You must be registered to do this!!';
+var SmallworldDialogNotUser = 'Vous devez être enregistré pour faire ça !';

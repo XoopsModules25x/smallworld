@@ -9,15 +9,14 @@
     Check here for your translation
     http://keith-wood.name/countdown.html#l10nPkgs
     */   
-
 /* Traduction française de l'extension jQuery "countdown"
-   par Cesag (frxoops.org) le 5 Mai 2012. */
+   par Cesagonchu (frxoops.org) le 1er Octobre 2015. */
 (function(xoops_smallworld) {
 	xoops_smallworld.countdown.regional['fr'] = {
 		labels: ['Années', 'Mois', 'Semaines', 'Jours', 'Heures', 'Minutes', 'Secondes'],
 		labels1: ['Année', 'Mois', 'Semaine', 'Jour', 'Heure', 'Minute', 'Seconde'],
-		compactLabels: ['a', 'm', 's', 'j'], // Textes compacts pour les compteurs
+		compactLabels: ['a', 'm', 's', 'j', 'hrs', 'min', 'sec'], // Textes compacts pour les compteurs
 		whichLabels: null,
 		timeSeparator: ':', isRTL: false};
 	xoops_smallworld.countdown.setDefaults(xoops_smallworld.countdown.regional['fr']);
-})(jQuery);
+});

@@ -17,40 +17,22 @@
 	.infotext {margin:10px 0px 0px 25px;}
 	.title2 {margin-bottom: 12px;margin-top: 2px;}
 	.title {margin-bottom: 12px;margin-top: 4px;}
-</style>
+ </style>
 </head>
 <body>
-<!-- Début du format conteneur (Wrapper en anglais) -->
+<!-- Begin Wrapper -->
   <div id="wrapper">
   <br>
-  <p class="greeting">Bonjour <{$recievename}>,</p>
-  <p class="infotext"><{$sendname}> a écrit un commentaire sur votre mur. Vous pouvez le voir sur <{$sitename}></p>
-    <div id="news">   
-      <!-- Début de la navigation des nouvelles (news en anglais) -->
-      <div id="newslist">
-        <ul>
-          <!-- Début de l'entête N°1 -->
-          <li><{$to_avatarlink}>
-            <h4 class="title"><{$ownernameurl}> <span style="font-size:11px">Message initial:</span></h4>
-            <p><{$ownermessage}></p>
-          </li>
-          <!-- Fin de l'entête N°1 --> 
-          
-          <!-- Début de l'entête N°2 -->
-          <li style="margin-left:25px;width:780px"><{$from_avatarlink}>
-            <h4 class="title2"><{$sendnameurl}> <span style="font-size:11px"> a répondu le (<{$itemtextdate}> temps du serveur)</span></h4>
-            <p><{$itemtext}></p>
-          </li>
-          <!-- Fin de l'entête N°2 --> 
-        </ul>
-      </div>
-    </div>
-    <!-- Fin de la navigation des nouvelles -->
+  <p class="greeting">Salutations <{$toUser}>,</p>
+  <p class="infotext"><{$fromUser}> vous a taggé sur <{$sitename}>.
+  <br>
+  <br>
+  <a href="<{$link}>">Pour voir le fil, suivez ce lien</a>
+  <br><br>
+  </p>
     <br>
-	<p align="center"><{$replylink}></p>
-	<br/>
   </div>
-<!-- Fin du format conteneur --> 
-<!-- Traduction Cesag (frxoops.org) le 5 Mai 2012 -->
+<!-- End Wrapper --> 
+<!-- Traduction Cesagonchu (frxoops.org) le 1er Octobre 2015 -->
 </body>
 </html>

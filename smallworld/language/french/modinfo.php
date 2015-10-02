@@ -15,10 +15,10 @@
 * @since:             Xoops 2.5.4
 * @Author:            Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:         2011 Culex
-* @Last committed:    $Revision$
-* @Last changed by:   $Author$
-* @Last changed date: $Date$
-* @ID:                $Id$
+* @Last committed:    $Revision: 11992 $
+* @Last changed by:   $Author: djculex $
+* @Last changed date: $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
+* @ID:                $Id: modinfo.php 11992 2013-08-31 18:06:22Z djculex $
 **/
 
 define("_MI_SMALLWORLD_MODULE_NAME","Smallworld");
@@ -33,8 +33,8 @@ define('_MI_SMALLWORLDMENU_ABOUT','À propos');
 /* -------- Configs ---------- */
 
 // Map apis
-define("_MI_SMALLWORLD_USEGOOGLE","Utiliser l'Api de géolocalisation de Google Maps&thinsp;?");
-define("_MI_SMALLWORLD_USEGOOGLE_DESC","Par défaut, ce sera la base de données toponymique. Choisissez Oui pour utiliser Google Maps.");
+define("_MI_SMALLWORLD_USEGOOGLEMAPS","Utiliser l'Api de géolocalisation de Google Maps&thinsp;?");
+define("_MI_SMALLWORLD_USEGOOGLEMAPS_DESC","Par défaut, ce sera la base de données toponymique. Choisissez Oui pour utiliser Google Maps.");
 
 // Messages per page
 define("_MI_SMALLWORLD_MSGTOSHOW","Messages à afficher&thinsp;?");
@@ -102,5 +102,5 @@ define ('_MI_SHOWPUBLICPAGE_DESC', 'Default is "All users" wich means that all u
     show the latest users.
         ');
 define ('_MI_SMALLWORLD_ALL', 'All users');  
-//Traduit par Cesag (frxoops.org) le 5 Mai 2012
+//Traduit par Cesagonchu (frxoops.org) le 1er Octobre 2015
 ?>

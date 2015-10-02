@@ -15,14 +15,14 @@
 * @since:             Xoops 2.5.4
 * @Author:            Michael Albertsen (http://culex.dk) <culex@culex.dk>
 * @copyright:         2011 Culex
-* @Last committed:    $Revision$
-* @Last changed by:   $Author$
-* @Last changed date: $Date$
-* @ID:                $Id$
+* @Last committed:    $Revision: 10066 $
+* @Last changed by:   $Author: beckmi $
+* @Last changed date: $Date: 2012-08-13 11:22:47 +0200 (ma, 13 aug 2012) $
+* @ID:                $Id: admin.php 10066 2012-08-13 09:22:47Z beckmi $
 **/
 
  
-// Traduit par Cesag (frxoops.org) le 5 Mai 2012 pour le module smallworld, fichier admin.php
+// Traduit par Cesagonchu (frxoops.org) le 1er Octobre 2015 pour le module smallworld, fichier admin.php
 
 // Titre des onglets
 	define('_AM_SMALLWORLD_ADMINMESSAGESEND','Message à tous'); 
