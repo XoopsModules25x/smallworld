@@ -15,7 +15,7 @@
 * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/xoops_version.php $
 * @Last committed:        $Revision: 11992 $
 * @Last changed by:        $Author: djculex $
-* @Last changed date:    $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
+* @Last changed date:    $Date: 2013-08-31 20:06:22 +0200 (lÃ¸, 31 aug 2013) $
 * @ID:                    $Id: xoops_version.php 11992 2013-08-31 18:06:22Z djculex $
 **/
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
@@ -45,6 +45,9 @@ $modversion['dirname'] = "smallworld";
 
 $modversion['icons16'] = '../../Frameworks/moduleclasses/icons/16';
 $modversion['icons32'] = '../../Frameworks/moduleclasses/icons/32';
+
+//update
+$modversion['onUpdate'] = 'include/update.php';
 
 // Admin
 $modversion['hasAdmin'] = 1;
@@ -274,9 +277,9 @@ $i++;
 $modversion['config'][$i]['name'] = 'smallworldprivorpub';
 $modversion['config'][$i]['title'] = '_MI_SMALLWORLD_PRIVATEMODULE';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_PRIVATEMODULE_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
+$modversion['config'][$i]['formtype'] = 'hidden';
 $modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
+$modversion['config'][$i]['default'] = 1;
 
 /**
 * Authorized groups to upload
