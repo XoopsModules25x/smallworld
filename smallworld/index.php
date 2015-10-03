@@ -26,7 +26,7 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/publicWall.php");
 global $xoopsUser, $xoTheme,$xoopsConfig,$xoopsLogger, $xoopsModule;
     
 $set = smallworld_checkPrivateOrPublic ();
-
+$profile = NULL;
 
 if ($xoopsUser) {
     $xoopsOption['template_main'] = 'smallworld_index.html';
@@ -36,7 +36,7 @@ if ($xoopsUser) {
     redirect_header(XOOPS_URL . "/user.php", 5, _NOPERM);
 }	
 include_once(XOOPS_ROOT_PATH."/header.php");
-	if ($set['access'] == 1) {
+	if ($set['access']) {
 		$id = ($xoopsUser) ? $xoopsUser->getVar('uid'):0;
 		$user = new XoopsUser($id);
         $dBase = new SmallWorldDB;
@@ -51,6 +51,7 @@ include_once(XOOPS_ROOT_PATH."/header.php");
 		if ($xoopsUser) {
             if ( $xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
                 $xoopsTpl->assign('isadminuser', 'YES');
+                $profile = 2;
             }else {
                 $xoopsTpl->assign('isadminuser', 'NO');
             }

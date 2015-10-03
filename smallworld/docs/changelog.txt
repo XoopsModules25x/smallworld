@@ -345,8 +345,8 @@ Changelog v.1.10 RC 2
 - Danish language files (djculex)
 
 2. februar 2012
-- Bugfix: User website not added to form (djculex)
-- Bugfix: Ie adding horizontal scroll to colorbox when not needed (Yeeeeahh IE) (djculex)
+- BUG: User website not added to form (djculex)
+- BUG: Ie adding horizontal scroll to colorbox when not needed (Yeeeeahh IE) (djculex)
                   
 31. januar 2012
 - Return only year in education & job fields (djculex)

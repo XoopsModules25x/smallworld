@@ -46,9 +46,6 @@ $modversion['dirname'] = "smallworld";
 $modversion['icons16'] = '../../Frameworks/moduleclasses/icons/16';
 $modversion['icons32'] = '../../Frameworks/moduleclasses/icons/32';
 
-//update
-$modversion['onUpdate'] = 'include/update.php';
-
 // Admin
 $modversion['hasAdmin'] = 1;
 
@@ -277,9 +274,9 @@ $i++;
 $modversion['config'][$i]['name'] = 'smallworldprivorpub';
 $modversion['config'][$i]['title'] = '_MI_SMALLWORLD_PRIVATEMODULE';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_PRIVATEMODULE_DESC';
-$modversion['config'][$i]['formtype'] = 'hidden';
+$modversion['config'][$i]['formtype'] = 'yesno';
 $modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
+$modversion['config'][$i]['default'] = 0;
 
 /**
 * Authorized groups to upload
