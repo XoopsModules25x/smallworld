@@ -32,7 +32,7 @@ class SmallWorldUser
     {
         global $xoopsUser, $xoopsDB;
         $i=0;
-        $sql = "SELECT * FROM ".$xoopsDB->prefix('smallworld_user')." WHERE userid = ".$userID;
+        $sql = "SELECT * FROM ".$xoopsDB->prefix('smallworld_user')." WHERE userid = '".$userID."'";
         $result = $xoopsDB->queryF($sql);
         $i = $xoopsDB->getRowsNum($result);
         if ($xoopsUser) {
@@ -229,7 +229,7 @@ class SmallWorldUser
                 return Smallworld_array_flatten($data,0);
             }
         } else {
-            redirect_header(XOOPS_URL . "/modules/smallworld/register.php");
+            //redirect_header(XOOPS_URL . "/modules/smallworld/register.php");
         }
     }
 }

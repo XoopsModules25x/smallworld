@@ -181,7 +181,7 @@ global $xoopsUser,$xoopsLogger;
 				$xoTheme->addScript(XOOPS_URL.'/modules/smallworld/language/english/js/jquery.countdown.js');
 			}
 	} else {
-		redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
+		//redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
 	  }
      
 include(XOOPS_ROOT_PATH."/footer.php");

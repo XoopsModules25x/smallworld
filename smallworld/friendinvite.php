@@ -15,7 +15,7 @@
 * @Repository path:		$HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/friendinvite.php $
 * @Last committed:		$Revision: 11992 $
 * @Last changed by:		$Author: djculex $
-* @Last changed date:	$Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
+* @Last changed date:	$Date: 2013-08-31 20:06:22 +0200 (lÃ¸, 31 aug 2013) $
 * @ID:					$Id: friendinvite.php 11992 2013-08-31 18:06:22Z djculex $
 **/
 global $xoopsUser;
