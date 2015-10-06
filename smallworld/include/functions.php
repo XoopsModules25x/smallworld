@@ -593,7 +593,8 @@ function Smallworld_Gravatar($uid)
 function Smallworld_mostactiveusers_allround()
 {
     global $xoopsDB,$xoopsUser;
-    $sql = "SELECT uid_fk, COUNT( * ) as cnt ";
+    $msg = array();
+	$sql = "SELECT uid_fk, COUNT( * ) as cnt ";
     $sql .= "FROM ( ";
     $sql .= "SELECT uid_fk ";
     $sql .= "FROM ".$xoopsDB->prefix('smallworld_messages')." ";
@@ -606,7 +607,7 @@ function Smallworld_mostactiveusers_allround()
     $counter = $xoopsDB->getRowsNum($result);
     if ($counter < 1) {
     } else {    
-        $msg = array();
+        
         $counter = 1;
         while ($row = $xoopsDB->fetchArray($result)) {
             $msg[$counter]["counter"] = $counter;
@@ -680,7 +681,7 @@ function smallworld_nextBirthdays()
         . ' (YEAR(CURDATE())-YEAR(birthday))'
         . ' - (RIGHT(CURDATE(),5)<RIGHT(birthday,5))'
         . ' AS age_now'
-        . ' FROM xoops_smallworld_user WHERE right(birthday,5) = right(CURDATE(),5)'
+        . ' FROM '.$xoopsDB->prefix("smallworld_user").' WHERE right(birthday,5) = right(CURDATE(),5)'
         . ' ORDER BY MONTH( birthday ) , DAY( birthday ) '
         . ' LIMIT 10 ';        
     $result = $xoopsDB->queryF($sql);
