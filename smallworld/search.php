@@ -34,12 +34,7 @@ $xoopsLogger->activated = false;
 
 				while ($row=$xoopsDB->fetchArray($result)) {
 					$user = new xoopsUser($row['userid']);
-					if ($row['userimage'] != 'Not specified') {
-                            $imageLink = XOOPS_URL.'/uploads/'.trim($row['userimage']);
-							$imageSize = smallworld_getImageSize(30, 30, $imageLink);
-                            $imageHw = smallworld_imageResize($imageSize[0], $imageSize[1], 30);
-                            $image = '<img src="'.smallworld_getAvatarLink ($row['userid'], $row['userimage']).'" height="20" />';
-						} 
+                    $image = '<img src="'.smallworld_getAvatarLink ($row['userid'], $row['userimage']).'" height="20" />';
                     
                     $imageHw = smallworld_imageResize($imageSize[0], $imageSize[1], 30);
 					$data[] = array(
@@ -49,6 +44,7 @@ $xoopsLogger->activated = false;
 				}
 				// jQuery wants JSON data
 				echo json_encode($data);
+				
 				flush();
 			}
 	else {}
