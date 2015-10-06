@@ -380,7 +380,7 @@ function smallworld_getAvatarLink($userid, $image)
         }
     }
 
-    $image = ($image == 'blank.gif') ? '' : $image;
+    //$image = ($image == 'blank.gif') ? '' : $image;
     
     if (preg_match("/avatars/i", $image)) {
         $link = XOOPS_UPLOAD_URL."/".$image;
@@ -388,17 +388,17 @@ function smallworld_getAvatarLink($userid, $image)
         $link = $image;
     }
 
-    if (!in_array($ext,array('jpg','bmp','gif','png','jpeg')) || $image == '' || $image == "blank.gif"){
+    if (in_array($ext,array('jpg','bmp','gif','png','jpeg')) || $image == '' || $image == "blank.gif"){
         
-        if ($ext == '' && $gender == '1') {
+        if ($gender == '1') {
             $link = XOOPS_URL."/modules/smallworld/images/ano_woman.png";
         }
         
-        if ($ext == '' && $gender == '2') {
+        if ($gender == '2') {
             $link = XOOPS_URL."/modules/smallworld/images/ano_man.png";
         }
                 
-        if ($ext == '' AND $gender == '') {
+        if ($gender == '') {
             $link = XOOPS_URL."/modules/smallworld/images/genderless.png";
         }
     } 
