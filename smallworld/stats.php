@@ -25,25 +25,28 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 include_once (XOOPS_ROOT_PATH.'/class/template.php');
 global $xoopsUser, $xoopsTpl, $xoTheme;
 $xoopsLogger->activated = false;
-$tpl = new XoopsTpl();
+//error_reporting(E_ALL); 
+if ($xoopsUser) {
+	$tpl = new XoopsTpl();
 
-$userid = $xoopsUser->getVar('uid');
-$newusers = smallworld_Stats_newest ();
-$m_a_users = Smallworld_mostactiveusers_allround();
-$br_users = Smallworld_topratedusers();
-$wo_users = Smallworld_worstratedusers();
-$birth = smallworld_nextBirthdays ();
-$sp = smallworld_sp ();
-$tpl->assign('newusers',$newusers);		
-$tpl->assign('mostactiveU',$m_a_users);	
-$tpl->assign('bestratedU',$br_users);
-$tpl->assign('worstratedU',$wo_users);
-$tpl->assign('sp',$sp);
-
-if (!empty($birth)) {
-	$tpl->assign('birthdays',$birth);
-} else {
-	$tpl->assign('birthdays',0);
+	$userid = $xoopsUser->getVar('uid');
+	$newusers = smallworld_Stats_newest ();
+	$m_a_users = Smallworld_mostactiveusers_allround();
+	$br_users = Smallworld_topratedusers();
+	$wo_users = Smallworld_worstratedusers();
+	$birth = smallworld_nextBirthdays ();
+	$sp = smallworld_sp ();
+	$tpl->assign('newusers',$newusers);		
+	$tpl->assign('mostactiveU',$m_a_users);	
+	$tpl->assign('bestratedU',$br_users);
+	$tpl->assign('worstratedU',$wo_users);
+	$tpl->assign('sp',$sp);
+	//readfile(XOOPS_ROOT_PATH .'/modules/smallworld/templates/getStat.html');
+	if (!empty($birth)) {
+		$tpl->assign('birthdays',$birth);
+	} else {
+		$tpl->assign('birthdays',0);
+	}
+	$tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getStat.html');
 }
-$tpl->display(XOOPS_ROOT_PATH .'/modules/smallworld/templates/getStat.html');
 ?>
