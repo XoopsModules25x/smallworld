@@ -70,7 +70,8 @@ class Public_Wall_Updates
      */      
     public function Updates($last,$moderators) {
         global $xoopsUser, $xoopsDB, $moduleConfig, $xoopsLogger;
-        $hm = smallworld_GetModuleOption('msgtoshow');
+		$moderators = is_array($moderators) ? $moderators : array($moderators);
+		$hm = smallworld_GetModuleOption('msgtoshow');
         $set = smallworld_checkPrivateOrPublic ();
         $mods = implode(",",Smallworld_array_flatten(array_unique($moderators),0));
         $inspected = $this->inspected();
