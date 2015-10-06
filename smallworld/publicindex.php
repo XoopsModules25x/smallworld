@@ -32,8 +32,6 @@ include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/publicWall.php");
 include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
 global $xoopsUser, $xoTheme,$xoopsConfig,$xoopsLogger;
-    $xoopsLogger->activated = false;
-     /* error_reporting(E_ALL); */
     
 	$set = smallworld_checkPrivateOrPublic ();
     $dBase = new SmallWorldDB;
