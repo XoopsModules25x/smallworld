@@ -51,6 +51,7 @@ include_once(XOOPS_ROOT_PATH."/header.php");
 		if ($xoopsUser) {
             if ( $xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
                 $xoopsTpl->assign('isadminuser', 'YES');
+                $profile = 2;
             }else {
                 $xoopsTpl->assign('isadminuser', 'NO');
             }
@@ -117,7 +118,7 @@ include_once(XOOPS_ROOT_PATH."/header.php");
     // }
     
     if ($profile == 0 && $set['access'] == 0) {
-        //redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
+        redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
     }
 
 include(XOOPS_ROOT_PATH."/footer.php");
