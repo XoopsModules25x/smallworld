@@ -466,18 +466,17 @@ xoops_smallworld(document).ready(function() {
 		xoops_smallworld("#smallworld_searchform").autocomplete({
             source: smallworld_url+ 'search.php', 
             minLength:1,
-            open: function(event, ui){
-                xoops_smallworld("ul.ui-autocomplete li a").each(function(){
-                    var htmlString = xoops_smallworld(this).html().replace(/&lt;/g, '<');
-                    htmlString = htmlString.replace(/&gt;/g, '>');
-                    xoops_smallworld(this).html(htmlString);
-                    xoops_smallworld('.ui-autocomplete.ui-menu').width(275);
-                });
-            },
             select: function(event,ui){
                 location.href= smallworld_url+'userprofile.php?username='+ui.item.value;
             }
 		});
+		
+		xoops_smallworld["ui"]["autocomplete"].prototype["_renderItem"] = function( ul, item) {
+			return xoops_smallworld( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( xoops_smallworld( "<a></a>" ).html( item.label ) )
+			.appendTo( ul );
+        };
 	});
 
 // Function to reset gender, relationshipstatus,politics an religion select:Selected in forms after send and in pagerefresh
