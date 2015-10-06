@@ -205,11 +205,11 @@ xoops_smallworld(function() {
             }
             buttons[_smallworldCancel] = function() { 
                 xoops_smallworld( this ).dialog( "close" ); 
-                location.href = smallworld_urlReferer;
+                location.href = smallworld_url+'publicindex.php';
             } 	
             buttons[_smallworldClose] = function() {
                 xoops_smallworld( this ).dialog( "close" ); 
-                location.href = smallworld_urlReferer;
+                location.href = smallworld_url+'publicindex.php';
             }
 
             xoops_smallworld('#smallworld_notyetusercontent').dialog({
