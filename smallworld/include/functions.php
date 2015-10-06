@@ -424,7 +424,7 @@ function smallworld_XIMversion () {
     global $xoopsDB;
     $sql = "SELECT version FROM ".$xoopsDB->prefix('modules')." WHERE dirname = 'xim'";
     $result = $xoopsDB->queryF($sql);
-    if ($result) {
+    if ($xoopsDB->getRowsNum($result) > 0) {
         while ($r = $xoopsDB->fetchArray($result)) { 
             $version = $r['version'];
         }
