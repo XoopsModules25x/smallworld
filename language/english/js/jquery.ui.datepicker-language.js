@@ -1,4 +1,4 @@
-﻿/* English/UK initialisation for the jQuery UI date picker plugin. */
+/* English/UK initialisation for the jQuery UI date picker plugin. */
 /* Written by Stuart. */
 jQuery(function(xoops_smallworld){
 	xoops_smallworld.datepicker.regional['en-GB'] = {

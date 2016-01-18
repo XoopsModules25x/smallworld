@@ -1,4 +1,4 @@
-﻿// Various language codes to be included in header
+// Various language codes to be included in header
 // See this for your parametres
 //https://spreadsheets.google.com/spreadsheet/pub?key=0Ah0xU81penP1cDlwZHdzYWkyaERNc0xrWHNvTTA1S1E&gid=1
 
