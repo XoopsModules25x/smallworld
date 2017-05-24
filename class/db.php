@@ -147,7 +147,7 @@ class SmallWorldDB
     function updateSingleValue($table, $userid, $field, $value)
     {
         global $xoopsUser, $xoopsDB;
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $sql = "UPDATE ".$xoopsDB->prefix($table)." SET "
             . $field . "='" . $myts->addSlashes($value) . "' WHERE userid='" . intval($userid) . "'";
         $result =$xoopsDB->queryF($sql);
@@ -161,7 +161,7 @@ class SmallWorldDB
     function saveImage($values)
     {
         global $xoopsUser, $xoopsDB;
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $sql = "INSERT INTO " . $xoopsDB->prefix('smallworld_images') . " VALUES (" . $values . ")";
         $result =$xoopsDB->queryF($sql);
     }
@@ -175,7 +175,7 @@ class SmallWorldDB
     function DeleteImage($userid, $imagename)
     {
         global $xoopsUser, $xoopsDB;
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $sql = "DELETE FROM ".$xoopsDB->prefix('smallworld_images')
             . " WHERE imgname = '" . stripslashes($imagename) . "' AND userid='" . $userid . "'";
         $result =$xoopsDB->queryF($sql);
@@ -188,7 +188,7 @@ class SmallWorldDB
     function handlePosts ()
     {
         global $xoopsUser,$xoopsDB;
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $uid = $xoopsUser->getVar('uid');
         $user = new XoopsUser($uid);
         $img  = new SmallWorldImages;

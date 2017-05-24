@@ -33,7 +33,7 @@ $user = new XoopsUser($id);
 
 $uid = $user->getVar('uid');
 
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 
 xoops_loadLanguage('user');
 

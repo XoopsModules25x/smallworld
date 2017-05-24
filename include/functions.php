@@ -110,7 +110,7 @@ function Smallworld_YearOfArray($array)
 
 function Smallworld_CreateIndexFiles($folderUrl)
 {
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     file_put_contents($folderUrl . 'index.html', "<script>history.go(-1);</script>");
 }
 
@@ -1037,7 +1037,7 @@ function smallworld_getImageSize($w, $h, $url)
      */
     function smallworld_xv_getGroupd () {
         $db =& XoopsDatabaseFactory::getDatabaseConnection();
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $sql = "SELECT userid, username FROM ".$db->prefix('smallworld_user')." ORDER BY userid";
         $result = $db->queryF($sql);
         $num = $db->getRowsNum($result);
