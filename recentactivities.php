@@ -19,10 +19,10 @@
  * @ID         :                    $Id: index.php 8924 2012-02-09 20:13:23Z djculex $
  **/
 
-include_once('../../mainfile.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/class/template.php');
+include_once '../../mainfile.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsTpl, $xoopsLogger;
 $xoopsLogger->activated = false;
 

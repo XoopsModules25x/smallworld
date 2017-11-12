@@ -20,11 +20,11 @@
  **/
 
 include '../../mainfile.php';
-include_once(XOOPS_ROOT_PATH . '/class/template.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php');
+include_once XOOPS_ROOT_PATH . '/class/template.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php';
 $set = smallworld_checkPrivateOrPublic();
 $pub = smallworld_checkUserPubPostPerm();
 $hm  = smallworld_GetModuleOption('msgtoshow');
@@ -36,7 +36,7 @@ global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger;
 $xoopsLogger->activated = false;
 /* error_reporting(E_ALL); */
 $xoopsTpl = new XoopsTpl();
-$id       = ($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
+$id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 if ($id <= 0 || $page == 'publicindex' && $set['access'] = 1) {
     $Wall = new Public_Wall_Updates();
 } else {
@@ -45,13 +45,13 @@ if ($id <= 0 || $page == 'publicindex' && $set['access'] = 1) {
 if (isset($_POST['userid'])) {
     $userid = intval($_POST['userid']);
 } else {
-    $userid = ($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
+    $userid = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 }
 $Xuser    = ($id > 0) ? new XoopsUser($id) : 0;
 $username = ($id > 0) ? $Xuser->getVar('uname') : '';
 $dBase    = new SmallWorldDB;
 $check    = new SmallWorldUser;
-$profile  = ($xoopsUser) ? $check->checkIfProfile($id) : 0;
+$profile  = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
 if ($id > 0) {
     if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {

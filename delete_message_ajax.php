@@ -18,9 +18,9 @@
  * @Last       changed date:    $Date: 2012-01-18 06:17:13 +0100 (on, 18 jan 2012) $
  * @ID         :                    $Id: delete_message_ajax.php 8749 2012-01-18 05:17:13Z beckmi $
  **/
-include_once('../../mainfile.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once '../../mainfile.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger;
 $xoopsLogger->activated = false;
 $id                     = $xoopsUser->getVar('uid');

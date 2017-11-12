@@ -21,8 +21,8 @@
 
 require_once 'admin_header.php';
 require_once '../../../include/cp_header.php';
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 if (!isset($xoopsTpl)) {

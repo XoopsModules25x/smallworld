@@ -19,17 +19,17 @@
  * @ID         :                    $Id: message_ajax.php 12114 2013-10-01 17:11:18Z djculex $
  **/
 
-include_once('../../mainfile.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/class/template.php');
+include_once '../../mainfile.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger, $xoopsTpl;
 $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
 $page    = 'index';
-$id      = ($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
+$id      = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 $check   = new SmallWorldUser;
-$profile = ($xoopsUser) ? $check->checkIfProfile($id) : 0;
+$profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
 if ($profile >= 2) {
 

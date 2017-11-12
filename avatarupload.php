@@ -19,9 +19,9 @@
  * @ID         :                    $Id: avatarupload.php 8749 2012-01-18 05:17:13Z beckmi $
  **/
 global $xoopsUser, $xoopsLogger;
-include_once('../../mainfile.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once '../../mainfile.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 if ($xoopsUser) {
     $xoopsLogger->activated = false;
     $userID                 = $xoopsUser->getVar('uid');

@@ -19,11 +19,11 @@
  * @ID         :                    $Id: partnersearch.php 11576 2013-05-22 13:25:30Z djculex $
  **/
 
-include_once('../../mainfile.php');
+include_once '../../mainfile.php';
 $xoopsOption['template_main'] = 'smallworld_userprofile_edittemplate.html';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoopsDB, $xoopsLogger;
 $xoopsLogger->activated = false;
 if ($_GET) {

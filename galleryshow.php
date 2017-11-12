@@ -18,11 +18,11 @@
  * @Last       changed date:    $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
  * @ID         :                    $Id: galleryshow.php 12114 2013-10-01 17:11:18Z djculex $
  **/
-include_once('../../mainfile.php');
+include_once '../../mainfile.php';
 $xoopsOption['template_main'] = 'smallworld_galleryshow.html';
-include_once(XOOPS_ROOT_PATH . '/header.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once XOOPS_ROOT_PATH . '/header.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoTheme, $xoopsLogger;
 $xoopsLogger->activated = false;
 
@@ -72,5 +72,5 @@ if ($xoopsUser) {
 } else {
     redirect_header(XOOPS_URL . '/user.php', 1, _NOPERM);
 }
-include(XOOPS_ROOT_PATH . '/footer.php');
+include XOOPS_ROOT_PATH . '/footer.php';
 ?>

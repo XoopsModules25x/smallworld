@@ -18,15 +18,15 @@
  * @Last       changed date:    $Date: 2012-02-07 22:57:57 +0100 (ti, 07 feb 2012) $
  * @ID         :                    $Id: class_collector.php 8905 2012-02-07 21:57:57Z djculex $
  **/
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/adminclass.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/db.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/user.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/images.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/profile.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/wall.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/forms.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/uploadclass.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/friends.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/mail.php');
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/adminclass.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/db.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/user.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/images.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/profile.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/wall.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/forms.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/uploadclass.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/friends.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/mail.php';
 
 ?>

@@ -18,11 +18,11 @@
  * @Last       changed date:    $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
  * @ID         :                    $Id: permalink.php 12114 2013-10-01 17:11:18Z djculex $
  **/
-include_once('../../mainfile.php');
+include_once '../../mainfile.php';
 $xoopsOption['template_main'] = 'smallworld_permalink.html';
-include_once(XOOPS_ROOT_PATH . '/header.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once XOOPS_ROOT_PATH . '/header.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
 
 $xoopsLogger->activated = false;
@@ -45,8 +45,8 @@ if (isset($_GET['updid']) AND isset($_GET['ownerid'])) {
     redirect_header(XOOPS_URL . '/modules/smallworld/index.php', 5, _SMALLWORLD_UPDATEID_NOT_EXIST);
 }
 
-$id   = ($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
-$user = ($xoopsUser) ? new XoopsUser($id) : 0;
+$id   = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
+$user = $xoopsUser ? new XoopsUser($id) : 0;
 
 if ($xoopsUser) {
     if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
@@ -57,7 +57,7 @@ if ($xoopsUser) {
         $xoopsTpl->assign('isadminuser', 'NO');
     }
 }
-$username = ($xoopsUser) ? $user->getVar('uname') : '';
+$username = $xoopsUser ? $user->getVar('uname') : '';
 
 $friend = $check->friendcheck($id, $ownerID);
 
@@ -80,5 +80,5 @@ $xoopsTpl->assign('myusername', $username);
 $xoopsTpl->assign('pagename', 'index');
 $xoopsTpl->assign('check', $profile);
 
-include(XOOPS_ROOT_PATH . '/footer.php');
+include XOOPS_ROOT_PATH . '/footer.php';
 ?>

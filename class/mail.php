@@ -20,7 +20,7 @@
  **/
 
 include_once XOOPS_ROOT_PATH . '/class/mail/xoopsmultimailer.php';
-include_once(XOOPS_ROOT_PATH . '/class/template.php');
+include_once XOOPS_ROOT_PATH . '/class/template.php';
 
 class smallworld_mail
 {

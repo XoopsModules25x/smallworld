@@ -19,12 +19,12 @@
  * @ID         :                    $Id: register.php 11843 2013-07-18 17:29:48Z djculex $
  **/
 
-include_once('../../mainfile.php');
+include_once '../../mainfile.php';
 $xoopsOption['template_main'] = 'smallworld_userprofile_regtemplate.html';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoopsTpl, $xoTheme;
 
 if ($xoopsUser) {
@@ -289,5 +289,5 @@ if ($xoopsUser) {
 } else {
     redirect_header(XOOPS_URL . '/register.php', 1, _NOPERM);
 }
-include(XOOPS_ROOT_PATH . '/footer.php');
+include XOOPS_ROOT_PATH . '/footer.php';
 ?>

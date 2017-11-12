@@ -18,7 +18,7 @@
  * @Last       changed date:    $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
  * @ID         :                    $Id: xoops_version.php 11992 2013-08-31 18:06:22Z djculex $
  **/
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
 $modversion['name']                = _MI_SMALLWORLD_MODULE_NAME;
 $modversion['version']             = 1.15;

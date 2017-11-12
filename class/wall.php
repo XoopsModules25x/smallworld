@@ -42,7 +42,7 @@ class Wall_Updates
         global $xoopsUser, $xoopsDB, $moduleConfig;
         $hm        = smallworld_GetModuleOption('msgtoshow');
         $set       = smallworld_checkPrivateOrPublic();
-        $followers = (is_array($followers)) ? $followers : array($followers);
+        $followers = is_array($followers) ? $followers : array($followers);
         $followers = array_unique(Smallworld_array_flatten($followers, 0));
 
         $i = 0;
@@ -434,7 +434,7 @@ class Wall_Updates
 
         $check          = new SmallWorldUser;
         $dBase          = new SmallWorldDB;
-        $profile        = ($xoopsUser) ? $check->checkIfProfile($id) : 0;
+        $profile        = $xoopsUser ? $check->checkIfProfile($id) : 0;
         $module_handler =& xoops_gethandler('module');
         $module         = $module_handler->getByDirname('smallworld');
         $config_handler =& xoops_gethandler('config');

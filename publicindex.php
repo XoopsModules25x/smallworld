@@ -19,7 +19,7 @@
  * @ID         :                    $Id: index.php 9482 2012-05-11 10:02:24Z djculex $
  **/
 
-include_once('../../mainfile.php');
+include_once '../../mainfile.php';
 $page = basename($_SERVER['PHP_SELF'], '.php');
 
 if ($xoopsUser && $page != 'publicindex') {
@@ -27,19 +27,19 @@ if ($xoopsUser && $page != 'publicindex') {
 } else {
     $xoopsOption['template_main'] = 'smallworld_publicindex.html';
 }
-include_once(XOOPS_ROOT_PATH . '/header.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once XOOPS_ROOT_PATH . '/header.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsLogger;
 
 $set   = smallworld_checkPrivateOrPublic();
 $dBase = new SmallWorldDB;
 $check = new SmallWorldUser;
 
-$id       = ($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
-$username = ($xoopsUser) ? $xoopsUser->getVar('uname') : '';
-$profile  = ($xoopsUser) ? $check->checkIfProfile($id) : 0;
+$id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
+$username = $xoopsUser ? $xoopsUser->getVar('uname') : '';
+$profile  = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
 $module_handler =& xoops_gethandler('module');
 $module         = $module_handler->getByDirname('smallworld');
@@ -82,4 +82,4 @@ $xoopsTpl->assign('pagename', 'publicindex');
 $xoopsTpl->assign('check', $profile);
 $xoopsTpl->assign('access', $set['access']);
 
-include(XOOPS_ROOT_PATH . '/footer.php');
+include XOOPS_ROOT_PATH . '/footer.php';

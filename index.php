@@ -19,10 +19,10 @@
  * @ID         :                    $Id: index.php 12114 2013-10-01 17:11:18Z djculex $
  **/
 
-include_once('../../mainfile.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php');
+include_once '../../mainfile.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsLogger, $xoopsModule;
 
 $set = smallworld_checkPrivateOrPublic();
@@ -34,9 +34,9 @@ if ($xoopsUser) {
 } else {
     redirect_header(XOOPS_URL . '/user.php', 5, _NOPERM);
 }
-include_once(XOOPS_ROOT_PATH . '/header.php');
+include_once XOOPS_ROOT_PATH . '/header.php';
 if ($set['access'] == 1) {
-    $id    = ($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
+    $id    = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
     $user  = new XoopsUser($id);
     $dBase = new SmallWorldDB;
 
@@ -62,7 +62,7 @@ if ($set['access'] == 1) {
 
     $username = $user->getVar('uname');
     $check    = new SmallWorldUser;
-    $profile  = ($xoopsUser) ? $check->checkIfProfile($id) : 0;
+    $profile  = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
     if ($profile >= 2) {
         $xuser = new SmallWorldProfile;
@@ -86,7 +86,7 @@ if ($set['access'] == 1) {
     }
 
     //Get friends invitations
-    $getInvitations = ($xoopsUser) ? $check->getRequests($id) : 0;
+    $getInvitations = $xoopsUser ? $check->getRequests($id) : 0;
     $Wall->ParsePubArray($updatesarray, $id);
 
     if ($profile >= 2) {
@@ -118,4 +118,4 @@ if ($profile == 0 && $set['access'] == 0) {
     //redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
 }
 
-include(XOOPS_ROOT_PATH . '/footer.php');
+include XOOPS_ROOT_PATH . '/footer.php';

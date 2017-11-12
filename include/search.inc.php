@@ -18,7 +18,7 @@
  * @Last       changed date:    $Date: 2012-02-09 21:13:23 +0100 (to, 09 feb 2012) $
  * @ID         :                    $Id: permalink.php 8924 2012-02-09 20:13:23Z djculex $
  **/
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
 function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortby = 'created DESC')
@@ -26,9 +26,9 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
     global $xoopsDB, $xoopsConfig, $myts, $xoopsUser;
 
     if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/main.php')) {
-        require_once(XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/main.php');
+        require_once XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/main.php';
     } else {
-        require_once(XOOPS_ROOT_PATH . '/modules/smallworld/language/english/main.php');
+        require_once XOOPS_ROOT_PATH . '/modules/smallworld/language/english/main.php';
     }
 
     $module_handler =& xoops_gethandler('module');

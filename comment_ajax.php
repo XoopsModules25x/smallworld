@@ -18,17 +18,17 @@
  * @Last       changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
  * @ID         :                    $Id: comment_ajax.php 12175 2013-10-15 17:41:43Z djculex $
  **/
-include_once('../../mainfile.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/class/template.php');
+include_once '../../mainfile.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger, $xoopsTpl;
 $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
 $page    = 'index';
 $check   = new SmallWorldUser;
-$id      = ($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
-$profile = ($xoopsUser) ? $check->checkIfProfile($id) : 0;
+$id      = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
+$profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
 if ($profile >= 2) {
 

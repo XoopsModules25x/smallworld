@@ -14,10 +14,10 @@
  * @ID:					$Id: imgupload.php 11216 2013-03-13 12:27:43Z djculex $
  */
 global $xoopsUser, $xoopsLogger;
-include_once('../../mainfile.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/UploadHandler.php');
+include_once '../../mainfile.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/UploadHandler.php';
 if ($xoopsUser) {
     $xoopsLogger->activated = false;
     $img                    = new smallWorldImages;

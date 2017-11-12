@@ -19,10 +19,10 @@
  * @ID         :                    $Id: up_vote.php 8749 2012-01-18 05:17:13Z beckmi $
  **/
 include '../../mainfile.php';
-include_once(XOOPS_ROOT_PATH . '/class/template.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
+include_once XOOPS_ROOT_PATH . '/class/template.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 
 global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger, $xoopsDB;
 $xoopsLogger->activated = false;

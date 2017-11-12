@@ -1027,7 +1027,7 @@ function smallworld_SetCoreScript()
     }
 
     // IF logged in define xoops / smallworld user id
-    $myid = ($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
+    $myid = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 
     // Check if option is et to allow public reading
     $pub    = smallworld_checkPrivateOrPublic();
@@ -1042,10 +1042,10 @@ function smallworld_SetCoreScript()
 
     // Check if USER is smallworld-registered user
     $chkUser = new SmallWorldUser;
-    $ChkProf = ($xoopsUser) ? $chkUser->CheckIfProfile($myid) : 0;
+    $ChkProf = $xoopsUser ? $chkUser->CheckIfProfile($myid) : 0;
 
     // Check if there are requests pending
-    $count_invit = ($xoopsUser) ? count($chkUser->getRequests($myid)) : 0;
+    $count_invit = $xoopsUser ? count($chkUser->getRequests($myid)) : 0;
 
     // Get module config for validation and place in javascript
     $validate = $moduleConfig['validationstrenght'];
@@ -1060,7 +1060,7 @@ function smallworld_SetCoreScript()
     $googlemaps = $moduleConfig['smallworldUseGoogleMaps'];
 
     // Get users messages count based on users followerArray
-    $getUserMsgNum = ($xoopsUser) ? smallworld_getCountFriendMessagesEtc() : 0;
+    $getUserMsgNum = $xoopsUser ? smallworld_getCountFriendMessagesEtc() : 0;
 
     // Check if request url is with www or without
     $urltest   = smallworld_getHostRequest();

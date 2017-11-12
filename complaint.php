@@ -19,10 +19,10 @@
  * @ID         :                    $Id: complaint.php 8815 2012-01-26 15:33:48Z djculex $
  **/
 include '../../mainfile.php';
-include_once(XOOPS_ROOT_PATH . '/class/template.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
+include_once XOOPS_ROOT_PATH . '/class/template.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 
 global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;

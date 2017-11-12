@@ -19,8 +19,8 @@
  * @ID         :                    $Id: core.php 11723 2013-06-19 16:48:22Z djculex $
  **/
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
 class SmallworldCorePreload extends XoopsPreloadItem
 {

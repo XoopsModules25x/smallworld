@@ -18,11 +18,11 @@
  * @Last       changed date:    $Date: 2013-06-12 19:42:10 +0200 (on, 12 jun 2013) $
  * @ID         :                    $Id: smallworldshare.php 11659 2013-06-12 17:42:10Z djculex $
  **/
-include_once('../../mainfile.php');
+include_once '../../mainfile.php';
 $xoopsOption['template_main'] = 'smallworld_share.html';
-include_once(XOOPS_ROOT_PATH . '/header.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once XOOPS_ROOT_PATH . '/header.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsTpl, $xoopsLogger;
 
 $xoopsLogger->activated = false;
@@ -82,5 +82,5 @@ if ($perm <= 0) {
     $xoTheme->addMeta('meta', 'og:image', XOOPS_URL . '/modules/smallworld/images/smallworld.png');
 }
 
-include(XOOPS_ROOT_PATH . '/footer.php');
+include XOOPS_ROOT_PATH . '/footer.php';
 ?>

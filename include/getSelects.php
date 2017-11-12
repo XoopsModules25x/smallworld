@@ -18,11 +18,11 @@
  * @Last       changed date:    $Date: 2013-06-16 19:29:32 +0200 (sø, 16 jun 2013) $
  * @ID         :                    $Id: getSelects.php 11699 2013-06-16 17:29:32Z djculex $
  **/
-include_once('../../../mainfile.php');
+include_once '../../../mainfile.php';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger;
 $xoopsLogger->activated = false;
 if ($xoopsUser) {

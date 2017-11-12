@@ -18,12 +18,12 @@
  * @Last       changed date:    $Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
  * @ID         :                    $Id: editimages.php 11576 2013-05-22 13:25:30Z djculex $
  **/
-include_once('../../mainfile.php');
+include_once '../../mainfile.php';
 $xoopsOption['template_main'] = 'smallworld_images_edittemplate.html';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
-include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
+include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoopsTpl, $xoopsDB, $xoTheme;
 
 if ($xoopsUser) {
@@ -57,5 +57,5 @@ if ($xoopsUser) {
         redirect_header('index.php', 1);
     }
 }
-include(XOOPS_ROOT_PATH . '/footer.php');
+include XOOPS_ROOT_PATH . '/footer.php';
 ?>
