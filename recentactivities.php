@@ -55,7 +55,7 @@ foreach ($mids as $mid) {
         $count   = count($results);
         if (is_array($results) && $count > 0) {
             for ($i = 0; $i < $count; $i++) {
-                if (isset($results[$i]['image']) && $results[$i]['image'] != '') {
+                if (isset($results[$i]['image']) && '' != $results[$i]['image']) {
                     $results[$i]['image'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/' . $results[$i]['image'];
                 } else {
                     $results[$i]['image'] = XOOPS_URL . '/images/icons/posticon2.gif';
@@ -68,7 +68,7 @@ foreach ($mids as $mid) {
                 $results[$i]['title'] = $myts->htmlspecialchars($results[$i]['title']);
                 $results[$i]['time']  = $results[$i]['time'] ? formatTimestamp($results[$i]['time']) : '';
             }
-            if ($count == 5) {
+            if (5 == $count) {
                 $showall_link = '<a href="' . XOOPS_URL . '/search.php?action=showallbyuser&amp;mid=' . $mid . '&amp;uid=' . $thisUser->getVar('uid') . '">' . _US_SHOWALL . '</a>';
             } else {
                 $showall_link = '';

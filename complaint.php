@@ -41,9 +41,9 @@ if ($xoopsUser) {
         $data      = array('time' => $time, 'a_user' => $a_user, 'byuser' => $byuser, 'link' => $id, 'a_userid' => $auserid);
         $already   = $db->alreadycomplaint($id, $by_userid, $auserid);
 
-        if ($already != 1) {
+        if (1 != $already) {
             $mail = new smallworld_mail;
-            if (smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld') != 0) {
+            if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {
                 $mail->sendMails($by_userid, '', 'complaint', $link = null, $data);
             }
             $db->updateComplaint($auserid);

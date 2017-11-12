@@ -29,20 +29,20 @@ $set = smallworld_checkPrivateOrPublic();
 
 if ($xoopsUser) {
     $xoopsOption['template_main'] = 'smallworld_index.html';
-} elseif (!$xoopsUser && $set['access'] == 1) {
+} elseif (!$xoopsUser && 1 == $set['access']) {
     $xoopsOption['template_main'] = 'smallworld_publicindex.html';
 } else {
     redirect_header(XOOPS_URL . '/user.php', 5, _NOPERM);
 }
 include_once XOOPS_ROOT_PATH . '/header.php';
-if ($set['access'] == 1) {
+if (1 == $set['access']) {
     $id    = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
     $user  = new XoopsUser($id);
     $dBase = new SmallWorldDB;
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = Smallworld_isInspected($id);
-    if ($inspect['inspect'] == 'yes') {
+    if ('yes' == $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
 
@@ -76,7 +76,7 @@ if ($set['access'] == 1) {
 
     // Things to do with wall
     $Wall = ($profile >= 2) ? new Wall_Updates() : new Public_Wall_Updates;
-    if ($profile < 2 && $set['access'] == 1) {
+    if ($profile < 2 && 1 == $set['access']) {
         $pub          = smallworld_checkUserPubPostPerm();
         $updatesarray = $Wall->updates(0, $pub);
     } else {
@@ -106,7 +106,7 @@ if ($set['access'] == 1) {
     //	}
 
 }
-if ($profile == 1 && $set['access'] == 0) {
+if (1 == $profile && 0 == $set['access']) {
     redirect_header(XOOPS_URL . '/modules/smallworld/register.php');
 }
 
@@ -114,7 +114,7 @@ if ($profile == 1 && $set['access'] == 0) {
 // redirect_header(XOOPS_URL . "/modules/smallworld/register.php");
 // }
 
-if ($profile == 0 && $set['access'] == 0) {
+if (0 == $profile && 0 == $set['access']) {
     //redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
 }
 

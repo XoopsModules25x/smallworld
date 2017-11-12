@@ -322,9 +322,9 @@ class SmallWorldForm
             if ($i >= 1) {
                 while ($row = $xoopsDB->fetchArray($result)) {
                     $v    = unserialize(stripslashes($row['value']));
-                    $pv   = ($v['posts'] == '1') ? ' checked="checked"' : '';
-                    $cv   = ($v['comments'] == '1') ? ' checked="checked"' : '';
-                    $nv   = ($v['notify'] == '1') ? ' checked="checked"' : '';
+                    $pv   = ('1' == $v['posts']) ? ' checked="checked"' : '';
+                    $cv   = ('1' == $v['comments']) ? ' checked="checked"' : '';
+                    $nv   = ('1' == $v['notify']) ? ' checked="checked"' : '';
                     $form .= '<input type="checkbox" name="usersettings[]" id="posts" value="' . $v['posts'] . '" ' . $pv . '> ' . _SMALLWORLD_SHOWMYPOSTS . '<br/>';
                     $form .= '<input type="checkbox" name="usersettings[]" id="comments" value="' . $v['comments'] . '" ' . $cv . '> ' . _SMALLWORLD_SHOWMYCOMMENTS . '<br/>';
                     $form .= '<input type="checkbox" name="usersettings[]" id="notify" value="' . $v['notify'] . '" ' . $nv . '> ' . _SMALLWORLD_NOTIFYME . '<br/>';

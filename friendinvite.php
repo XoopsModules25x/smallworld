@@ -40,14 +40,14 @@ if ($xoopsUser) {
     $yourName      = $check->getName($myUid);
     $USC           = json_decode($db->GetSettings($friend), true);
 
-    if ($invitation == '1') {
+    if ('1' == $invitation) {
         if ($friendProfile >= 2) {
 
             $friendshipExists = $check->friendcheck($myUid, $friend);
-            if ($friendshipExists[0] == 0) {
+            if (0 == $friendshipExists[0]) {
                 $resultMsg = _SMALLWORLD_JSON_ADDFRIEND . $friendName . _SMALLWORLD_JSON_REQUEST_PENDING;
-                if (smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld') != 0) {
-                    if ($USC['notify'] == 1) {
+                if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {
+                    if (1 == $USC['notify']) {
                         $mail->sendMails($friend, $friend, 'friendshipfollow', $link = null, array());
                     }
                 }
@@ -60,7 +60,7 @@ if ($xoopsUser) {
                 $db->toogleFriendInvite($friendshipExists, $friend, $myUid);
                 echo json_encode(array('error' => 'no', 'msg' => $resultMsg, 'msgChange' => _SMALLWORLD_JSON_ADDFR_TEXT));
             }
-            if ($friendshipExists[0] == 2) {
+            if (2 == $friendshipExists[0]) {
                 $resultMsg = _SMALLWORLD_JSON_DELETE_FRIEND_START . $friendName . _SMALLWORLD_JSON_DELETE_FRIEND_END;
                 $db->toogleFriendInvite($friendshipExists, $friend, $myUid);
                 echo json_encode(array('error' => 'no', 'msg' => $resultMsg, 'msgChange' => _SMALLWORLD_JSON_ADDFR_TEXT));
@@ -69,12 +69,12 @@ if ($xoopsUser) {
             echo 'friend does not exist';
         }
     }
-    if ($invitation == '2') {
+    if ('2' == $invitation) {
         if ($friendProfile >= 2) {
             // Used for followers
             $following = $check->following_or($myUid, $friend);
 
-            if ($following[0] == 0) {
+            if (0 == $following[0]) {
                 $resultMsgFollow = _SMALLWORLD_JSON_FOLLOWINGFRIEND . $friendName . _SMALLWORLD_JSON_FOLLOWINGFRIEND_DESC;
                 $db->toogleFollow($following[0], $myUid, $friend);
                 echo json_encode(array('error' => 'no', 'msg' => $resultMsgFollow, 'msgChange' => _SMALLWORLD_JSON_FLNO_TEXT));
@@ -87,7 +87,7 @@ if ($xoopsUser) {
 
         }
     }
-    if ($invitation == '3') {
+    if ('3' == $invitation) {
         if ($friendProfile >= 2) {
             // Used for accept/deny friendship requests
             if ($stat > 0) {

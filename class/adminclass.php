@@ -186,7 +186,7 @@ class SmallworldAdmin
         $result   = $xoopsDB->queryF($sql);
         $msgtoday = array();
 
-        if ($xoopsDB->getRowsNum($result) != 0) {
+        if (0 != $xoopsDB->getRowsNum($result)) {
             $i = 1;
             while ($row = $xoopsDB->fetchArray($result)) {
                 $msgtoday['counter'][$i] = $i;
@@ -214,7 +214,7 @@ class SmallworldAdmin
         global $xoopsUser, $xoopsDB, $xoopsTpl;
         $array = array();
 
-        if ($direction == 'up') {
+        if ('up' == $direction) {
             $sql    = 'SELECT owner, count(*) AS cnt FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE up='1' GROUP BY owner ORDER BY cnt DESC LIMIT 20";
             $result = $xoopsDB->queryF($sql);
             $count  = $xoopsDB->getRowsNum($result);
@@ -238,7 +238,7 @@ class SmallworldAdmin
             $result = $xoopsDB->queryF($sql);
             $count  = $xoopsDB->getRowsNum($result);
             $i      = 1;
-            if ($count != 0) {
+            if (0 != $count) {
                 while ($row = $xoopsDB->fetchArray($result)) {
                     $array['counter'][$i] = $i;
                     $array['img'][$i]     = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../images/dislike.png'/>";
@@ -265,14 +265,14 @@ class SmallworldAdmin
     {
         global $xoopsDB, $xoopsUser, $xoopsTpl;
         $data = array();
-        if ($inspect == 'yes') {
+        if ('yes' == $inspect) {
             $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_admin') . ' WHERE (inspect_start  + inspect_stop) >= ' . time() . ' ORDER BY username';
         } else {
             $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_admin') . ' WHERE (inspect_start  + inspect_stop) < ' . time() . ' ORDER BY username';
         }
         $result = $xoopsDB->queryF($sql);
         $count  = $xoopsDB->getRowsNum($result);
-        if ($count != 0) {
+        if (0 != $count) {
             while ($row = $xoopsDB->fetchArray($result)) {
                 $data[] = $row;
             }
@@ -301,11 +301,11 @@ class SmallworldAdmin
 
         $upd_img = $pathIcon16 . '/on.png';
 
-        if ($read[0] > $version && $read[2] == '1') {
+        if ($read[0] > $version && '1' == $read[2]) {
             $critical = true;
             $upd_img  = $pathIcon16 . '/off.png';
         }
-        if ($read[0] > $version && $read[2] != '1') {
+        if ($read[0] > $version && '1' != $read[2]) {
             $update  = true;
             $upd_img = '../images/upd_normal.png';
         }
@@ -341,7 +341,7 @@ class SmallworldAdmin
          *   To the extent possible under law, Mathew Tinsley has waived all copyright and related or
          *   neighboring rights to this work. There's absolutely no warranty.
          */
-        if (gettype($methods) == 'string') {
+        if ('string' == gettype($methods)) {
             $methods = array($methods);
         } elseif (!is_array($methods)) {
             return false;
@@ -353,7 +353,7 @@ class SmallworldAdmin
                     //allow_url_fopen must still be enabled
                     if (ini_get('allow_url_fopen')) {
                         $contents = file_get_contents($url);
-                        if ($contents !== false) {
+                        if (false !== $contents) {
                             return $contents;
                         }
                     }
@@ -373,11 +373,11 @@ class SmallworldAdmin
                     break;
                 case 'socket':
                     //make sure the url contains a protocol, otherwise $parts['host'] won't be set
-                    if (strpos($url, 'http://') !== 0 && strpos($url, 'https://') !== 0) {
+                    if (0 !== strpos($url, 'http://') && 0 !== strpos($url, 'https://')) {
                         $url = 'http://' . $url;
                     }
                     $parts = parse_url($url);
-                    if ($parts['scheme'] == 'https') {
+                    if ('https' == $parts['scheme']) {
                         $target = 'ssl://' . $parts['host'];
                         $port   = isset($parts['port']) ? $parts['port'] : 443;
                     } else {
@@ -387,7 +387,7 @@ class SmallworldAdmin
                     $page = isset($parts['path']) ? $parts['path'] : '';
                     $page .= isset($parts['query']) ? '?' . $parts['query'] : '';
                     $page .= isset($parts['fragment']) ? '#' . $parts['fragment'] : '';
-                    $page = ($page == '') ? '/' : $page;
+                    $page = ('' == $page) ? '/' : $page;
                     if ($fp = fsockopen($target, $port, $errno, $errstr, 15)) {
                         $headers = "GET $page HTTP/1.1\r\n";
                         $headers .= "Host: {$parts['host']}\r\n";
@@ -395,10 +395,10 @@ class SmallworldAdmin
                         if (fwrite($fp, $headers)) {
                             $resp = '';
                             //while not eof and an error does not occur when calling fgets
-                            while (!feof($fp) && ($curr = fgets($fp, 128)) !== false) {
+                            while (!feof($fp) && false !== ($curr = fgets($fp, 128))) {
                                 $resp .= $curr;
                             }
-                            if (isset($curr) && $curr !== false) {
+                            if (isset($curr) && false !== $curr) {
                                 return substr(strstr($resp, "\r\n\r\n"), 3);
                             }
                         }
@@ -521,8 +521,8 @@ class SmallWorldDoSync
      */
     function smallworld_remDir($userid, $directory, $empty = false)
     {
-        if ($userid != '') {
-            if (substr($directory, -1) == '/') {
+        if ('' != $userid) {
+            if ('/' == substr($directory, -1)) {
                 $directory = substr($directory, 0, -1);
             }
 
@@ -533,7 +533,7 @@ class SmallWorldDoSync
             } else {
                 $directoryHandle = opendir($directory);
                 while ($contents = readdir($directoryHandle)) {
-                    if ($contents != '.' && $contents != '..') {
+                    if ('.' != $contents && '..' != $contents) {
                         $path = $directory . '/' . $contents;
                         if (is_dir($path)) {
                             $this->smallworld_remDir($userid, $path);
@@ -543,7 +543,7 @@ class SmallWorldDoSync
                     }
                 }
                 closedir($directoryHandle);
-                if ($empty == false) {
+                if (false == $empty) {
                     if (!rmdir($directory)) {
                         return false;
                     }
@@ -569,7 +569,7 @@ class SmallWorldDoSync
             return false;
         }
         while ($file = readdir($dir_handle)) {
-            if ($file != '.' && $file != '..') {
+            if ('.' != $file && '..' != $file) {
                 if (!is_dir($dirname . '/' . $file)) {
                     unlink($dirname . '/' . $file);
                 } else {

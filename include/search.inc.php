@@ -49,14 +49,14 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
         $followers = array();
     }
 
-    if ($id > 0 && $id != '') {
+    if ($id > 0 && '' != $id) {
 
         $sql = 'SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . ' U WHERE M.uid_fk=U.userid';
     } else {
         $sql = 'SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . ' U WHERE M.uid_fk=U.userid';
     }
 
-    if ($userid != 0) {
+    if (0 != $userid) {
         $sql .= ' AND M.uid_fk = ' . $userid . ' ';
     }
     if (is_array($queryarray) && $count = count($queryarray)) {

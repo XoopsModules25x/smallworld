@@ -51,13 +51,13 @@ class SmallWorldFriends
         $meuser = $xoopsUser->getVar('uid');
         $data   = array();
         if ($xoopsUser) {
-            if ($action == 'pending') {
+            if ('pending' == $action) {
                 $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $id . "' AND status = 1";
-            } elseif ($action == 'friends') {
+            } elseif ('friends' == $action) {
                 $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $id . "' AND status = 2";
-            } elseif ($action == 'following') {
+            } elseif ('following' == $action) {
                 $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . $id . "'";
-            } elseif ($action == 'followingme') {
+            } elseif ('followingme' == $action) {
                 $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE you = '" . $id . "'";
             }
             $result = $xoopsDB->queryF($sql);

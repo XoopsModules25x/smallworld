@@ -139,7 +139,7 @@ function Smallworld_Birthday($birth)
     $yearDiff  = date('Y') - $year;
     $monthDiff = date('m') - $month;
     $dayDiff   = date('d') - $day;
-    if ($monthDiff == 0) {
+    if (0 == $monthDiff) {
         if ($dayDiff < 0) {
             $yearDiff--;
         }
@@ -156,7 +156,7 @@ function smallworld_isset_or($check)
     $query  = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE username = '" . $check . "'";
     $result = $xoopsDB->queryF($query);
     while ($row = $xoopsDB->fetchArray($result)) {
-        if ($row['userid'] == '') {
+        if ('' == $row['userid']) {
             return false;
         } else {
             return $row['userid'];
@@ -180,37 +180,37 @@ function smallworld_time_stamp($session_time)
     if ($seconds <= 60) {
         $t = "$seconds" . _SMALLWORLD_SECONDSAGO;
     } else if ($minutes <= 60) {
-        if ($minutes == 1) {
+        if (1 == $minutes) {
             $t = _SMALLWORLD_ONEMINUTEAGO;
         } else {
             $t = "$minutes" . _SMALLWORLD_MINUTESAGO;
         }
     } else if ($hours <= 24) {
-        if ($hours == 1) {
+        if (1 == $hours) {
             $t = _SMALLWORLD_ONEHOURAGO;
         } else {
             $t = "$hours" . _SMALLWORLD_HOURSAGO;
         }
     } else if ($days <= 7) {
-        if ($days == 1) {
+        if (1 == $days) {
             $t = _SMALLWORLD_ONEDAYAGO;
         } else {
             $t = "$days" . _SMALLWORLD_DAYSAGO;
         }
     } else if ($weeks <= 4) {
-        if ($weeks == 1) {
+        if (1 == $weeks) {
             $t = _SMALLWORLD_ONEWEEKAGO;
         } else {
             $t = "$weeks" . _SMALLWORLD_WEEKSAGO;
         }
     } else if ($months <= 12) {
-        if ($months == 1) {
+        if (1 == $months) {
             $t = _SMALLWORLD_ONEMONTHAGO;
         } else {
             $t = "$months" . _SMALLWORLD_MONTHSAGO;
         }
     } else {
-        if ($years == 1) {
+        if (1 == $years) {
             $t = _SMALLWORLD_ONEYEARAGO;
         } else {
             $t = "$years" . _SMALLWORLD_YEARSAGO;
@@ -235,7 +235,7 @@ function smallworld_tolink($text, $uid)
     $gallery  = XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $usr->getVar('uname');
 
     if (in_array($ext, array('.jpg', '.bmp', '.gif', '.png')) || in_array($ext, array('.JPG', '.BMP', '.GIF', '.PNG')) || in_array($ext2, array('.jpeg'))) {
-        if (strpos($text, 'UPLIMAGE') !== false) {
+        if (false !== strpos($text, 'UPLIMAGE')) {
             $text = str_replace('UPLIMAGE', '', $text);
             $text = preg_replace('/(((f|ht){1}tp:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
                                  '<span class="smallworldUplImgTxt"><br/><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_self">' . $usr->getVar('uname') . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>', $text);
@@ -266,43 +266,43 @@ function Smallworld_stripWordsKeepUrl($text)
 
 function Smallworld_sociallinks($num, $name)
 {
-    if ($num == 0) {
+    if (0 == $num) {
         $image = '<img title="Msn" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/msn.png"/>';
         $link  = '<a title="Msn" id="Smallworld_socialnetwork" target="_blank" href="http://members.msn.com/' . $name . '">';
     }
-    if ($num == 1) {
+    if (1 == $num) {
         $image = '<img title="facebook" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/facebook.png"/>';
         $link  = '<a title="facebook" id="Smallworld_socialnetwork" target="_blank" href="http://www.facebook.com/' . $name . '">';
     }
-    if ($num == 2) {
+    if (2 == $num) {
         $image = '<img title="GooglePlus" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/googleplus.png"/>';
         $link  = '<a title="GooglePlus" id="Smallworld_socialnetwork" target="_blank" href="https://plus.google.com/' . $name . '">';
     }
-    if ($num == 3) {
+    if (3 == $num) {
         $image = '<img title="Icq" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/icq.png"/>';
         $link  = '<a title="icq" id="Smallworld_socialnetwork" target="_blank" href="http://www.icq.com/people/' . $name . '/">';
     }
-    if ($num == 4) {
+    if (4 == $num) {
         $image = '<img title="Skype" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/skype.png"/>';
         $link  = '<a title="Skype" id="Smallworld_socialnetwork" target="_blank" href="skype:' . $name . '?userinfo">';
     }
-    if ($num == 5) {
+    if (5 == $num) {
         $image = '<img title="Twitter" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/twitter.png"/>';
         $link  = '<a title="Twitter" id="Smallworld_socialnetwork" target="_blank" href="http://twitter.com/#!/' . $name . '">';
     }
-    if ($num == 6) {
+    if (6 == $num) {
         $image = '<img title="MySpace" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/myspace.png"/>';
         $link  = '<a title="MySpace" id="Smallworld_socialnetwork" target="_blank" href="http://www.myspace.com/' . $name . '">';
     }
-    if ($num == 7) {
+    if (7 == $num) {
         $image = '<img title="Xoops" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/xoops.png"/>';
         $link  = '<a title="Xoops" id="Smallworld_socialnetwork" target="_blank" href="http://xoops.org/modules/profile/userinfo.php?uid=' . $name . '">';
     }
-    if ($num == 8) {
+    if (8 == $num) {
         $image = '<img title="Yahoo Messenger" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/yahoo.png"/>';
         $link  = '<a title="Yahoo Messenger" id="Smallworld_socialnetwork" target="_blank" href="ymsgr:sendim?' . $name . '">';
     }
-    if ($num == 9) {
+    if (9 == $num) {
         $image = '<img title="Youtube" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/youtube.png"/>';
         $link  = '<a title="Youtube" id="Smallworld_socialnetwork" target="_blank" href="http://www.youtube.com/user/' . $name . '">';
     }
@@ -353,7 +353,7 @@ function smallworld_getAvatarLink($userid, $image)
     $sql     = 'SELECT gender FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userid . "'";
     $result  = $xoopsDB->queryF($sql);
     $counter = $xoopsDB->getRowsNum($result);
-    if ($counter == 0) {
+    if (0 == $counter) {
         $gender = '';
     } else {
         while ($row = $xoopsDB->fetchArray($result)) {
@@ -369,17 +369,17 @@ function smallworld_getAvatarLink($userid, $image)
         $link = $image;
     }
 
-    if (in_array($ext, array('jpg', 'bmp', 'gif', 'png', 'jpeg')) || $image == '' || $image == 'blank.gif') {
+    if (in_array($ext, array('jpg', 'bmp', 'gif', 'png', 'jpeg')) || '' == $image || 'blank.gif' == $image) {
 
-        if ($gender == '1') {
+        if ('1' == $gender) {
             $link = XOOPS_URL . '/modules/smallworld/images/ano_woman.png';
         }
 
-        if ($gender == '2') {
+        if ('2' == $gender) {
             $link = XOOPS_URL . '/modules/smallworld/images/ano_man.png';
         }
 
-        if ($gender == '') {
+        if ('' == $gender) {
             $link = XOOPS_URL . '/modules/smallworld/images/genderless.png';
         }
     }
@@ -482,7 +482,7 @@ function smallworld_getCountFriendMessagesEtc()
     $Wall      = new Wall_Updates();
     $userid    = $xoopsUser->getVar('uid');
     $followers = Smallworld_array_flatten($Wall->getFollowers($userid), 0);
-    if (smallworld_GetModuleOption('usersownpostscount', $repmodule = 'smallworld') == 1) {
+    if (1 == smallworld_GetModuleOption('usersownpostscount', $repmodule = 'smallworld')) {
         array_push($followers, $userid);
     }
     $ids    = implode(',', $followers);
@@ -563,7 +563,7 @@ function Smallworld_Gravatar($uid)
         $image = $r['userimage'];
     }
 
-    $image = ($image == '' || $image == 'blank.gif') ? smallworld_getAvatarLink($uid, $image) : $image;
+    $image = ('' == $image || 'blank.gif' == $image) ? smallworld_getAvatarLink($uid, $image) : $image;
 
     $type = Array(
         1 => 'jpg',
@@ -574,7 +574,7 @@ function Smallworld_Gravatar($uid)
 
     $ext = explode('.', $image);
 
-    if (@!in_array(strtolower($ext[1]), $type) || $image == '') {
+    if (@!in_array(strtolower($ext[1]), $type) || '' == $image) {
         $avatar = '';
     } else {
         $avatar = $image;
@@ -704,7 +704,7 @@ function smallworld_nextBirthdays()
 */
 function Smallworld_euroToUsDate($stringDate)
 {
-    if ($stringDate != 0 || $stringDate != '') {
+    if (0 != $stringDate || '' != $stringDate) {
         $theData = explode('-', trim($stringDate));
         $ret     = $theData[2] . '-' . $theData[1] . '-' . $theData[0];
         return $ret;
@@ -720,7 +720,7 @@ function Smallworld_euroToUsDate($stringDate)
 */
 function Smallworld_UsToEuroDate($stringDate)
 {
-    if ($stringDate != 0 || $stringDate != '') {
+    if (0 != $stringDate || '' != $stringDate) {
         $theData = explode('-', trim($stringDate));
         $ret     = $theData[2] . '-' . $theData[1] . '-' . $theData[0];
         return $ret;
@@ -826,10 +826,10 @@ function smallworld_imageResize($width, $height, $target)
 function smallworld_getImageSize($w, $h, $url)
 {
     $bn = basename($url);
-    if ($bn != 'blank.gif'
-        || $bn != 'blank.png'
-        || $bn != 'blank.jpg'
-        || $bn != 'image_missing.png') {
+    if ('blank.gif' != $bn
+        || 'blank.png' != $bn
+        || 'blank.jpg' != $bn
+        || 'image_missing.png' != $bn) {
         if (ini_get('allow_url_fopen')) {
             $imagesize = getimagesize($url);
         } else {
@@ -899,7 +899,7 @@ function smallworld_getRndImg($userid)
  */
 function smallworld_getHostRequest()
 {
-    $protocol   = strpos(strtolower($_SERVER['SERVER_PROTOCOL']), 'https') === false ? 'http' : 'https';
+    $protocol   = false === strpos(strtolower($_SERVER['SERVER_PROTOCOL']), 'https') ? 'http' : 'https';
     $host       = $_SERVER['HTTP_HOST'];
     $script     = $_SERVER['SCRIPT_NAME'];
     $params     = $_SERVER['QUERY_STRING'];
@@ -963,7 +963,7 @@ function smallworld_checkPrivateOrPublic()
     global $xoopsUser;
     $opt = array();
     $set = smallworld_GetModuleOption('smallworldprivorpub', $repmodule = 'smallworld');
-    if ($set != 0) {
+    if (0 != $set) {
         $opt['access'] = 1;
     } else {
         $opt['access'] = 0;
@@ -974,7 +974,7 @@ function smallworld_checkPrivateOrPublic()
         $check            = new SmallWorldUser;
         $profile          = $check->checkIfProfile($id);
         $opt['xoopsuser'] = 1;
-        if ($profile != 0) {
+        if (0 != $profile) {
             $opt['smallworlduser'] = 1;
         } else {
             $opt['smallworlduser'] = 0;
@@ -998,7 +998,7 @@ function smallworld_xv_getGroupd()
     $sql    = 'SELECT userid, username FROM ' . $db->prefix('smallworld_user') . ' ORDER BY userid';
     $result = $db->queryF($sql);
     $num    = $db->getRowsNum($result);
-    if ($num == 0) {
+    if (0 == $num) {
         $ndata = array(0 => _MI_SMALLWORLD_ALL);
     } else {
         while ($r = $db->fetchArray($result)) {
@@ -1090,7 +1090,7 @@ function smallworld_SetCoreScript()
     $xoTheme->addScript('', '', $script);
 
     // Include geolocate styling
-    if ($googlemaps == 1) {
+    if (1 == $googlemaps) {
         $xoTheme->addScript('https://maps.googleapis.com/maps/api/js?sensor=false&language=' . _LANGCODE);
         $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/ui.geo_autocomplete.js');
         $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/ui.geo_autocomplete_now.js');
@@ -1245,7 +1245,7 @@ function smallworld_checkUserPubPostPerm()
     $check      = new SmallWorldUser;
     $UserPerPub = smallworld_GetModuleOption('smallworldshowPoPubPage');
     $allUsers   = $check->allUsers();
-    if ($UserPerPub[0] != 0) {
+    if (0 != $UserPerPub[0]) {
         $pub = $UserPerPub;
     } else {
         $pub = $check->allUsers();
@@ -1298,7 +1298,7 @@ function smallworld_getTagUsers($txt, $sender, $permalink = '')
         $uid    = smallworld_getUidFromName($users);
         $notify = json_decode($dBase->GetSettings($uid), true);
         if (isset ($notify['notify'])) {
-            if ($notify['notify'] != 0) {
+            if (0 != $notify['notify']) {
                 $mail->sendMails($sender, $uid, 'tag', $link = $permalink, array($txt));
             }
         }

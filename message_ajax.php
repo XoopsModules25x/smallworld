@@ -76,8 +76,8 @@ if ($profile >= 2) {
                 }
 
                 $wm['msg_id']          = $data['msg_id'];
-                $wm['orimessage']      = ($USW['posts'] == 1 || $profile >= 2) ? str_replace(array("\r", "\n"), '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
-                $wm['message']         = ($USW['posts'] == 1 || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETPOSTS;
+                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(array("\r", "\n"), '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
+                $wm['message']         = (1 == $USW['posts'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETPOSTS;
                 $wm['message']         = Smallworld_cleanup($wm['message']);
                 $wm['created']         = smallworld_time_stamp($data['created']);
                 $wm['username']        = $data['username'];
@@ -98,13 +98,13 @@ if ($profile >= 2) {
                 $wm['usernameTitle']   = $wm['username'] . _SMALLWORLD_UPDATEONSITEMETA . $xoopsConfig['sitename'];
                 $wm['linkimage']       = XOOPS_URL . '/modules/smallworld/images/link.png';
                 $wm['permalink']       = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id'];
-                if ($USW['posts'] == 1 || $profile >= 2) {
+                if (1 == $USW['posts'] || $profile >= 2) {
                     $wm['sharelink'] = $Wall->GetSharing($wm['msg_id'], $wm['priv']);
                 } else {
                     $wm['sharelink'] = $Wall->GetSharing($wm['msg_id'], 1);
                 }
 
-                if ($USW['posts'] == 1 || $profile >= 2) {
+                if (1 == $USW['posts'] || $profile >= 2) {
                     $wm['sharediv'] = $Wall->GetSharingDiv($wm['msg_id'], $wm['priv'], $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
                 } else {
                     $wm['sharediv'] = $Wall->GetSharingDiv($wm['msg_id'], 1, $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
@@ -137,7 +137,7 @@ if ($profile >= 2) {
 
                         $wc['msg_id_fk']       = $cdata['msg_id_fk'];
                         $wc['com_id']          = $cdata['com_id'];
-                        $wc['comment']         = ($USC['comments'] == 1 || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($cdata['comment']), $cdata['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
+                        $wc['comment']         = (1 == $USC['comments'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($cdata['comment']), $cdata['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
                         $wc['comment']         = Smallworld_cleanup($wc['comment']);
                         $wc['time']            = smallworld_time_stamp($cdata['created']);
                         $wc['username']        = $cdata['username'];

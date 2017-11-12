@@ -43,12 +43,12 @@ if ($xoopsUser) {
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = Smallworld_isInspected($id);
-    if ($inspect['inspect'] == 'yes') {
+    if ('yes' == $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1, _SMALLWORLD_INSPEC_usermsg);
     }
 
     $profile = $check->checkIfProfile($id);
-    if ($profile >= 2 || $userisfriend[0] == 2 || $admin == true) {
+    if ($profile >= 2 || 2 == $userisfriend[0] || true == $admin) {
         $myusername = $xoopsUser->getVar('uname');
 
         $user        = new XoopsUser($id);
@@ -64,7 +64,7 @@ if ($xoopsUser) {
         $xoopsTpl->assign('myusername', $myusername);
         $xoopsTpl->assign('gallerytitleheader', _SMALLWORLD_TITLEHEADER);
         $xoopsTpl->assign('check', 1);
-    } elseif ($profile == 0) {
+    } elseif (0 == $profile) {
         $check->chkUser();
     } else {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1, _NOPERM);

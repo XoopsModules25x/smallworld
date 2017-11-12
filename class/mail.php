@@ -61,7 +61,7 @@ class smallworld_mail
         $RecieveNameUrl = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $RecieveName . "'>" . $RecieveName . '</a>';
 
         // Checking content of 'event' to send right message
-        if ($event == 'register') {
+        if ('register' == $event) {
             $subject = _SMALLWORLD_MAIL_REGISTERSUBJECT . $xoopsConfig['sitename'];
 
             $registername  = $SendName;
@@ -79,7 +79,7 @@ class smallworld_mail
             $toMail     = $xoopsConfig['adminmail'];
 
             // Send email to admin if red/yellow card has been pressed indicating a "bad" thread has been found.
-        } elseif ($event == 'complaint') {
+        } elseif ('complaint' == $event) {
 
             $subject = _SMALLWORLD_MAIL_COMPLAINT . $xoopsConfig['sitename'];
 
@@ -101,7 +101,7 @@ class smallworld_mail
             $mail->Body = $message;
             $toMail     = $xoopsConfig['adminmail'];
 
-        } elseif ($event == 'commentToWM') {
+        } elseif ('commentToWM' == $event) {
             $subject = _SMALLWORLD_MAIL_NEWCOMMENT . $xoopsConfig['sitename'];
 
             $ownermessage = stripslashes($this->getOwnerUpdateFromMsgID($data['msg_id_fk']));
@@ -139,7 +139,7 @@ class smallworld_mail
 
             $toMail = $ToUser->getVar('email');
 
-        } elseif ($event == 'friendshipfollow') {
+        } elseif ('friendshipfollow' == $event) {
             $subject = _SMALLWORLD_MAIL_NEWFRIENDFOLLOWER . $xoopsConfig['sitename'];
             $link    = "<a href='" . XOOPS_URL . "/modules/smallworld/index.php'>";
             $link    .= _SMALLWORLD_GOTOSMALLWORLDHERE . '</a>';
@@ -154,7 +154,7 @@ class smallworld_mail
             $message    = $tpl->fetch($lnk);
             $mail->Body = $message;
             $toMail     = $ToUser->getVar('email');
-        } elseif ($event == 'tag') {
+        } elseif ('tag' == $event) {
             $subject = _SMALLWORLD_MAIL_FRIENDTAGGEDYOU . $xoopsConfig['sitename'];
             $tpl     = new XoopsTpl();
             $tpl->assign('toUser', $RecieveName);

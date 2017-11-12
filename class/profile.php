@@ -82,15 +82,15 @@ class SmallWorldProfile
                 $lastlogin      = $user->getVar('last_login');
 
                 $gender = $r['gender'];
-                if ($gender == 2) {
+                if (2 == $gender) {
                     $heorshe  = _SMALLWORLD_HE;
                     $hisorher = _SMALLWORLD_HIS;
                 }
-                if ($gender == 1) {
+                if (1 == $gender) {
                     $heorshe  = _SMALLWORLD_SHE;
                     $hisorher = _SMALLWORLD_HER;
                 }
-                if ($gender == '' || $gender == 0) {
+                if ('' == $gender || 0 == $gender) {
                     $heorshe  = _SMALLWORLD_HEORSHE;
                     $hisorher = _SMALLWORLD_HISHER;
                 }
@@ -116,11 +116,11 @@ class SmallWorldProfile
                 $relationship = $r['relationship'];
                 $spouseExists = $check->spousexist($r['partner']);
 
-                if ($relationship == 2) {
+                if (2 == $relationship) {
                     $status = _SMALLWORLD_ISSINGLE;
                     $spouse = '';
                 }
-                if ($relationship == 3) {
+                if (3 == $relationship) {
                     $status = _SMALLWORLD_INRELATIONSHIP;
                     if ($spouseExists > 0) {
                         $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
@@ -128,7 +128,7 @@ class SmallWorldProfile
                         $spouse = $r['partner'];
                     }
                 }
-                if ($relationship == 0) {
+                if (0 == $relationship) {
                     $status = _SMALLWORLD_ISMARRIED;
                     if ($spouseExists > 0) {
                         $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
@@ -136,7 +136,7 @@ class SmallWorldProfile
                         $spouse = $r['partner'];
                     }
                 }
-                if ($relationship == 1) {
+                if (1 == $relationship) {
                     $status = _SMALLWORLD_ISENGAGED;
                     if ($spouseExists > 0) {
                         $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
@@ -144,7 +144,7 @@ class SmallWorldProfile
                         $spouse = $r['partner'];
                     }
                 }
-                if ($relationship == 5) {
+                if (5 == $relationship) {
                     $status = _SMALLWORLD_ISCOMPLICATED;
                     if ($spouseExists > 0) {
                         $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
@@ -152,7 +152,7 @@ class SmallWorldProfile
                         $spouse = $r['partner'];
                     }
                 }
-                if ($relationship == 4) {
+                if (4 == $relationship) {
                     $status = _SMALLWORLD_OPENRELATIONSHIP;
                     if ($spouseExists > 0) {
                         $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
@@ -176,13 +176,13 @@ class SmallWorldProfile
                 // Contact and adresses
                 $email      = unserialize($r['emailtype']);
                 $screenname = $db->getScreennamesToDiv($id);
-                if ($r['phone'] == '' || $r['phone'] == 0) {
+                if ('' == $r['phone'] || 0 == $r['phone']) {
                     $phone = 'xxx-xxx-xxxx';
                 } else {
                     $phone = $r['phone'];
                 }
 
-                if ($r['mobile'] == '' || $r['mobile'] == 0) {
+                if ('' == $r['mobile'] || 0 == $r['mobile']) {
                     $gsm = 'xxx-xxx-xxxx';
                 } else {
                     $gsm = $r['mobile'];

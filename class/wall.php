@@ -46,11 +46,11 @@ class Wall_Updates
         $followers = array_unique(Smallworld_array_flatten($followers, 0));
 
         $i = 0;
-        if ($last == 0) {
+        if (0 == $last) {
             $query = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . " U  WHERE M.uid_fk=U.userid AND M.uid_fk='" . $uid . "'";
         } elseif ($last > 0) {
             $query = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . " U  WHERE M.uid_fk=U.userid AND M.uid_fk='" . $uid . "' AND M.msg_id < '" . $last . "'";
-        } elseif ($last == 'a') {
+        } elseif ('a' == $last) {
             $query = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . " U  WHERE M.uid_fk=U.userid AND M.uid_fk='" . $uid . "'";
         }
 
@@ -58,9 +58,9 @@ class Wall_Updates
             foreach ($followers as $k => $v) {
                 if ($last > 0) {
                     $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $v . "' and M.msg_id < '" . $last . "'";
-                } elseif ($last == 0) {
+                } elseif (0 == $last) {
                     $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $v . "'";
-                } elseif ($last == 'a') {
+                } elseif ('a' == $last) {
                     $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $v . "'";
                 }
                 $i++;
@@ -70,23 +70,23 @@ class Wall_Updates
             $followers = $uid;
             if ($last > 0) {
                 $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $followers . "' and M.msg_id < '" . $last . "'";
-            } elseif ($last == 0) {
+            } elseif (0 == $last) {
                 $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $followers . "'";
-            } elseif ($last == 'a') {
+            } elseif ('a' == $last) {
                 $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $followers . "'";
             }
         }
 
         if ($last > 0) {
             $query .= ' order by created DESC LIMIT ' . $hm;
-        } elseif ($last == 'a') {
+        } elseif ('a' == $last) {
             $query .= ' order by M.msg_id DESC LIMIT ' . $hm;
         } else {
             $query .= ' order by created DESC LIMIT ' . $hm;
         }
         $result = $xoopsDB->queryF($query);
         $count  = $xoopsDB->getRowsNum($result);
-        if ($count == 0) {
+        if (0 == $count) {
             return false;
         } else {
             while ($row = $xoopsDB->fetchArray($result)) {
@@ -132,7 +132,7 @@ class Wall_Updates
             $image = $r['userimage'];
         }
 
-        $image = ($image == '' || $image == 'blank.gif') ? smallworld_getAvatarLink($uid, $image) : $image;
+        $image = ('' == $image || 'blank.gif' == $image) ? smallworld_getAvatarLink($uid, $image) : $image;
 
         $type = Array(
             1 => 'jpg',
@@ -143,7 +143,7 @@ class Wall_Updates
 
         $ext = explode('.', $image);
 
-        if (@!in_array(strtolower($ext[1]), $type) || $image == '') {
+        if (@!in_array(strtolower($ext[1]), $type) || '' == $image) {
             $avatar = '';
         } else {
             $avatar = $image;
@@ -240,7 +240,7 @@ class Wall_Updates
         while ($row = $xoopsDB->fetchArray($result)) {
             $data[] = $row;
         }
-        if ($i == 0) {
+        if (0 == $i) {
             $data = array($me);
         }
         if (!empty($data)) {
@@ -263,7 +263,7 @@ class Wall_Updates
         while ($row = $xoopsDB->fetchArray($result)) {
             $sum = $row['sum'];
         }
-        if ($sum == '') {
+        if ('' == $sum) {
             $sum = '0';
         }
         return $sum;
@@ -285,7 +285,7 @@ class Wall_Updates
         while ($row = $xoopsDB->fetchArray($result)) {
             $sum = $row['sum'];
         }
-        if ($sum == '') {
+        if ('' == $sum) {
             $sum = '0';
         }
         return $sum;
@@ -302,7 +302,7 @@ class Wall_Updates
     public function HasVoted($userid, $type, $comid, $msgid)
     {
         global $xoopsUser, $xoopsDB;
-        if ($type == 'msg') {
+        if ('msg' == $type) {
             $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE com_id = '0' AND msg_id = '" . $msgid . "' AND user_id = '" . $userid . "'";
             $result = $xoopsDB->queryF($sql);
             $i      = $xoopsDB->getRowsNum($result);
@@ -391,7 +391,7 @@ class Wall_Updates
      */
     function GetSharing($id, $priv)
     {
-        if ($priv != 1) {
+        if (1 != $priv) {
             $text = " | <span class='smallworld_share' id='smallworld_share'>";
             $text .= "<a class='share' id='share-page" . $id . "' href='javascript:void(0);'>" . _SMALLWORLD_SHARELINK . '</a></span>';
         } else {
@@ -411,7 +411,7 @@ class Wall_Updates
      */
     function GetSharingDiv($id, $priv, $permalink, $desc, $username)
     {
-        if ($priv != 1) {
+        if (1 != $priv) {
             $text = "<div style='display: none;' class='smallworld_bookmarks' id='share-page' name='share-page" . $id . "'>";
             $text .= "<span name='share-page" . $id . "' rel1='" . $desc . "' rel2= '" . $username . "' rel=" . $permalink . " id='basicBookmark' title='" . _SMALLWORLD_SHAREBOX_TITLE . "'>";
             $text .= '</span></div>';
@@ -474,8 +474,8 @@ class Wall_Updates
                 }
 
                 $wm['msg_id']          = $data['msg_id'];
-                $wm['orimessage']      = ($USW['posts'] == 1 || $profile >= 2) ? str_replace(array("\r", "\n"), '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
-                $wm['message']         = ($USW['posts'] == 1 || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETPOSTS;
+                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(array("\r", "\n"), '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
+                $wm['message']         = (1 == $USW['posts'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETPOSTS;
                 $wm['message']         = Smallworld_cleanup($wm['message']);
                 $wm['created']         = smallworld_time_stamp($data['created']);
                 $wm['username']        = $data['username'];
@@ -490,13 +490,13 @@ class Wall_Updates
                 $wm['sharelinkurl']    = XOOPS_URL . '/modules/smallworld/smallworldshare.php?ownerid=' . $data['uid_fk'];
                 $wm['sharelinkurl']    .= '&updid=' . $data['msg_id'] . '';
                 $wm['usernameTitle']   = $wm['username'] . _SMALLWORLD_UPDATEONSITEMETA . $xoopsConfig['sitename'];
-                if ($USW['posts'] == 1 || $profile >= 2) {
+                if (1 == $USW['posts'] || $profile >= 2) {
                     $wm['sharelink'] = $this->GetSharing($wm['msg_id'], $wm['priv']);
                 } else {
                     $wm['sharelink'] = $this->GetSharing($wm['msg_id'], 1);
                 }
 
-                if ($USW['posts'] == 1 || $profile >= 2) {
+                if (1 == $USW['posts'] || $profile >= 2) {
                     $wm['sharediv'] = $this->GetSharingDiv($wm['msg_id'], $wm['priv'], $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
                 } else {
                     $wm['sharediv'] = $this->GetSharingDiv($wm['msg_id'], 1, $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
@@ -505,7 +505,7 @@ class Wall_Updates
                 $wm['permalink']     = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id'];
                 $wm['commentsarray'] = $this->Comments($data['msg_id']);
 
-                if ($frU[0] == 2 || $USW['posts'] == 1) {
+                if (2 == $frU[0] || 1 == $USW['posts']) {
                     $xoopsTpl->append('walldata', $wm);
                 }
 
@@ -534,7 +534,7 @@ class Wall_Updates
 
                         $wc['msg_id_fk']       = $cdata['msg_id_fk'];
                         $wc['com_id']          = $cdata['com_id'];
-                        $wc['comment']         = ($USC['comments'] == 1 || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($cdata['comment']), $cdata['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
+                        $wc['comment']         = (1 == $USC['comments'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($cdata['comment']), $cdata['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
                         $wc['comment']         = Smallworld_cleanup($wc['comment']);
                         $wc['time']            = smallworld_time_stamp($cdata['created']);
                         $wc['username']        = $cdata['username'];
@@ -548,7 +548,7 @@ class Wall_Updates
                         $wc['vote_up']         = $this->countVotesCom('com', 'up', $cdata['msg_id_fk'], $cdata['com_id']);
                         $wc['vote_down']       = $this->countVotesCom('com', 'down', $cdata['msg_id_fk'], $cdata['com_id']);
 
-                        if ($frC[0] == 2 || $USC['comments'] == 1) {
+                        if (2 == $frC[0] || 1 == $USC['comments']) {
                             $xoopsTpl->append('comm', $wc);
                         }
                     }

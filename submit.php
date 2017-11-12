@@ -31,9 +31,9 @@ $db->handlePosts();
 // Create user albums etc
 $img    = new smallWorldImages;
 $userID = $xoopsUser->getVar('uid');
-if ($_POST['function'] != 'edit') {
+if ('edit' != $_POST['function']) {
     $img->createAlbum($userID);
-    if (smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld') != 0) {
+    if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {
         $mail->sendMails($userID, $userID, 'register', $link = null, array());
     }
 }

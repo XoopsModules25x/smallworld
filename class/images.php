@@ -53,7 +53,7 @@ class SmallWorldImages
         global $xoopsUser, $xoopsDB, $xoopsTpl;
         $post        = array();
         $checkFriend = new SmallWorldUser;
-        if ($checkFriend->friendcheck($userID, $user) != 0) {
+        if (0 != $checkFriend->friendcheck($userID, $user)) {
             // check friend is good to go
             $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $user . "'";
             $result = $xoopsDB->query($sql);

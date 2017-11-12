@@ -35,7 +35,7 @@ if ($xoopsUser) {
         $owner    = mysql_escape_string($_POST['owner']);
         $userid   = $xoopsUser->getVar('uid');
         $hasvoted = $Wall->HasVoted($userid, $type, $type2, $id);
-        if ($type == 'msg') {
+        if ('msg' == $type) {
             if ($hasvoted > 0) {
                 echo "<script type='text/javascript'>";
                 echo "alert('" . _SMALLWORLD_JS_ALREADYVOTED . "');";
@@ -48,7 +48,7 @@ if ($xoopsUser) {
             $newvote = $Wall->countVotes($type, 'up', $id);
         }
 
-        if ($type == 'com') {
+        if ('com' == $type) {
             if ($hasvoted > 0) {
                 echo "<script type='text/javascript'>alert('" . _SMALLWORLD_JS_ALREADYVOTED . "');</script>";
             } else {

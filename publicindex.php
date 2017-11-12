@@ -22,7 +22,7 @@
 include_once '../../mainfile.php';
 $page = basename($_SERVER['PHP_SELF'], '.php');
 
-if ($xoopsUser && $page != 'publicindex') {
+if ($xoopsUser && 'publicindex' != $page) {
     $xoopsOption['template_main'] = 'smallworld_index.html';
 } else {
     $xoopsOption['template_main'] = 'smallworld_publicindex.html';

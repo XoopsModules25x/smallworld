@@ -36,7 +36,7 @@ class SmallWorldUser
         $i      = $xoopsDB->getRowsNum($result);
         if ($xoopsUser) {
             // If xoopsuser but no smallworld profile
-            if ($i == 0) {
+            if (0 == $i) {
                 $i = 1;
             } else {
                 // if xoopsuser and has profile
@@ -95,20 +95,20 @@ class SmallWorldUser
         $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . (int)$user . "' AND you = '" . (int)$userID . "'";
         $result = $xoopsDB->query($sql);
         $i      = $xoopsDB->getRowsNum($result);
-        if ($i == 0) {
+        if (0 == $i) {
             $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE you = '" . (int)$user . "' AND me = '" . (int)$userID . "'";
             $result = $xoopsDB->query($sql);
             $i      = $xoopsDB->getRowsNum($result);
         }
         while ($row = $xoopsDB->fetchArray($result)) {
-            if ($i == 0 and $i == '') {
+            if (0 == $i and '' == $i) {
                 $respons[0] = 0;
             }
 
-            if ($i == 1 AND $row['status'] == 1) {
+            if (1 == $i AND 1 == $row['status']) {
                 $respons[0] = 1;
             }
-            if ($i == 1 AND $row['status'] == 2) {
+            if (1 == $i AND 2 == $row['status']) {
                 $respons[0] = 2;
             }
             return $respons;
@@ -146,14 +146,14 @@ class SmallWorldUser
             $result = $xoopsDB->query($sql);
             $i      = $xoopsDB->getRowsNum($result);
             while ($row = $xoopsDB->fetchArray($result)) {
-                if ($i == 0) {
+                if (0 == $i) {
                     $respons[0] = 0;
                 }
 
-                if ($i == 1 AND $row['status'] == 1) {
+                if (1 == $i AND 1 == $row['status']) {
                     $respons[0] = 1;
                 }
-                if ($i == 1 AND $row['status'] == 2) {
+                if (1 == $i AND 2 == $row['status']) {
                     $respons[0] = 2;
                 }
             }
@@ -217,7 +217,7 @@ class SmallWorldUser
         $sql    = 'SELECT userid FROM ' . $xoopsDB->prefix('smallworld_user') . ' ORDER BY userid';
         $result = $xoopsDB->queryF($sql);
         $i      = $xoopsDB->getRowsNum($result);
-        if ($i != 0) {
+        if (0 != $i) {
             while ($r = $xoopsDB->fetchArray($result)) {
                 $data[] = $r;
             }

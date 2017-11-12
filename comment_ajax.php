@@ -81,7 +81,7 @@ if ($profile >= 2) {
 
             $wc['msg_id_fk']       = $data['msg_id_fk'];
             $wc['com_id']          = $data['com_id'];
-            $wc['comment']         = ($USC['comments'] == 1 || $frC[0] == 2) ? smallworld_tolink(htmlspecialchars_decode($data['comment']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
+            $wc['comment']         = (1 == $USC['comments'] || 2 == $frC[0]) ? smallworld_tolink(htmlspecialchars_decode($data['comment']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
             $wc['comment']         = Smallworld_cleanup($wc['comment']);
             $wc['time']            = smallworld_time_stamp($data['created']);
             $wc['username']        = $data['username'];
@@ -116,8 +116,8 @@ if ($profile >= 2) {
                 $owner = Smallworld_getOwnerFromComment($data['msg_id_fk']);
                 // Get owner of posts settings in order to send mail or not!
                 $owner_privset = json_decode($dBase->GetSettings($v), true);
-                if (smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld') != 0) {
-                    if ($owner_privset['notify'] == 1) {
+                if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {
+                    if (1 == $owner_privset['notify']) {
                         $mail->sendMails($data['uid_fk'], $v, 'commentToWM', $link = null, $wc);
                     }
                 }

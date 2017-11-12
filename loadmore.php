@@ -37,7 +37,7 @@ $xoopsLogger->activated = false;
 /* error_reporting(E_ALL); */
 $xoopsTpl = new XoopsTpl();
 $id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
-if ($id <= 0 || $page == 'publicindex' && $set['access'] = 1) {
+if ($id <= 0 || 'publicindex' == $page && $set['access'] = 1) {
     $Wall = new Public_Wall_Updates();
 } else {
     $Wall = new Wall_Updates();
@@ -63,21 +63,21 @@ if ($id > 0) {
     $pub = smallworld_checkUserPubPostPerm();
 }
 
-if ($id <= 0 && $set['access'] == 1) {
+if ($id <= 0 && 1 == $set['access']) {
     //$pub = $check->allUsers();
     $followers = $pub;
-} elseif ($id > 0 && $set['access'] == 1 && $page == 'publicindex') {
+} elseif ($id > 0 && 1 == $set['access'] && 'publicindex' == $page) {
     //$pub = $check->allUsers();
     $followers = $pub;
 } else {
     $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
 }
 
-if ($page == 'index') {
+if ('index' == $page) {
     $updatesarray = ($id > 0) ? $Wall->Updates($_POST['last'], $id, $followers) : $Wall->Updates($_POST['last'], $followers);
-} elseif ($page == 'profile') {
+} elseif ('profile' == $page) {
     $updatesarray = ($id > 0) ? $Wall->Updates($_POST['last'], $userid, $userid) : $Wall->Updates($_POST['last'], $userid);
-} elseif ($page == 'publicindex') {
+} elseif ('publicindex' == $page) {
     $updatesarray = $Wall->Updates($_POST['last'], $followers);
 }
 

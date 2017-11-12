@@ -29,7 +29,7 @@ $userID                 = $xoopsUser->getVar('uid');
 $user                   = new XoopsUser($userID);
 $username               = $user->getVar('uname');
 $ri                     = smallworld_getRndImg($userID);
-if ($ri != '') {
+if ('' != $ri) {
     $riUrl = XOOPS_URL . '/uploads/albums_smallworld/' . $userID . '/' . $ri;
 }
 

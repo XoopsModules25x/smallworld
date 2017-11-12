@@ -52,14 +52,14 @@ if ($xoopsUser) {
         $username  = $xoopsUser->getVar('uname'); //Myusername
         $inspected = Smallworld_isInspected($id);
         $xoopsTpl->assign('inspect', $inspected['inspect']);
-        if ($inspected['inspect'] != 'no') {
+        if ('no' != $inspected['inspect']) {
             $xoopsTpl->assign('inspecttime', $inspected['totaltime']);
         }
         $xoopsTpl->assign('ownerofpage', $id);
 
         // Check status for relationship
         $fr = $check->friendcheck($yourid, $id);
-        if ($fr[0] == 0) {
+        if (0 == $fr[0]) {
             $friendship_text = _SMALLWORLD_JSON_ADDFR_TEXT;
             if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
                 $xoopsTpl->assign('isuserafriend', 'yes');
@@ -67,7 +67,7 @@ if ($xoopsUser) {
                 $xoopsTpl->assign('isuserafriend', 'no');
             }
         }
-        if ($fr[0] == 1) {
+        if (1 == $fr[0]) {
             $friendship_text = _SMALLWORLD_JSON_CANCELFR_TEXT;
             if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
                 $xoopsTpl->assign('isuserafriend', 'yes');
@@ -75,7 +75,7 @@ if ($xoopsUser) {
                 $xoopsTpl->assign('isuserafriend', 'no');
             }
         }
-        if ($fr[0] == 2) {
+        if (2 == $fr[0]) {
             $friendship_text = _SMALLWORLD_JSON_REMOVEFR_TEXT;
             $xoopsTpl->assign('isuserafriend', 'yes');
         }
@@ -84,12 +84,12 @@ if ($xoopsUser) {
         $fl = $check->following_or($yourid, $id);
         if ($yourid == $id) {
             $following_text = _SMALLWORLD_JSON_FLYES_TEXT;
-            $fl[0] == 0;
+            0 == $fl[0];
         }
-        if ($fl[0] == 0) {
+        if (0 == $fl[0]) {
             $following_text = _SMALLWORLD_JSON_FLYES_TEXT;
         }
-        if ($fl[0] == 1) {
+        if (1 == $fl[0]) {
             $following_text = _SMALLWORLD_JSON_FLNO_TEXT;
         }
 
@@ -131,9 +131,9 @@ if ($xoopsUser) {
 
         // Check for folder xim to add messenger user to menu items
         $hasxim = smallworld_checkForXim();
-        if ($hasxim == true) {
+        if (true == $hasxim) {
             $xoopsTpl->assign('sendxim', 'YES');
-            if ($fr[0] == 2) {
+            if (2 == $fr[0]) {
                 if ($yourid != $id) {
                     $xoopsTpl->assign('menu_xim', $menu_ximme);
                 }

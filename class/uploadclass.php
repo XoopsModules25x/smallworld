@@ -43,7 +43,7 @@ class SmallworldUploadHandler
     private function get_file_object($file_name)
     {
         $file_path = $this->upload_dir . $file_name;
-        if (is_file($file_path) && $file_name[0] !== '.' && $file_name != 'index.html' && $file_name != 'Thumbs.db') {
+        if (is_file($file_path) && '.' !== $file_name[0] && 'index.html' != $file_name && 'Thumbs.db' != $file_name) {
             $file            = new stdClass();
             $file->name      = $file_name;
             $file->size      = filesize($file_path);
@@ -120,7 +120,7 @@ class SmallworldUploadHandler
         $db->saveImage("'', '" . $userid . "', '" . $file->name . "', '" . addslashes($img) . "', '" . time() . "', ''");
 
         if (!$error && $file->name) {
-            if ($file->name[0] === '.') {
+            if ('.' === $file->name[0]) {
                 $file->name = substr($file->name, 1);
             }
             $file_path   = $this->upload_dir . $file->name;
@@ -190,7 +190,7 @@ class SmallworldUploadHandler
                                               isset($_SERVER['HTTP_X_FILE_TYPE']) ? $_SERVER['HTTP_X_FILE_TYPE'] : $upload['type'], $upload['error']);
         }
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-            && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+            && 'XMLHttpRequest' === $_SERVER['HTTP_X_REQUESTED_WITH']) {
             header('Content-type: application/json');
         } else {
             header('Content-type: text/plain');
@@ -211,7 +211,7 @@ class SmallworldUploadHandler
         $db->DeleteImage($userid, $file_name);
         $db->DeleteImage($userid, 'Thumbs.db');
         $thumbnail_path = $this->thumbnails_dir . $file_name;
-        $success        = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
+        $success        = is_file($file_path) && '.' !== $file_name[0] && unlink($file_path);
         if ($success && is_file($thumbnail_path)) {
             unlink($thumbnail_path);
         }

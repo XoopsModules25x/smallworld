@@ -35,7 +35,7 @@ if ($xoopsUser) {
     // Check if inspected userid -> redirect to userprofile and show admin countdown
 
     $inspect = Smallworld_isInspected($id);
-    if ($inspect['inspect'] == 'yes') {
+    if ('yes' == $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
 
@@ -48,14 +48,14 @@ if ($xoopsUser) {
         // ------------ PERSONAL INFO ------------ //
 
         // Real name
-        if (smallworldGetValfromArray('realname', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('realname', 'smallworldusethesefields')) {
             $realname = $item->input('realname', 'realname', 'realname', $size = 30);
             $xoopsTpl->append('realname', $realname);
         } else {
             $xoopsTpl->assign('show_realname', 'no');
         }
 
-        if (smallworldGetValfromArray('gender', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('gender', 'smallworldusethesefields')) {
             // Dropdown for gender
             $gender = $item->dropdown('gender', $arr0, 0);
             $xoopsTpl->append('gender', $gender);
@@ -64,7 +64,7 @@ if ($xoopsUser) {
         }
 
         // Selectbox for "interested in gender(s)"
-        if (smallworldGetValfromArray('interestedin', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('interestedin', 'smallworldusethesefields')) {
             $intInGender = $item->radio('intingender', $arr01, 0);
             $xoopsTpl->append('intingender', $intInGender);
         } else {
@@ -72,7 +72,7 @@ if ($xoopsUser) {
         }
 
         // Dropdown for marital status
-        if (smallworldGetValfromArray('relationshipstatus', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('relationshipstatus', 'smallworldusethesefields')) {
             $relationshipstatus = $item->dropdown('relationship', $arr02, 0);
             $xoopsTpl->append('relationshipstatus', $relationshipstatus);
 
@@ -84,7 +84,7 @@ if ($xoopsUser) {
         }
 
         // Checkbox for searchin for
-        if (smallworldGetValfromArray('lookingfor', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('lookingfor', 'smallworldusethesefields')) {
             $searchrelat = $item->radio('searchrelat', $arr03, 0);
             $xoopsTpl->append('searchrelat', $searchrelat);
         } else {
@@ -92,7 +92,7 @@ if ($xoopsUser) {
         }
 
         // Select Birthday dd-mm-Y
-        if (smallworldGetValfromArray('birthday', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('birthday', 'smallworldusethesefields')) {
             $birthday = $item->input('birthday', 'birthday', 'birthday', $size = '12', $preset = null);
             $xoopsTpl->append('birthdaydate', $birthday);
         } else {
@@ -100,7 +100,7 @@ if ($xoopsUser) {
         }
 
         // Select Hometown or Enter new
-        if (smallworldGetValfromArray('birthplace', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('birthplace', 'smallworldusethesefields')) {
             $birthplace = $item->input('birthplace', 'birthplace', 'birthplace', $size = '50', $preset = null);
             $xoopsTpl->append('birthplace', $birthplace);
         } else {
@@ -108,7 +108,7 @@ if ($xoopsUser) {
         }
 
         // Dropdown politics
-        if (smallworldGetValfromArray('politicalview', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('politicalview', 'smallworldusethesefields')) {
             $politic = $item->dropdown('politic', $arr04, 0);
             $xoopsTpl->append('politic', $politic);
         } else {
@@ -116,7 +116,7 @@ if ($xoopsUser) {
         }
 
         // Dropdown Religion
-        if (smallworldGetValfromArray('religiousview', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('religiousview', 'smallworldusethesefields')) {
             $religion = $item->dropdown('religion', $arr05, 0);
             $xoopsTpl->append('religion', $religion);
         } else {
@@ -128,7 +128,7 @@ if ($xoopsUser) {
         // Add email test
         //function input_add($class, $name, $name2, $rel, $size, $textmore, $preset=null) {
         //$emailtext = $item->input('email','email','email',$size='12',$preset=null);
-        if (smallworldGetValfromArray('emails', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('emails', 'smallworldusethesefields')) {
             $emailtext = $item->input_add('smallworld_add2', 'email', 'emailtype', '.smallworld_clone2', 20, _SMALLWORLD_ADDMORE, $preset = $xoopsUser->getVar('email'), 'email-0');
             $emailtext .= "<span class='smallworld_remove' id='emailremove'><a href='javascript:void(0)' id='emailremovelnk'>" . _SMALLWORLD_REMOVE . '</a><br></span>';
             $emailtext .= "<a class='smallworld_addemail' href='javascript:void(0);' id='emailAdd'>" . _SMALLWORLD_ADDMORE . '</a><br><br>';
@@ -139,7 +139,7 @@ if ($xoopsUser) {
 
         // Drop down for screen names
         /*dropdown_add ($name, $name2, $rel, array $options, $textmore, $selected=null) {*/
-        if (smallworldGetValfromArray('screennames', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('screennames', 'smallworldusethesefields')) {
             $screenname = $item->dropdown_add('smallworld_add', 'screenname', 'screenname_type', '.smallworld_clone', $arr06, _SMALLWORLD_ADDMORE, $selected = null, $preset = null);
             $screenname .= "<span class='smallworld_remove' id='screennameremove'>";
             $screenname .= "<a href='javascript:void(0);' id='screennameremovelnk'>" . _SMALLWORLD_REMOVE . '</a><br></span>';
@@ -150,7 +150,7 @@ if ($xoopsUser) {
         }
 
         // Mobilephone
-        if (smallworldGetValfromArray('mobile', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('mobile', 'smallworldusethesefields')) {
             $mobile = $item->input('mobile', 'mobile', 'mobile', 12, $preset = null);
             $xoopsTpl->append('mobile', $mobile);
         } else {
@@ -158,7 +158,7 @@ if ($xoopsUser) {
         }
 
         // Landphone
-        if (smallworldGetValfromArray('landphone', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('landphone', 'smallworldusethesefields')) {
             $phone = $item->input('phone', 'phone', 'phone', 12, $preset = null);
             $xoopsTpl->append('phone', $phone);
         } else {
@@ -166,14 +166,14 @@ if ($xoopsUser) {
         }
 
         // Adress
-        if (smallworldGetValfromArray('streetadress', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('streetadress', 'smallworldusethesefields')) {
             $adress = $item->input('adress', 'adress', 'adress', $size = '50', $preset = null);
             $xoopsTpl->append('adress', $adress);
         } else {
             $xoopsTpl->assign('show_adress', 'no');
         }
 
-        if (smallworldGetValfromArray('presentcity', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('presentcity', 'smallworldusethesefields')) {
             $present_city = $item->input('present_city', 'present_city', 'present_city', 50, $preset = null);
             $xoopsTpl->append('present_city', $present_city);
             $present_country = $item->input('present_country', 'present_country', 'present_country', $size = '50', $preset = null);
@@ -182,7 +182,7 @@ if ($xoopsUser) {
             $xoopsTpl->assign('show_city', 'no');
         }
 
-        if (smallworldGetValfromArray('website', 'smallworldusethesefields') == 0) {
+        if (0 == smallworldGetValfromArray('website', 'smallworldusethesefields')) {
             $xoopsTpl->assign('show_website', 'no');
         }
 
@@ -190,7 +190,7 @@ if ($xoopsUser) {
 
         // Textarea for interests
         //textarea($name, $id, $title, $rows, $cols, $class)
-        if (smallworldGetValfromArray('interests', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('interests', 'smallworldusethesefields')) {
             $interests = $item->textarea('interests', 'interests', _SMALLWORLD_INTERESTS, 1, 20, 'favourites', $preset = $xoopsUser->getVar('user_intrest'));
             $xoopsTpl->append('interests', $interests);
         } else {
@@ -198,7 +198,7 @@ if ($xoopsUser) {
         }
 
         // Textarea for Music
-        if (smallworldGetValfromArray('favouritemusic', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('favouritemusic', 'smallworldusethesefields')) {
             $music = $item->textarea('music', 'music', _SMALLWORLD_MUSIC, 1, 20, 'favourites');
             $xoopsTpl->append('music', $music);
         } else {
@@ -206,7 +206,7 @@ if ($xoopsUser) {
         }
 
         // Textarea for Tvshow
-        if (smallworldGetValfromArray('favouritetvshows', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('favouritetvshows', 'smallworldusethesefields')) {
             $tvshow = $item->textarea('tvshow', 'tvshow', _SMALLWORLD_TVSHOW, 1, 20, 'favourites');
             $xoopsTpl->append('tvshow', $tvshow);
         } else {
@@ -214,7 +214,7 @@ if ($xoopsUser) {
         }
 
         // Textarea for Movie
-        if (smallworldGetValfromArray('favouritemovies', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('favouritemovies', 'smallworldusethesefields')) {
             $movie = $item->textarea('movie', 'movie', _SMALLWORLD_MOVIE, 1, 20, 'favourites');
             $xoopsTpl->append('movie', $movie);
         } else {
@@ -222,7 +222,7 @@ if ($xoopsUser) {
         }
 
         // Textarea for Books
-        if (smallworldGetValfromArray('favouritebooks', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('favouritebooks', 'smallworldusethesefields')) {
             $books = $item->textarea('books', 'books', _SMALLWORLD_BOOKS, 1, 20, 'favourites');
             $xoopsTpl->append('books', $books);
         } else {
@@ -230,7 +230,7 @@ if ($xoopsUser) {
         }
 
         // Textarea for About me
-        if (smallworldGetValfromArray('aboutme', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('aboutme', 'smallworldusethesefields')) {
             $aboutme = $item->textarea('aboutme', 'aboutme', _SMALLWORLD_ABOUTME, 2, 20, 'favourites', $preset = $xoopsUser->getVar('bio', 'N'));
             $xoopsTpl->append('aboutme', $aboutme);
         } else {
@@ -239,7 +239,7 @@ if ($xoopsUser) {
 
         // ------------ SCHOOL ------------ //
         //School name
-        if (smallworldGetValfromArray('education', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('education', 'smallworldusethesefields')) {
             $school = $item->school_add('smallworld_add3', 'school', 'school_type', '.smallworld_clone3', $arr7, _SMALLWORLD_ADDMORE, $selected = null, $preset = null, $selectedstart = null, $selectedstop = null);
             $school .= "<span class='smallworld_remove2' id='schoolremove'>";
             $school .= "<a href='javascript:void(0);' id='schoolremovelnk'>" . _SMALLWORLD_REMOVE . '</a><br></span>';
@@ -251,7 +251,7 @@ if ($xoopsUser) {
 
         //Jobs
         //function job ($class, $name,$name2, $rel, array$options, $textmore, $selected=null, $preset=null, $selectedstart=null, $selectedstop=null) {
-        if (smallworldGetValfromArray('employment', 'smallworldusethesefields') != 0) {
+        if (0 != smallworldGetValfromArray('employment', 'smallworldusethesefields')) {
             $job = $item->job('smallworld_add4', 'job', 'job_type', '.smallworld_clone4', _SMALLWORLD_ADDMORE, $selected = null, $preset = null, $selectedstart = null, $selectedstop = null);
             $job .= "<span class='smallworld_remove3' id='jobremove'>";
             $job .= "<a href='javascript:void(0);' id='jobremovelnk'>" . _SMALLWORLD_REMOVE . '</a><br></span>';

@@ -182,13 +182,13 @@ class SmallWorldDB
         $uid  = $xoopsUser->getVar('uid');
         $user = new XoopsUser($uid);
         $img  = new SmallWorldImages;
-        if ($this->getVar($uid, 'userimage') == '') {
+        if ('' == $this->getVar($uid, 'userimage')) {
             $avatar = $user->user_avatar();
         } else {
             $avatar = $this->getVar($uid, 'userimage');
         }
 
-        if ($_POST['relationship'] != '2') {
+        if ('2' != $_POST['relationship']) {
             $partner = Smallworld_sanitize($_POST['partner']);
         } else {
             $partner = '';
@@ -239,7 +239,7 @@ class SmallWorldDB
 
         $sql = '';
 
-        if ($_POST['function'] == 'edit') {
+        if ('edit' == $_POST['function']) {
             // Update all values in user_table
             $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_user') . ' SET ';
             $sql    .= "realname = '" . $realname . "', username= '" . $username . "', userimage = '" . $avatar . "', gender = '" . $gender . "',";
@@ -257,7 +257,7 @@ class SmallWorldDB
             $sql    .= "jobstop = '" . $jobstop . "', description = '" . $jobdescription . "' ";
             $sql    .= "WHERE userid ='" . (int)$uid . "'";
             $result = $xoopsDB->queryF($sql);
-            if ($result == false) {
+            if (false == $result) {
                 die('SQL error:' . $sql . '');
             }
 
@@ -265,7 +265,7 @@ class SmallWorldDB
             $img->createAlbum($uid);
         }
 
-        if ($_POST['function'] == 'save') {
+        if ('save' == $_POST['function']) {
             $sql    = 'INSERT INTO '
                       . $xoopsDB->prefix('smallworld_user')
                       . ' (id, userid, regdate, username, userimage, realname, gender, intingender, relationship, partner, searchrelat, birthday, birthplace, birthplace_lat, birthplace_lng, birthplace_country, politic, religion, emailtype, screenname_type, screenname, mobile, phone, adress, present_city, present_lat, present_lng, present_country, website, interests, music, tvshow, movie, books, aboutme, school_type, school, schoolstart, schoolstop, employer, position, jobstart, jobstop, description, friends, followers, admin_flag) ';
@@ -276,7 +276,7 @@ class SmallWorldDB
             $sql    .= $school_type . "', '" . $school . "', '" . $schoolstart . "', '" . $schoolstop . "', '" . $jobemployer . "', '" . $jobposition . "', '" . $jobstart . "', '" . $jobstop . "', '" . $jobdescription . "', ";
             $sql    .= "'0', '0', '0')";
             $result = $xoopsDB->queryF($sql);
-            if ($result == false) {
+            if (false == $result) {
                 die('SQL error:' . $sql . '');
             }
             $this->SetAdmins($uid, $username, $realname, $avatar);
@@ -389,7 +389,7 @@ class SmallWorldDB
     function toogleFriendInvite($status, $friendid, $userid)
     {
         global $xoopsDB;
-        if ($status == 0) {
+        if (0 == $status) {
             $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_friends') . " (id,me,you,status,date) VALUES ('', '" . $userid . "', '" . $friendid . "', '1', UNIX_TIMESTAMP())";
             $result = $xoopsDB->queryF($sql);
         }
@@ -416,7 +416,7 @@ class SmallWorldDB
     function toogleFollow($following, $myUid, $friend)
     {
         global $xoopsDB;
-        if ($following == 0) {
+        if (0 == $following) {
             $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_followers') . " (id,me,you,status,date) VALUES ('', '" . $myUid . "', '" . $friend . "', '1', UNIX_TIMESTAMP())";
             $result = $xoopsDB->queryF($sql);
         }
@@ -439,7 +439,7 @@ class SmallWorldDB
     function SetFriendshitStat($stat, $myUid, $friend)
     {
         global $xoopsDB;
-        if ($stat == 1) {
+        if (1 == $stat) {
             $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_friends') . " SET status = '2' WHERE `me` = '" . $friend . "' AND `you` = '" . $myUid . "'";
             $result = $xoopsDB->queryF($sql);
             $query  = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_friends') . " (id,me,you,status,date) VALUES ('', '" . $myUid . "', '" . $friend . "', '2', UNIX_TIMESTAMP())";
@@ -503,7 +503,7 @@ class SmallWorldDB
         while ($row = $xoopsDB->fetchArray($result)) {
             $sum = $row['sum'];
         }
-        if ($sum == '') {
+        if ('' == $sum) {
             $sum = '0';
         }
         return $sum;
@@ -563,7 +563,7 @@ class SmallWorldDB
             return false;
         }
         while ($file = readdir($dir_handle)) {
-            if ($file != '.' && $file != '..') {
+            if ('.' != $file && '..' != $file) {
                 if (!is_dir($dirname . '/' . $file)) {
                     unlink($dirname . '/' . $file);
                 } else {
@@ -586,8 +586,8 @@ class SmallWorldDB
      */
     function smallworld_remDir($userid, $directory, $empty = false)
     {
-        if ($userid != '') {
-            if (substr($directory, -1) == '/') {
+        if ('' != $userid) {
+            if ('/' == substr($directory, -1)) {
                 $directory = substr($directory, 0, -1);
             }
 
@@ -598,7 +598,7 @@ class SmallWorldDB
             } else {
                 $directoryHandle = opendir($directory);
                 while ($contents = readdir($directoryHandle)) {
-                    if ($contents != '.' && $contents != '..') {
+                    if ('.' != $contents && '..' != $contents) {
                         $path = $directory . '/' . $contents;
                         if (is_dir($path)) {
                             $this->smallworld_remDir($userid, $path);
@@ -608,7 +608,7 @@ class SmallWorldDB
                     }
                 }
                 closedir($directoryHandle);
-                if ($empty == false) {
+                if (false == $empty) {
                     if (!rmdir($directory)) {
                         return false;
                     }

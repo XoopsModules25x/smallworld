@@ -35,7 +35,7 @@ $d->checkOrphans();
 
 // Find oldest message and apply to template
 $dfm = $admin->oldestMsg();
-if ($dfm == 0) {
+if (0 == $dfm) {
     $dfm = _AM_SMALLWORLD_NONEYET;
 } else {
     $dfm = date(_SHORTDATESTRING, $admin->oldestMsg());
@@ -63,7 +63,7 @@ if (!empty($maAllround)) {
     $count = 0;
 }
 $mat_cnt = 0;
-if ($count != 0) {
+if (0 != $count) {
     $ma_cnt = 1;
     $ma     = "<table class='smallworldadmin'><tr>";
     $ma     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
@@ -87,7 +87,7 @@ if (!empty($maToday)) {
     $count = 0;
 }
 $mat_cnt = 0;
-if ($count != 0) {
+if (0 != $count) {
     $mat_cnt = 1;
     $mat     = "<table class='smallworldadmin'><tr>";
     $mat     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
@@ -111,7 +111,7 @@ if (!empty($topusers)) {
     $count = 0;
 }
 $top_cnt = 0;
-if ($count != 0) {
+if (0 != $count) {
     $top_cnt = 1;
     $top     = "<table class='smallworldadmin'><tr>";
     $top     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
@@ -136,7 +136,7 @@ if (!empty($lowusers)) {
 } else {
     $count = 0;
 }
-if ($count != 0) {
+if (0 != $count) {
     $low_cnt = 1;
     $low     = "<table class='smallworldadmin'><tr>";
     $low     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
@@ -181,16 +181,16 @@ if ($avgperday > 0) {
     $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'>" . _AM_SMALLWORLD_AVERAGEMSGPERDAY . ' : %s</br>', $avgperday, 'Red', 'default');
 }
 
-if ($mat_cnt != 0) {
+if (0 != $mat_cnt) {
     $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPCHATTERS_TODAY . ' : %s</p>', $mat, 'Red', 'default');
 }
-if ($ma_cnt != 0) {
+if (0 != $ma_cnt) {
     $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPCHATTERS . ' : %s</p>', $ma, 'Red', 'default');
 }
-if ($top_cnt != 0) {
+if (0 != $top_cnt) {
     $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPRATEDUSERS . ' : %s</p>', $top, 'Red', 'default');
 }
-if ($low_cnt != 0) {
+if (0 != $low_cnt) {
     $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_BOTTOMRATEDUSERS . ' : %s</p>', $low, 'Red', 'default');
 }
 

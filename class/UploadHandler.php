@@ -146,10 +146,10 @@ class UploadHandler
 
     protected function get_full_url()
     {
-        $https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+        $https = !empty($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS'];
         return ($https ? 'https://' : 'http://')
                . (!empty($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] . '@' : '')
-               . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ($_SERVER['SERVER_NAME'] . ($https && $_SERVER['SERVER_PORT'] === 443 || $_SERVER['SERVER_PORT'] === 80 ? '' : ':' . $_SERVER['SERVER_PORT'])))
+               . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ($_SERVER['SERVER_NAME'] . ($https && 443 === $_SERVER['SERVER_PORT'] || 80 === $_SERVER['SERVER_PORT'] ? '' : ':' . $_SERVER['SERVER_PORT'])))
                . substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/'));
     }
 
@@ -176,7 +176,7 @@ class UploadHandler
 
     protected function get_query_separator($url)
     {
-        return strpos($url, '?') === false ? '?' : '&';
+        return false === strpos($url, '?') ? '?' : '&';
     }
 
     protected function get_download_url($file_name, $version = null)
@@ -196,7 +196,7 @@ class UploadHandler
     {
         $file->delete_url  = $this->options['script_url'] . $this->get_query_separator($this->options['script_url']) . 'file=' . rawurlencode($file->name);
         $file->delete_type = $this->options['delete_type'];
-        if ($file->delete_type !== 'DELETE') {
+        if ('DELETE' !== $file->delete_type) {
             $file->delete_url .= '&_method=DELETE';
         }
         if ($this->options['access_control_allow_credentials']) {
@@ -226,7 +226,7 @@ class UploadHandler
     protected function is_valid_file_object($file_name)
     {
         $file_path = $this->get_upload_path($file_name);
-        if (is_file($file_path) && $file_name[0] !== '.') {
+        if (is_file($file_path) && '.' !== $file_name[0]) {
             return true;
         }
         return false;
@@ -443,7 +443,7 @@ class UploadHandler
             $name = str_replace('.', '-', microtime(true));
         }
         // Add missing file extension for known image types:
-        if (strpos($name, '.') === false
+        if (false === strpos($name, '.')
             && preg_match('/^image\/(gif|jpe?g|png)/', $type, $matches)) {
             $name .= '.' . $matches[1];
         }
@@ -466,7 +466,7 @@ class UploadHandler
             return false;
         }
         $exif = @exif_read_data($file_path);
-        if ($exif === false) {
+        if (false === $exif) {
             return false;
         }
         $orientation = (int)(@$exif['Orientation']);
@@ -664,7 +664,7 @@ class UploadHandler
     {
         $this->header('Vary: Accept');
         if (isset($_SERVER['HTTP_ACCEPT'])
-            && (strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false)) {
+            && (false !== strpos($_SERVER['HTTP_ACCEPT'], 'application/json'))) {
             $this->header('Content-type: application/json');
         } else {
             $this->header('Content-type: text/plain');
@@ -712,7 +712,7 @@ class UploadHandler
 
     public function post($print_response = true)
     {
-        if (isset($_REQUEST['_method']) && $_REQUEST['_method'] === 'DELETE') {
+        if (isset($_REQUEST['_method']) && 'DELETE' === $_REQUEST['_method']) {
             return $this->delete($print_response);
         }
         $upload = isset($_FILES[$this->options['param_name']]) ? $_FILES[$this->options['param_name']] : null;
@@ -745,7 +745,7 @@ class UploadHandler
         $db        = new SmallWorldDB;
         $file_name = $this->get_file_name_param();
         $file_path = $this->get_upload_path($file_name);
-        $success   = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
+        $success   = is_file($file_path) && '.' !== $file_name[0] && unlink($file_path);
 
         // Delete file based on user and filename
         $db->DeleteImage($userid, $file_name);

@@ -25,7 +25,7 @@ $xoopsLogger->activated = false;
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
-if ($_POST['type'] == 'addtime') {
+if ('addtime' == $_POST['type']) {
     $userid = (int)$_POST['userid'];
     $amount = (int)$_POST['amount'];
     $test   = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "' AND (inspect_start+inspect_stop) > " . time() . '';
@@ -39,12 +39,12 @@ if ($_POST['type'] == 'addtime') {
     }
 
 }
-if ($_POST['type'] == 'deletetime') {
+if ('deletetime' == $_POST['type']) {
     $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '', inspect_stop = '' WHERE userid='" . (int)$_POST['deluserid'] . "'";
     $result = $xoopsDB->queryF($sql);
 }
 
-if ($_POST['type'] == 'deleteUser') {
+if ('deleteUser' == $_POST['type']) {
     $db = new SmallWorldDB;
 
     $userid = (int)$_POST['deluserid'];
