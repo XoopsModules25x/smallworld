@@ -86,7 +86,7 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
             $ret[$i]['time'] = $myrow['created'];
             $ret[$i]['uid']  = $myrow['uid_fk'];
         } else {
-            $i = $i - 1;
+            --$i;
         }
         $i++;
     }
