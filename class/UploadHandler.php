@@ -258,7 +258,7 @@ class UploadHandler
         if (!is_dir($upload_dir)) {
             return array();
         }
-        return array_values(array_filter(array_map(array($this, $iteration_method), scandir($upload_dir))));
+        return array_values(array_filter(array_map(array($this, $iteration_method), scandir($upload_dir, SCANDIR_SORT_NONE))));
     }
 
     protected function count_file_objects()

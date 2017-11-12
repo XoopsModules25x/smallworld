@@ -155,7 +155,7 @@ class SmallworldUploadHandler
         if ($file_name) {
             $info = $this->get_file_object($file_name);
         } else {
-            $info = array_values(array_filter(array_map(array($this, 'get_file_object'), scandir($this->upload_dir))));
+            $info = array_values(array_filter(array_map(array($this, 'get_file_object'), scandir($this->upload_dir, SCANDIR_SORT_NONE))));
         }
         header('Cache-Control: no-cache, must-revalidate');
         header('Content-type: application/json');
