@@ -67,4 +67,4 @@ class SmallworldCorePreload extends XoopsPreloadItem
     }
 }
 
-?>
+

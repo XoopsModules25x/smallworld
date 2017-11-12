@@ -59,4 +59,4 @@ $xoTheme->addStyleSheet('modules/smallworld/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 
 xoops_cp_footer();
-?>
+

@@ -93,4 +93,4 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
     return $ret;
 }
 
-?>
+

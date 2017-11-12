@@ -39,4 +39,4 @@ if ($xoopsUser) {
     header('Content-type: "application/json"');
     echo '{"relat":"", "partner":"", "gender":"", "politic":"", "religion":""}';
 }
-?>
+

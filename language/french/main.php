@@ -402,4 +402,4 @@ define('_SMALLWORLD_STATS_LIKETHISMODULE', 'Vous aimez ce module&thinsp;?');
 /* ----------------- donate link -------------- */
 define('_SMALLWORLD_DONATETEXT', ' Offrez-moi un café ici ');
 //Traduit par Cesagonchu (frxoops.org) le 1er Octobre 2015
-?>
+

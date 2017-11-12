@@ -388,4 +388,4 @@ define('_SMALLWORLD_STATS_LIKETHISMODULE', 'Kan du lide dette modul?? ');
 
 /* ----------------- Donere link -------------- */
 define('_SMALLWORLD_DONATETEXT', 'Doner til en kop kaffe her ');
-?>
+

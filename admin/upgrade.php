@@ -64,4 +64,4 @@ function smallworld_comToBlog()
     $result = $xoopsDB->queryF($sql);
 }
 
-?>
+

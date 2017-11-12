@@ -37,4 +37,4 @@ if ($_POST['function'] != 'edit') {
         $mail->sendMails($userID, $userID, 'register', $link = null, array());
     }
 }
-?>
+

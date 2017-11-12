@@ -401,4 +401,4 @@ define('_SMALLWORLD_STATS_LIKETHISMODULE', 'Like this module ???');
 
 /* ----------------- donate link -------------- */
 define('_SMALLWORLD_DONATETEXT', ' Donate me coffey here ');
-?>
+

@@ -81,4 +81,4 @@ $xoopsTpl->assign('pagename', 'index');
 $xoopsTpl->assign('check', $profile);
 
 include XOOPS_ROOT_PATH . '/footer.php';
-?>
+

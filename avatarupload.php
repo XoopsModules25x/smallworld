@@ -48,4 +48,4 @@ if ($xoopsUser) {
         echo 'error';
     }
 }
-?>
+

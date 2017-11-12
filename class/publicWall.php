@@ -512,4 +512,4 @@ class Public_Wall_Updates
     }
 }
 
-?>
+

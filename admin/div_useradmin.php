@@ -69,4 +69,4 @@ if (!empty($allusers_noinspect)) {
 $Tpl->assign('allusersnoinspectcounter', count($ani));
 
 $Tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/smallworld_alluserstodiv.html');
-?>
+

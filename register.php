@@ -290,4 +290,4 @@ if ($xoopsUser) {
     redirect_header(XOOPS_URL . '/register.php', 1, _NOPERM);
 }
 include XOOPS_ROOT_PATH . '/footer.php';
-?>
+

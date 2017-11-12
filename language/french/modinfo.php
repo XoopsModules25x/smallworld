@@ -106,4 +106,4 @@ define('_MI_SHOWPUBLICPAGE_DESC', 'Default is "All users" wich means that all us
         ');
 define('_MI_SMALLWORLD_ALL', 'All users');
 //Traduit par Cesagonchu (frxoops.org) le 1er Octobre 2015
-?>
+

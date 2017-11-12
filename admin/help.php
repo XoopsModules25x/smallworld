@@ -63,4 +63,4 @@ global $xoTheme;
 $xoTheme->addStyleSheet('modules/smallworld/css/SmallworldAdmin.css');
 
 xoops_cp_footer();
-?>
+

@@ -314,4 +314,4 @@ $modversion['hasSearch']      = 1;
 $modversion['search']['file'] = 'include/search.inc.php';
 $modversion['search']['func'] = 'smallworld_search';
 
-?>
+

@@ -34,4 +34,4 @@ if ($xoopsUser) {
         echo "{\"NewUserMsgCount\":$counts}";
     }
 }
-?>
+

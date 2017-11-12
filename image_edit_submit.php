@@ -37,4 +37,4 @@ $update = 'UPLIMAGE' . ' ' . $riUrl;
 
 $upd->Insert_Update($userID, $update);
 $db->handleImageEdit();
-?>
+

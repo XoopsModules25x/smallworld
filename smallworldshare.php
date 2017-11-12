@@ -83,4 +83,4 @@ if ($perm <= 0) {
 }
 
 include XOOPS_ROOT_PATH . '/footer.php';
-?>
+

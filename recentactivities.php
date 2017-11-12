@@ -84,4 +84,4 @@ foreach ($mids as $mid) {
     }
 }
 $tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/smallworld_userinfo.html');
-?>
+

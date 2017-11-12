@@ -558,4 +558,4 @@ class Wall_Updates
     }
 }
 
-?>
+

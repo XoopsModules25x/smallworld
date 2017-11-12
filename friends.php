@@ -215,4 +215,4 @@ if ($xoopsUser) {
     redirect_header(XOOPS_URL . '/user.php', 1, _NOPERM);
 }
 include XOOPS_ROOT_PATH . '/footer.php';
-?>
+

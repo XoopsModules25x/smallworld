@@ -65,4 +65,4 @@ if ($xoopsUser) {
     $link .= '<img class="smallworld_voteimg" src = "images/dislike.png" /></a>';
     echo $link;
 }
-?>
+

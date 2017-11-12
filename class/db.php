@@ -669,4 +669,4 @@ class SmallWorldDB
 
 }
 
-?>
+

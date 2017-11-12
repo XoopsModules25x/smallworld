@@ -29,4 +29,4 @@ include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/uploadclass.php';
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/friends.php';
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/mail.php';
 
-?>
+

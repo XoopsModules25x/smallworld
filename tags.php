@@ -364,4 +364,4 @@ foreach ($arr as $key => $value) {
     }
 }
 echo array_to_json($result);
-?>
+

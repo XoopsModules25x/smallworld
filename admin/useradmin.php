@@ -117,4 +117,4 @@ if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/js/' . $lang . '
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 
 xoops_cp_footer();
-?>
+

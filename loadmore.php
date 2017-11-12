@@ -93,4 +93,4 @@ if ($id > 0) {
 } else {
     $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getmorepublic.html');
 }
-?>
+

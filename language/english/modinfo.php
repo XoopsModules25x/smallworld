@@ -102,4 +102,4 @@ define('_MI_SHOWPUBLICPAGE_DESC', 'Default is "All users" wich means that all us
     show the latest users.
         ');
 define('_MI_SMALLWORLD_ALL', 'All users');
-?>
+

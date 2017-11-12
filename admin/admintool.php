@@ -51,4 +51,4 @@ if ($_POST['type'] == 'deleteUser') {
     $db->deleteAccount($userid);
 
 }
-?>
+

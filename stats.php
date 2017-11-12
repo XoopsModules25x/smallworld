@@ -49,4 +49,4 @@ if ($xoopsUser) {
     }
     $tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getStat.html');
 }
-?>
+

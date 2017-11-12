@@ -25,4 +25,4 @@ if ($xoopsUser) {
     $user                   = new XoopsUser($userID);
     $upload_handler         = new UploadHandler();
 }
-?>
+
