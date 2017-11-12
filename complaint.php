@@ -33,7 +33,7 @@ if ($xoopsUser) {
     if ($_POST['byuser']) {
         $by_userid = $xoopsUser->getVar('uid');
         $a_user    = addslashes($_POST['a_user']);
-        $auserid   = intval($_POST['auserid']);
+        $auserid   = (int)$_POST['auserid'];
         $byuser    = addslashes($_POST['byuser']);
         $id        = addslashes($_POST['id']);
         $name      = addslashes($_POST['name']);

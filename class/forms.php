@@ -315,7 +315,7 @@ class SmallWorldForm
         $form .= '<fieldset><legend>' . _SMALLWORLD_SHOWIFPUBLICORPRIVATE . '</legend>';
         $form .= "<form id='perset'>";
         if ($xoopsUser) {
-            $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . intval($userid);
+            $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . (int)$userid;
             $result = $xoopsDB->queryF($sql);
             $i      = $xoopsDB->getRowsNum($result);
             $v      = array();

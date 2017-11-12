@@ -350,7 +350,7 @@ function smallworld_getAvatarLink($userid, $image)
 {
     global $xoopsUser, $xoopsDB;
     $ext     = pathinfo(strtolower($image), PATHINFO_EXTENSION);
-    $sql     = 'SELECT gender FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . intval($userid) . "'";
+    $sql     = 'SELECT gender FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userid . "'";
     $result  = $xoopsDB->queryf($sql);
     $counter = $xoopsDB->getRowsNum($result);
     if ($counter == 0) {
@@ -436,7 +436,7 @@ function Smallworld_getOwnerFromComment($msg_id_fk)
 function Smallworld_getName($userID)
 {
     global $xoopsUser, $xoopsDB;
-    $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . intval($userID) . "'";
+    $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
     $result = $xoopsDB->queryf($sql);
     while ($row = $xoopsDB->fetchArray($result)) {
         $name = $row['username'];
@@ -515,14 +515,12 @@ function smallworld_countUsersMessages($id)
               . ' SELECT com_id , count( * ) AS comments FROM '
               . $xoopsDB->prefix('smallworld_comments')
               . ' WHERE uid_fk = '
-              . intval($id)
-              . ' GROUP BY com_id '
+              . (int)$id . ' GROUP BY com_id '
               . ' UNION ALL '
               . ' SELECT msg_id , count( * ) AS messages FROM '
               . $xoopsDB->prefix('smallworld_messages')
               . ' WHERE uid_fk = '
-              . intval($id)
-              . 'group BY msg_id '
+              . (int)$id . 'group BY msg_id '
               . ' ) AS d';
     $result = $xoopsDB->queryF($sql);
     while ($r = $xoopsDB->fetchArray($result)) {

@@ -45,7 +45,7 @@ if ($profile >= 2) {
             $tpl->assign('isadminuser', 'YES');
         }
 
-        $priv      = intval($_POST['priv']);
+        $priv      = (int)$_POST['priv'];
         $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
 
         $myavatar          = $Wall->Gravatar($id);

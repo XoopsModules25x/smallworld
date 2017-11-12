@@ -140,7 +140,7 @@ class SmallWorldDB
     {
         global $xoopsUser, $xoopsDB;
         $myts   =& MyTextSanitizer::getInstance();
-        $sql    = 'UPDATE ' . $xoopsDB->prefix($table) . ' SET ' . $field . "='" . $myts->addSlashes($value) . "' WHERE userid='" . intval($userid) . "'";
+        $sql    = 'UPDATE ' . $xoopsDB->prefix($table) . ' SET ' . $field . "='" . $myts->addSlashes($value) . "' WHERE userid='" . (int)$userid . "'";
         $result = $xoopsDB->queryF($sql);
     }
 
@@ -244,18 +244,18 @@ class SmallWorldDB
             $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_user') . ' SET ';
             $sql    .= "realname = '" . $realname . "', username= '" . $username . "', userimage = '" . $avatar . "', gender = '" . $gender . "',";
             $sql    .= "intingender = '" . $intingender . "',relationship = '" . $relationship . "', partner = '" . $partner . "', searchrelat = '" . $searchrelat . "',";
-            $sql    .= "birthday = '" . $birthday . "',birthplace = '" . $birthplace . "',birthplace_lat = '" . floatval($birthplace_lat) . "',";
-            $sql    .= "birthplace_lng = '" . floatval($birthplace_lng) . "',birthplace_country = '" . $birthplace_country . "',politic = '" . $politic . "',";
+            $sql    .= "birthday = '" . $birthday . "',birthplace = '" . $birthplace . "',birthplace_lat = '" . (float)$birthplace_lat . "',";
+            $sql    .= "birthplace_lng = '" . (float)$birthplace_lng . "',birthplace_country = '" . $birthplace_country . "',politic = '" . $politic . "',";
             $sql    .= "religion = '" . $religion . "',emailtype = '" . $emailtype . "',screenname_type = '" . $screenname_type . "',";
-            $sql    .= "screenname = '" . $screenname . "',mobile = '" . floatval($mobile) . "',phone = '" . floatval($phone) . "',adress = '" . $adress . "',";
-            $sql    .= "present_city = '" . $present_city . "',present_lat = '" . floatval($present_lat) . "',present_lng = '" . floatval($present_lng) . "',";
+            $sql    .= "screenname = '" . $screenname . "',mobile = '" . (float)$mobile . "',phone = '" . (float)$phone . "',adress = '" . $adress . "',";
+            $sql    .= "present_city = '" . $present_city . "',present_lat = '" . (float)$present_lat . "',present_lng = '" . (float)$present_lng . "',";
             $sql    .= "present_country = '" . $present_country . "',website = '" . $website . "',interests = '" . $interests . "',";
             $sql    .= "music = '" . $music . "',tvshow = '" . $tvshow . "',movie = '" . $movie . "',";
             $sql    .= "books = '" . $books . "',aboutme = '" . $aboutme . "',school_type = '" . $school_type . "',";
             $sql    .= "school = '" . $school . "', schoolstart = '" . $schoolstart . "',schoolstop = '" . $schoolstop . "',";
             $sql    .= "employer = '" . $jobemployer . "', position = '" . $jobposition . "',jobstart = '" . $jobstart . "',";
             $sql    .= "jobstop = '" . $jobstop . "', description = '" . $jobdescription . "' ";
-            $sql    .= "WHERE userid ='" . intval($uid) . "'";
+            $sql    .= "WHERE userid ='" . (int)$uid . "'";
             $result = $xoopsDB->queryF($sql);
             if ($result == false) {
                 die('SQL error:' . $sql . '');
@@ -269,10 +269,10 @@ class SmallWorldDB
             $sql    = 'INSERT INTO '
                       . $xoopsDB->prefix('smallworld_user')
                       . ' (id, userid, regdate, username, userimage, realname, gender, intingender, relationship, partner, searchrelat, birthday, birthplace, birthplace_lat, birthplace_lng, birthplace_country, politic, religion, emailtype, screenname_type, screenname, mobile, phone, adress, present_city, present_lat, present_lng, present_country, website, interests, music, tvshow, movie, books, aboutme, school_type, school, schoolstart, schoolstop, employer, position, jobstart, jobstop, description, friends, followers, admin_flag) ';
-            $sql    .= "VALUES ('','" . intval($uid) . "', '" . $regdate . "', '" . $username . "', '" . $avatar . "', '" . $realname . "', '" . $gender . "', '" . $intingender . "', '" . $relationship . "', '" . $partner . "', '" . $searchrelat . "','";
-            $sql    .= $birthday . "', '" . $birthplace . "', '" . floatval($birthplace_lat) . "', '" . floatval($birthplace_lng) . "', '" . $birthplace_country . "', '" . $politic . "', '" . $religion . "','";
-            $sql    .= $emailtype . "', '" . $screenname_type . "', '" . $screenname . "', '" . floatval($mobile) . "', '" . floatval($phone) . "', '" . $adress . "', '" . $present_city . "', '" . floatval($present_lat) . "','";
-            $sql    .= floatval($present_lng) . "', '" . $present_country . "', '" . $website . "', '" . $interests . "', '" . $music . "', '" . $tvshow . "', '" . $movie . "', '" . $books . "', '" . $aboutme . "', '";
+            $sql    .= "VALUES ('','" . (int)$uid . "', '" . $regdate . "', '" . $username . "', '" . $avatar . "', '" . $realname . "', '" . $gender . "', '" . $intingender . "', '" . $relationship . "', '" . $partner . "', '" . $searchrelat . "','";
+            $sql    .= $birthday . "', '" . $birthplace . "', '" . (float)$birthplace_lat . "', '" . (float)$birthplace_lng . "', '" . $birthplace_country . "', '" . $politic . "', '" . $religion . "','";
+            $sql    .= $emailtype . "', '" . $screenname_type . "', '" . $screenname . "', '" . (float)$mobile . "', '" . (float)$phone . "', '" . $adress . "', '" . $present_city . "', '" . (float)$present_lat . "','";
+            $sql    .= (float)$present_lng . "', '" . $present_country . "', '" . $website . "', '" . $interests . "', '" . $music . "', '" . $tvshow . "', '" . $movie . "', '" . $books . "', '" . $aboutme . "', '";
             $sql    .= $school_type . "', '" . $school . "', '" . $schoolstart . "', '" . $schoolstop . "', '" . $jobemployer . "', '" . $jobposition . "', '" . $jobstart . "', '" . $jobstop . "', '" . $jobdescription . "', ";
             $sql    .= "'0', '0', '0')";
             $result = $xoopsDB->queryF($sql);
@@ -310,7 +310,7 @@ class SmallWorldDB
     function EditAdmins($userID, $realname, $avatar)
     {
         global $xoopsDB;
-        $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET realname = '" . $realname . "', userimage = '" . $avatar . "' WHERE userid = '" . intval($userID) . "'";
+        $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET realname = '" . $realname . "', userimage = '" . $avatar . "' WHERE userid = '" . (int)$userID . "'";
         $result = $xoopsDB->queryF($sql);
     }
 
@@ -325,11 +325,11 @@ class SmallWorldDB
     function alreadycomplaint($msg, $by, $against)
     {
         global $xoopsDB;
-        $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_complaints') . " WHERE byuser_id = '" . intval($by) . "' AND owner = '" . intval($against) . "' AND link = '" . addslashes($msg) . "'";
+        $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_complaints') . " WHERE byuser_id = '" . (int)$by . "' AND owner = '" . (int)$against . "' AND link = '" . addslashes($msg) . "'";
         $result = $xoopsDB->queryF($sql);
         $i      = $xoopsDB->getRowsNum($result);
         if ($i < 1) {
-            $query  = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_complaints') . " (complaint_id,link,byuser_id,owner) VALUES ('', '" . addslashes($msg) . "', '" . intval($by) . "', '" . intval($against) . "')";
+            $query  = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_complaints') . " (complaint_id,link,byuser_id,owner) VALUES ('', '" . addslashes($msg) . "', '" . (int)$by . "', '" . (int)$against . "')";
             $result = $xoopsDB->queryF($query);
         } else {
         }
@@ -344,7 +344,7 @@ class SmallWorldDB
     function updateComplaint($userID)
     {
         global $xoopsDB;
-        $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . ' SET complaint = complaint + 1 ' . "WHERE userid = '" . intval($userID) . "'";
+        $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . ' SET complaint = complaint + 1 ' . "WHERE userid = '" . (int)$userID . "'";
         $result = $xoopsDB->queryF($sql);
     }
 
@@ -359,7 +359,7 @@ class SmallWorldDB
     {
         global $xoopsDB;
         $newstop = $time() + $stop;
-        $sql     = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '" . $time() . "', instect_stop = '" . $newstop . "' WHERE userid ='" . intval($userID) . "'";
+        $sql     = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '" . $time() . "', instect_stop = '" . $newstop . "' WHERE userid ='" . (int)$userID . "'";
         $result  = $xoopsDB->queryF($sql);
     }
 
@@ -371,7 +371,7 @@ class SmallWorldDB
     {
         global $xoopsDB;
         for ($i = 0; $i < count($_POST['id']); $i++) {
-            $id     = intval($_POST['id'][$i]);
+            $id     = (int)$_POST['id'][$i];
             $desc   = $_POST['imgdesc'][$i];
             $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_images') . " SET `desc` = '" . addslashes($desc) . "' WHERE `id`='" . $id . "'";
             $result = $xoopsDB->queryF($sql);
@@ -394,8 +394,8 @@ class SmallWorldDB
             $result = $xoopsDB->queryF($sql);
         }
         if ($status > 0) {
-            $sql     = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . intval($friendid) . "' AND you = '" . intval($userid) . "'";
-            $sql2    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . intval($userid) . "' AND you = '" . intval($friendid) . "'";
+            $sql     = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . (int)$friendid . "' AND you = '" . (int)$userid . "'";
+            $sql2    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . (int)$userid . "' AND you = '" . (int)$friendid . "'";
             $result  = $xoopsDB->queryF($sql);
             $result2 = $xoopsDB->queryF($sql2);
 
@@ -421,10 +421,10 @@ class SmallWorldDB
             $result = $xoopsDB->queryF($sql);
         }
         if ($following > 0) {
-            $sql     = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE you = '" . intval($friend) . "'";
-            $sql     .= " AND me = '" . intval($myUid) . "'";
-            $sql2    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . intval($friend) . "'";
-            $sql2    .= " AND you = '" . intval($myUid) . "'";
+            $sql     = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE you = '" . (int)$friend . "'";
+            $sql     .= " AND me = '" . (int)$myUid . "'";
+            $sql2    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . (int)$friend . "'";
+            $sql2    .= " AND you = '" . (int)$myUid . "'";
             $result2 = $xoopsDB->queryF($sql2);
         }
     }
@@ -446,8 +446,8 @@ class SmallWorldDB
             $result = $xoopsDB->queryF($query);
         }
         if ($stat < 0) {
-            $sql     = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . intval($friend) . "' AND you = '" . intval($myUid) . "'";
-            $sql2    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE you = '" . intval($friend) . "' AND me = '" . intval($myUid) . "'";
+            $sql     = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . (int)$friend . "' AND you = '" . (int)$myUid . "'";
+            $sql2    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE you = '" . (int)$friend . "' AND me = '" . (int)$myUid . "'";
             $result  = $xoopsDB->queryF($sql);
             $result2 = $xoopsDB->queryF($sql2);
         }
@@ -627,11 +627,11 @@ class SmallWorldDB
     function saveSettings($id, $posts)
     {
         global $xoopsDB;
-        $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . intval($id) . '';
+        $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . (int)$id . '';
         $result = $xoopsDB->queryF($sql);
         $i      = $xoopsDB->getRowsNum($result);
         if ($i > 0) {
-            $sql = 'UPDATE ' . $xoopsDB->prefix('smallworld_settings') . " SET value = '" . $posts . "' WHERE userid = " . intval($id) . '';
+            $sql = 'UPDATE ' . $xoopsDB->prefix('smallworld_settings') . " SET value = '" . $posts . "' WHERE userid = " . (int)$id . '';
         } else {
             $sql = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_settings') . " (id,userid,value) VALUES ('', '" . $id . "', '" . $posts . "')";
         }
@@ -647,7 +647,7 @@ class SmallWorldDB
     function GetSettings($userid)
     {
         global $xoopsDB;
-        $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . intval($userid) . '';
+        $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . (int)$userid . '';
         $result = $xoopsDB->queryF($sql);
         $i      = $xoopsDB->getRowsNum($result);
         if ($i < 1) {

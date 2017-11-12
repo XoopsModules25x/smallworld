@@ -43,7 +43,7 @@ if ($id <= 0 || $page == 'publicindex' && $set['access'] = 1) {
     $Wall = new Wall_Updates();
 }
 if (isset($_POST['userid'])) {
-    $userid = intval($_POST['userid']);
+    $userid = (int)$_POST['userid'];
 } else {
     $userid = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 }

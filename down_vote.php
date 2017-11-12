@@ -30,7 +30,7 @@ $Wall                   = new Wall_Updates();
 if ($xoopsUser) {
 
     if ($_POST['id']) {
-        $id       = intval($_POST['id']);
+        $id       = (int)$_POST['id'];
         $type     = mysql_escape_String($_POST['type']);
         $type2    = mysql_escape_String($_POST['type2']);
         $owner    = mysql_escape_String($_POST['owner']);

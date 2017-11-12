@@ -59,7 +59,7 @@ class SmallWorldUser
         global $xoopsUser, $xoopsDB;
         $a      = new $xoopsUser($userid);
         $b      = $a->uname();
-        $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_user') . ' (userid) VALUES (' . intval($userid) . ')';
+        $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_user') . ' (userid) VALUES (' . (int)$userid . ')';
         $result = $xoopsDB->queryF($sql);
     }
 
@@ -92,11 +92,11 @@ class SmallWorldUser
             $respons[0] = 2;
             return $respons;
         }
-        $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . intval($user) . "' AND you = '" . intval($userID) . "'";
+        $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . (int)$user . "' AND you = '" . (int)$userID . "'";
         $result = $xoopsDB->query($sql);
         $i      = $xoopsDB->getRowsNum($result);
         if ($i == 0) {
-            $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE you = '" . intval($user) . "' AND me = '" . intval($userID) . "'";
+            $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE you = '" . (int)$user . "' AND me = '" . (int)$userID . "'";
             $result = $xoopsDB->query($sql);
             $i      = $xoopsDB->getRowsNum($result);
         }
@@ -123,7 +123,7 @@ class SmallWorldUser
     function getName($userID)
     {
         global $xoopsUser, $xoopsDB;
-        $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . intval($userID) . "'";
+        $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
         $result = $xoopsDB->queryf($sql);
         while ($row = $xoopsDB->fetchArray($result)) {
             $name = $row['username'];
@@ -142,7 +142,7 @@ class SmallWorldUser
         global $xoopsDB, $xoopsUser;
         $respons[0] = 0;
         if ($userid != $friendid) {
-            $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . intval($userid) . "' AND you = '" . intval($friendid) . "'";
+            $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . (int)$userid . "' AND you = '" . (int)$friendid . "'";
             $result = $xoopsDB->query($sql);
             $i      = $xoopsDB->getRowsNum($result);
             while ($row = $xoopsDB->fetchArray($result)) {
@@ -171,7 +171,7 @@ class SmallWorldUser
     {
         global $xoopsDB, $xoopsUser;
         $msg      = array();
-        $sql      = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE you = '" . intval($userid) . "' AND status = '1'";
+        $sql      = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE you = '" . (int)$userid . "' AND status = '1'";
         $result   = $xoopsDB->queryF($sql);
         $i        = $xoopsDB->getRowsNum($result);
         $db       = new SmallWorldDB;

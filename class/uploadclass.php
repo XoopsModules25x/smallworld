@@ -112,7 +112,7 @@ class SmallworldUploadHandler
         // Generate new name for file
         //$file->name = basename(stripslashes($name));
         $file->name = time() . rand(0, 99999) . '.' . $this->getFileExtension($name);
-        $file->size = intval($size);
+        $file->size = (int)$size;
         $file->type = $type;
         $img        = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file->name;
 

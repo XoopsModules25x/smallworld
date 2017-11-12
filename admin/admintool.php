@@ -26,8 +26,8 @@ include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
 if ($_POST['type'] == 'addtime') {
-    $userid = intval($_POST['userid']);
-    $amount = intval($_POST['amount']);
+    $userid = (int)$_POST['userid'];
+    $amount = (int)$_POST['amount'];
     $test   = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "' AND (inspect_start+inspect_stop) > " . time() . '';
     $result = $xoopsDB->queryF($test);
     if ($xoopsDB->getRowsNum($result) < 1) {
@@ -40,14 +40,14 @@ if ($_POST['type'] == 'addtime') {
 
 }
 if ($_POST['type'] == 'deletetime') {
-    $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '', inspect_stop = '' WHERE userid='" . intval($_POST['deluserid']) . "'";
+    $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '', inspect_stop = '' WHERE userid='" . (int)$_POST['deluserid'] . "'";
     $result = $xoopsDB->queryF($sql);
 }
 
 if ($_POST['type'] == 'deleteUser') {
     $db = new SmallWorldDB;
 
-    $userid = intval($_POST['deluserid']);
+    $userid = (int)$_POST['deluserid'];
     $db->deleteAccount($userid);
 
 }
