@@ -1,25 +1,32 @@
-#body{
+#body {
 
 }
-a{
+
+a {
 
 }
+
 h2 {
 
 }
+
 div#page {
 
 }
+
 div#footer {
 
 }
+
 div.caption-container {
 
 }
+
 div.image-title {
-	font-weight: bold;
-	font-size: 1.4em;
+    font-weight: bold;
+    font-size: 1.4em;
 }
+
 div.image-desc {
     border-style: solid;
     border-width: 1px;
@@ -29,39 +36,47 @@ div.image-desc {
     padding-bottom: 12px;
     padding-left: 15px;
     padding-top: 12px;
-	overflow-x:none;
-	overflow-y:scroll;
+    overflow-x: none;
+    overflow-y: scroll;
 }
 
 div.download {
-	margin-top: 8px;
-	font-size:1.0em;
-	margin-left: 33%;
+    margin-top: 8px;
+    font-size: 1.0em;
+    margin-left: 33%;
 }
+
 div.photo-index {
 
-	font-size:1.1em;
+    font-size: 1.1em;
 }
+
 div.navigation a.prev {
-	background-image: url('../images/prevPageArrow.gif');
+    background-image: url('../images/prevPageArrow.gif');
 }
+
 div.navigation a.next {
-	background-image: url('../images/nextPageArrow.gif');
+    background-image: url('../images/nextPageArrow.gif');
 }
+
 div.loader {
-	background-image: url('../images/loader.gif');
+    background-image: url('../images/loader.gif');
 }
+
 div.slideshow img {
 
 }
+
 ul.thumbs li.selected a.thumb {
 
 }
+
 div.pagination a:hover {
 
-	font-size:1.0em;
+    font-size: 1.0em;
 }
+
 div.pagination span.current {
 
-	font-size:1.0em;
+    font-size: 1.0em;
 }

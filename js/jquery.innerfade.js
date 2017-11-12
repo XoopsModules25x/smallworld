@@ -32,23 +32,23 @@
 // ========================================================= */
 
 
-(function(xoops_smallworld) {
+(function (xoops_smallworld) {
 
-    xoops_smallworld.fn.innerfade = function(options) {
-        return this.each(function() {   
+    xoops_smallworld.fn.innerfade = function (options) {
+        return this.each(function () {
             xoops_smallworld.innerfade(this, options);
         });
     };
 
-    xoops_smallworld.innerfade = function(container, options) {
+    xoops_smallworld.innerfade = function (container, options) {
         var settings = {
-        	'animationtype':    'fade',
-            'speed':            'normal',
-            'type':             'sequence',
-            'timeout':          2000,
-            'containerheight':  'auto',
-            'runningclass':     'innerfade',
-            'children':         null
+            'animationtype': 'fade',
+            'speed': 'normal',
+            'type': 'sequence',
+            'timeout': 2000,
+            'containerheight': 'auto',
+            'runningclass': 'innerfade',
+            'children': null
         };
         if (options)
             xoops_smallworld.extend(settings, options);
@@ -59,44 +59,45 @@
         if (elements.length > 1) {
             xoops_smallworld(container).css('position', 'relative').css('height', settings.containerheight).addClass(settings.runningclass);
             for (var i = 0; i < elements.length; i++) {
-                xoops_smallworld(elements[i]).css('z-index', String(elements.length-i)).css('position', 'absolute').hide();
-            };
+                xoops_smallworld(elements[i]).css('z-index', String(elements.length - i)).css('position', 'absolute').hide();
+            }
+            ;
             if (settings.type == "sequence") {
-                setTimeout(function() {
+                setTimeout(function () {
                     xoops_smallworld.innerfade.next(elements, settings, 1, 0);
                 }, settings.timeout);
                 xoops_smallworld(elements[0]).show();
             } else if (settings.type == "random") {
-            		var last = Math.floor ( Math.random () * ( elements.length ) );
-                setTimeout(function() {
-                    do { 
-												current = Math.floor ( Math.random ( ) * ( elements.length ) );
-										} while (last == current );             
-										xoops_smallworld.innerfade.next(elements, settings, current, last);
+                var last = Math.floor(Math.random() * (elements.length));
+                setTimeout(function () {
+                    do {
+                        current = Math.floor(Math.random() * (elements.length));
+                    } while (last == current);
+                    xoops_smallworld.innerfade.next(elements, settings, current, last);
                 }, settings.timeout);
                 xoops_smallworld(elements[last]).show();
-						} else if ( settings.type == 'random_start' ) {
-								settings.type = 'sequence';
-								var current = Math.floor ( Math.random () * ( elements.length ) );
-								setTimeout(function(){
-									xoops_smallworld.innerfade.next(elements, settings, (current + 1) %  elements.length, current);
-								}, settings.timeout);
-								xoops_smallworld(elements[current]).show();
-						}	else {
-							alert('Innerfade-Type must either be \'sequence\', \'random\' or \'random_start\'');
-						}
-				}
+            } else if (settings.type == 'random_start') {
+                settings.type = 'sequence';
+                var current = Math.floor(Math.random() * (elements.length));
+                setTimeout(function () {
+                    xoops_smallworld.innerfade.next(elements, settings, (current + 1) % elements.length, current);
+                }, settings.timeout);
+                xoops_smallworld(elements[current]).show();
+            } else {
+                alert('Innerfade-Type must either be \'sequence\', \'random\' or \'random_start\'');
+            }
+        }
     };
 
-    xoops_smallworld.innerfade.next = function(elements, settings, current, last) {
+    xoops_smallworld.innerfade.next = function (elements, settings, current, last) {
         if (settings.animationtype == 'slide') {
             xoops_smallworld(elements[last]).slideUp(settings.speed);
             xoops_smallworld(elements[current]).slideDown(settings.speed);
         } else if (settings.animationtype == 'fade') {
             xoops_smallworld(elements[last]).fadeOut(settings.speed);
-            xoops_smallworld(elements[current]).fadeIn(settings.speed, function() {
-							removeFilter(xoops_smallworld(this)[0]);
-						});
+            xoops_smallworld(elements[current]).fadeIn(settings.speed, function () {
+                removeFilter(xoops_smallworld(this)[0]);
+            });
         } else
             alert('Innerfade-animationtype must either be \'slide\' or \'fade\'');
         if (settings.type == "sequence") {
@@ -113,7 +114,7 @@
                 current = Math.floor(Math.random() * elements.length);
         } else
             alert('Innerfade-Type must either be \'sequence\', \'random\' or \'random_start\'');
-        setTimeout((function() {
+        setTimeout((function () {
             xoops_smallworld.innerfade.next(elements, settings, current, last);
         }), settings.timeout);
     };
@@ -122,7 +123,7 @@
 
 // **** remove Opacity-Filter in ie ****
 function removeFilter(element) {
-	if(element.style.removeAttribute){
-		element.style.removeAttribute('filter');
-	}
+    if (element.style.removeAttribute) {
+        element.style.removeAttribute('filter');
+    }
 }

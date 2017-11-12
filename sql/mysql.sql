@@ -15,141 +15,171 @@
 --  @author          Culex  - homepage.: http://culex.dk & email.: culex@culex.dk
 
 CREATE TABLE `smallworld_comments` (
-  `com_id` int(11) NOT NULL AUTO_INCREMENT,
-  `comment` varchar(200) DEFAULT NULL,
-  `msg_id_fk` int(11) DEFAULT NULL,
-  `uid_fk` int(11) DEFAULT NULL,
-  `ip` varchar(30) DEFAULT NULL,
-  `created` int(11) DEFAULT '1269249260',
+  `com_id`    INT(11) NOT NULL AUTO_INCREMENT,
+  `comment`   VARCHAR(200)     DEFAULT NULL,
+  `msg_id_fk` INT(11)          DEFAULT NULL,
+  `uid_fk`    INT(11)          DEFAULT NULL,
+  `ip`        VARCHAR(30)      DEFAULT NULL,
+  `created`   INT(11)          DEFAULT '1269249260',
   PRIMARY KEY (`com_id`),
   KEY `msg_id_fk` (`msg_id_fk`),
   KEY `uid_fk` (`uid_fk`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;
 
 CREATE TABLE `smallworld_followers` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `me` text NOT NULL,
-  `you` text NOT NULL,
-  `status` text NOT NULL,
-  `date` text NOT NULL,
+  `id`     INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `me`     TEXT             NOT NULL,
+  `you`    TEXT             NOT NULL,
+  `status` TEXT             NOT NULL,
+  `date`   TEXT             NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;
 
 CREATE TABLE `smallworld_friends` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `me` text NOT NULL,
-  `you` text NOT NULL,
-  `status` text NOT NULL,
-  `date` text NOT NULL,
+  `id`     INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `me`     TEXT             NOT NULL,
+  `you`    TEXT             NOT NULL,
+  `status` TEXT             NOT NULL,
+  `date`   TEXT             NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;
 
 CREATE TABLE `smallworld_images` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userid` text NOT NULL,
-  `imgname` text NOT NULL,
-  `imgurl` text NOT NULL,
-  `time` text NOT NULL,
-  `desc` text NOT NULL,
+  `id`      INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userid`  TEXT             NOT NULL,
+  `imgname` TEXT             NOT NULL,
+  `imgurl`  TEXT             NOT NULL,
+  `time`    TEXT             NOT NULL,
+  `desc`    TEXT             NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;
 
 CREATE TABLE `smallworld_messages` (
-  `msg_id` int(11) NOT NULL AUTO_INCREMENT,
-  `message` text,
-  `uid_fk` int(11) DEFAULT NULL,
-  `priv` int(1) NOT NULL DEFAULT '1',
-  `created` int(11) DEFAULT '1269249260',
+  `msg_id`  INT(11) NOT NULL AUTO_INCREMENT,
+  `message` TEXT,
+  `uid_fk`  INT(11)          DEFAULT NULL,
+  `priv`    INT(1)  NOT NULL DEFAULT '1',
+  `created` INT(11)          DEFAULT '1269249260',
   PRIMARY KEY (`msg_id`),
   KEY `uid_fk` (`uid_fk`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;
 
 CREATE TABLE `smallworld_user` (
-  `id` int(5) unsigned NOT NULL auto_increment,
-  `userid` text NOT NULL,
-  `regdate` int(36) NOT NULL,
-  `username` text NOT NULL,
-  `userimage` text NOT NULL,
-  `realname` text NOT NULL,
-  `gender` text NOT NULL,
-  `intingender` text NOT NULL,
-  `relationship` text NOT NULL,
-  `partner` text NOT NULL,
-  `searchrelat` text NOT NULL,
-  `birthday` date NOT NULL default '0000-00-00',
-  `birthplace` text NOT NULL,
-  `birthplace_lat` text NOT NULL,
-  `birthplace_lng` text NOT NULL,
-  `birthplace_country` text NOT NULL,
-  `politic` text NOT NULL,
-  `religion` text NOT NULL,
-  `emailtype` text NOT NULL,
-  `screenname_type` text NOT NULL,
-  `screenname` text NOT NULL,
-  `mobile` text NOT NULL,
-  `phone` text NOT NULL,
-  `adress` text NOT NULL,
-  `present_city` text NOT NULL,
-  `present_lat` text NOT NULL,
-  `present_lng` text NOT NULL,
-  `present_country` text NOT NULL,
-  `website` text NOT NULL,
-  `interests` text NOT NULL,
-  `music` text NOT NULL,
-  `tvshow` text NOT NULL,
-  `movie` text NOT NULL,
-  `books` text NOT NULL,
-  `aboutme` text NOT NULL,
-  `school_type` text NOT NULL,
-  `school` text NOT NULL,
-  `schoolstart` text NOT NULL,
-  `schoolstop` text NOT NULL,
-  `employer` text NOT NULL,
-  `position` text NOT NULL,
-  `jobstart` text NOT NULL,
-  `jobstop` text NOT NULL,
-  `description` text NOT NULL,
-  `friends` varchar(255) NOT NULL default '0',
-  `followers` varchar(255) NOT NULL default '0',
-  `admin_flag` varchar(255) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `id`                 INT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userid`             TEXT            NOT NULL,
+  `regdate`            INT(36)         NOT NULL,
+  `username`           TEXT            NOT NULL,
+  `userimage`          TEXT            NOT NULL,
+  `realname`           TEXT            NOT NULL,
+  `gender`             TEXT            NOT NULL,
+  `intingender`        TEXT            NOT NULL,
+  `relationship`       TEXT            NOT NULL,
+  `partner`            TEXT            NOT NULL,
+  `searchrelat`        TEXT            NOT NULL,
+  `birthday`           DATE            NOT NULL DEFAULT '0000-00-00',
+  `birthplace`         TEXT            NOT NULL,
+  `birthplace_lat`     TEXT            NOT NULL,
+  `birthplace_lng`     TEXT            NOT NULL,
+  `birthplace_country` TEXT            NOT NULL,
+  `politic`            TEXT            NOT NULL,
+  `religion`           TEXT            NOT NULL,
+  `emailtype`          TEXT            NOT NULL,
+  `screenname_type`    TEXT            NOT NULL,
+  `screenname`         TEXT            NOT NULL,
+  `mobile`             TEXT            NOT NULL,
+  `phone`              TEXT            NOT NULL,
+  `adress`             TEXT            NOT NULL,
+  `present_city`       TEXT            NOT NULL,
+  `present_lat`        TEXT            NOT NULL,
+  `present_lng`        TEXT            NOT NULL,
+  `present_country`    TEXT            NOT NULL,
+  `website`            TEXT            NOT NULL,
+  `interests`          TEXT            NOT NULL,
+  `music`              TEXT            NOT NULL,
+  `tvshow`             TEXT            NOT NULL,
+  `movie`              TEXT            NOT NULL,
+  `books`              TEXT            NOT NULL,
+  `aboutme`            TEXT            NOT NULL,
+  `school_type`        TEXT            NOT NULL,
+  `school`             TEXT            NOT NULL,
+  `schoolstart`        TEXT            NOT NULL,
+  `schoolstop`         TEXT            NOT NULL,
+  `employer`           TEXT            NOT NULL,
+  `position`           TEXT            NOT NULL,
+  `jobstart`           TEXT            NOT NULL,
+  `jobstop`            TEXT            NOT NULL,
+  `description`        TEXT            NOT NULL,
+  `friends`            VARCHAR(255)    NOT NULL DEFAULT '0',
+  `followers`          VARCHAR(255)    NOT NULL DEFAULT '0',
+  `admin_flag`         VARCHAR(255)    NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;
 
 CREATE TABLE `smallworld_vote` (
-  `vote_id` int(11) unsigned NOT NULL auto_increment,
-  `msg_id` int(8) unsigned NOT NULL default '0',
-  `com_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL default '0',
-  `owner` text NOT NULL,
-  `up` tinyint(3) unsigned NOT NULL default '0',
-  `down` tinyint(3) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`vote_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `vote_id` INT(11) UNSIGNED    NOT NULL AUTO_INCREMENT,
+  `msg_id`  INT(8) UNSIGNED     NOT NULL DEFAULT '0',
+  `com_id`  INT(11)             NOT NULL,
+  `user_id` INT(11)             NOT NULL DEFAULT '0',
+  `owner`   TEXT                NOT NULL,
+  `up`      TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+  `down`    TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`vote_id`)
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;
 
 CREATE TABLE `smallworld_complaints` (
-  `complaint_id` int(11) unsigned NOT NULL auto_increment,
-  `link` text NOT NULL,
-  `byuser_id` int(11) NOT NULL default '0',
-  `owner` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`complaint_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `complaint_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `link`         TEXT             NOT NULL,
+  `byuser_id`    INT(11)          NOT NULL DEFAULT '0',
+  `owner`        INT(11)          NOT NULL DEFAULT '0',
+  PRIMARY KEY (`complaint_id`)
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;
 
 CREATE TABLE `smallworld_admin` (
-  `id` int(11) NOT NULL auto_increment,
-  `userid` int(11) NOT NULL,
-  `username` text NOT NULL,
-  `realname` text NOT NULL,
-  `userimage` text NOT NULL,
-  `ip` text NOT NULL,
-  `complaint` text NOT NULL,
-  `inspect_start` text NOT NULL,
-  `inspect_stop` text NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `id`            INT(11) NOT NULL AUTO_INCREMENT,
+  `userid`        INT(11) NOT NULL,
+  `username`      TEXT    NOT NULL,
+  `realname`      TEXT    NOT NULL,
+  `userimage`     TEXT    NOT NULL,
+  `ip`            TEXT    NOT NULL,
+  `complaint`     TEXT    NOT NULL,
+  `inspect_start` TEXT    NOT NULL,
+  `inspect_stop`  TEXT    NOT NULL,
+  PRIMARY KEY (`id`)
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;
 
 CREATE TABLE `smallworld_settings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL,
-  `value` text NOT NULL,
+  `id`     INT(11) NOT NULL AUTO_INCREMENT,
+  `userid` INT(11) NOT NULL,
+  `value`  TEXT    NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;

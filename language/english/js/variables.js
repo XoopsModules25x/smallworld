@@ -11,7 +11,7 @@ var _smallworldCancel = "Cancel";
 var _smallworldClose = "close";
 
 var _smallworldCommentsMoreMore = "..Show more";
-var _smallworldCommentsMoreLess = "..Show less"; 
+var _smallworldCommentsMoreLess = "..Show less";
 
 var SmallworldGenderError = "Please choose your gender";
 var SmallworldBirthdayError = "Please choose your birthday";
@@ -24,7 +24,7 @@ var SmallworldConfirmBtnYes = 'Yes!';
 var SmallworldConfirmBtnNo = 'No!';
 
 var smallworldNewMessages = "You have new events +";
-var smallworldDeletedMessages = "Messages have been deleted. Count is now -"; 
+var smallworldDeletedMessages = "Messages have been deleted. Count is now -";
 
 //Validation
 var SmallworldValidationBackButton = "Backward"; // back button
@@ -44,24 +44,24 @@ var SmallworldSureDelete = "Sure you want to delete this update? There is NO und
 var SmallworldAdminSureDeleteUser = "Are you sure you want to delete user "; //Admin delete user
 var SmallworldDialogStatsTitle = "Statistics"; // Title for statistic dialog window
 // Languages for jquery confirm box
-var args = 	{
-				'confirm'		:	false, 		// Ok and Cancel buttons
-				'verify'		:	true,		// Yes and No buttons
-				'input'			:	false, 		// Text input (can be true or string for default text)
-				'animate'		:	true,		// Groovy animation (can true or number, default is 400)
-				'textOk'		:	'Okay',		// Ok button default text
-				'textCancel'	:	'Cancel',	// Cancel button default text
-				'textYes'		:	'Yes!',		// Yes button default text
-				'textNo'		:	'No!'		// No button default text
-			}
+var args = {
+    'confirm': false, 		// Ok and Cancel buttons
+    'verify': true,		// Yes and No buttons
+    'input': false, 		// Text input (can be true or string for default text)
+    'animate': true,		// Groovy animation (can true or number, default is 400)
+    'textOk': 'Okay',		// Ok button default text
+    'textCancel': 'Cancel',	// Cancel button default text
+    'textYes': 'Yes!',		// Yes button default text
+    'textNo': 'No!'		// No button default text
+}
 
 // Variables for photo gallery
-var SmallworldPhotoPlaySlideshow = 'Play Slideshow';            
+var SmallworldPhotoPlaySlideshow = 'Play Slideshow';
 var SmallworldPhotoPauseSlideshow = 'Pause Slideshow';
 var SmallworldPhotoPrevPhoto = '&lsaquo; Previous Photo';
 var SmallworldPhotoNextPhoto = 'Next Photo &rsaquo;';
 var SmallworldPhotoNextLink = 'Next &rsaquo;';
-var SmallworldPhotoPrevLink = '&lsaquo; Prev';            
+var SmallworldPhotoPrevLink = '&lsaquo; Prev';
 
 // error messages
 var SmallworldDialogNotUser = 'You must be registered to do this!!';

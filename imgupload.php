@@ -15,14 +15,14 @@
  */
 global $xoopsUser, $xoopsLogger;
 include_once("../../mainfile.php");
-include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH."/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH."/modules/smallworld/class/UploadHandler.php");
-	if ($xoopsUser) {
-			$xoopsLogger->activated = false;
-			$img = new smallWorldImages;
-			$userID = $xoopsUser->getVar('uid');
-			$user = new XoopsUser($userID);	
-            $upload_handler = new UploadHandler();
-	}
+include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
+include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/UploadHandler.php");
+if ($xoopsUser) {
+    $xoopsLogger->activated = false;
+    $img                    = new smallWorldImages;
+    $userID                 = $xoopsUser->getVar('uid');
+    $user                   = new XoopsUser($userID);
+    $upload_handler         = new UploadHandler();
+}
 ?>

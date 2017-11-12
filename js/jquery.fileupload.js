@@ -241,7 +241,7 @@
         _isXHRUpload: function (options) {
             return !options.forceIframeTransport &&
                 ((!options.multipart && $.support.xhrFileUpload) ||
-                $.support.xhrFormDataFileUpload);
+                    $.support.xhrFormDataFileUpload);
         },
 
         _getFormData: function (options) {
@@ -276,8 +276,8 @@
                     total,
                     loaded;
                 if (data._time && data.progressInterval &&
-                        (now - data._time < data.progressInterval) &&
-                        e.loaded !== e.total) {
+                    (now - data._time < data.progressInterval) &&
+                    e.loaded !== e.total) {
                     return;
                 }
                 data._time = now;
@@ -389,7 +389,7 @@
                             // This check allows the tests to run with
                             // dummy objects:
                             if ((window.Blob && file instanceof Blob) ||
-                                    (window.File && file instanceof File)) {
+                                (window.File && file instanceof File)) {
                                 formData.append(
                                     options.paramName[index] || paramName,
                                     file,
@@ -480,7 +480,7 @@
             options.type = (options.type || options.form.prop('method') || '')
                 .toUpperCase();
             if (options.type !== 'POST' && options.type !== 'PUT' &&
-                    options.type !== 'PATCH') {
+                options.type !== 'PATCH') {
                 options.type = 'POST';
             }
             if (!options.formAcceptCharset) {
@@ -546,7 +546,7 @@
                 jqXHR,
                 upload;
             if (!(this._isXHRUpload(options) && slice && (ub || mcs < fs)) ||
-                    options.data) {
+                options.data) {
                 return false;
             }
             if (testOnly) {
@@ -581,7 +581,7 @@
                 // Add progress listeners for this chunk upload:
                 that._initProgressListener(o);
                 jqXHR = ((that._trigger('chunksend', null, o) !== false && $.ajax(o)) ||
-                        that._getXHRPromise(false, o.context))
+                    that._getXHRPromise(false, o.context))
                     .done(function (result, textStatus, jqXHR) {
                         ub = that._getUploadedBytes(jqXHR) ||
                             (ub + o.chunkSize);
@@ -649,7 +649,7 @@
 
         _onDone: function (result, textStatus, jqXHR, options) {
             if (!this._isXHRUpload(options) || !options.loaded ||
-                    options.loaded < options.total) {
+                options.loaded < options.total) {
                 var total = this._getTotal(options.files) || 1;
                 // Create a progress event for each iframe load,
                 // or if there has been no progress event with
@@ -707,7 +707,7 @@
                     options._bitrateTimer = new that._BitrateTimer();
                     jqXHR = jqXHR || (
                         ((aborted || that._trigger('send', e, options) === false) &&
-                        that._getXHRPromise(false, options.context, aborted)) ||
+                            that._getXHRPromise(false, options.context, aborted)) ||
                         that._chunkedUpload(options) || $.ajax(options)
                     ).done(function (result, textStatus, jqXHR) {
                         that._onDone(result, textStatus, jqXHR, options);
@@ -722,7 +722,7 @@
                             options
                         );
                         if (options.limitConcurrentUploads &&
-                                options.limitConcurrentUploads > that._sending) {
+                            options.limitConcurrentUploads > that._sending) {
                             // Start the next queued upload,
                             // that has not been aborted:
                             var nextSlot = that._slots.shift(),
@@ -731,8 +731,8 @@
                                 // jQuery 1.6 doesn't provide .state(),
                                 // while jQuery 1.8+ removed .isRejected():
                                 isPending = nextSlot.state ?
-                                        nextSlot.state() === 'pending' :
-                                        !nextSlot.isRejected();
+                                    nextSlot.state() === 'pending' :
+                                    !nextSlot.isRejected();
                                 if (isPending) {
                                     nextSlot.resolve();
                                     break;
@@ -745,7 +745,7 @@
                 };
             this._beforeSend(e, options);
             if (this.options.sequentialUploads ||
-                    (this.options.limitConcurrentUploads &&
+                (this.options.limitConcurrentUploads &&
                     this.options.limitConcurrentUploads <= this._sending)) {
                 if (this.options.limitConcurrentUploads > 1) {
                     slot = $.Deferred();
@@ -783,7 +783,7 @@
                 fileSet,
                 i;
             if (!(options.singleFileUploads || limit) ||
-                    !this._isXHRUpload(options)) {
+                !this._isXHRUpload(options)) {
                 fileSet = [data.files];
                 paramNameSet = [paramName];
             } else if (!options.singleFileUploads && limit) {
@@ -928,7 +928,7 @@
         _getSingleFileInputFiles: function (fileInput) {
             fileInput = $(fileInput);
             var entries = fileInput.prop('webkitEntries') ||
-                    fileInput.prop('entries'),
+                fileInput.prop('entries'),
                 files,
                 value;
             if (entries && entries.length) {
@@ -997,7 +997,7 @@
                 }
             });
             if (this._trigger('paste', e, data) === false ||
-                    this._onAdd(e, data) === false) {
+                this._onAdd(e, data) === false) {
                 return false;
             }
         },
@@ -1065,7 +1065,7 @@
             var options = this.options;
             if (options.fileInput === undefined) {
                 options.fileInput = this.element.is('input[type="file"]') ?
-                        this.element : this.element.find('input[type="file"]');
+                    this.element : this.element.find('input[type="file"]');
             } else if (!(options.fileInput instanceof $)) {
                 options.fileInput = $(options.fileInput);
             }

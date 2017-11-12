@@ -1,9 +1,9 @@
 <body>
 <div id="example1" class="smallworld_content">
-	<table class="smallworld_biotable">
-	  <tr>
-		<td></td>
-		<span class="smallworld_search">
+    <table class="smallworld_biotable">
+        <tr>
+            <td></td>
+            <span class="smallworld_search">
 		 <td>
 			<br>
 			<br>
@@ -12,12 +12,12 @@
 				<div id="smallworld_content">																							
 					 <{foreach item=post from=$walldata}>
 						<script type="text/javascript"> 
-							xoops_smallworld(document).ready(function(){
-								xoops_smallworld('#smallworld_stexpand<{$post.msg_id}>').oembed('<{$post.orimessage}>',{
-                                    maxWidth: "100%", 
+							xoops_smallworld(document).ready(function () {
+                                xoops_smallworld('#smallworld_stexpand<{$post.msg_id}>').oembed('<{$post.orimessage}>', {
+                                    maxWidth: "100%",
                                     maxHeight: "100%"
-								});
-							});
+                                });
+                            });
 						</script>
 
 					<div class="smallworld_stbody" id="smallworld_stbody<{$post.msg_id}>">
@@ -41,7 +41,7 @@
 					</div>	
 		 </td>
 		</span>
-	  </tr>
-	</table>	
+        </tr>
+    </table>
 </div>
 </body>

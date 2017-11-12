@@ -170,7 +170,7 @@
                 width: img.width,
                 height: img.height
             });
-            modal.find('.modal-title').css({ width: Math.max(img.width, 380) });
+            modal.find('.modal-title').css({width: Math.max(img.width, 380)});
             if (transition) {
                 clone = modal.clone().hide().appendTo(document.body);
             }
@@ -238,16 +238,16 @@
         },
         keyHandler: function (e) {
             switch (e.which) {
-            case 37: // left
-            case 38: // up
-                e.preventDefault();
-                this.prev();
-                break;
-            case 39: // right
-            case 40: // down
-                e.preventDefault();
-                this.next();
-                break;
+                case 37: // left
+                case 38: // up
+                    e.preventDefault();
+                    this.prev();
+                    break;
+                case 39: // right
+                case 40: // down
+                    e.preventDefault();
+                    this.next();
+                    break;
             }
         },
         wheelHandler: function (e) {
@@ -256,11 +256,11 @@
             this._wheelCounter = this._wheelCounter || 0;
             this._wheelCounter += (e.wheelDelta || e.detail || 0);
             if ((e.wheelDelta && this._wheelCounter >= 120) ||
-                    (!e.wheelDelta && this._wheelCounter < 0)) {
+                (!e.wheelDelta && this._wheelCounter < 0)) {
                 this.prev();
                 this._wheelCounter = 0;
             } else if ((e.wheelDelta && this._wheelCounter <= -120) ||
-                        (!e.wheelDelta && this._wheelCounter > 0)) {
+                (!e.wheelDelta && this._wheelCounter > 0)) {
                 this.next();
                 this._wheelCounter = 0;
             }
@@ -274,7 +274,7 @@
                     $this.hide();
                 } else {
                     if ((e.pageX - modalImage.offset().left) / modalImage.width() <
-                            $this.options.imageClickDivision) {
+                        $this.options.imageClickDivision) {
                         $this.prev(e);
                     } else {
                         $this.next(e);

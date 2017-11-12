@@ -11,7 +11,7 @@ var _smallworldCancel = "Annuler";
 var _smallworldClose = "Fermer";
 
 var _smallworldCommentsMoreMore = "..Afficher";
-var _smallworldCommentsMoreLess = "..Cacher"; 
+var _smallworldCommentsMoreLess = "..Cacher";
 
 var SmallworldGenderError = "Sélectionnez votre sexe";
 var SmallworldBirthdayError = "Renseignez votre date anniversaire";
@@ -24,7 +24,7 @@ var SmallworldConfirmBtnYes = 'Oui !';
 var SmallworldConfirmBtnNo = 'Non !';
 
 var smallworldNewMessages = "Vous avez de nouveaux messages +";
-var smallworldDeletedMessages = "Les messages ont été supprimés. Le compteur est maintenant -"; 
+var smallworldDeletedMessages = "Les messages ont été supprimés. Le compteur est maintenant -";
 
 //Validation
 var SmallworldValidationBackButton = "Retour"; // Bouton de retour
@@ -44,19 +44,19 @@ var SmallworldSureDelete = "Êtes-vous sûr de vouloir supprimer cette mise à j
 var SmallworldAdminSureDeleteUser = "Confirmer la suppression de cet utilisateur "; //Suppression des utilisateurs dans l'administration
 var SmallworldDialogStatsTitle = "Statistiques"; // Titre de la fenêtre de dialogue des statistiques
 // Partie confirmation selon les langues, pour jquery
-var args = 	{
-				'confirm'		:	false, 		    // Bouttons "ok" et "annuler"
-				'verify'		:	true,		    // Bouttons "oui" et "non"
-				'input'			:	false, 		    // Saisie de texte ("true" ou chaîne de texte par défaut)
-				'animate'		:	true,		    // Annimation habituelle ("true" ou un nombre, 400 par défaut)
-				'textOk'		:	'Ok',		    // Boutton "Ok", texte par défaut
-				'textCancel'	:	'Annuler',  	// Boutton "Annuler", texte par défaut
-				'textYes'		:	'Oui !',	    // Boutton "Oui !", texte par défaut
-				'textNo'		:	'Non !'	        // Boutton "Non !", texte par défaut
-			}
+var args = {
+    'confirm': false, 		    // Bouttons "ok" et "annuler"
+    'verify': true,		    // Bouttons "oui" et "non"
+    'input': false, 		    // Saisie de texte ("true" ou chaîne de texte par défaut)
+    'animate': true,		    // Annimation habituelle ("true" ou un nombre, 400 par défaut)
+    'textOk': 'Ok',		    // Boutton "Ok", texte par défaut
+    'textCancel': 'Annuler',  	// Boutton "Annuler", texte par défaut
+    'textYes': 'Oui !',	    // Boutton "Oui !", texte par défaut
+    'textNo': 'Non !'	        // Boutton "Non !", texte par défaut
+}
 
 // Variables pour la Galerie de photos
-var SmallworldPhotoPlaySlideshow = 'Lancer le Diaporama';            
+var SmallworldPhotoPlaySlideshow = 'Lancer le Diaporama';
 var SmallworldPhotoPauseSlideshow = 'Pause';
 var SmallworldPhotoPrevPhoto = '&lsaquo; Photos précédentes';
 var SmallworldPhotoNextPhoto = 'Photos suivantes &rsaquo;';

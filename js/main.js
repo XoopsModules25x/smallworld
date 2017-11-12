@@ -62,7 +62,7 @@ xoops_smallworld(function () {
             }).fail(function () {
                 xoops_smallworld('<span class="alert alert-error"/>')
                     .text('Upload server currently unavailable - ' +
-                            new Date())
+                        new Date())
                     .appendTo('#fileupload');
             });
         }

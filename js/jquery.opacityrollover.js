@@ -5,38 +5,38 @@
  * Licensed under the MIT License:
  *   http://www.opensource.org/licenses/mit-license.php
  */
-;(function(xoops_smallworld) {
-	var defaults = {
-		mouseOutOpacity:   0.67,
-		mouseOverOpacity:  1.0,
-		fadeSpeed:         'fast',
-		exemptionSelector: '.selected'
-	};
+;(function (xoops_smallworld) {
+    var defaults = {
+        mouseOutOpacity: 0.67,
+        mouseOverOpacity: 1.0,
+        fadeSpeed: 'fast',
+        exemptionSelector: '.selected'
+    };
 
-	xoops_smallworld.fn.opacityrollover = function(settings) {
-		// Initialize the effect
-		xoops_smallworld.extend(this, defaults, settings);
+    xoops_smallworld.fn.opacityrollover = function (settings) {
+        // Initialize the effect
+        xoops_smallworld.extend(this, defaults, settings);
 
-		var config = this;
+        var config = this;
 
-		function fadeTo(element, opacity) {
-			var xoops_smallworldtarget = xoops_smallworld(element);
-			
-			if (config.exemptionSelector)
-				xoops_smallworldtarget = xoops_smallworldtarget.not(config.exemptionSelector);	
-			
-			xoops_smallworldtarget.fadeTo(config.fadeSpeed, opacity);
-		}
+        function fadeTo(element, opacity) {
+            var xoops_smallworldtarget = xoops_smallworld(element);
 
-		this.css('opacity', this.mouseOutOpacity)
-			.hover(
-				function () {
-					fadeTo(this, config.mouseOverOpacity);
-				},
-				function () {
-					fadeTo(this, config.mouseOutOpacity);
-				});
+            if (config.exemptionSelector)
+                xoops_smallworldtarget = xoops_smallworldtarget.not(config.exemptionSelector);
 
-		return this;
-	};
+            xoops_smallworldtarget.fadeTo(config.fadeSpeed, opacity);
+        }
+
+        this.css('opacity', this.mouseOutOpacity)
+            .hover(
+                function () {
+                    fadeTo(this, config.mouseOverOpacity);
+                },
+                function () {
+                    fadeTo(this, config.mouseOutOpacity);
+                });
+
+        return this;
+    };
 })(jQuery);

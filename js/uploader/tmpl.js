@@ -19,13 +19,13 @@
     "use strict";
     var tmpl = function (str, data) {
         var f = !/[^\w\-\.:]/.test(str) ? tmpl.cache[str] = tmpl.cache[str] ||
-                tmpl(tmpl.load(str)) :
-                    new Function(
-                        tmpl.arg + ',tmpl',
-                        "var _e=tmpl.encode" + tmpl.helper + ",_s='" +
-                            str.replace(tmpl.regexp, tmpl.func) +
-                            "';return _s;"
-                    );
+            tmpl(tmpl.load(str)) :
+            new Function(
+                tmpl.arg + ',tmpl',
+                "var _e=tmpl.encode" + tmpl.helper + ",_s='" +
+                str.replace(tmpl.regexp, tmpl.func) +
+                "';return _s;"
+            );
         return data ? f(data, tmpl) : function (data) {
             return f(data, tmpl);
         };
@@ -41,7 +41,7 @@
                 "\n": "\\n",
                 "\r": "\\r",
                 "\t": "\\t",
-                " " : " "
+                " ": " "
             }[s] || "\\" + s;
         }
         if (p2) { // interpolation: {%=prop%}, or unescaped: {%#prop%}
@@ -59,11 +59,11 @@
     };
     tmpl.encReg = /[<>&"'\x00]/g;
     tmpl.encMap = {
-        "<"   : "&lt;",
-        ">"   : "&gt;",
-        "&"   : "&amp;",
-        "\""  : "&quot;",
-        "'"   : "&#39;"
+        "<": "&lt;",
+        ">": "&gt;",
+        "&": "&amp;",
+        "\"": "&quot;",
+        "'": "&#39;"
     };
     tmpl.encode = function (s) {
         return String(s || "").replace(

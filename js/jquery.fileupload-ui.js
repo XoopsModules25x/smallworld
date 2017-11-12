@@ -51,7 +51,7 @@
             minFileSize: undefined,
             // The regular expression for allowed file types, matches
             // against either file type or file name:
-            acceptFileTypes:  /.+$/i,
+            acceptFileTypes: /.+$/i,
             // The regular expression to define for which files a preview
             // image is shown, matched against the file type:
             previewSourceFileTypes: /^image\/(gif|jpeg|png)$/,
@@ -84,7 +84,7 @@
             // See the basic file upload widget for more information:
             add: function (e, data) {
                 var that = $(this).data('blueimp-fileupload') ||
-                        $(this).data('fileupload'),
+                    $(this).data('fileupload'),
                     options = that.options,
                     files = data.files;
                 $(this).fileupload('process', data).done(function () {
@@ -94,14 +94,14 @@
                     data.context = that._renderUpload(files).data('data', data);
                     options.filesContainer[
                         options.prependFiles ? 'prepend' : 'append'
-                    ](data.context);
+                        ](data.context);
                     that._renderPreviews(data);
                     that._forceReflow(data.context);
                     that._transition(data.context).done(
                         function () {
                             if ((that._trigger('added', e, data) !== false) &&
-                                    (options.autoUpload || data.autoUpload) &&
-                                    data.autoUpload !== false && data.isValidated) {
+                                (options.autoUpload || data.autoUpload) &&
+                                data.autoUpload !== false && data.isValidated) {
                                 data.submit();
                             }
                         }
@@ -111,7 +111,7 @@
             // Callback for the start of each file upload request:
             send: function (e, data) {
                 var that = $(this).data('blueimp-fileupload') ||
-                        $(this).data('fileupload');
+                    $(this).data('fileupload');
                 if (!data.isValidated) {
                     if (!data.maxNumberOfFilesAdjusted) {
                         that._adjustMaxNumberOfFiles(-data.files.length);
@@ -122,33 +122,33 @@
                     }
                 }
                 if (data.context && data.dataType &&
-                        data.dataType.substr(0, 6) === 'iframe') {
+                    data.dataType.substr(0, 6) === 'iframe') {
                     // Iframe Transport does not support progress events.
                     // In lack of an indeterminate progress bar, we set
                     // the progress to 100%, showing the full animated bar:
                     data.context
                         .find('.progress').addClass(
-                            !$.support.transition && 'progress-animated'
-                        )
+                        !$.support.transition && 'progress-animated'
+                    )
                         .attr('aria-valuenow', 100)
                         .find('.bar').css(
-                            'width',
-                            '100%'
-                        );
+                        'width',
+                        '100%'
+                    );
                 }
                 return that._trigger('sent', e, data);
             },
             // Callback for successful uploads:
             done: function (e, data) {
                 var that = $(this).data('blueimp-fileupload') ||
-                        $(this).data('fileupload'),
+                    $(this).data('fileupload'),
                     files = that._getFilesFromResponse(data),
                     template,
                     deferred;
                 if (data.context) {
                     data.context.each(function (index) {
                         var file = files[index] ||
-                                {error: 'Empty file upload result'},
+                            {error: 'Empty file upload result'},
                             deferred = that._addFinishedDeferreds();
                         if (file.error) {
                             that._adjustMaxNumberOfFiles(1);
@@ -176,7 +176,7 @@
                             if (data.maxNumberOfFilesAdjusted && file.error) {
                                 that._adjustMaxNumberOfFiles(1);
                             } else if (!data.maxNumberOfFilesAdjusted &&
-                                    !file.error) {
+                                !file.error) {
                                 that._adjustMaxNumberOfFiles(-1);
                             }
                         });
@@ -199,7 +199,7 @@
             // Callback for failed (abort or error) uploads:
             fail: function (e, data) {
                 var that = $(this).data('blueimp-fileupload') ||
-                        $(this).data('fileupload'),
+                    $(this).data('fileupload'),
                     template,
                     deferred;
                 if (data.maxNumberOfFilesAdjusted) {
@@ -267,9 +267,9 @@
                     data.context.find('.progress')
                         .attr('aria-valuenow', progress)
                         .find('.bar').css(
-                            'width',
-                            progress + '%'
-                        );
+                        'width',
+                        progress + '%'
+                    );
                 }
             },
             // Callback for global upload progress events:
@@ -289,14 +289,14 @@
                     .find('.progress')
                     .attr('aria-valuenow', progress)
                     .find('.bar').css(
-                        'width',
-                        progress + '%'
-                    );
+                    'width',
+                    progress + '%'
+                );
             },
             // Callback for uploads start, equivalent to the global ajaxStart event:
             start: function (e) {
                 var that = $(this).data('blueimp-fileupload') ||
-                        $(this).data('fileupload');
+                    $(this).data('fileupload');
                 that._resetFinishedDeferreds();
                 that._transition($(this).find('.fileupload-progress')).done(
                     function () {
@@ -307,7 +307,7 @@
             // Callback for uploads stop, equivalent to the global ajaxStop event:
             stop: function (e) {
                 var that = $(this).data('blueimp-fileupload') ||
-                        $(this).data('fileupload'),
+                    $(this).data('fileupload'),
                     deferred = that._addFinishedDeferreds();
                 $.when.apply($, that._getFinishedDeferreds())
                     .done(function () {
@@ -326,7 +326,7 @@
             // Callback for file deletion:
             destroy: function (e, data) {
                 var that = $(this).data('blueimp-fileupload') ||
-                        $(this).data('fileupload');
+                    $(this).data('fileupload');
                 if (data.url) {
                     $.ajax(data);
                     that._adjustMaxNumberOfFiles(1);
@@ -376,7 +376,8 @@
                         'DownloadURL',
                         [type, name, url].join(':')
                     );
-                } catch (err) {}
+                } catch (err) {
+                }
             });
         },
 
@@ -464,11 +465,11 @@
                 return 'Filetype not allowed';
             }
             if (this.options.maxFileSize &&
-                    file.size > this.options.maxFileSize) {
+                file.size > this.options.maxFileSize) {
                 return 'File is too big';
             }
             if (typeof file.size === 'number' &&
-                    file.size < this.options.minFileSize) {
+                file.size < this.options.minFileSize) {
                 return 'File is too small';
             }
             return null;
@@ -534,7 +535,7 @@
             data.context.find('.preview span').each(function (index, element) {
                 var file = data.files[index];
                 if (options.previewSourceFileTypes.test(file.type) &&
-                        ($.type(options.previewSourceMaxFileSize) !== 'number' ||
+                    ($.type(options.previewSourceMaxFileSize) !== 'number' ||
                         file.size < options.previewSourceMaxFileSize)) {
                     that._processingQueue = that._processingQueue.pipe(function () {
                         var dfd = $.Deferred(),

@@ -25,7 +25,7 @@
                 if (options === 'destroy') {
                     xoops_smallworld(this).removeClass(
                         'ui-button ui-widget ui-state-default ui-corner-all' +
-                            ' ui-button-icon-only ui-button-text-icon-primary'
+                        ' ui-button-icon-only ui-button-text-icon-primary'
                     ).html(xoops_smallworld(this).text());
                 } else {
                     xoops_smallworld(this)
@@ -43,7 +43,7 @@
             });
         };
     }
-        
+
     UploadHandler = function (container, options) {
         var uploadHandler = this;
 
@@ -57,7 +57,7 @@
         this.uploadTemplate = this.uploadTable.find('.file_upload_template:first');
         this.downloadTemplate = this.uploadTable.find('.file_download_template:first');
         this.multiButtons = container.find('.file_upload_buttons:first');
-        
+
         this.formatFileSize = function (bytes) {
             if (typeof bytes !== 'number' || bytes === null) {
                 return '';
@@ -70,11 +70,11 @@
             }
             return (bytes / 1000).toFixed(2) + ' KB';
         };
-        
+
         this.formatFileName = function (name) {
             return name.replace(/^.*[\/\\]/, '');
         };
-        
+
         this.enableDragToDesktop = function () {
             var link = xoops_smallworld(this),
                 url = link.get(0).href,
@@ -84,7 +84,8 @@
                 try {
                     event.originalEvent.dataTransfer
                         .setData('DownloadURL', [type, name, url].join(':'));
-                } catch (e) {}
+                } catch (e) {
+                }
             });
         };
 
@@ -131,7 +132,7 @@
         this.getFileUrl = function (file, handler) {
             return file.url;
         };
-        
+
         this.getThumbnailUrl = function (file, handler) {
             return file.thumbnail;
         };
@@ -171,7 +172,7 @@
                 .button({icons: {primary: 'ui-icon-trash'}, text: false});
             return downloadRow;
         };
-        
+
         this.beforeSend = function (event, files, index, xhr, handler, callBack) {
             if (handler.autoUpload) {
                 callBack();
@@ -209,7 +210,7 @@
             });
             e.preventDefault();
         };
-        
+
         this.initEventHandlers = function () {
             uploadHandler.downloadTable.find('a:not([target="_blank"])')
                 .live('click', uploadHandler.downloadHandler);
@@ -223,12 +224,12 @@
             uploadHandler.downloadTable.find('.file_download_delete button')
                 .die('click', uploadHandler.deleteHandler);
         };
-        
+
         this.multiButtonHandler = function (e) {
             uploadHandler.uploadTable.find(e.data.selector + ' button:visible').click();
             e.preventDefault();
         };
-        
+
         this.initMultiButtons = function () {
             if (uploadHandler.autoUpload) {
                 uploadHandler.multiButtons.find('.file_upload_start:first').hide();
@@ -244,7 +245,7 @@
                 .button({icons: {primary: 'ui-icon-trash'}})
                 .bind('click', {selector: '.file_download_delete'}, uploadHandler.multiButtonHandler);
         };
-        
+
         this.destroyMultiButtons = function () {
             uploadHandler.multiButtons.find(
                 '.file_upload_start:first, .file_upload_cancel:first, .file_download_delete:first'
@@ -265,12 +266,12 @@
     };
 
     methods = {
-        init : function (options) {
+        init: function (options) {
             return this.each(function () {
                 xoops_smallworld(this).fileUploadUI(new UploadHandler(xoops_smallworld(this), options));
             });
         },
-        
+
         option: function (option, value, namespace) {
             if (!option || (typeof option === 'string' && typeof value === 'undefined')) {
                 return xoops_smallworld(this).fileUpload('option', option, value, namespace);
@@ -279,20 +280,20 @@
                 xoops_smallworld(this).fileUploadUI('option', option, value, namespace);
             });
         },
-            
-        destroy : function (namespace) {
+
+        destroy: function (namespace) {
             return this.each(function () {
                 xoops_smallworld(this).fileUploadUI('destroy', namespace);
             });
         },
-        
+
         upload: function (files, namespace) {
             return this.each(function () {
                 xoops_smallworld(this).fileUploadUI('upload', files, namespace);
             });
         }
     };
-    
+
     xoops_smallworld.fn.fileUploadUIX = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -302,5 +303,5 @@
             xoops_smallworld.error('Method "' + method + '" does not exist on jQuery.fileUploadUIX');
         }
     };
-    
+
 }(jQuery));

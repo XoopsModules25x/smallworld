@@ -13,7 +13,7 @@
 xoops_smallworld(function () {
     // Initialize jQuery File Upload (Extended User Interface Version):
     xoops_smallworld('#file_upload').fileUploadUIX();
-    
+
     // Load existing files:
     xoops_smallworld.getJSON(xoops_smallworld('#file_upload').fileUploadUIX('option', 'url'), function (files) {
         var fileUploadOptions = xoops_smallworld('#file_upload').fileUploadUIX('option');

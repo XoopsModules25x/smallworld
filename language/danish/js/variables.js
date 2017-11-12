@@ -11,7 +11,7 @@ var _smallworldCancel = "Afbryd";
 var _smallworldClose = "Luk";
 
 var _smallworldCommentsMoreMore = "..Vis mere";
-var _smallworldCommentsMoreLess = "..vis mindre"; 
+var _smallworldCommentsMoreLess = "..vis mindre";
 
 var SmallworldGenderError = "Vælg dit køn";
 var SmallworldBirthdayError = "Vælg din fødselsdag";
@@ -24,7 +24,7 @@ var SmallworldConfirmBtnYes = 'Ja!';
 var SmallworldConfirmBtnNo = 'Nej!';
 
 var smallworldNewMessages = "Du har nye +";
-var smallworldDeletedMessages = "Meddelelser slettet. Antal er nu -"; 
+var smallworldDeletedMessages = "Meddelelser slettet. Antal er nu -";
 
 //Validation
 var SmallworldValidationBackButton = "Tilbage"; // back button
@@ -44,20 +44,20 @@ var SmallworldSureDelete = "Sikker på du vil slette denne besked? Der er ingen 
 var SmallworldAdminSureDeleteUser = "Sikker på du vil slette bruger "; //Admin delete user
 var SmallworldDialogStatsTitle = "Statistik"; // Title for statistic dialog window
 // Languages for jquery confirm box
-var args = 	{
-				'confirm'		:	false, 		// Ok and Cancel buttons
-				'verify'		:	true,		// Yes and No buttons
-				'input'			:	false, 		// Text input (can be true or string for default text)
-				'animate'		:	true,		// Groovy animation (can true or number, default is 400)
-				'textOk'		:	'Okay',		// Ok button default text
-				'textCancel'	:	'Afbryd',	// Cancel button default text
-				'textYes'		:	'Ja!',		// Yes button default text
-				'textNo'		:	'Nej!'		// No button default text
-			}
+var args = {
+    'confirm': false, 		// Ok and Cancel buttons
+    'verify': true,		// Yes and No buttons
+    'input': false, 		// Text input (can be true or string for default text)
+    'animate': true,		// Groovy animation (can true or number, default is 400)
+    'textOk': 'Okay',		// Ok button default text
+    'textCancel': 'Afbryd',	// Cancel button default text
+    'textYes': 'Ja!',		// Yes button default text
+    'textNo': 'Nej!'		// No button default text
+}
 
-            
+
 // Variables for photo gallery
-var SmallworldPhotoPlaySlideshow = 'Afspil Slideshow';            
+var SmallworldPhotoPlaySlideshow = 'Afspil Slideshow';
 var SmallworldPhotoPauseSlideshow = 'Pause Slideshow';
 var SmallworldPhotoPrevPhoto = '&lsaquo; Foregående billede';
 var SmallworldPhotoNextPhoto = 'Næste billede &rsaquo;';

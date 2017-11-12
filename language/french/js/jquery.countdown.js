@@ -4,19 +4,20 @@
    Dual licensed under the GPL (http://dev.jquery.com/browser/trunk/jquery/GPL-LICENSE.txt) and 
    MIT (http://dev.jquery.com/browser/trunk/jquery/MIT-LICENSE.txt) licenses. 
    Please attribute the author if you use it. */
-   
-    /*
-    Check here for your translation
-    http://keith-wood.name/countdown.html#l10nPkgs
-    */   
+
+/*
+Check here for your translation
+http://keith-wood.name/countdown.html#l10nPkgs
+*/
 /* Traduction française de l'extension jQuery "countdown"
    par Cesagonchu (frxoops.org) le 1er Octobre 2015. */
-(function(xoops_smallworld) {
-	xoops_smallworld.countdown.regional['fr'] = {
-		labels: ['Années', 'Mois', 'Semaines', 'Jours', 'Heures', 'Minutes', 'Secondes'],
-		labels1: ['Année', 'Mois', 'Semaine', 'Jour', 'Heure', 'Minute', 'Seconde'],
-		compactLabels: ['a', 'm', 's', 'j', 'hrs', 'min', 'sec'], // Textes compacts pour les compteurs
-		whichLabels: null,
-		timeSeparator: ':', isRTL: false};
-	xoops_smallworld.countdown.setDefaults(xoops_smallworld.countdown.regional['fr']);
+(function (xoops_smallworld) {
+    xoops_smallworld.countdown.regional['fr'] = {
+        labels: ['Années', 'Mois', 'Semaines', 'Jours', 'Heures', 'Minutes', 'Secondes'],
+        labels1: ['Année', 'Mois', 'Semaine', 'Jour', 'Heure', 'Minute', 'Seconde'],
+        compactLabels: ['a', 'm', 's', 'j', 'hrs', 'min', 'sec'], // Textes compacts pour les compteurs
+        whichLabels: null,
+        timeSeparator: ':', isRTL: false
+    };
+    xoops_smallworld.countdown.setDefaults(xoops_smallworld.countdown.regional['fr']);
 });

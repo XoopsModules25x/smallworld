@@ -35,7 +35,7 @@
             if ((window.Blob && file instanceof Blob) ||
                 // Files are also Blob instances, but some browsers
                 // (Firefox 3.6) support the File API but not Blobs:
-                    (window.File && file instanceof File)) {
+                (window.File && file instanceof File)) {
                 url = oUrl = loadImage.createObjectURL(file);
                 // Store the file type for resize processing:
                 img._type = file.type;
