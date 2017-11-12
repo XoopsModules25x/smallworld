@@ -177,7 +177,8 @@ class Wall_Updates
         }
         $query  = 'SELECT msg_id,message FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE uid_fk='" . $uid . "' ORDER BY msg_id DESC LIMIT 1";
         $result = $xoopsDB->queryF($query);
-        if ($update != $result['message']) {
+        $row = $xoopsDB->fetchArray($result);
+        if ($update != $row['message']) {
             $query    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_messages') . " (message, uid_fk, priv, created) VALUES ('" . $update . "', '" . $uid . "', '" . $priv . "', '" . $time . "')";
             $result   = $xoopsDB->queryF($query);
             $newquery = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . " U WHERE M.uid_fk=U.userid AND M.uid_fk='" . $uid . "' ORDER BY M.msg_id DESC LIMIT 1 ";
@@ -443,10 +444,10 @@ class Wall_Updates
         $check          = new SmallWorldUser;
         $dBase          = new SmallWorldDB;
         $profile        = $xoopsUser ? $check->checkIfProfile($id) : 0;
-        $module_handler =& xoops_getHandler('module');
+        $module_handler = xoops_getHandler('module');
         $module         = $module_handler->getByDirname('smallworld');
-        $config_handler =& xoops_getHandler('config');
-        $moduleConfig   =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+        $config_handler = xoops_getHandler('config');
+        $moduleConfig   = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
 
         $myavatar          = $this->Gravatar($id);
         $myavatarlink      = smallworld_getAvatarLink($id, $myavatar);

@@ -157,7 +157,7 @@ function Smallworld_array_flatten($array, $preserve_keys = 1, &$newArray = [])
 {
     foreach ($array as $key => $child) {
         if (is_array($child)) {
-            $newArray =& Smallworld_array_flatten($child, $preserve_keys, $newArray);
+            $newArray = Smallworld_array_flatten($child, $preserve_keys, $newArray);
         } elseif ($preserve_keys + is_string($key) > 1) {
             $newArray[$key] = $child;
         } else {
