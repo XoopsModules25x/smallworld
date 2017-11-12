@@ -107,7 +107,7 @@ if ($profile >= 2) {
             $tpl->assign('pagename', $page);
             $tpl->assign('myavatar', $myavatar);
             $tpl->assign('myavatarlink', $myavatarlink);
-            $tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getlastcom.html');
+            $tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getlastcom.tpl');
 
             // send mail to user owning update + participans in the thread that a comment has been posted
             $parts  = $mail->getPartsFromComment($data['msg_id_fk']);

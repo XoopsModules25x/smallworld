@@ -24,9 +24,9 @@ require_once __DIR__ . '/../../mainfile.php';
 $page = basename($_SERVER['PHP_SELF'], '.php');
 
 if ($xoopsUser && 'publicindex' !== $page) {
-    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
 } else {
-    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.tpl';
 }
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';

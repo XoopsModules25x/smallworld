@@ -90,7 +90,7 @@ $xoopsTpl->assign('myusername', $username);
 $xoopsTpl->assign('pagename', $page);
 
 if ($id > 0) {
-    $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getmore.html');
+    $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getmore.tpl');
 } else {
-    $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getmorepublic.html');
+    $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getmorepublic.tpl');
 }

@@ -29,7 +29,7 @@ global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsLogger, $xoopsModule;
 $set = smallworld_checkPrivateOrPublic();
 
 if ($xoopsUser) {
-    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
 } elseif (!$xoopsUser && 1 == $set['access']) {
     $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.html';
 } else {

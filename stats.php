@@ -49,5 +49,5 @@ if ($xoopsUser) {
     } else {
         $tpl->assign('birthdays', 0);
     }
-    $tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getStat.html');
+    $tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getStat.tpl');
 }

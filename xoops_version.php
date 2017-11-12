@@ -116,18 +116,18 @@ $modversion = [
 // Templates
 
 $modversion['templates'] = [
-    ['file' => 'smallworld_index.html', 'description' => ''],
-    ['file' => 'smallworld_userprofile_template.html', 'description' => ''],
-    ['file' => 'smallworld_userprofile_regtemplate.html', 'description' => ''],
-    ['file' => 'smallworld_userprofile_edittemplate.html', 'description' => ''],
-    ['file' => 'smallworld_userprofile_imgupload.html', 'description' => ''],
-    ['file' => 'smallworld_galleryshow.html', 'description' => ''],
-    ['file' => 'smallworld_images_edittemplate.html', 'description' => ''],
-    ['file' => 'smallworld_friends_template.html', 'description' => ''],
-    ['file' => 'smallworld_permalink.html', 'description' => ''],
-    ['file' => 'smallworld_admin.html', 'description' => ''],
-    ['file' => 'smallworld_share.html', 'description' => ''],
-    ['file' => 'smallworld_publicindex.html', 'description' => '']
+    ['file' => 'smallworld_index.tpl', 'description' => ''],
+    ['file' => 'smallworld_userprofile_template.tpl', 'description' => ''],
+    ['file' => 'smallworld_userprofile_regtemplate.tpl', 'description' => ''],
+    ['file' => 'smallworld_userprofile_edittemplate.tpl', 'description' => ''],
+    ['file' => 'smallworld_userprofile_imgupload.tpl', 'description' => ''],
+    ['file' => 'smallworld_galleryshow.tpl', 'description' => ''],
+    ['file' => 'smallworld_images_edittemplate.tpl', 'description' => ''],
+    ['file' => 'smallworld_friends_template.tpl', 'description' => ''],
+    ['file' => 'smallworld_permalink.tpl', 'description' => ''],
+    ['file' => 'smallworld_admin.tpl', 'description' => ''],
+    ['file' => 'smallworld_share.tpl', 'description' => ''],
+    ['file' => 'smallworld_publicindex.tpl', 'description' => '']
 ];
 
 // Blocks
@@ -136,7 +136,7 @@ $modversion['blocks'][] = [
     'name'        => 'Block for empty module',
     'description' => 'This is a Block for the empty module',
     'show_func'   => 'smallworld_block',
-    'template'    => 'smallworld_block.html',
+    'template'    => 'smallworld_block.tpl',
 ];
 //Module Configs
 

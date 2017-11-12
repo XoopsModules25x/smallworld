@@ -20,7 +20,7 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 require_once __DIR__ . '/../../mainfile.php';
-$GLOBALS['xoopsOption']['template_main'] = 'smallworld_images_edittemplate.html';
+$GLOBALS['xoopsOption']['template_main'] = 'smallworld_images_edittemplate.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';

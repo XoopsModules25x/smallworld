@@ -85,7 +85,7 @@ class smallworld_mail
             $tpl->assign('registerurl', $SendNameUrl);
             $tpl->assign('registerlink', $To_avatarlink);
 
-            $lnk        = XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/mailTpl/mail_register.html';
+            $lnk        = XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/mailTpl/mail_register.tpl';
             $message    = $tpl->fetch($lnk);
             $mail->Body = $message;
             $toMail     = $xoopsConfig['adminmail'];
@@ -107,7 +107,7 @@ class smallworld_mail
             $tpl->assign('link', $link);
             $tpl->assign('sitename', $xoopsConfig['sitename']);
 
-            $lnk        = XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/mailTpl/mail_complaint.html';
+            $lnk        = XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/mailTpl/mail_complaint.tpl';
             $message    = $tpl->fetch($lnk);
             $mail->Body = $message;
             $toMail     = $xoopsConfig['adminmail'];
@@ -143,7 +143,7 @@ class smallworld_mail
             $tpl->assign('itemtext', stripslashes($data['comment']));
             $tpl->assign('itemtextdate', $date);
             $tpl->assign('replylink', $replylink);
-            $lnk        = XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/mailTpl/mail_newcomment.html';
+            $lnk        = XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/mailTpl/mail_newcomment.tpl';
             $message    = $tpl->fetch($lnk);
             $mail->Body = $message;
 
@@ -159,7 +159,7 @@ class smallworld_mail
             $tpl->assign('link', $link);
             $tpl->assign('sitename', $xoopsConfig['sitename']);
 
-            $lnk        = XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/mailTpl/mail_attencionneeded.html';
+            $lnk        = XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/mailTpl/mail_attencionneeded.tpl';
             $message    = $tpl->fetch($lnk);
             $mail->Body = $message;
             $toMail     = $ToUser->getVar('email');
@@ -172,7 +172,7 @@ class smallworld_mail
             $tpl->assign('link', $link);
             $tpl->assign('sitename', $xoopsConfig['sitename']);
 
-            $lnk        = XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/mailTpl/mail_tag.html';
+            $lnk        = XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/mailTpl/mail_tag.tpl';
             $message    = $tpl->fetch($lnk);
             $mail->Body = $message;
             $toMail     = $ToUser->getVar('email');
