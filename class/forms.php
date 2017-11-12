@@ -89,7 +89,7 @@ class SmallWorldForm
      */
     function input($name, $id, $class, $size = null, $preset = null)
     {
-        $s    = $size ? $size : '50px';
+        $s    = $size ?: '50px';
         $data = "<input type='text' size='" . $s . "' name='" . $name . "' id='" . $id . "' class='" . $class . "' value='" . $preset . "' />";
         return $data;
     }
@@ -154,8 +154,8 @@ class SmallWorldForm
      */
     function input_add($class, $name, $name2, $rel, $size, $textmore, $preset = null, $id = null)
     {
-        $s    = $size ? $size : '50px';
-        $i    = $id ? $id : '';
+        $s    = $size ?: '50px';
+        $i    = $id ?: '';
         $data = "<span id='" . $name . "'><input type='text' size='" . $s . "' name='" . $name2 . "[]' value='" . $preset . "' id='" . $i . "'/></span>";
         return $data;
     }

@@ -169,7 +169,7 @@ class UploadHandler
 
     protected function get_upload_path($file_name = null, $version = null)
     {
-        $file_name    = $file_name ? $file_name : '';
+        $file_name    = $file_name ?: '';
         $version_path = empty($version) ? '' : $version . '/';
         return $this->options['upload_dir'] . $this->get_user_path() . $version_path . $file_name;
     }
@@ -727,12 +727,12 @@ class UploadHandler
             // param_name is an array identifier like "files[]",
             // $_FILES is a multi-dimensional array:
             foreach ($upload['tmp_name'] as $index => $value) {
-                $files[] = $this->handle_file_upload($upload['tmp_name'][$index], $file_name ? $file_name : $upload['name'][$index], $size ? $size : $upload['size'][$index], $upload['type'][$index], $upload['error'][$index], $index, $content_range);
+                $files[] = $this->handle_file_upload($upload['tmp_name'][$index], $file_name ?: $upload['name'][$index], $size ?: $upload['size'][$index], $upload['type'][$index], $upload['error'][$index], $index, $content_range);
             }
         } else {
             // param_name is a single object identifier like "file",
             // $_FILES is a one-dimensional array:
-            $files[] = $this->handle_file_upload(isset($upload['tmp_name']) ? $upload['tmp_name'] : null, $file_name ? $file_name : (isset($upload['name']) ? $upload['name'] : null), $size ? $size : (isset($upload['size']) ? $upload['size'] : $_SERVER['CONTENT_LENGTH']),
+            $files[] = $this->handle_file_upload(isset($upload['tmp_name']) ? $upload['tmp_name'] : null, $file_name ?: (isset($upload['name']) ? $upload['name'] : null), $size ?: (isset($upload['size']) ? $upload['size'] : $_SERVER['CONTENT_LENGTH']),
                                                  isset($upload['type']) ? $upload['type'] : $_SERVER['CONTENT_TYPE'], isset($upload['error']) ? $upload['error'] : null, null, $content_range);
         }
         return $this->generate_response(array($this->options['param_name'] => $files), $print_response);
