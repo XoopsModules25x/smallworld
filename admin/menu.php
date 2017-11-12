@@ -19,7 +19,7 @@
  * @ID         :                    $Id: menu.php 8905 2012-02-07 21:57:57Z djculex $
  **/
 
-$dirname        = basename(dirname(dirname(__FILE__)));
+$dirname        = basename(dirname(__DIR__));
 $module_handler = xoops_gethandler('module');
 $module         = $module_handler->getByDirname($dirname);
 $pathIcon32     = $module->getInfo('icons32');

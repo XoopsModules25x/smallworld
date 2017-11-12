@@ -19,7 +19,7 @@
  * @ID         :                    $Id: admin_header.php 11328 2013-03-31 23:09:26Z djculex $
  **/
 
-$path = dirname(dirname(dirname(dirname(__FILE__))));
+$path = dirname(dirname(dirname(__DIR__)));
 include_once $path . '/mainfile.php';
 include_once $path . '/include/cp_functions.php';
 include_once $path . '/kernel/module.php';
