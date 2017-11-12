@@ -124,7 +124,7 @@ class SmallWorldUser
     {
         global $xoopsUser, $xoopsDB;
         $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
-        $result = $xoopsDB->queryf($sql);
+        $result = $xoopsDB->queryF($sql);
         while ($row = $xoopsDB->fetchArray($result)) {
             $name = $row['username'];
         }

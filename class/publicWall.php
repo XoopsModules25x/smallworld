@@ -387,9 +387,9 @@ class Public_Wall_Updates
         $check          = new SmallWorldUser;
         $dBase          = new SmallWorldDB;
         $profile        = $xoopsUser ? $check->checkIfProfile($id) : 0;
-        $module_handler =& xoops_gethandler('module');
+        $module_handler =& xoops_getHandler('module');
         $module         = $module_handler->getByDirname('smallworld');
-        $config_handler =& xoops_gethandler('config');
+        $config_handler =& xoops_getHandler('config');
         $moduleConfig   =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
 
         $myavatar          = $this->Gravatar($id);

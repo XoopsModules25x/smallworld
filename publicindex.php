@@ -41,9 +41,9 @@ $id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 $username = $xoopsUser ? $xoopsUser->getVar('uname') : '';
 $profile  = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
-$module_handler =& xoops_gethandler('module');
+$module_handler =& xoops_getHandler('module');
 $module         = $module_handler->getByDirname('smallworld');
-$config_handler =& xoops_gethandler('config');
+$config_handler =& xoops_getHandler('config');
 $moduleConfig   =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
 $pub            = smallworld_checkUserPubPostPerm();
 $wall           = new Public_Wall_Updates;

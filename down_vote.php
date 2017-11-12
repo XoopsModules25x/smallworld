@@ -31,9 +31,9 @@ if ($xoopsUser) {
 
     if ($_POST['id']) {
         $id       = (int)$_POST['id'];
-        $type     = mysql_escape_String($_POST['type']);
-        $type2    = mysql_escape_String($_POST['type2']);
-        $owner    = mysql_escape_String($_POST['owner']);
+        $type     = mysql_escape_string($_POST['type']);
+        $type2    = mysql_escape_string($_POST['type2']);
+        $owner    = mysql_escape_string($_POST['owner']);
         $userid   = $xoopsUser->getVar('uid');
         $hasvoted = $Wall->HasVoted($userid, $type, $type2, $id);
         if ($type == 'msg') {

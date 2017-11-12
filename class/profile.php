@@ -32,9 +32,9 @@ class SmallWorldProfile
         global $xoopsUser, $xoTheme, $xoopsTpl, $arr04, $arr05, $xoopsDB;
         if ($xoopsUser) {
 
-            $module_handler =& xoops_gethandler('module');
+            $module_handler =& xoops_getHandler('module');
             $module         = $module_handler->getByDirname('smallworld');
-            $config_handler =& xoops_gethandler('config');
+            $config_handler =& xoops_getHandler('config');
             $moduleConfig   =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
 
             $user   = new XoopsUser($id);

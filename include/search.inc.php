@@ -31,13 +31,13 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
         require_once XOOPS_ROOT_PATH . '/modules/smallworld/language/english/main.php';
     }
 
-    $module_handler =& xoops_gethandler('module');
+    $module_handler =& xoops_getHandler('module');
     $module         =& $module_handler->getByDirname('smallworld');
     $modid          = $module->getVar('mid');
     $searchparam    = '';
     $highlight      = false;
 
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler =& xoops_getHandler('groupperm');
     if (is_object($xoopsUser)) {
         $groups    = $xoopsUser->getGroups();
         $id        = $xoopsUser->getVar('uid');

@@ -169,12 +169,12 @@ class smallworld_mail
             $toMail     = $ToUser->getVar('email');
         }
 
-        $mail->IsMail();
-        $mail->IsHTML(true);
-        $mail->AddAddress($toMail);
+        $mail->isMail();
+        $mail->isHTML(true);
+        $mail->addAddress($toMail);
         $mail->Subject = $subject;
 
-        if (!$mail->Send()) {
+        if (!$mail->send()) {
         } else {
         }
     }

@@ -20,7 +20,7 @@
  **/
 
 $dirname        = basename(dirname(__DIR__));
-$module_handler = xoops_gethandler('module');
+$module_handler = xoops_getHandler('module');
 $module         = $module_handler->getByDirname($dirname);
 $pathIcon32     = $module->getInfo('icons32');
 

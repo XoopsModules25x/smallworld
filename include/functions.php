@@ -325,9 +325,9 @@ function smallworld_GetModuleOption($option, $repmodule = 'smallworld')
             $retval = $xoopsModuleConfig[$option];
         }
     } else {
-        $module_handler =& xoops_gethandler('module');
+        $module_handler =& xoops_getHandler('module');
         $module         =& $module_handler->getByDirname($repmodule);
-        $config_handler =& xoops_gethandler('config');
+        $config_handler =& xoops_getHandler('config');
         if ($module) {
             $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
             if (isset($moduleConfig[$option])) {
@@ -351,7 +351,7 @@ function smallworld_getAvatarLink($userid, $image)
     global $xoopsUser, $xoopsDB;
     $ext     = pathinfo(strtolower($image), PATHINFO_EXTENSION);
     $sql     = 'SELECT gender FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userid . "'";
-    $result  = $xoopsDB->queryf($sql);
+    $result  = $xoopsDB->queryF($sql);
     $counter = $xoopsDB->getRowsNum($result);
     if ($counter == 0) {
         $gender = '';
@@ -437,7 +437,7 @@ function Smallworld_getName($userID)
 {
     global $xoopsUser, $xoopsDB;
     $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
-    $result = $xoopsDB->queryf($sql);
+    $result = $xoopsDB->queryF($sql);
     while ($row = $xoopsDB->fetchArray($result)) {
         $name = $row['username'];
     }
@@ -843,7 +843,7 @@ function smallworld_getImageSize($w, $h, $url)
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 $result         = curl_exec($ch);
-                $img            = ImageCreateFromString($result);
+                $img            = imagecreatefromstring($result);
                 $imagesize['0'] = imagesx($img);
                 $imagesize['1'] = imagesy($img);
             } else {
@@ -1017,9 +1017,9 @@ function smallworld_SetCoreScript()
 {
     global $xoopsUser, $xoopsConfig, $xoTheme;
 
-    $module_handler =& xoops_gethandler('module');
+    $module_handler =& xoops_getHandler('module');
     $module         = $module_handler->getByDirname('smallworld');
-    $config_handler =& xoops_gethandler('config');
+    $config_handler =& xoops_getHandler('config');
     if ($module) {
         $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
     }

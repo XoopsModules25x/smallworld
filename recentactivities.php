@@ -37,11 +37,11 @@ $myts =& MyTextSanitizer::getInstance();
 
 xoops_loadLanguage('user');
 
-$module_handler =& xoops_gethandler('module');
-$config_handler =& xoops_gethandler('config');
+$module_handler =& xoops_getHandler('module');
+$config_handler =& xoops_getHandler('config');
 $thisUser       =& $member_handler->getUser($id);
 
-$gperm_handler =& xoops_gethandler('groupperm');
+$gperm_handler =& xoops_getHandler('groupperm');
 $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : 0;
 
 $criteria = new CriteriaCompo(new Criteria('hassearch', 1));
