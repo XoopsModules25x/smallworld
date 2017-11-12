@@ -356,7 +356,7 @@ function array_to_json($array)
 
 $result = array();
 foreach ($arr as $key => $value) {
-    if (false !== strpos(strtolower($key), $q)) {
+    if (false !== stripos($key, $q)) {
         array_push($result, array('id' => $value, 'label' => $key, 'value' => strip_tags($key)));
     }
     if (count($result) > 11) {
