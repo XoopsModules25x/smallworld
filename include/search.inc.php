@@ -18,10 +18,10 @@
  * @Last       changed date:    $Date: 2012-02-09 21:13:23 +0100 (to, 09 feb 2012) $
  * @ID         :                    $Id: permalink.php 8924 2012-02-09 20:13:23Z djculex $
  **/
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
-function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortby = "created DESC")
+function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortby = 'created DESC')
 {
     global $xoopsDB, $xoopsConfig, $myts, $xoopsUser;
 
@@ -51,34 +51,34 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
 
     if ($id > 0 && $id != '') {
 
-        $sql = "SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM " . $xoopsDB->prefix('smallworld_messages') . " M, " . $xoopsDB->prefix('smallworld_user') . " U WHERE M.uid_fk=U.userid";
+        $sql = 'SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . ' U WHERE M.uid_fk=U.userid';
     } else {
-        $sql = "SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM " . $xoopsDB->prefix('smallworld_messages') . " M, " . $xoopsDB->prefix('smallworld_user') . " U WHERE M.uid_fk=U.userid";
+        $sql = 'SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . ' U WHERE M.uid_fk=U.userid';
     }
 
     if ($userid != 0) {
-        $sql .= " AND M.uid_fk = " . $userid . " ";
+        $sql .= ' AND M.uid_fk = ' . $userid . ' ';
     }
     if (is_array($queryarray) && $count = count($queryarray)) {
         $sql .= " AND (M.message LIKE '%$queryarray[0]%' OR M.message LIKE '%$queryarray[0]%' OR U.username LIKE '%$queryarray[0]%'";
-        $sql .= ") ";
+        $sql .= ') ';
         // keywords highlighting
         if ($highlight) {
             $searchparam = '&keywords=' . urlencode(trim(implode(' ', $queryarray)));
         }
     }
-    $sql    .= "ORDER BY created DESC";
+    $sql    .= 'ORDER BY created DESC';
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret    = array();
     $i      = 0;
     while ($myrow = $xoopsDB->fetchArray($result)) {
         if (in_array($myrow['uid_fk'], $followers) || $myrow['uid_fk'] == $id) {
-            $ret[$i]['image'] = "images/smallworld_icn.png";
-            $ret[$i]['link']  = "permalink.php?ownerid=" . $myrow['uid_fk'] . "&updid=" . $myrow['msg_id'];
+            $ret[$i]['image'] = 'images/smallworld_icn.png';
+            $ret[$i]['link']  = 'permalink.php?ownerid=' . $myrow['uid_fk'] . '&updid=' . $myrow['msg_id'];
             if (preg_match('/UPLIMAGE/', $myrow['message'])) {
-                $ownmsg           = str_replace("UPLIMAGE ", "", $myrow['message']);
+                $ownmsg           = str_replace('UPLIMAGE ', '', $myrow['message']);
                 $ret[$i]['title'] = $ownmsg;
-                $ret[$i]['title'] = Smallworld_getName($myrow['uid_fk']) . " -> " . _SMALLWORLD_GALLERY;
+                $ret[$i]['title'] = Smallworld_getName($myrow['uid_fk']) . ' -> ' . _SMALLWORLD_GALLERY;
                 $ret[$i]['title'] = str_replace(array('&lt;', '&gt;'), array('<', '>'), $ret[$i]['title']);
             } else {
                 $ret[$i]['title'] = smallworld_shortenText($myrow['message'], 60);

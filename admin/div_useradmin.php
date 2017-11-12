@@ -22,8 +22,8 @@
 require_once 'admin_header.php';
 global $xoopsDB, $xoTheme, $xoopsLogger;
 $xoopsLogger->activated = false;
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 
 $Tpl   = new XoopsTpl();
 $admin = new SmallworldAdmin();

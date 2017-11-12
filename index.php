@@ -19,10 +19,10 @@
  * @ID         :                    $Id: index.php 12114 2013-10-01 17:11:18Z djculex $
  **/
 
-include_once("../../mainfile.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/publicWall.php");
+include_once('../../mainfile.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php');
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsLogger, $xoopsModule;
 
 $set = smallworld_checkPrivateOrPublic();
@@ -32,9 +32,9 @@ if ($xoopsUser) {
 } elseif (!$xoopsUser && $set['access'] == 1) {
     $xoopsOption['template_main'] = 'smallworld_publicindex.html';
 } else {
-    redirect_header(XOOPS_URL . "/user.php", 5, _NOPERM);
+    redirect_header(XOOPS_URL . '/user.php', 5, _NOPERM);
 }
-include_once(XOOPS_ROOT_PATH . "/header.php");
+include_once(XOOPS_ROOT_PATH . '/header.php');
 if ($set['access'] == 1) {
     $id    = ($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
     $user  = new XoopsUser($id);
@@ -43,7 +43,7 @@ if ($set['access'] == 1) {
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = Smallworld_isInspected($id);
     if ($inspect['inspect'] == 'yes') {
-        redirect_header("userprofile.php?username=" . $xoopsUser->getVar('uname'), 1);
+        redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
 
     $xoopsTpl->assign('ownerofpage', $id);
@@ -67,11 +67,11 @@ if ($set['access'] == 1) {
     if ($profile >= 2) {
         $xuser = new SmallWorldProfile;
         $xuser->ShowUser($id);
-        $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . "</a>";
-        $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . "</a>";
-        $menu_profile   = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . "</a>";
-        $menu_gallery   = "<a href='" . XOOPS_URL . "/modules/smallworld/galleryshow.php?username=" . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/picture.png'>" . _SMALLWORLD_GALLERY . "</a>";
-        $menu_friends   = "<a href='" . XOOPS_URL . "/modules/smallworld/friends.php?username=" . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . "</a>";
+        $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
+        $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
+        $menu_profile   = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
+        $menu_gallery   = "<a href='" . XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/picture.png'>" . _SMALLWORLD_GALLERY . '</a>';
+        $menu_friends   = "<a href='" . XOOPS_URL . '/modules/smallworld/friends.php?username=' . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
     }
 
     // Things to do with wall
@@ -107,7 +107,7 @@ if ($set['access'] == 1) {
 
 }
 if ($profile == 1 && $set['access'] == 0) {
-    redirect_header(XOOPS_URL . "/modules/smallworld/register.php");
+    redirect_header(XOOPS_URL . '/modules/smallworld/register.php');
 }
 
 // if ($profile == 1 && $set['access'] <= 1) {
@@ -118,4 +118,4 @@ if ($profile == 0 && $set['access'] == 0) {
     //redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
 }
 
-include(XOOPS_ROOT_PATH . "/footer.php");
+include(XOOPS_ROOT_PATH . '/footer.php');

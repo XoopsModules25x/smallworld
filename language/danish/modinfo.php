@@ -21,8 +21,8 @@
  * @ID        :                $Id: modinfo.php 11335 2013-03-31 23:56:08Z djculex $
  **/
 
-define("_MI_SMALLWORLD_MODULE_NAME", "Smallworld");
-define("_MI_SMALLWORLD_MODULE_DESC", "Et lille socialt networksmodule. Med vægbeskeder og profil");
+define('_MI_SMALLWORLD_MODULE_NAME', 'Smallworld');
+define('_MI_SMALLWORLD_MODULE_DESC', 'Et lille socialt networksmodule. Med vægbeskeder og profil');
 define('_MI_SMALLWORLD_ADMENU', 'Administration');
 define('_MI_SMALLWORLDMENU_INDEX', 'Hjem');
 define('_MI_SMALLWORLDMENU_STATS', 'Statistik');
@@ -33,29 +33,29 @@ define('_MI_SMALLWORLDMENU_ABOUT', 'Om');
 /* -------- Configs ---------- */
 
 // Map apis
-define("_MI_SMALLWORLD_USEGOOGLE", "Brug google maps geolocation Api ?");
-define("_MI_SMALLWORLD_USEGOOGLE_DESC", "Default er ja, ellers bruges geonames database. Vælg ja for at bruge google maps");
+define('_MI_SMALLWORLD_USEGOOGLE', 'Brug google maps geolocation Api ?');
+define('_MI_SMALLWORLD_USEGOOGLE_DESC', 'Default er ja, ellers bruges geonames database. Vælg ja for at bruge google maps');
 
 // Messages per page
-define("_MI_SMALLWORLD_MSGTOSHOW", "Beskeder der skal vises ?");
-define("_MI_SMALLWORLD_MSGTOSHOW_DESC", "Hvor mange beskeder (updates) skal vises på profil og indexside.");
+define('_MI_SMALLWORLD_MSGTOSHOW', 'Beskeder der skal vises ?');
+define('_MI_SMALLWORLD_MSGTOSHOW_DESC', 'Hvor mange beskeder (updates) skal vises på profil og indexside.');
 
 // Use validation
-define("_MI_SMALLWORLD_VALIDATIONSTRENGHT", "Validation af trin");
-define("_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC", "Brug validation ved registrering og ved edit profil.<br><br>Mulighederne er:<br><br>Nej: Ingen validation<br>Ja: *vigtige* felter skal validated ");
+define('_MI_SMALLWORLD_VALIDATIONSTRENGHT', 'Validation af trin');
+define('_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC', 'Brug validation ved registrering og ved edit profil.<br><br>Mulighederne er:<br><br>Nej: Ingen validation<br>Ja: *vigtige* felter skal validated ');
 
 // Smallworld take-over user name links ?
-define("_MI_SMALLWORLD_TAKEOVERLINKS", "Konverter brugernavne-links til smallworld");
-define("_MI_SMALLWORLD_TAKEOVERLINKS_DESC", "Smallworld anvender et lille javascript som ændrer alle links til xoops profil og henviser dem istedet til denne brugers smallworld profil<br><br>Default is 'nej'");
+define('_MI_SMALLWORLD_TAKEOVERLINKS', 'Konverter brugernavne-links til smallworld');
+define('_MI_SMALLWORLD_TAKEOVERLINKS_DESC', "Smallworld anvender et lille javascript som ændrer alle links til xoops profil og henviser dem istedet til denne brugers smallworld profil<br><br>Default is 'nej'");
 
-define("_MI_SMALLWORLD_USERSOWNMSGCOUNTS", "Brugers egne handlinger tælles med ? ");
-define("_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC", "Hvert 10. sekund tælles alle beskeder/sletninger fra dine følgere. Hvis tallet ikke er 0 (dvs. ingen ændringer) så vises en lille opdateringsknap<br>Hvis du her vælger 'ja' Så bliver brugerens egne handlinger talt med.");
+define('_MI_SMALLWORLD_USERSOWNMSGCOUNTS', 'Brugers egne handlinger tælles med ? ');
+define('_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC', "Hvert 10. sekund tælles alle beskeder/sletninger fra dine følgere. Hvis tallet ikke er 0 (dvs. ingen ændringer) så vises en lille opdateringsknap<br>Hvis du her vælger 'ja' Så bliver brugerens egne handlinger talt med.");
 
-define("_MI_SMALLWORLD_BOOKMARSAVATARS", "brug smallworldlogo ved bookmarking ? ");
-define("_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC", "Når du poster videre fra dine indlæg eller andres. Skal smallworldlogo så vises eller skal brugerens egen avatar ? <br><br>Default er 'JA' = smallworld logo.");
+define('_MI_SMALLWORLD_BOOKMARSAVATARS', 'brug smallworldlogo ved bookmarking ? ');
+define('_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC', "Når du poster videre fra dine indlæg eller andres. Skal smallworldlogo så vises eller skal brugerens egen avatar ? <br><br>Default er 'JA' = smallworld logo.");
 
-define("_MI_SMALLWORLD_USEMAILNOTIFICATION", "Brug mail notificationer ? ");
-define("_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC", "Når en ny bruger registrerer sig modtager admin mail, eller når en bruger svarer på din post, eller admin får besked ved klage.<br><br>Default er 'ja'");
+define('_MI_SMALLWORLD_USEMAILNOTIFICATION', 'Brug mail notificationer ? ');
+define('_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC', "Når en ny bruger registrerer sig modtager admin mail, eller når en bruger svarer på din post, eller admin får besked ved klage.<br><br>Default er 'ja'");
 
 // Select fields & Mandetory fields
 define('_MI_SMALLWORLD_VIEWFIELDS', 'Anvendte felter ved registrering og profil');

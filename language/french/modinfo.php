@@ -21,8 +21,8 @@
  * @ID        :                $Id: modinfo.php 11992 2013-08-31 18:06:22Z djculex $
  **/
 
-define("_MI_SMALLWORLD_MODULE_NAME", "Smallworld");
-define("_MI_SMALLWORLD_MODULE_DESC", "Module de réseau social, avec mur et profil utilisateur");
+define('_MI_SMALLWORLD_MODULE_NAME', 'Smallworld');
+define('_MI_SMALLWORLD_MODULE_DESC', 'Module de réseau social, avec mur et profil utilisateur');
 define('_MI_SMALLWORLD_ADMENU', 'Administration');
 define('_MI_SMALLWORLDMENU_INDEX', 'Accueil');
 define('_MI_SMALLWORLDMENU_STATS', 'Statistiques');
@@ -33,31 +33,31 @@ define('_MI_SMALLWORLDMENU_ABOUT', 'À propos');
 /* -------- Configs ---------- */
 
 // Map apis
-define("_MI_SMALLWORLD_USEGOOGLEMAPS", "Utiliser l'Api de géolocalisation de Google Maps&thinsp;?");
-define("_MI_SMALLWORLD_USEGOOGLEMAPS_DESC", "Par défaut, ce sera la base de données toponymique. Choisissez Oui pour utiliser Google Maps.");
+define('_MI_SMALLWORLD_USEGOOGLEMAPS', "Utiliser l'Api de géolocalisation de Google Maps&thinsp;?");
+define('_MI_SMALLWORLD_USEGOOGLEMAPS_DESC', 'Par défaut, ce sera la base de données toponymique. Choisissez Oui pour utiliser Google Maps.');
 
 // Messages per page
-define("_MI_SMALLWORLD_MSGTOSHOW", "Messages à afficher&thinsp;?");
-define("_MI_SMALLWORLD_MSGTOSHOW_DESC", "Nombres de messages (mis à jour) à afficher au début du profil et de la page d'accueil.");
+define('_MI_SMALLWORLD_MSGTOSHOW', 'Messages à afficher&thinsp;?');
+define('_MI_SMALLWORLD_MSGTOSHOW_DESC', "Nombres de messages (mis à jour) à afficher au début du profil et de la page d'accueil.");
 
 // Use validation
-define("_MI_SMALLWORLD_VALIDATIONSTRENGHT", "Validation par étapes");
-define("_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC", "Demander la validation pour l'enregistrement et les modifications du profil.<br><br>Les options sont&thinsp;:<br><br>Non&thinsp;:&thinsp;Pas besoin de validation<br>Oui&thinsp;:&thinsp;Les champs les plus * importants * doivent être validés.");
+define('_MI_SMALLWORLD_VALIDATIONSTRENGHT', 'Validation par étapes');
+define('_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC', "Demander la validation pour l'enregistrement et les modifications du profil.<br><br>Les options sont&thinsp;:<br><br>Non&thinsp;:&thinsp;Pas besoin de validation<br>Oui&thinsp;:&thinsp;Les champs les plus * importants * doivent être validés.");
 
 // Smallworld take-over user name links ?
-define("_MI_SMALLWORLD_TAKEOVERLINKS", "Convertir les liens des noms d'utilisateurs pour Smallworld");
-define("_MI_SMALLWORLD_TAKEOVERLINKS_DESC", "Smallworld utilisera un petit javascript pour modifier les liens au chargement et les pointer vers le profil utilisateur, plutôt que vers userinfo.php<br><br>La valeur par défaut est 'non'.");
+define('_MI_SMALLWORLD_TAKEOVERLINKS', "Convertir les liens des noms d'utilisateurs pour Smallworld");
+define('_MI_SMALLWORLD_TAKEOVERLINKS_DESC', "Smallworld utilisera un petit javascript pour modifier les liens au chargement et les pointer vers le profil utilisateur, plutôt que vers userinfo.php<br><br>La valeur par défaut est 'non'.");
 
-define("_MI_SMALLWORLD_USERSOWNMSGCOUNTS", "Vérifier le nombre de messages des utilisateurs&thinsp;? ");
-define("_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC",
+define('_MI_SMALLWORLD_USERSOWNMSGCOUNTS', 'Vérifier le nombre de messages des utilisateurs&thinsp;? ');
+define('_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC',
        "Toutes les 10 secondes, les messages des utilisateurs qui vous suivent sont comptés et un bouton d'actualisation s'affichera, si le résultat n'est pas 0.<br>Si vous choisissez Oui, ce bouton s'affichera aussi lorsque vous écrirez ou supprimerez des messages.");
 
-define("_MI_SMALLWORLD_BOOKMARSAVATARS", "Utiliser le logo de Smallworld lors de la création de signets&thinsp;? ");
-define("_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC",
+define('_MI_SMALLWORLD_BOOKMARSAVATARS', 'Utiliser le logo de Smallworld lors de la création de signets&thinsp;? ');
+define('_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC',
        "Quand les messages sont publics et que vous souhaitez partager sur les réseaux sociaux, vous pouvez décider d'utiliser l'image du logo Smallworld ou<br>« non » = affichage de l'avatar des utilisateurs. <br > La valeur par défaut est «oui» = logo Smallworld.");
 
-define("_MI_SMALLWORLD_USEMAILNOTIFICATION", "Notifications par courrier électronique&thinsp;? ");
-define("_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC",
+define('_MI_SMALLWORLD_USEMAILNOTIFICATION', 'Notifications par courrier électronique&thinsp;? ');
+define('_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC',
        "Quand un nouvel utilisateur s'inscrit, un message est envoyé à l'Administrateur par courrier éléctronique.<br>Quand un commentaire a été ajouté à un message dont un utilisateur a participé, un courrier électronique lui est envoyé.<br><br>La valeur par défaut est 'Oui'.");
 
 // Select fields & Mandetory fields

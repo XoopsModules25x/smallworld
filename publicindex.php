@@ -19,18 +19,18 @@
  * @ID         :                    $Id: index.php 9482 2012-05-11 10:02:24Z djculex $
  **/
 
-include_once("../../mainfile.php");
-$page = basename($_SERVER['PHP_SELF'], ".php");
+include_once('../../mainfile.php');
+$page = basename($_SERVER['PHP_SELF'], '.php');
 
 if ($xoopsUser && $page != 'publicindex') {
     $xoopsOption['template_main'] = 'smallworld_index.html';
 } else {
     $xoopsOption['template_main'] = 'smallworld_publicindex.html';
 }
-include_once(XOOPS_ROOT_PATH . "/header.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/publicWall.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
+include_once(XOOPS_ROOT_PATH . '/header.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsLogger;
 
 $set   = smallworld_checkPrivateOrPublic();
@@ -70,8 +70,8 @@ $xoopsTpl->assign('usersetting', $usersettings);
 
 $xuser = new SmallWorldProfile;
 
-$menu_home     = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . "</a>";
-$menu_register = ($profile < 2) ? "<a href='" . XOOPS_URL . "/modules/smallworld/register.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/join.jpg'>" . _MB_SYSTEM_RNOW . "</a>" : '';
+$menu_home     = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
+$menu_register = ($profile < 2) ? "<a href='" . XOOPS_URL . "/modules/smallworld/register.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/join.jpg'>" . _MB_SYSTEM_RNOW . '</a>' : '';
 
 $updatesarray = $wall->updates(0, $pub);
 $wall->ParsePubArray($updatesarray, $id);
@@ -82,4 +82,4 @@ $xoopsTpl->assign('pagename', 'publicindex');
 $xoopsTpl->assign('check', $profile);
 $xoopsTpl->assign('access', $set['access']);
 
-include(XOOPS_ROOT_PATH . "/footer.php");
+include(XOOPS_ROOT_PATH . '/footer.php');

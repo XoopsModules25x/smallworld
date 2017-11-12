@@ -20,9 +20,9 @@
  **/
 include '../../mainfile.php';
 include_once(XOOPS_ROOT_PATH . '/class/template.php');
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/arrays.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
 
 global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger, $xoopsDB;
 $xoopsLogger->activated = false;
@@ -39,9 +39,9 @@ if ($xoopsUser) {
             if ($hasvoted > 0) {
                 echo "<script type='text/javascript'>";
                 echo "alert('" . _SMALLWORLD_JS_ALREADYVOTED . "');";
-                echo "</script>";
+                echo '</script>';
             } else {
-                $sql    = "INSERT INTO " . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '0', '" . $userid . "', '" . $owner . "', '1', '0')";
+                $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '0', '" . $userid . "', '" . $owner . "', '1', '0')";
                 $result = $xoopsDB->queryF($sql);
 
             }
@@ -52,7 +52,7 @@ if ($xoopsUser) {
             if ($hasvoted > 0) {
                 echo "<script type='text/javascript'>alert('" . _SMALLWORLD_JS_ALREADYVOTED . "');</script>";
             } else {
-                $sql    = "INSERT INTO " . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '" . $type2 . "', '" . $userid . "', '" . $owner . "', '1', '0')";
+                $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '" . $type2 . "', '" . $userid . "', '" . $owner . "', '1', '0')";
                 $result = $xoopsDB->queryF($sql);
             }
             $newvote = $Wall->countVotesCom($type, 'up', $type2, $id);

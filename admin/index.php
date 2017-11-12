@@ -66,7 +66,7 @@ $mat_cnt = 0;
 if ($count != 0) {
     $ma_cnt = 1;
     $ma     = "<table class='smallworldadmin'><tr>";
-    $ma     .= "<td><b>" . _AM_SMALLWORLD_STATS_POS . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_IMG . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_AMOUNT . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_NAME . "</b></td></tr>";
+    $ma     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
     $i      = 1;
     while ($i <= count($maAllround['cnt'])) {
         $ma .= vsprintf('<tr><td>%s</td>', array($maAllround['counter'][$i]));
@@ -75,7 +75,7 @@ if ($count != 0) {
         $ma .= vsprintf('<td>%s</td></tr>', array($maAllround['from'][$i]));
         $i++;
     }
-    $ma .= "</tr></table>";
+    $ma .= '</tr></table>';
 } else {
     $maAllround = 0;
 }
@@ -90,7 +90,7 @@ $mat_cnt = 0;
 if ($count != 0) {
     $mat_cnt = 1;
     $mat     = "<table class='smallworldadmin'><tr>";
-    $mat     .= "<td><b>" . _AM_SMALLWORLD_STATS_POS . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_IMG . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_AMOUNT . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_NAME . "</b></td></tr>";
+    $mat     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
     $i       = 1;
     while ($i <= $count) {
         $mat .= vsprintf('<tr><td>%s</td>', array($maToday['counter'][$i]));
@@ -99,7 +99,7 @@ if ($count != 0) {
         $mat .= vsprintf('<td>%s</td></tr>', array($maToday['from'][$i]));
         $i++;
     }
-    $mat .= "</tr></table>";
+    $mat .= '</tr></table>';
 } else {
     $mat = 0;
 }
@@ -114,7 +114,7 @@ $top_cnt = 0;
 if ($count != 0) {
     $top_cnt = 1;
     $top     = "<table class='smallworldadmin'><tr>";
-    $top     .= "<td><b>" . _AM_SMALLWORLD_STATS_POS . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_IMG . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_AMOUNT . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_NAME . "</b></td></tr>";
+    $top     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
     $i       = 1;
     while ($i <= $count) {
         $top .= vsprintf('<tr><td>%s</td>', array($topusers['counter'][$i]));
@@ -123,7 +123,7 @@ if ($count != 0) {
         $top .= vsprintf('<td>%s</td></tr>', array($topusers['user'][$i]));
         $i++;
     }
-    $top .= "</tr></table>";
+    $top .= '</tr></table>';
 } else {
     $top = 0;
 }
@@ -139,7 +139,7 @@ if (!empty($lowusers)) {
 if ($count != 0) {
     $low_cnt = 1;
     $low     = "<table class='smallworldadmin'><tr>";
-    $low     .= "<td><b>" . _AM_SMALLWORLD_STATS_POS . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_IMG . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_AMOUNT . "</b></td><td><b>" . _AM_SMALLWORLD_STATS_NAME . "</b></td></tr>";
+    $low     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
     $i       = 1;
     while ($i <= $count) {
         $low .= vsprintf('<tr><td>%s</td>', array($lowusers['counter'][$i]));
@@ -148,7 +148,7 @@ if ($count != 0) {
         $low .= vsprintf('<td>%s</td></tr>', array($lowusers['user'][$i]));
         $i++;
     }
-    $low .= "</tr></table>";
+    $low .= '</tr></table>';
 } else {
     $low = 0;
 }
@@ -169,31 +169,31 @@ $xoopsTpl->assign('lang_installdate', _AM_SMALLWORLD_INSTALLDATE);
 //-----------------------
 
 $indexAdmin->addInfoBox(_AM_SMALLWORLD_MODULEINFO);
-$indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_MODULEINFO, "<class='smallworldadmin'>" . _AM_SMALLWORLD_MODULEINSTALL . " : %s</br>", $installversion, 'Green', 'default');
-$indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_MODULEINFO, "<class='smallworldadmin'>" . _AM_SMALLWORLD_INSTALLDATE . ": %s", $installdate, 'Green', 'default');
-$indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_MODULEINFO, "<class='smallworldadmin'>" . "%s", $installCheck, 'Green', 'default');
+$indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_MODULEINFO, "<class='smallworldadmin'>" . _AM_SMALLWORLD_MODULEINSTALL . ' : %s</br>', $installversion, 'Green', 'default');
+$indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_MODULEINFO, "<class='smallworldadmin'>" . _AM_SMALLWORLD_INSTALLDATE . ': %s', $installdate, 'Green', 'default');
+$indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_MODULEINFO, "<class='smallworldadmin'>" . '%s', $installCheck, 'Green', 'default');
 
 $indexAdmin->addInfoBox(_AM_SMALLWORLD_USERSTATS);
-$indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'>" . _AM_SMALLWORLD_DATEOFFIRSTMESSAGE . " : %s</br>", $dateoffirstmessage, 'Green', 'default');
-$indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'>" . _AM_SMALLWORLD_TOTALUSERS . " : %s</br>", $sumallusers, 'Red', 'default');
+$indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'>" . _AM_SMALLWORLD_DATEOFFIRSTMESSAGE . ' : %s</br>', $dateoffirstmessage, 'Green', 'default');
+$indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'>" . _AM_SMALLWORLD_TOTALUSERS . ' : %s</br>', $sumallusers, 'Red', 'default');
 
 if ($avgperday > 0) {
-    $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'>" . _AM_SMALLWORLD_AVERAGEMSGPERDAY . " : %s</br>", $avgperday, 'Red', 'default');
+    $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<class='smallworldadmin'>" . _AM_SMALLWORLD_AVERAGEMSGPERDAY . ' : %s</br>', $avgperday, 'Red', 'default');
 }
 
 if ($mat_cnt != 0) {
-    $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPCHATTERS_TODAY . " : %s</p>", $mat, 'Red', 'default');
+    $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPCHATTERS_TODAY . ' : %s</p>', $mat, 'Red', 'default');
 }
 if ($ma_cnt != 0) {
-    $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPCHATTERS . " : %s</p>", $ma, 'Red', 'default');
+    $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPCHATTERS . ' : %s</p>', $ma, 'Red', 'default');
 }
 if ($top_cnt != 0) {
-    $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPRATEDUSERS . " : %s</p>", $top, 'Red', 'default');
+    $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPRATEDUSERS . ' : %s</p>', $top, 'Red', 'default');
 }
 if ($low_cnt != 0) {
-    $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_BOTTOMRATEDUSERS . " : %s</p>", $low, 'Red', 'default');
+    $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_BOTTOMRATEDUSERS . ' : %s</p>', $low, 'Red', 'default');
 }
 
 echo $indexAdmin->addNavigation('index.php');
 echo $indexAdmin->renderIndex();
-include "admin_footer.php";
+include 'admin_footer.php';

@@ -42,8 +42,8 @@ class UploadHandler
         $userID        = $xoopsUser->getVar('uid');
         $this->options = array(
             'script_url'                       => $this->get_full_url() . '/imgupload.php',
-            'upload_dir'                       => XOOPS_ROOT_PATH . '/uploads/albums_smallworld/' . $userID . "/",
-            'upload_url'                       => XOOPS_URL . '/uploads/albums_smallworld/' . $userID . "/",
+            'upload_dir'                       => XOOPS_ROOT_PATH . '/uploads/albums_smallworld/' . $userID . '/',
+            'upload_url'                       => XOOPS_URL . '/uploads/albums_smallworld/' . $userID . '/',
             'user_dirs'                        => false,
             'mkdir_mode'                       => 0755,
             'param_name'                       => 'files',
@@ -515,8 +515,8 @@ class UploadHandler
 
         // Generate new name for file
         $file->name = basename(stripslashes($name));
-        $file->name = time() . rand(0, 99999) . "." . $this->getFileExtension($name);
-        $img        = XOOPS_URL . "/uploads/albums_smallworld/" . $userid . "/" . $file->name;
+        $file->name = time() . rand(0, 99999) . '.' . $this->getFileExtension($name);
+        $img        = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file->name;
         $db->saveImage("'', '" . $userid . "', '" . $file->name . "', '" . addslashes($img) . "', '" . time() . "', ''");
 
         if ($this->validate($uploaded_file, $file, $error, $index)) {

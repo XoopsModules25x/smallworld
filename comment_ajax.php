@@ -18,9 +18,9 @@
  * @Last       changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
  * @ID         :                    $Id: comment_ajax.php 12175 2013-10-15 17:41:43Z djculex $
  **/
-include_once("../../mainfile.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
+include_once('../../mainfile.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
 include_once(XOOPS_ROOT_PATH . '/class/template.php');
 global $xoopsUser, $xoopsModule, $xoopsLogger, $xoopsTpl;
 $xoopsLogger->activated = false;
@@ -92,13 +92,13 @@ if ($profile >= 2) {
             $wc['avatar_link']     = smallworld_getAvatarLink($data['uid_fk'], $wc['cface']);
             $wc['avatar_size']     = smallworld_getImageSize(80, 100, $wc['myavatar_link']);
             $wc['avatar_highwide'] = smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);
-            $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . "/modules/smallworld/permalink.php?ownerid=" . Smallworld_getOwnerFromComment($data['msg_id_fk']);
-            $wc['compl_msg_lnk']   .= "&updid=" . $data['msg_id_fk'] . "#" . $data['com_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . "</a>";
+            $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . Smallworld_getOwnerFromComment($data['msg_id_fk']);
+            $wc['compl_msg_lnk']   .= '&updid=' . $data['msg_id_fk'] . '#' . $data['com_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
             $wc['vote_up']         = $Wall->countVotesCom('com', 'up', $data['msg_id_fk'], $data['com_id']);
             $wc['vote_down']       = $Wall->countVotesCom('com', 'down', $data['msg_id_fk'], $data['com_id']);
 
             //Send mail if tagged
-            $permalink = XOOPS_URL . "/modules/smallworld/permalink.php?ownerid=" . $data['uid_fk'] . "&updid=" . $data['msg_id_fk'];
+            $permalink = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id_fk'];
             smallworld_getTagUsers($wc['comment'], $wc['uid'], $permalink);
 
             $tpl->append('comments', $wc);
@@ -111,7 +111,7 @@ if ($profile >= 2) {
 
             // send mail to user owning update + participans in the thread that a comment has been posted
             $parts  = $mail->getPartsFromComment($data['msg_id_fk']);
-            $emails = "";
+            $emails = '';
             foreach ($parts as $k => $v) {
                 $owner = Smallworld_getOwnerFromComment($data['msg_id_fk']);
                 // Get owner of posts settings in order to send mail or not!

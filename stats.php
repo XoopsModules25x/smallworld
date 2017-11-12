@@ -18,10 +18,10 @@
  * @Last       changed date:    $Date: 2012-01-26 19:05:41 +0100 (to, 26 jan 2012) $
  * @ID         :                    $Id: stats.php 8817 2012-01-26 18:05:41Z djculex $
  **/
-include_once("../../mainfile.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/arrays.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once('../../mainfile.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 include_once(XOOPS_ROOT_PATH . '/class/template.php');
 global $xoopsUser, $xoopsTpl, $xoTheme;
 $xoopsLogger->activated = false;

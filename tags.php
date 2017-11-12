@@ -18,11 +18,11 @@
  * @Last       changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
  * @ID         :                    $Id: search.php 12175 2013-10-15 17:41:43Z djculex $
  **/
-include_once("../../mainfile.php");
+include_once('../../mainfile.php');
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/arrays.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
 global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsDB;
 $xoopsLogger->activated = false;
 if ($_GET) {
@@ -315,13 +315,13 @@ function array_to_json($array)
             if (is_numeric($key)) {
                 $key = "key_$key";
             }
-            $key = "\"" . addslashes($key) . "\"";
+            $key = '"' . addslashes($key) . '"';
 
             // Format the value:
             if (is_array($value)) {
                 $value = array_to_json($value);
             } else if (!is_numeric($value) || is_string($value)) {
-                $value = "\"" . addslashes($value) . "\"";
+                $value = '"' . addslashes($value) . '"';
             }
 
             // Add to staging array:
@@ -329,7 +329,7 @@ function array_to_json($array)
         }
 
         // Then we collapse the staging array into the JSON form:
-        $result = "{ " . implode(", ", $construct) . " }";
+        $result = '{ ' . implode(', ', $construct) . ' }';
 
     } else { // If the array is a vector (not associative):
 
@@ -348,7 +348,7 @@ function array_to_json($array)
         }
 
         // Then we collapse the staging array into the JSON form:
-        $result = "[ " . implode(", ", $construct) . " ]";
+        $result = '[ ' . implode(', ', $construct) . ' ]';
     }
 
     return $result;
@@ -357,7 +357,7 @@ function array_to_json($array)
 $result = array();
 foreach ($arr as $key => $value) {
     if (strpos(strtolower($key), $q) !== false) {
-        array_push($result, array("id" => $value, "label" => $key, "value" => strip_tags($key)));
+        array_push($result, array('id' => $value, 'label' => $key, 'value' => strip_tags($key)));
     }
     if (count($result) > 11) {
         break;

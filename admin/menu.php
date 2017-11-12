@@ -27,7 +27,7 @@ $pathIcon32     = $module->getInfo('icons32');
 $i                      = 1;
 $adminmenu[$i]['title'] = _MI_SMALLWORLDMENU_INDEX;
 $adminmenu[$i]['link']  = 'admin/index.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . "/home.png";
+$adminmenu[$i]['icon']  = $pathIcon32 . '/home.png';
 
 //$i++;
 //$adminmenu[$i]['title'] = _MI_SMALLWORLD_ADMENU;
@@ -36,10 +36,10 @@ $adminmenu[$i]['icon']  = $pathIcon32 . "/home.png";
 
 $i++;
 $adminmenu[$i]['title'] = _MI_SMALLWORLDMENU_USERADMIN;
-$adminmenu[$i]['link']  = "admin/useradmin.php";
-$adminmenu[$i]['icon']  = $pathIcon32 . "/administration.png";
+$adminmenu[$i]['link']  = 'admin/useradmin.php';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/administration.png';
 
 $i++;
-$adminmenu[$i]["title"] = _MI_SMALLWORLDMENU_ABOUT;
-$adminmenu[$i]["link"]  = "admin/about.php";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/about.png';
+$adminmenu[$i]['title'] = _MI_SMALLWORLDMENU_ABOUT;
+$adminmenu[$i]['link']  = 'admin/about.php';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/about.png';

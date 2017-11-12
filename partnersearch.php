@@ -19,16 +19,16 @@
  * @ID         :                    $Id: partnersearch.php 11576 2013-05-22 13:25:30Z djculex $
  **/
 
-include_once("../../mainfile.php");
+include_once('../../mainfile.php');
 $xoopsOption['template_main'] = 'smallworld_userprofile_edittemplate.html';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 global $xoopsUser, $xoopsDB, $xoopsLogger;
 $xoopsLogger->activated = false;
 if ($_GET) {
     $q      = Smallworld_sanitize($_GET['term']);
-    $sql    = "SELECT * FROM " . $xoopsDB->prefix('smallworld_user') . " WHERE realname LIKE '%" . $q . "%' OR username LIKE '%" . $q . "%' ORDER BY userid LIMIT 5";
+    $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE realname LIKE '%" . $q . "%' OR username LIKE '%" . $q . "%' ORDER BY userid LIMIT 5";
     $result = $xoopsDB->query($sql);
     $data   = array();
 
@@ -36,7 +36,7 @@ if ($_GET) {
         $user   = new xoopsUser($row['userid']);
         $image  = '<img src="' . smallworld_getAvatarLink($row['userid'], $row['userimage']) . '" height="20" />';
         $data[] = array(
-            'label' => $image . ' ' . '<span class="searchusername">' . $row['realname'] . " (" . $row['username'] . ")</span>",
+            'label' => $image . ' ' . '<span class="searchusername">' . $row['realname'] . ' (' . $row['username'] . ')</span>',
             'value' => $user->uname()
         );
     }

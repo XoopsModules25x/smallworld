@@ -30,14 +30,14 @@ class SmallWorldImages
     {
         $dir = XOOPS_ROOT_PATH . '/uploads/albums_smallworld';
         if (!file_exists($dir . '/' . $userID . '/thumbnails') || !file_exists($dir . '/' . $userID . '/')) {
-            if (!is_dir($dir . "/")) {
+            if (!is_dir($dir . '/')) {
                 mkdir($dir, 0777);
             } else {
                 mkdir($dir . '/' . $userID, 0777);
-                mkdir($dir . '/' . $userID . "/thumbnails", 0777);
+                mkdir($dir . '/' . $userID . '/thumbnails', 0777);
                 Smallworld_CreateIndexFiles($dir . '/');
-                Smallworld_CreateIndexFiles($dir . '/' . $userID . "/");
-                Smallworld_CreateIndexFiles($dir . '/' . $userID . "/thumbnails/");
+                Smallworld_CreateIndexFiles($dir . '/' . $userID . '/');
+                Smallworld_CreateIndexFiles($dir . '/' . $userID . '/thumbnails/');
             }
         }
     }
@@ -55,7 +55,7 @@ class SmallWorldImages
         $checkFriend = new SmallWorldUser;
         if ($checkFriend->friendcheck($userID, $user) != 0) {
             // check friend is good to go
-            $sql    = "SELECT * FROM " . $xoopsDB->prefix("smallworld_images") . " WHERE userid = '" . $user . "'";
+            $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $user . "'";
             $result = $xoopsDB->query($sql);
             $i      = 0;
             while ($sqlfetch = $xoopsDB->fetchArray($result)) {
@@ -65,7 +65,7 @@ class SmallWorldImages
                 $post[$i]['desc']    = Smallworld_cleanup_string($sqlfetch['desc']);
                 $post[$i]['alt']     = Smallworld_cleanup_string($sqlfetch['desc']);
                 $post[$i]['time']    = stripslashes($sqlfetch['time']);
-                $post[$i]['editimg'] = "<span class='smallworld_edit_imgdesc_holder'><img src='images/edit_icon.png'/></span> <a class='smallworld_edit_imgdesc' href='editimages.php'>" . _SMALLWORLD_EDITDESCRIPTION . "</a>";
+                $post[$i]['editimg'] = "<span class='smallworld_edit_imgdesc_holder'><img src='images/edit_icon.png'/></span> <a class='smallworld_edit_imgdesc' href='editimages.php'>" . _SMALLWORLD_EDITDESCRIPTION . '</a>';
                 $i++;
             }
 
@@ -84,7 +84,7 @@ class SmallWorldImages
     function count($userid)
     {
         global $xoopsDB;
-        $sql    = "SELECT * FROM " . $xoopsDB->prefix("smallworld_images") . " WHERE userid = '" . $userid . "'";
+        $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userid . "'";
         $result = $xoopsDB->queryF($sql);
         return $xoopsDB->getRowsNum($result);
     }

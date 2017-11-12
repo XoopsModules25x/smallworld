@@ -18,9 +18,9 @@
  * @Last       changed date:    $Date: 2012-02-20 06:15:13 +0100 (ma, 20 feb 2012) $
  * @ID         :                    $Id: image_edit_submit.php 9032 2012-02-20 05:15:13Z djculex $
  **/
-include_once("../../mainfile.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
+include_once('../../mainfile.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
 global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger;
 $xoopsLogger->activated = false;
 $db                     = new SmallWorldDB;
@@ -30,10 +30,10 @@ $user                   = new XoopsUser($userID);
 $username               = $user->getVar('uname');
 $ri                     = smallworld_getRndImg($userID);
 if ($ri != '') {
-    $riUrl = XOOPS_URL . "/uploads/albums_smallworld/" . $userID . "/" . $ri;
+    $riUrl = XOOPS_URL . '/uploads/albums_smallworld/' . $userID . '/' . $ri;
 }
 
-$update = "UPLIMAGE" . " " . $riUrl;
+$update = 'UPLIMAGE' . ' ' . $riUrl;
 
 $upd->Insert_Update($userID, $update);
 $db->handleImageEdit();

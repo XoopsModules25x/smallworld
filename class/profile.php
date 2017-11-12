@@ -43,13 +43,13 @@ class SmallWorldProfile
             $check  = new SmallWorldUser;
             $Wall   = new Wall_Updates();
 
-            $cdb    = "SELECT * FROM " . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
+            $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
             $result = $xoopsDB->queryF($cdb);
             $cnt    = $xoopsDB->getRowsNum($result);
             while ($r = $xoopsDB->fetchArray($result)) {
                 $uname           = $r['username'];
                 $realname        = $r['realname'];
-                $membersince     = date("d-m-Y", $user->user_regdate());
+                $membersince     = date('d-m-Y', $user->user_regdate());
                 $birthday        = Smallworld_UsToEuroDate($r['birthday']);
                 $cnt_bday        = smallworldNextBdaySecs($r['birthday']);
                 $birthcity       = $r['birthplace'];
@@ -58,27 +58,27 @@ class SmallWorldProfile
                 $signature       = $user->user_sig();
                 $messenger       = $user->user_msnm();
                 $totalposts      = $Wall->CountMsges($id);
-                $membersince     = date("m-d-Y", $user->user_regdate());
+                $membersince     = date('m-d-Y', $user->user_regdate());
                 $usersratedplus  = $db->CountUsersRates($id, 'up');
                 $usersratedminus = $db->CountUsersRates($id, 'down');
                 $workfull        = $db->getJobsToDiv($id);
                 $workArray       = unserialize($r['employer']);
-                $work            = "<a href='javascript:void(0)' id='_smallworld_workmore'>" . $workArray[0] . " (" . _SMALLWORLD_MORE . ")</a>";
+                $work            = "<a href='javascript:void(0)' id='_smallworld_workmore'>" . $workArray[0] . ' (' . _SMALLWORLD_MORE . ')</a>';
                 $educationfull   = $db->getSchoolToDiv($id);
                 $educationArray  = unserialize($r['school_type']);
-                $education       = "<a href='javascript:void(0)' id='_smallworld_educationmore'>" . $educationArray[0] . " (" . _SMALLWORLD_MORE . ")</a>";
+                $education       = "<a href='javascript:void(0)' id='_smallworld_educationmore'>" . $educationArray[0] . ' (' . _SMALLWORLD_MORE . ')</a>';
                 $lng             = $r['birthplace_lng'];
                 $latt            = $r['birthplace_lat'];
                 $country         = $r['birthplace_country'];
                 $rank            = $user->rank();
                 $rank_title      = $rank['title'];
                 if (isset($rank['image'])) {
-                    $rank_image = "<img align='center' src='" . XOOPS_UPLOAD_URL . "/" . $rank['image'] . "'/>";
+                    $rank_image = "<img align='center' src='" . XOOPS_UPLOAD_URL . '/' . $rank['image'] . "'/>";
                 } else {
                     $rank_image = '';
                 }
-                $commentsrating = "<img src='" . XOOPS_URL . "/modules/smallworld/images/like.png' height='10px' width='10px'" . "/> " . $usersratedplus;
-                $commentsrating .= " <img src='" . XOOPS_URL . "/modules/smallworld/images/dislike.png' height='10px' width='10px'" . "/> " . $usersratedminus;
+                $commentsrating = "<img src='" . XOOPS_URL . "/modules/smallworld/images/like.png' height='10px' width='10px'" . '/> ' . $usersratedplus;
+                $commentsrating .= " <img src='" . XOOPS_URL . "/modules/smallworld/images/dislike.png' height='10px' width='10px'" . '/> ' . $usersratedminus;
                 $lastlogin      = $user->getVar('last_login');
 
                 $gender = $r['gender'];
@@ -97,7 +97,7 @@ class SmallWorldProfile
                 $avatar          = $Wall->Gravatar($id);
                 $avatar_size     = smallworld_getImageSize(80, 100, smallworld_getAvatarLink($id, $avatar));
                 $avatar_highwide = smallworld_imageResize($avatar_size[0], $avatar_size[1], 100);
-                $user_img        = "<img src='" . smallworld_getAvatarLink($id, $avatar) . "' id='smallworld_user_img' " . $avatar_highwide . "/>";
+                $user_img        = "<img src='" . smallworld_getAvatarLink($id, $avatar) . "' id='smallworld_user_img' " . $avatar_highwide . '/>';
 
                 $currentcity = $r['present_city'];
                 $currlng     = $r['present_lng'];
@@ -106,11 +106,11 @@ class SmallWorldProfile
 
                 // experimental. Set javascript var using php getVar()
                 $js = "<script type='text/javascript'>";
-                $js .= "var smallworld_currlng = " . $currlng . "\n";
-                $js .= "var smallworld_currlatt = " . $currlatt . "\n";
-                $js .= "var smallworld_birthlng = " . $lng . "\n";
-                $js .= "var smallworld_birthlatt = " . $latt . "\n";
-                $js .= "</script>";
+                $js .= 'var smallworld_currlng = ' . $currlng . "\n";
+                $js .= 'var smallworld_currlatt = ' . $currlatt . "\n";
+                $js .= 'var smallworld_birthlng = ' . $lng . "\n";
+                $js .= 'var smallworld_birthlatt = ' . $latt . "\n";
+                $js .= '</script>';
                 echo $js;
 
                 $relationship = $r['relationship'];
@@ -123,7 +123,7 @@ class SmallWorldProfile
                 if ($relationship == 3) {
                     $status = _SMALLWORLD_INRELATIONSHIP;
                     if ($spouseExists > 0) {
-                        $spouse = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $r['partner'] . "' target='_self'>" . $r['partner'] . "</a>";
+                        $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
                     } else {
                         $spouse = $r['partner'];
                     }
@@ -131,7 +131,7 @@ class SmallWorldProfile
                 if ($relationship == 0) {
                     $status = _SMALLWORLD_ISMARRIED;
                     if ($spouseExists > 0) {
-                        $spouse = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $r['partner'] . "' target='_self'>" . $r['partner'] . "</a>";
+                        $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
                     } else {
                         $spouse = $r['partner'];
                     }
@@ -139,7 +139,7 @@ class SmallWorldProfile
                 if ($relationship == 1) {
                     $status = _SMALLWORLD_ISENGAGED;
                     if ($spouseExists > 0) {
-                        $spouse = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $r['partner'] . "' target='_self'>" . $r['partner'] . "</a>";
+                        $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
                     } else {
                         $spouse = $r['partner'];
                     }
@@ -147,7 +147,7 @@ class SmallWorldProfile
                 if ($relationship == 5) {
                     $status = _SMALLWORLD_ISCOMPLICATED;
                     if ($spouseExists > 0) {
-                        $spouse = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $r['partner'] . "' target='_self'>" . $r['partner'] . "</a>";
+                        $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
                     } else {
                         $spouse = $r['partner'];
                     }
@@ -155,7 +155,7 @@ class SmallWorldProfile
                 if ($relationship == 4) {
                     $status = _SMALLWORLD_OPENRELATIONSHIP;
                     if ($spouseExists > 0) {
-                        $spouse = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $r['partner'] . "' target='_self'>" . $r['partner'] . "</a>";
+                        $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
                     } else {
                         $spouse = $r['partner'];
                     }
@@ -177,13 +177,13 @@ class SmallWorldProfile
                 $email      = unserialize($r['emailtype']);
                 $screenname = $db->getScreennamesToDiv($id);
                 if ($r['phone'] == '' || $r['phone'] == 0) {
-                    $phone = "xxx-xxx-xxxx";
+                    $phone = 'xxx-xxx-xxxx';
                 } else {
                     $phone = $r['phone'];
                 }
 
                 if ($r['mobile'] == '' || $r['mobile'] == 0) {
-                    $gsm = "xxx-xxx-xxxx";
+                    $gsm = 'xxx-xxx-xxxx';
                 } else {
                     $gsm = $r['mobile'];
                 }

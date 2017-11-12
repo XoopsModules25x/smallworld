@@ -21,8 +21,8 @@
 
 require_once 'admin_header.php';
 require_once '../../../include/cp_header.php';
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 if (!isset($xoopsTpl)) {
@@ -129,7 +129,7 @@ $xoopsTpl->assign('lang_bottomrated', _AM_SMALLWORLD_BOTTOMRATEDUSERS);
 $xoopsTpl->assign('lang_useradmin', _AM_SMALLWORLD_USERADMIN_TITLE);
 $xoopsTpl->assign('lang_help', _AM_SMALLWORLD_HELP);
 $xoopsTpl->assign('lang_prefs', _MI_SYSTEM_ADMENU6);
-$xoopsTpl->assign('lang_prefslink', "<a href='../../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid') . "'>" . _MI_SYSTEM_ADMENU6 . "</a>");
+$xoopsTpl->assign('lang_prefslink', "<a href='../../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid') . "'>" . _MI_SYSTEM_ADMENU6 . '</a>');
 
 // help file from admin
 $xoopsTpl->assign('lang_hlp_about', _AM_SMALLWORLD_HELP_ABOUT);

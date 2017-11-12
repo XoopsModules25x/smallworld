@@ -19,9 +19,9 @@
  * @ID         :                    $Id: friendinvite.php 11992 2013-08-31 18:06:22Z djculex $
  **/
 global $xoopsUser;
-include_once("../../mainfile.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
+include_once('../../mainfile.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
 global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;
 
@@ -66,7 +66,7 @@ if ($xoopsUser) {
                 echo json_encode(array('error' => 'no', 'msg' => $resultMsg, 'msgChange' => _SMALLWORLD_JSON_ADDFR_TEXT));
             }
         } else {
-            echo "friend does not exist";
+            echo 'friend does not exist';
         }
     }
     if ($invitation == '2') {

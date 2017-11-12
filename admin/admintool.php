@@ -22,25 +22,25 @@
 require_once 'admin_header.php';
 global $xoopsDB, $xoTheme, $xoopsLogger;
 $xoopsLogger->activated = false;
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 
 if ($_POST['type'] == 'addtime') {
     $userid = intval($_POST['userid']);
     $amount = intval($_POST['amount']);
-    $test   = "SELECT * FROM " . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "' AND (inspect_start+inspect_stop) > " . time() . "";
+    $test   = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "' AND (inspect_start+inspect_stop) > " . time() . '';
     $result = $xoopsDB->queryF($test);
     if ($xoopsDB->getRowsNum($result) < 1) {
-        $sql    = "UPDATE " . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '" . time() . "', inspect_stop = '" . $amount . "' WHERE userid='" . $userid . "'";
+        $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '" . time() . "', inspect_stop = '" . $amount . "' WHERE userid='" . $userid . "'";
         $result = $xoopsDB->queryF($sql);
     } else {
-        $sql    = "UPDATE " . $xoopsDB->prefix('smallworld_admin') . " SET inspect_stop = (inspect_stop + " . $amount . ") WHERE userid='" . $userid . "'";
+        $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . ' SET inspect_stop = (inspect_stop + ' . $amount . ") WHERE userid='" . $userid . "'";
         $result = $xoopsDB->queryF($sql);
     }
 
 }
 if ($_POST['type'] == 'deletetime') {
-    $sql    = "UPDATE " . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '', inspect_stop = '' WHERE userid='" . intval($_POST['deluserid']) . "'";
+    $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '', inspect_stop = '' WHERE userid='" . intval($_POST['deluserid']) . "'";
     $result = $xoopsDB->queryF($sql);
 }
 

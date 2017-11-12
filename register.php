@@ -19,12 +19,12 @@
  * @ID         :                    $Id: register.php 11843 2013-07-18 17:29:48Z djculex $
  **/
 
-include_once("../../mainfile.php");
+include_once('../../mainfile.php');
 $xoopsOption['template_main'] = 'smallworld_userprofile_regtemplate.html';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/arrays.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 global $xoopsUser, $xoopsTpl, $xoTheme;
 
 if ($xoopsUser) {
@@ -36,12 +36,12 @@ if ($xoopsUser) {
 
     $inspect = Smallworld_isInspected($id);
     if ($inspect['inspect'] == 'yes') {
-        redirect_header("userprofile.php?username=" . $xoopsUser->getVar('uname'), 1);
+        redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
 
     if ($profile >= 2) {
         // Create basic user in db & redirect to editProfile.php
-        redirect_header(XOOPS_URL . "/modules/smallworld/editprofile.php");
+        redirect_header(XOOPS_URL . '/modules/smallworld/editprofile.php');
     } else {
         $item = new SmallWorldForm;
 
@@ -129,9 +129,9 @@ if ($xoopsUser) {
         //function input_add($class, $name, $name2, $rel, $size, $textmore, $preset=null) {
         //$emailtext = $item->input('email','email','email',$size='12',$preset=null);
         if (smallworldGetValfromArray('emails', 'smallworldusethesefields') != 0) {
-            $emailtext = $item->input_add('smallworld_add2', 'email', 'emailtype', '.smallworld_clone2', 20, _SMALLWORLD_ADDMORE, $preset = $xoopsUser->getVar('email'), "email-0");
-            $emailtext .= "<span class='smallworld_remove' id='emailremove'><a href='javascript:void(0)' id='emailremovelnk'>" . _SMALLWORLD_REMOVE . "</a><br></span>";
-            $emailtext .= "<a class='smallworld_addemail' href='javascript:void(0);' id='emailAdd'>" . _SMALLWORLD_ADDMORE . "</a><br><br>";
+            $emailtext = $item->input_add('smallworld_add2', 'email', 'emailtype', '.smallworld_clone2', 20, _SMALLWORLD_ADDMORE, $preset = $xoopsUser->getVar('email'), 'email-0');
+            $emailtext .= "<span class='smallworld_remove' id='emailremove'><a href='javascript:void(0)' id='emailremovelnk'>" . _SMALLWORLD_REMOVE . '</a><br></span>';
+            $emailtext .= "<a class='smallworld_addemail' href='javascript:void(0);' id='emailAdd'>" . _SMALLWORLD_ADDMORE . '</a><br><br>';
             $xoopsTpl->append('emailtext', $emailtext);
         } else {
             $xoopsTpl->assign('show_emails', 'no');
@@ -142,8 +142,8 @@ if ($xoopsUser) {
         if (smallworldGetValfromArray('screennames', 'smallworldusethesefields') != 0) {
             $screenname = $item->dropdown_add('smallworld_add', 'screenname', 'screenname_type', '.smallworld_clone', $arr06, _SMALLWORLD_ADDMORE, $selected = null, $preset = null);
             $screenname .= "<span class='smallworld_remove' id='screennameremove'>";
-            $screenname .= "<a href='javascript:void(0);' id='screennameremovelnk'>" . _SMALLWORLD_REMOVE . "</a><br></span>";
-            $screenname .= "<a class='smallworld_addscreenname' href='javascript:void(0);' id='screennameAdd'>" . _SMALLWORLD_ADDMORE . "</a><br><br>";
+            $screenname .= "<a href='javascript:void(0);' id='screennameremovelnk'>" . _SMALLWORLD_REMOVE . '</a><br></span>';
+            $screenname .= "<a class='smallworld_addscreenname' href='javascript:void(0);' id='screennameAdd'>" . _SMALLWORLD_ADDMORE . '</a><br><br>';
             $xoopsTpl->append('screenname', $screenname);
         } else {
             $xoopsTpl->assign('show_screennames', 'no');
@@ -242,8 +242,8 @@ if ($xoopsUser) {
         if (smallworldGetValfromArray('education', 'smallworldusethesefields') != 0) {
             $school = $item->school_add('smallworld_add3', 'school', 'school_type', '.smallworld_clone3', $arr7, _SMALLWORLD_ADDMORE, $selected = null, $preset = null, $selectedstart = null, $selectedstop = null);
             $school .= "<span class='smallworld_remove2' id='schoolremove'>";
-            $school .= "<a href='javascript:void(0);' id='schoolremovelnk'>" . _SMALLWORLD_REMOVE . "</a><br></span>";
-            $school .= "<a class='smallworld_addschool' href='javascript:void(0);' id='schoolAdd'>" . _SMALLWORLD_ADDMORE . "</a><br><br>";
+            $school .= "<a href='javascript:void(0);' id='schoolremovelnk'>" . _SMALLWORLD_REMOVE . '</a><br></span>';
+            $school .= "<a class='smallworld_addschool' href='javascript:void(0);' id='schoolAdd'>" . _SMALLWORLD_ADDMORE . '</a><br><br>';
             $xoopsTpl->append('school', $school);
         } else {
             $xoopsTpl->assign('show_school', 'no');
@@ -254,8 +254,8 @@ if ($xoopsUser) {
         if (smallworldGetValfromArray('employment', 'smallworldusethesefields') != 0) {
             $job = $item->job('smallworld_add4', 'job', 'job_type', '.smallworld_clone4', _SMALLWORLD_ADDMORE, $selected = null, $preset = null, $selectedstart = null, $selectedstop = null);
             $job .= "<span class='smallworld_remove3' id='jobremove'>";
-            $job .= "<a href='javascript:void(0);' id='jobremovelnk'>" . _SMALLWORLD_REMOVE . "</a><br></span>";
-            $job .= "<a class='smallworld_addjob' href='javascript:void(0);' id='jobAdd'>" . _SMALLWORLD_ADDMORE . "</a><br><br>";
+            $job .= "<a href='javascript:void(0);' id='jobremovelnk'>" . _SMALLWORLD_REMOVE . '</a><br></span>';
+            $job .= "<a class='smallworld_addjob' href='javascript:void(0);' id='jobAdd'>" . _SMALLWORLD_ADDMORE . '</a><br><br>';
             $xoopsTpl->append('job', $job);
         } else {
             $xoopsTpl->assign('show_jobs', 'no');
@@ -287,7 +287,7 @@ if ($xoopsUser) {
 
     }
 } else {
-    redirect_header(XOOPS_URL . "/register.php", 1, _NOPERM);
+    redirect_header(XOOPS_URL . '/register.php', 1, _NOPERM);
 }
-include(XOOPS_ROOT_PATH . "/footer.php");
+include(XOOPS_ROOT_PATH . '/footer.php');
 ?>

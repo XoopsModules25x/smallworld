@@ -18,9 +18,9 @@
  * @Last       changed date:    $Date: 2012-01-26 16:33:48 +0100 (to, 26 jan 2012) $
  * @ID         :                    $Id: submit.php 8815 2012-01-26 15:33:48Z djculex $
  **/
-include_once("../../mainfile.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
+include_once('../../mainfile.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
 global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;
 $db                     = new SmallWorldDB;

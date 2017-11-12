@@ -18,12 +18,12 @@
  * @Last       changed date:    $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
  * @ID         :                    $Id: userprofile.php 12114 2013-10-01 17:11:18Z djculex $
  **/
-include_once("../../mainfile.php");
+include_once('../../mainfile.php');
 $xoopsOption['template_main'] = 'smallworld_userprofile_template.html';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/arrays.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
 global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
@@ -115,11 +115,11 @@ if ($xoopsUser) {
         $xoopsTpl->assign('usersetting', $usersettings);
 
         // Get usermenu to template
-        $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . "</a>";
-        $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . "</a>";
-        $menu_profile   = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . "</a>";
-        $menu_gallery   = "<a href='" . XOOPS_URL . "/modules/smallworld/galleryshow.php?username=" . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/picture.png'>" . _SMALLWORLD_GALLERY . "</a>";
-        $menu_friends   = "<a href='" . XOOPS_URL . "/modules/smallworld/friends.php?username=" . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . "</a>";
+        $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
+        $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
+        $menu_profile   = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
+        $menu_gallery   = "<a href='" . XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/picture.png'>" . _SMALLWORLD_GALLERY . '</a>';
+        $menu_friends   = "<a href='" . XOOPS_URL . '/modules/smallworld/friends.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
 
         if (smallworld_XIMversion() > 102) {
             $menu_xim_js = "javascript:xim_chatWith('" . $id . "','" . $Xusername . "')";
@@ -127,7 +127,7 @@ if ($xoopsUser) {
             $menu_xim_js = "javascript:chatWith('" . $id . "','" . $Xusername . "')";
         }
 
-        $menu_ximme = "<a href='javascript:void(0);' onClick=" . $menu_xim_js . "><img height='10px' width='10px' src='" . XOOPS_URL . "/modules/smallworld/images/messenger.png'>" . _SMALLWORLD_XIMUSER . $Xusername . "</a>";
+        $menu_ximme = "<a href='javascript:void(0);' onClick=" . $menu_xim_js . "><img height='10px' width='10px' src='" . XOOPS_URL . "/modules/smallworld/images/messenger.png'>" . _SMALLWORLD_XIMUSER . $Xusername . '</a>';
 
         // Check for folder xim to add messenger user to menu items
         $hasxim = smallworld_checkForXim();
@@ -141,7 +141,7 @@ if ($xoopsUser) {
         }
 
         $birthday_today_text = "<img width='20px' heigh='20px' src='images/bdayballoons_l.png'/>";
-        $birthday_today_text .= " " . _SMALLWORLD_BDAY_TODAY . " ";
+        $birthday_today_text .= ' ' . _SMALLWORLD_BDAY_TODAY . ' ';
         $birthday_today_text .= "<img width='20px' heigh='20px' src='images/bdayballoons_r.png'/>";
 
         $xoopsTpl->assign('menu_startpage', $menu_startpage);
@@ -168,7 +168,7 @@ if ($xoopsUser) {
     }
 
     if ($profile < 2) {
-        redirect_header(XOOPS_URL . "/modules/smallworld/index.php");
+        redirect_header(XOOPS_URL . '/modules/smallworld/index.php');
     }
     //Check Language
     $lang = $xoopsConfig['language'];
@@ -183,5 +183,5 @@ if ($xoopsUser) {
     //redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
 }
 
-include(XOOPS_ROOT_PATH . "/footer.php");
+include(XOOPS_ROOT_PATH . '/footer.php');
 ?>

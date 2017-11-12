@@ -21,10 +21,10 @@
 
 include '../../mainfile.php';
 include_once(XOOPS_ROOT_PATH . '/class/template.php');
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/arrays.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/publicWall.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php');
 $set = smallworld_checkPrivateOrPublic();
 $pub = smallworld_checkUserPubPostPerm();
 $hm  = smallworld_GetModuleOption('msgtoshow');

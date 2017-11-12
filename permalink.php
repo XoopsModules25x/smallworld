@@ -18,11 +18,11 @@
  * @Last       changed date:    $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
  * @ID         :                    $Id: permalink.php 12114 2013-10-01 17:11:18Z djculex $
  **/
-include_once("../../mainfile.php");
+include_once('../../mainfile.php');
 $xoopsOption['template_main'] = 'smallworld_permalink.html';
-include_once(XOOPS_ROOT_PATH . "/header.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . '/header.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
 
 $xoopsLogger->activated = false;
@@ -42,7 +42,7 @@ if (isset($_GET['updid']) AND isset($_GET['ownerid'])) {
     $updID   = $_GET['updid'];
     $ownerID = $_GET['ownerid'];
 } else {
-    redirect_header(XOOPS_URL . "/modules/smallworld/index.php", 5, _SMALLWORLD_UPDATEID_NOT_EXIST);
+    redirect_header(XOOPS_URL . '/modules/smallworld/index.php', 5, _SMALLWORLD_UPDATEID_NOT_EXIST);
 }
 
 $id   = ($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
@@ -57,13 +57,13 @@ if ($xoopsUser) {
         $xoopsTpl->assign('isadminuser', 'NO');
     }
 }
-$username = ($xoopsUser) ? $user->getVar('uname') : "";
+$username = ($xoopsUser) ? $user->getVar('uname') : '';
 
 $friend = $check->friendcheck($id, $ownerID);
 
 $profile        = $check->checkIfProfile($id);
-$menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . "</a>";
-$menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . "</a>";
+$menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
+$menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
 
 // Things to do with wall
 $Wall = new Wall_Updates();
@@ -80,5 +80,5 @@ $xoopsTpl->assign('myusername', $username);
 $xoopsTpl->assign('pagename', 'index');
 $xoopsTpl->assign('check', $profile);
 
-include(XOOPS_ROOT_PATH . "/footer.php");
+include(XOOPS_ROOT_PATH . '/footer.php');
 ?>

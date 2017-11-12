@@ -18,11 +18,11 @@
  * @Last       changed date:    $Date: 2013-06-12 19:42:10 +0200 (on, 12 jun 2013) $
  * @ID         :                    $Id: smallworldshare.php 11659 2013-06-12 17:42:10Z djculex $
  **/
-include_once("../../mainfile.php");
+include_once('../../mainfile.php');
 $xoopsOption['template_main'] = 'smallworld_share.html';
-include_once(XOOPS_ROOT_PATH . "/header.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . '/header.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsTpl, $xoopsLogger;
 
 $xoopsLogger->activated = false;
@@ -33,7 +33,7 @@ if (isset($_GET['updid']) && isset($_GET['ownerid'])) {
     $ownerID = $_GET['ownerid'];
     $wm      = array();
 } else {
-    redirect_header(XOOPS_URL . "/modules/smallworld/index.php", 5, _SMALLWORLD_UPDATEID_NOT_EXIST);
+    redirect_header(XOOPS_URL . '/modules/smallworld/index.php', 5, _SMALLWORLD_UPDATEID_NOT_EXIST);
 }
 
 $perm              = smallworldCheckPriv($updID);
@@ -69,7 +69,7 @@ if ($perm <= 0) {
             $xoTheme->addMeta('meta', 'title', $wm['usernameTitle']);
             $xoTheme->addMeta('meta', 'author', $wm['username']);
             $xoTheme->addMeta('meta', 'og:title', $wm['usernameTitle']);
-            $xoTheme->addMeta('meta', 'og:url', XOOPS_URL . "/modules/smallworld/index.php");
+            $xoTheme->addMeta('meta', 'og:url', XOOPS_URL . '/modules/smallworld/index.php');
             $xoTheme->addMeta('meta', 'og:site_name', $xoopsConfig['sitename']);
             $xoTheme->addMeta('meta', 'og:description', $desc);
             $xoTheme->addMeta('meta', 'og:image', $wm['avatar_link']);
@@ -82,5 +82,5 @@ if ($perm <= 0) {
     $xoTheme->addMeta('meta', 'og:image', XOOPS_URL . '/modules/smallworld/images/smallworld.png');
 }
 
-include(XOOPS_ROOT_PATH . "/footer.php");
+include(XOOPS_ROOT_PATH . '/footer.php');
 ?>

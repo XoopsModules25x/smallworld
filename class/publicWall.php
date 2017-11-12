@@ -27,10 +27,10 @@ class Public_Wall_Updates
     private function getAdminModerators()
     {
         global $xoopsDB, $xoopsUser;
-        $sql    = "SELECT userid
-                FROM " . $xoopsDB->prefix('smallworld_user') . " su
-                LEFT JOIN " . $xoopsDB->prefix('groups_users_link') . " xu ON su.userid = xu.uid
-                WHERE xu.uid IN (1)";
+        $sql    = 'SELECT userid
+                FROM ' . $xoopsDB->prefix('smallworld_user') . ' su
+                LEFT JOIN ' . $xoopsDB->prefix('groups_users_link') . ' xu ON su.userid = xu.uid
+                WHERE xu.uid IN (1)';
         $result = $xoopsDB->queryF($sql);
         while ($row = $xoopsDB->fetchArray($result)) {
             $data[] = $row;
@@ -47,14 +47,14 @@ class Public_Wall_Updates
     function inspected()
     {
         global $xoopsDB;
-        $sql    = "SELECT userid FROM " . $xoopsDB->prefix('smallworld_admin') . " WHERE (inspect_start+inspect_stop) > " . time() . "";
+        $sql    = 'SELECT userid FROM ' . $xoopsDB->prefix('smallworld_admin') . ' WHERE (inspect_start+inspect_stop) > ' . time() . '';
         $result = $xoopsDB->queryF($sql);
         $data   = array();
         while ($row = $xoopsDB->fetchArray($result)) {
             $data[] = $row;
         }
         if (!empty($data)) {
-            $sub = implode(",", Smallworld_array_flatten(array_unique($data), 0));
+            $sub = implode(',', Smallworld_array_flatten(array_unique($data), 0));
         } else {
             $sub = 0;
         }
@@ -74,51 +74,51 @@ class Public_Wall_Updates
         $moderators = is_array($moderators) ? $moderators : array($moderators);
         $hm         = smallworld_GetModuleOption('msgtoshow');
         $set        = smallworld_checkPrivateOrPublic();
-        $mods       = implode(",", Smallworld_array_flatten(array_unique($moderators), 0));
+        $mods       = implode(',', Smallworld_array_flatten(array_unique($moderators), 0));
         $inspected  = $this->inspected();
         $perm       = smallworld_GetModuleOption('smallworldshowPoPubPage');
         $i          = 0;
 
         if ($last == 0) {
-            $query = "SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM "
+            $query = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM '
                      . $xoopsDB->prefix('smallworld_messages')
-                     . " M, "
+                     . ' M, '
                      . $xoopsDB->prefix('smallworld_user')
-                     . " U WHERE M.uid_fk=U.userid AND M.uid_fk IN ("
+                     . ' U WHERE M.uid_fk=U.userid AND M.uid_fk IN ('
                      . $mods
-                     . ") AND M.uid_fk NOT IN ("
+                     . ') AND M.uid_fk NOT IN ('
                      . $inspected
                      . ") AND M.priv = '0'";
         } elseif ($last > 0) {
-            $query = "SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM "
+            $query = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM '
                      . $xoopsDB->prefix('smallworld_messages')
-                     . " M, "
+                     . ' M, '
                      . $xoopsDB->prefix('smallworld_user')
-                     . " U  WHERE M.uid_fk=U.userid AND M.uid_fk IN ("
+                     . ' U  WHERE M.uid_fk=U.userid AND M.uid_fk IN ('
                      . $mods
-                     . ") AND M.uid_fk NOT IN ("
+                     . ') AND M.uid_fk NOT IN ('
                      . $inspected
                      . ") AND M.priv = '0' AND M.msg_id < '"
                      . $last
                      . "'";
         } elseif ($last == 'a') {
-            $query = "SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM "
+            $query = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM '
                      . $xoopsDB->prefix('smallworld_messages')
-                     . " M, "
+                     . ' M, '
                      . $xoopsDB->prefix('smallworld_user')
-                     . " U  WHERE M.uid_fk=U.userid AND M.uid_fk IN ("
+                     . ' U  WHERE M.uid_fk=U.userid AND M.uid_fk IN ('
                      . $mods
-                     . ") AND M.uid_fk NOT IN ("
+                     . ') AND M.uid_fk NOT IN ('
                      . $inspected
                      . ") AND M.priv = '0'";
         }
 
         if ($last > 0) {
-            $query .= " order by created DESC LIMIT " . $hm;
+            $query .= ' order by created DESC LIMIT ' . $hm;
         } elseif ($last == 'a') {
-            $query .= " order by M.msg_id DESC LIMIT " . $hm;
+            $query .= ' order by M.msg_id DESC LIMIT ' . $hm;
         } else {
-            $query .= " order by created DESC LIMIT " . $hm;
+            $query .= ' order by created DESC LIMIT ' . $hm;
         }
 
         $result = $xoopsDB->queryF($query);
@@ -145,15 +145,15 @@ class Public_Wall_Updates
     {
         global $xoopsUser, $xoopsDB;
         $inspected = $this->inspected();
-        $query     = "SELECT C.msg_id_fk, C.com_id, C.uid_fk, C.comment, C.created, U.username FROM "
+        $query     = 'SELECT C.msg_id_fk, C.com_id, C.uid_fk, C.comment, C.created, U.username FROM '
                      . $xoopsDB->prefix('smallworld_comments')
-                     . " C, "
+                     . ' C, '
                      . $xoopsDB->prefix('smallworld_user')
                      . " U WHERE C.uid_fk=U.userid AND C.msg_id_fk='"
                      . $msg_id
                      . "' AND C.uid_fk NOT IN ("
                      . $inspected
-                     . ") ORDER BY C.com_id ASC ";
+                     . ') ORDER BY C.com_id ASC ';
         $result    = $xoopsDB->queryF($query);
         $i         = $xoopsDB->getRowsNum($result);
         while ($row = $xoopsDB->fetchArray($result)) {
@@ -173,7 +173,7 @@ class Public_Wall_Updates
     {
         global $xoopsUser, $xoopsDB;
         $image  = '';
-        $sql    = "SELECT userimage FROM " . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $uid . "'";
+        $sql    = 'SELECT userimage FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $uid . "'";
         $result = $xoopsDB->queryF($sql);
         while ($r = $xoopsDB->fetchArray($result)) {
             $image = $r['userimage'];
@@ -192,7 +192,7 @@ class Public_Wall_Updates
             4 => 'gif'
         );
 
-        $ext = explode(".", $image);
+        $ext = explode('.', $image);
 
         if (@!in_array(strtolower($ext[1]), $type) || $image == '') {
             $avatar = '';
@@ -212,7 +212,7 @@ class Public_Wall_Updates
     public function countVotes($type, $val, $msgid)
     {
         global $xoopsUser, $xoopsDB;
-        $query  = "Select SUM(" . $val . ") as sum from " . $xoopsDB->prefix('smallworld_vote') . " where msg_id = '" . $msgid . "' and com_id = '0'";
+        $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where msg_id = '" . $msgid . "' and com_id = '0'";
         $result = $xoopsDB->queryF($query);
         while ($row = $xoopsDB->fetchArray($result)) {
             $sum = $row['sum'];
@@ -234,7 +234,7 @@ class Public_Wall_Updates
     public function countVotesCom($type, $val, $comid, $msgid)
     {
         global $xoopsUser, $xoopsDB;
-        $query  = "Select SUM(" . $val . ") as sum from " . $xoopsDB->prefix('smallworld_vote') . " where com_id = '" . $comid . "' AND msg_id = '" . $msgid . "'";
+        $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where com_id = '" . $comid . "' AND msg_id = '" . $msgid . "'";
         $result = $xoopsDB->queryF($query);
         while ($row = $xoopsDB->fetchArray($result)) {
             $sum = $row['sum'];
@@ -257,11 +257,11 @@ class Public_Wall_Updates
     {
         global $xoopsUser, $xoopsDB;
         if ($type == 'msg') {
-            $sql    = "SELECT * FROM " . $xoopsDB->prefix('smallworld_vote') . " WHERE com_id = '0' AND msg_id = '" . $msgid . "' AND user_id = '" . $userid . "'";
+            $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE com_id = '0' AND msg_id = '" . $msgid . "' AND user_id = '" . $userid . "'";
             $result = $xoopsDB->queryF($sql);
             $i      = $xoopsDB->getRowsNum($result);
         } else {
-            $sql    = "SELECT * FROM " . $xoopsDB->prefix('smallworld_vote') . " WHERE com_id = '" . $comid . "' AND msg_id = '" . $msgid . "' AND user_id = '" . $userid . "'";
+            $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE com_id = '" . $comid . "' AND msg_id = '" . $msgid . "' AND user_id = '" . $userid . "'";
             $result = $xoopsDB->queryF($sql);
             $i      = $xoopsDB->getRowsNum($result);
         }
@@ -276,7 +276,7 @@ class Public_Wall_Updates
     public function CountMsges($userid)
     {
         global $xoopsDB;
-        $sql    = "SELECT (SELECT COUNT(*) FROM " . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "') + (SELECT COUNT(*) FROM " . $xoopsDB->prefix('smallworld_messages') . " WHERE uid_fk = '" . $userid . "')";
+        $sql    = 'SELECT (SELECT COUNT(*) FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "') + (SELECT COUNT(*) FROM " . $xoopsDB->prefix('smallworld_messages') . " WHERE uid_fk = '" . $userid . "')";
         $result = $xoopsDB->queryF($sql);
         $sum    = $xoopsDB->fetchRow($result);
         return $sum[0];
@@ -292,9 +292,9 @@ class Public_Wall_Updates
     public function UpdatesPermalink($updid, $uid, $ownerID)
     {
         global $xoopsUser, $xoopsDB, $moduleConfig;
-        $query  = "SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM " . $xoopsDB->prefix('smallworld_messages') . " M, " . $xoopsDB->prefix('smallworld_user') . " U  WHERE M.uid_fk=U.userid AND M.uid_fk='" . $ownerID . "'";
+        $query  = 'SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . " U  WHERE M.uid_fk=U.userid AND M.uid_fk='" . $ownerID . "'";
         $query  .= " AND M.msg_id = '" . $updid . "'";
-        $query  .= " order by M.created DESC LIMIT 1";
+        $query  .= ' order by M.created DESC LIMIT 1';
         $result = $xoopsDB->queryF($query);
         $count  = $xoopsDB->getRowsNum($result);
         if ($count < 1) {
@@ -318,9 +318,9 @@ class Public_Wall_Updates
     public function UpdatesSharelink($updid, $ownerID)
     {
         global $xoopsUser, $xoopsDB, $moduleConfig;
-        $query  = "SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM " . $xoopsDB->prefix('smallworld_messages') . " M, " . $xoopsDB->prefix('smallworld_user') . " U WHERE M.uid_fk=U.userid AND M.uid_fk='" . $ownerID . "' AND M.priv = 0";
+        $query  = 'SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . " U WHERE M.uid_fk=U.userid AND M.uid_fk='" . $ownerID . "' AND M.priv = 0";
         $query  .= " AND M.msg_id = '" . $updid . "'";
-        $query  .= " order by created DESC LIMIT 1";
+        $query  .= ' order by created DESC LIMIT 1';
         $result = $xoopsDB->queryF($query);
         $count  = $xoopsDB->getRowsNum($result);
         if ($count < 1) {
@@ -345,9 +345,9 @@ class Public_Wall_Updates
     {
         if ($priv != 1) {
             $text = " | <span class='smallworld_share' id='smallworld_share'>";
-            $text .= "<a class='share' id='share-page" . $id . "' href='javascript:void(0);'>" . _SMALLWORLD_SHARELINK . "</a></span>";
+            $text .= "<a class='share' id='share-page" . $id . "' href='javascript:void(0);'>" . _SMALLWORLD_SHARELINK . '</a></span>';
         } else {
-            $text = "";
+            $text = '';
         }
         return $text;
     }
@@ -366,9 +366,9 @@ class Public_Wall_Updates
         if ($priv != 1) {
             $text = "<div style='display: none;' class='smallworld_bookmarks' id='share-page' name='share-page" . $id . "'>";
             $text .= "<span name='share-page" . $id . "' rel1='" . $desc . "' rel2= '" . $username . "' rel=" . $permalink . " id='basicBookmark' title='" . _SMALLWORLD_SHAREBOX_TITLE . "'>";
-            $text .= "</span></div>";
+            $text .= '</span></div>';
         } else {
-            $text = "";
+            $text = '';
         }
         return $text;
     }
@@ -396,7 +396,7 @@ class Public_Wall_Updates
         $myavatarlink      = smallworld_getAvatarLink($id, $myavatar);
         $myavatar_size     = smallworld_getImageSize(80, 100, $myavatarlink);
         $myavatar_highwide = smallworld_imageResize($myavatar_size[0], $myavatar_size[1], 100);
-        $user_img          = "<img src='" . smallworld_getAvatarLink($id, $myavatar) . "' id='smallworld_user_img' " . $myavatar_highwide . "/>";
+        $user_img          = "<img src='" . smallworld_getAvatarLink($id, $myavatar) . "' id='smallworld_user_img' " . $myavatar_highwide . '/>';
 
         $xoopsTpl->assign('myavatar', $myavatar);
         $xoopsTpl->assign('myavatarlink', $myavatarlink);
@@ -441,8 +441,8 @@ class Public_Wall_Updates
                 $wm['avatar_highwide'] = smallworld_imageResize($wm['avatar_size'][0], $wm['avatar_size'][1], 50);
                 $wm['vote_up']         = $this->countVotes('msg', 'up', $data['msg_id']);
                 $wm['vote_down']       = $this->countVotes('msg', 'down', $data['msg_id']);
-                $wm['sharelinkurl']    = XOOPS_URL . "/modules/smallworld/smallworldshare.php?ownerid=" . $data['uid_fk'];
-                $wm['sharelinkurl']    .= "&updid=" . $data['msg_id'] . "";
+                $wm['sharelinkurl']    = XOOPS_URL . '/modules/smallworld/smallworldshare.php?ownerid=' . $data['uid_fk'];
+                $wm['sharelinkurl']    .= '&updid=' . $data['msg_id'] . '';
                 $wm['usernameTitle']   = $wm['username'] . _SMALLWORLD_UPDATEONSITEMETA . $xoopsConfig['sitename'];
                 if ($USW['posts'] == 1 || $profile >= 2) {
                     $wm['sharelink'] = $this->GetSharing($wm['msg_id'], $wm['priv']);
@@ -455,8 +455,8 @@ class Public_Wall_Updates
                 } else {
                     $wm['sharediv'] = $this->GetSharingDiv($wm['msg_id'], 1, $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
                 }
-                $wm['linkimage']     = XOOPS_URL . "/modules/smallworld/images/link.png";
-                $wm['permalink']     = XOOPS_URL . "/modules/smallworld/permalink.php?ownerid=" . $data['uid_fk'] . "&updid=" . $data['msg_id'];
+                $wm['linkimage']     = XOOPS_URL . '/modules/smallworld/images/link.png';
+                $wm['permalink']     = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id'];
                 $wm['commentsarray'] = $this->Comments($data['msg_id']);
 
                 if ($frU[0] == 2 || $USW['posts'] == 1) {

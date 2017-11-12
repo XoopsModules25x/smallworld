@@ -16,12 +16,12 @@ function smallworld_doUpgrade()
     } else {
         // Table does not exist -> create
 
-        $sql    = "CREATE TABLE IF NOT EXISTS " . $xoopsDB->prefix('smallworld_settings') . " (";
-        $sql    .= "`id` int(11) NOT NULL AUTO_INCREMENT,";
-        $sql    .= "`userid` int(11) NOT NULL,";
-        $sql    .= "`value` text NOT NULL,";
-        $sql    .= "PRIMARY KEY (`id`)";
-        $sql    .= ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+        $sql    = 'CREATE TABLE IF NOT EXISTS ' . $xoopsDB->prefix('smallworld_settings') . ' (';
+        $sql    .= '`id` int(11) NOT NULL AUTO_INCREMENT,';
+        $sql    .= '`userid` int(11) NOT NULL,';
+        $sql    .= '`value` text NOT NULL,';
+        $sql    .= 'PRIMARY KEY (`id`)';
+        $sql    .= ') ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
         $result = $xoopsDB->queryF($sql);
     }
 }
@@ -29,8 +29,8 @@ function smallworld_doUpgrade()
 function smallworld_adminAvatarRename()
 {
     global $xoopsDB;
-    $sql     = "update " . $xoopsDB->prefix('smallworld_admin') . " set userimage = '' WHERE userimage = 'blank.gif' || userimage NOT REGEXP '\.(jpe?g|gif|png|bmp)'";
-    $sql2    = "update " . $xoopsDB->prefix('smallworld_user') . " set userimage = '' WHERE userimage = 'blank.gif' || userimage NOT REGEXP '\.(jpe?g|gif|png|bmp)'";
+    $sql     = 'update ' . $xoopsDB->prefix('smallworld_admin') . " set userimage = '' WHERE userimage = 'blank.gif' || userimage NOT REGEXP '\.(jpe?g|gif|png|bmp)'";
+    $sql2    = 'update ' . $xoopsDB->prefix('smallworld_user') . " set userimage = '' WHERE userimage = 'blank.gif' || userimage NOT REGEXP '\.(jpe?g|gif|png|bmp)'";
     $result  = $xoopsDB->queryF($sql);
     $result2 = $xoopsDB->queryF($sql2);
 }
@@ -49,7 +49,7 @@ function smallworld_DoTableExists($tablename)
 function varcharToBlog()
 {
     global $xoopsDB;
-    $sql    = "ALTER TABLE " . $xoopsDB->prefix('smallworld_messages') . " CHANGE message message TEXT";
+    $sql    = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_messages') . ' CHANGE message message TEXT';
     $result = $xoopsDB->queryF($sql);
 }
 
@@ -60,7 +60,7 @@ function varcharToBlog()
 function smallworld_comToBlog()
 {
     global $xoopsDB;
-    $sql    = "ALTER TABLE " . $xoopsDB->prefix('smallworld_comments') . " CHANGE comment comment TEXT";
+    $sql    = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_comments') . ' CHANGE comment comment TEXT';
     $result = $xoopsDB->queryF($sql);
 }
 

@@ -38,16 +38,16 @@ smallworld_doUpgrade();
 if (file_exists($GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php'))) {
     include_once $GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php');
 } else {
-    redirect_header("../../../admin.php", 5, _AM_MODULEADMIN_MISSING, false);
+    redirect_header('../../../admin.php', 5, _AM_MODULEADMIN_MISSING, false);
 }
 
 if ($xoopsUser) {
-    $xoopsModule = XoopsModule::getByDirname("smallworld");
+    $xoopsModule = XoopsModule::getByDirname('smallworld');
     if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
-        redirect_header(XOOPS_URL . "/", 2, _NOPERM);
+        redirect_header(XOOPS_URL . '/', 2, _NOPERM);
         exit();
     }
 } else {
-    redirect_header(XOOPS_URL . "/", 2, _NOPERM);
+    redirect_header(XOOPS_URL . '/', 2, _NOPERM);
     exit();
 }

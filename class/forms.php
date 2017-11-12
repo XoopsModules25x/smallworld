@@ -30,13 +30,13 @@ class SmallWorldForm
      */
     function dropdown($name, array $options, $selected = null)
     {
-        $dropdown = '<select name="' . $name . '" id="' . $name . '">' . "<br>";
+        $dropdown = '<select name="' . $name . '" id="' . $name . '">' . '<br>';
         $selected = $selected;
         foreach ($options as $key => $option) {
-            $select   = $selected == $key ? ' selected="yes"' : "";
-            $dropdown .= '<option value="' . $key . '"' . $select . '>' . $option . '</option>' . "<br>";
+            $select   = $selected == $key ? ' selected="yes"' : '';
+            $dropdown .= '<option value="' . $key . '"' . $select . '>' . $option . '</option>' . '<br>';
         }
-        $dropdown .= '</select>' . "<br>";
+        $dropdown .= '</select>' . '<br>';
         return $dropdown;
     }
 
@@ -50,7 +50,7 @@ class SmallWorldForm
     function radio($name, array $options, $selected = null)
     {
         $selected = $selected;
-        $form     = "";
+        $form     = '';
         foreach ($options as $value => $option) {
             $select = $selected == $value ? ' checked="checked"' : ' checked="unchecked"';
             $form   .= '<input type="checkbox" name="' . $name . '[]" id="' . $name . '" value="' . $value . '" ' . $select . '> ' . $option . '<br/>';
@@ -71,9 +71,9 @@ class SmallWorldForm
         $a    = count($options) - 1;
         for ($i = 0; $i <= $a; $i++) {
             if (in_array($i, $valuearray)) {
-                $form .= '<input type="checkbox" id="' . $name . '-' . $i . '" name="' . $name . '[]" value="' . $i . '" checked="checked"/>' . $options[$i] . "<br/>";
+                $form .= '<input type="checkbox" id="' . $name . '-' . $i . '" name="' . $name . '[]" value="' . $i . '" checked="checked"/>' . $options[$i] . '<br/>';
             } else {
-                $form .= '<input type="checkbox" id="' . $name . '-' . $i . '" name="' . $name . '[]" value="' . $i . '" />' . $options[$i] . "<br/>";
+                $form .= '<input type="checkbox" id="' . $name . '-' . $i . '" name="' . $name . '[]" value="' . $i . '" />' . $options[$i] . '<br/>';
             }
         }
         return $form;
@@ -131,10 +131,10 @@ class SmallWorldForm
     function dropdown_add($class, $name, $name2, $rel, array $options, $textmore, $selected = null, $preset = null)
     {
         $dropdown = '<span id="' . $name . '"><input type="text" name="' . $name2 . '[]" value="' . $preset . '"/>';
-        $dropdown .= '<select class="smallworld_select" name="' . $name . '[]" id="' . $name . '"></p>' . "<br>";
+        $dropdown .= '<select class="smallworld_select" name="' . $name . '[]" id="' . $name . '"></p>' . '<br>';
         foreach ($options as $key => $option) {
             $select   = $selected == $key ? ' selected' : null;
-            $dropdown .= '<option value="' . $key . '"' . $select . '>' . $option . '</option>' . "<br>";
+            $dropdown .= '<option value="' . $key . '"' . $select . '>' . $option . '</option>' . '<br>';
         }
         $dropdown .= '</select></span>';
         return $dropdown;
@@ -173,7 +173,7 @@ class SmallWorldForm
      */
     function textarea($name, $id, $title, $rows, $cols, $class, $preset = null)
     {
-        return "<textarea name='" . $name . "' id='" . $id . "'  title='" . $title . "' rows='" . $rows . "' cols='" . $cols . "' class='" . $class . "'>" . $preset . "</textarea>";
+        return "<textarea name='" . $name . "' id='" . $id . "'  title='" . $title . "' rows='" . $rows . "' cols='" . $cols . "' class='" . $class . "'>" . $preset . '</textarea>';
     }
 
     /**
@@ -203,10 +203,10 @@ class SmallWorldForm
         $selectedstop = null)
     {
         $dropdown = '<div id="' . $name . '"><p class="smallworld_clonebreaker">' . _SMALLWORLD_SCHOOLNAME . '<input class="school" type="text" value="' . $preset . '" name="' . $name2 . '[]"/>';
-        $dropdown .= '<br><br>' . _SMALLWORLD_SCHOOLTYPE . '<select class="school" name="' . $name . '[]" id="' . $name . '"">' . "<br>";
+        $dropdown .= '<br><br>' . _SMALLWORLD_SCHOOLTYPE . '<select class="school" name="' . $name . '[]" id="' . $name . '"">' . '<br>';
         foreach ($options as $key => $option) {
             $select   = $selected == $key ? ' selected="selected"' : null;
-            $dropdown .= '<option  class="school" value="' . $key . '"' . $select . '>' . $option . '</option>' . "<br>";
+            $dropdown .= '<option  class="school" value="' . $key . '"' . $select . '>' . $option . '</option>' . '<br>';
         }
         $dropdown .= '</select>';
         $dropdown .= '<br><br>';
@@ -214,7 +214,7 @@ class SmallWorldForm
         $array    = SmallworldGetTimestampsToForm();
         foreach ($array as $key => $option) {
             $selectstart = $selectedstart == $key ? ' selected="selected"' : null;
-            $dropdown    .= '<option value="' . $key . '"' . $selectstart . '>' . $option . '</option>' . "<br>";
+            $dropdown    .= '<option value="' . $key . '"' . $selectstart . '>' . $option . '</option>' . '<br>';
         }
         $dropdown .= '</select>';
         $dropdown .= '<br><br>';
@@ -222,7 +222,7 @@ class SmallWorldForm
         $array    = SmallworldGetTimestampsToForm();
         foreach ($array as $key => $option) {
             $selectstop = $selectedstop == $key ? ' selected="selected"' : null;
-            $dropdown   .= '<option value="' . $key . '"' . $selectstop . '>' . $option . '</option>' . "<br>";
+            $dropdown   .= '<option value="' . $key . '"' . $selectstop . '>' . $option . '</option>' . '<br>';
         }
         $dropdown .= '</select><br></p></div>';
         return $dropdown;
@@ -259,7 +259,7 @@ class SmallWorldForm
         $text .= '<br><br>' . _SMALLWORLD_JOBSTART . '<input class="jobstart" type="text" value="' . $selectedstart . '" name="jobstart[]"/>';
         $text .= '<br><br>' . _SMALLWORLD_JOBSTOP . '<input class="jobstop" value="' . $selectedstop . '" type="text" name="jobstop[]"/>';
         $text .= '<br><br><span class="jobdescText">' . _SMALLWORLD_DESCRIPTION . '</span><textarea class="jobdesc" name="description[]" rows="20" cols="20">' . $description . '</textarea><br></p></div>';
-        $text .= "" . "<br>";
+        $text .= '' . '<br>';
         return $text;
 
     }
@@ -312,10 +312,10 @@ class SmallWorldForm
         global $xoopsUser, $xoopsDB;
 
         $form = "<div style='display:none'><div class='smallworld_usersetings'>";
-        $form .= "<fieldset><legend>" . _SMALLWORLD_SHOWIFPUBLICORPRIVATE . "</legend>";
+        $form .= '<fieldset><legend>' . _SMALLWORLD_SHOWIFPUBLICORPRIVATE . '</legend>';
         $form .= "<form id='perset'>";
         if ($xoopsUser) {
-            $sql    = "SELECT value FROM " . $xoopsDB->prefix('smallworld_settings') . " WHERE userid = " . intval($userid);
+            $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . intval($userid);
             $result = $xoopsDB->queryF($sql);
             $i      = $xoopsDB->getRowsNum($result);
             $v      = array();
@@ -336,7 +336,7 @@ class SmallWorldForm
             }
         }
         $form .= "<br><input type='submit' id='smallworld_privsave' value='" . _SMALLWORLD_SUBMIT . "' class='smallworld_finish'/>";
-        $form .= "</form></fieldset></div></div>";
+        $form .= '</form></fieldset></div></div>';
         return $form;
     }
 }

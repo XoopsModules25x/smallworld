@@ -18,14 +18,14 @@
  * @Last       changed date:    $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
  * @ID         :                    $Id: xoops_version.php 11992 2013-08-31 18:06:22Z djculex $
  **/
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
 
 $modversion['name']                = _MI_SMALLWORLD_MODULE_NAME;
 $modversion['version']             = 1.15;
 $modversion['description']         = _MI_SMALLWORLD_MODULE_DESC;
-$modversion['author']              = "Michael Albertsen";
+$modversion['author']              = 'Michael Albertsen';
 $modversion['nickname']            = 'Culex';
-$modversion['credits']             = "Mariane, Mrsculex, Mamba, Rune, Zth, Cesag, Flipse, Dante";
+$modversion['credits']             = 'Mariane, Mrsculex, Mamba, Rune, Zth, Cesag, Flipse, Dante';
 $modversion['module_website_name'] = 'www.culex.dk';
 $modversion['module_website_url']  = 'www.culex.dk';
 $modversion['license']             = 'GNU GPL';
@@ -40,8 +40,8 @@ $modversion['min_admin']           = '1.1';
 $modversion['min_db']              = array('mysql' => '5.0.5', 'mysqli' => '5.0.5');
 $modversion['system_menu']         = 1;
 $modversion['official']            = 0;
-$modversion['image']               = "images/smallworld.png";
-$modversion['dirname']             = "smallworld";
+$modversion['image']               = 'images/smallworld.png';
+$modversion['dirname']             = 'smallworld';
 
 $modversion['icons16'] = '../../Frameworks/moduleclasses/icons/16';
 $modversion['icons32'] = '../../Frameworks/moduleclasses/icons/32';
@@ -54,20 +54,20 @@ $modversion['hasAdmin'] = 1;
 
 // Menu
 $modversion['hasMain']    = 1;
-$modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu']  = "admin/menu.php";
+$modversion['adminindex'] = 'admin/index.php';
+$modversion['adminmenu']  = 'admin/menu.php';
 
-$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
-$modversion['tables'][0]        = "smallworld_admin";
-$modversion['tables'][1]        = "smallworld_comments";
-$modversion['tables'][2]        = "smallworld_followers";
-$modversion['tables'][3]        = "smallworld_friends";
-$modversion['tables'][4]        = "smallworld_images";
-$modversion['tables'][5]        = "smallworld_messages";
-$modversion['tables'][6]        = "smallworld_user";
-$modversion['tables'][7]        = "smallworld_vote";
-$modversion['tables'][8]        = "smallworld_complaints";
-$modversion['tables'][9]        = "smallworld_settings";
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
+$modversion['tables'][0]        = 'smallworld_admin';
+$modversion['tables'][1]        = 'smallworld_comments';
+$modversion['tables'][2]        = 'smallworld_followers';
+$modversion['tables'][3]        = 'smallworld_friends';
+$modversion['tables'][4]        = 'smallworld_images';
+$modversion['tables'][5]        = 'smallworld_messages';
+$modversion['tables'][6]        = 'smallworld_user';
+$modversion['tables'][7]        = 'smallworld_vote';
+$modversion['tables'][8]        = 'smallworld_complaints';
+$modversion['tables'][9]        = 'smallworld_settings';
 
 // Templates
 $i                                          = 1;
@@ -109,10 +109,10 @@ $modversion['templates'][$i]['description'] = '';
 
 // Blocks
 $i                                       = 1;
-$modversion['blocks'][$i]['file']        = "smallworld_block.php";
+$modversion['blocks'][$i]['file']        = 'smallworld_block.php';
 $modversion['blocks'][$i]['name']        = 'Block for empty module';
 $modversion['blocks'][$i]['description'] = 'This is a Block for the empty module';
-$modversion['blocks'][$i]['show_func']   = "smallworld_block";
+$modversion['blocks'][$i]['show_func']   = 'smallworld_block';
 $modversion['blocks'][$i]['template']    = 'smallworld_block.html';
 
 //Module Configs
@@ -311,7 +311,7 @@ $modversion['config'][$i]['default']     = 1;
 
 // Search
 $modversion['hasSearch']      = 1;
-$modversion['search']['file'] = "include/search.inc.php";
-$modversion['search']['func'] = "smallworld_search";
+$modversion['search']['file'] = 'include/search.inc.php';
+$modversion['search']['func'] = 'smallworld_search';
 
 ?>

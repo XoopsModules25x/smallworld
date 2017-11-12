@@ -54,11 +54,11 @@ class smallworld_mail
         $To_avatarlink = "<img class='left' src='" . smallworld_getAvatarLink($toUserID, $To_avatar) . "' height='90px' width='90px'>";
         // Senders username
         $SendName    = $FromUser->getVar('uname');
-        $SendNameUrl = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $SendName . "'>" . $SendName . "</a>";
+        $SendNameUrl = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $SendName . "'>" . $SendName . '</a>';
 
         // Recievers username and email
         $RecieveName    = $ToUser->getVar('uname');
-        $RecieveNameUrl = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $RecieveName . "'>" . $RecieveName . "</a>";
+        $RecieveNameUrl = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $RecieveName . "'>" . $RecieveName . '</a>';
 
         // Checking content of 'event' to send right message
         if ($event == 'register') {
@@ -106,7 +106,7 @@ class smallworld_mail
 
             $ownermessage = stripslashes($this->getOwnerUpdateFromMsgID($data['msg_id_fk']));
             if (preg_match('/UPLIMAGE/', $ownermessage)) {
-                $ownmsg       = str_replace("UPLIMAGE ", "", $ownermessage);
+                $ownmsg       = str_replace('UPLIMAGE ', '', $ownermessage);
                 $ownermessage = "<img width='300px' src='" . $ownmsg . "' style='margin: 5px 0px;' />";
             }
 
@@ -115,10 +115,10 @@ class smallworld_mail
             $Owner_avatar     = $wall->Gravatar($owner);
             $Owner_avatarlink = "<img class='left' src='" . smallworld_getAvatarLink($owner, $Owner_avatar) . "' height='90px' width='90px'>";
             $OwnerName        = $OwnerUser->getVar('uname');
-            $OwnerNameUrl     = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $OwnerName . "'>" . $OwnerName . "</a>";
+            $OwnerNameUrl     = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $OwnerName . "'>" . $OwnerName . '</a>';
 
-            $replylink = "<a href='" . XOOPS_URL . "/modules/smallworld/permalink.php?ownerid=" . $owner . "&updid=" . $data['msg_id_fk'] . "'>";
-            $replylink .= _SMALLWORLD_SEEANDREPLYHERE . "</a>";
+            $replylink = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $owner . '&updid=' . $data['msg_id_fk'] . "'>";
+            $replylink .= _SMALLWORLD_SEEANDREPLYHERE . '</a>';
 
             $tpl = new XoopsTpl();
             $tpl->assign('recievename', $RecieveName);
@@ -142,7 +142,7 @@ class smallworld_mail
         } elseif ($event == 'friendshipfollow') {
             $subject = _SMALLWORLD_MAIL_NEWFRIENDFOLLOWER . $xoopsConfig['sitename'];
             $link    = "<a href='" . XOOPS_URL . "/modules/smallworld/index.php'>";
-            $link    .= _SMALLWORLD_GOTOSMALLWORLDHERE . "</a>";
+            $link    .= _SMALLWORLD_GOTOSMALLWORLDHERE . '</a>';
 
             $tpl = new XoopsTpl();
             $tpl->assign('toUser', $RecieveName);
@@ -186,7 +186,7 @@ class smallworld_mail
     {
         global $xoopsDB;
         $parts  = array();
-        $sql    = "SELECT uid_fk FROM " . $xoopsDB->prefix('smallworld_comments') . " WHERE msg_id_fk = '" . $msg_id_fk . "'";
+        $sql    = 'SELECT uid_fk FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE msg_id_fk = '" . $msg_id_fk . "'";
         $result = $xoopsDB->queryF($sql);
         while ($r = $xoopsDB->fetchArray($result)) {
             $parts[] = $r['uid_fk'];
@@ -197,7 +197,7 @@ class smallworld_mail
     function getOwnerUpdateFromMsgID($msgid)
     {
         global $xoopsDB;
-        $sql    = "SELECT message FROM " . $xoopsDB->prefix('smallworld_messages') . " WHERE msg_id = '" . $msgid . "'";
+        $sql    = 'SELECT message FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE msg_id = '" . $msgid . "'";
         $result = $xoopsDB->queryF($sql);
         while ($r = $xoopsDB->fetchArray($result)) {
             $message = $r['message'];

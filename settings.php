@@ -19,9 +19,9 @@
  * @ID         :                    $Id: friendinvite.php 8815 2012-01-26 15:33:48Z djculex $
  **/
 global $xoopsUser;
-include_once("../../mainfile.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
+include_once('../../mainfile.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
 global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;
 

@@ -18,12 +18,12 @@
  * @Last       changed date:    $Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
  * @ID         :                    $Id: friends.php 11843 2013-07-18 17:29:48Z djculex $
  **/
-include_once("../../mainfile.php");
+include_once('../../mainfile.php');
 $xoopsOption['template_main'] = 'smallworld_friends_template.html';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/arrays.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
 global $xoopsUser;
 
 if ($xoopsUser) {
@@ -38,7 +38,7 @@ if ($xoopsUser) {
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = Smallworld_isInspected($yourid);
     if ($inspect['inspect'] == 'yes') {
-        redirect_header("userprofile.php?username=" . $xoopsUser->getVar('uname'), 1);
+        redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
 
     if ($profile >= 2) {
@@ -175,12 +175,12 @@ if ($xoopsUser) {
         $xoopsTpl->assign('usersetting', $usersettings);
 
         // Get usermenu to template
-        $menu_home    = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . "</a>";
-        $menu_profile = "<a href='" . XOOPS_URL . "/modules/smallworld/userprofile.php?username=" . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . "</a>";
-        $menu_gallery = "<a href='" . XOOPS_URL . "/modules/smallworld/galleryshow.php?username=" . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/picture.png'>" . _SMALLWORLD_GALLERY . "</a>";
-        $menu_friends = "<a href='" . XOOPS_URL . "/modules/smallworld/friends.php?username=" . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . "</a>";
+        $menu_home    = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
+        $menu_profile = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
+        $menu_gallery = "<a href='" . XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/picture.png'>" . _SMALLWORLD_GALLERY . '</a>';
+        $menu_friends = "<a href='" . XOOPS_URL . '/modules/smallworld/friends.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
         $menu_xim_js  = "javascript:chatWith('" . $id . "','" . $Xusername . "')";
-        $menu_ximme   = "<a href='javascript:void(0);' onClick=" . $menu_xim_js . "><img height='10px' width='10px' src='" . XOOPS_URL . "/modules/smallworld/images/messenger.png'>" . _SMALLWORLD_XIMUSER . $Xusername . "</a>";
+        $menu_ximme   = "<a href='javascript:void(0);' onClick=" . $menu_xim_js . "><img height='10px' width='10px' src='" . XOOPS_URL . "/modules/smallworld/images/messenger.png'>" . _SMALLWORLD_XIMUSER . $Xusername . '</a>';
 
         // Check for folder xim to add messenger user to menu items
         $hasxim = smallworld_checkForXim();
@@ -212,7 +212,7 @@ if ($xoopsUser) {
     }
 
 } else {
-    redirect_header(XOOPS_URL . "/user.php", 1, _NOPERM);
+    redirect_header(XOOPS_URL . '/user.php', 1, _NOPERM);
 }
-include(XOOPS_ROOT_PATH . "/footer.php");
+include(XOOPS_ROOT_PATH . '/footer.php');
 ?>

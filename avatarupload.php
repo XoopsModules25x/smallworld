@@ -19,9 +19,9 @@
  * @ID         :                    $Id: avatarupload.php 8749 2012-01-18 05:17:13Z beckmi $
  **/
 global $xoopsUser, $xoopsLogger;
-include_once("../../mainfile.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
+include_once('../../mainfile.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
 if ($xoopsUser) {
     $xoopsLogger->activated = false;
     $userID                 = $xoopsUser->getVar('uid');
@@ -33,11 +33,11 @@ if ($xoopsUser) {
     $newname   = time() . rand(0, 99999);
 
     // Generate new name for file
-    $f       = explode(".", basename(stripslashes($_FILES['smallworld_uploadfile']['name'])));
-    $newname = time() . rand(0000, 9999) . "." . $f[1];
+    $f       = explode('.', basename(stripslashes($_FILES['smallworld_uploadfile']['name'])));
+    $newname = time() . rand(0000, 9999) . '.' . $f[1];
     $newfile = $uploaddir . basename($newname);
     // Save new name to users profile in DB
-    $dbuserimage = "avatars/" . basename(stripslashes($newfile));
+    $dbuserimage = 'avatars/' . basename(stripslashes($newfile));
     $db->updateSingleValue('smallworld_user', $userID, 'userimage', $dbuserimage);
     $db->updateSingleValue('smallworld_admin', $userID, 'userimage', $dbuserimage);
 
@@ -45,7 +45,7 @@ if ($xoopsUser) {
     if (move_uploaded_file($_FILES['smallworld_uploadfile']['tmp_name'], $newfile)) {
         echo json_encode(array('success', basename(stripslashes($newfile))));
     } else {
-        echo "error";
+        echo 'error';
     }
 }
 ?>

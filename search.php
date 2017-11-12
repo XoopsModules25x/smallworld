@@ -18,17 +18,17 @@
  * @Last       changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
  * @ID         :                    $Id: search.php 12175 2013-10-15 17:41:43Z djculex $
  **/
-include_once("../../mainfile.php");
+include_once('../../mainfile.php');
 $xoopsOption['template_main'] = 'smallworld_index.html';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/arrays.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
 global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsDB;
 $xoopsLogger->activated = false;
 if ($_GET) {
     $q      = Smallworld_sanitize($_GET['term']);
-    $sql    = "SELECT * FROM " . $xoopsDB->prefix('smallworld_user') . " WHERE realname LIKE '%" . $q . "%' OR username LIKE '%" . $q . "%' ORDER BY userid LIMIT 5";
+    $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE realname LIKE '%" . $q . "%' OR username LIKE '%" . $q . "%' ORDER BY userid LIMIT 5";
     $result = $xoopsDB->query($sql);
     $data   = array();
 
@@ -38,7 +38,7 @@ if ($_GET) {
 
         $imageHw = smallworld_imageResize($imageSize[0], $imageSize[1], 30);
         $data[]  = array(
-            'label' => $image . ' ' . '<span class="searchusername">' . $row['realname'] . " (" . $row['username'] . ")</span>",
+            'label' => $image . ' ' . '<span class="searchusername">' . $row['realname'] . ' (' . $row['username'] . ')</span>',
             'value' => $user->uname()
         );
     }

@@ -20,8 +20,8 @@
  **/
 include '../../mainfile.php';
 include_once(XOOPS_ROOT_PATH . '/class/template.php');
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 
 global $xoopsUser, $xoopsLogger, $xoopsDB, $xoopsTpl;
 $xoopsLogger->activated  = false;

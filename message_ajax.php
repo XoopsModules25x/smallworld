@@ -19,9 +19,9 @@
  * @ID         :                    $Id: message_ajax.php 12114 2013-10-01 17:11:18Z djculex $
  **/
 
-include_once("../../mainfile.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
+include_once('../../mainfile.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
 include_once(XOOPS_ROOT_PATH . '/class/template.php');
 global $xoopsUser, $xoopsModule, $xoopsLogger, $xoopsTpl;
 $xoopsLogger->activated = false;
@@ -87,17 +87,17 @@ if ($profile >= 2) {
                 $wm['avatar_link']     = smallworld_getAvatarLink($data['uid_fk'], $wm['avatar']);
                 $wm['avatar_size']     = smallworld_getImageSize(80, 100, $wm['avatar_link']);
                 $wm['avatar_highwide'] = smallworld_imageResize($wm['avatar_size'][0], $wm['avatar_size'][1], 50);
-                $wm['compl_msg_lnk']   = "<a href='" . XOOPS_URL . "/modules/smallworld/permalink.php?ownerid=" . $data['uid_fk'];
-                $wm['compl_msg_lnk']   .= "&updid=" . $data['msg_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . "</a>";
+                $wm['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'];
+                $wm['compl_msg_lnk']   .= '&updid=' . $data['msg_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
                 $wm['vote_up']         = $Wall->countVotes('msg', 'up', $data['msg_id']);
                 $wm['vote_down']       = $Wall->countVotes('msg', 'down', $data['msg_id']);
-                $wm['compl_msg_lnk']   = "<a href='" . XOOPS_URL . "/modules/smallworld/permalink.php?ownerid=" . $data['uid_fk'];
-                $wm['compl_msg_lnk']   .= "&updid=" . $data['msg_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . "</a>";
-                $wm['sharelinkurl']    = XOOPS_URL . "/modules/smallworld/smallworldshare.php?ownerid=" . $data['uid_fk'];
-                $wm['sharelinkurl']    .= "&updid=" . $data['msg_id'] . "";
+                $wm['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'];
+                $wm['compl_msg_lnk']   .= '&updid=' . $data['msg_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
+                $wm['sharelinkurl']    = XOOPS_URL . '/modules/smallworld/smallworldshare.php?ownerid=' . $data['uid_fk'];
+                $wm['sharelinkurl']    .= '&updid=' . $data['msg_id'] . '';
                 $wm['usernameTitle']   = $wm['username'] . _SMALLWORLD_UPDATEONSITEMETA . $xoopsConfig['sitename'];
-                $wm['linkimage']       = XOOPS_URL . "/modules/smallworld/images/link.png";
-                $wm['permalink']       = XOOPS_URL . "/modules/smallworld/permalink.php?ownerid=" . $data['uid_fk'] . "&updid=" . $data['msg_id'];
+                $wm['linkimage']       = XOOPS_URL . '/modules/smallworld/images/link.png';
+                $wm['permalink']       = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id'];
                 if ($USW['posts'] == 1 || $profile >= 2) {
                     $wm['sharelink'] = $Wall->GetSharing($wm['msg_id'], $wm['priv']);
                 } else {
@@ -148,8 +148,8 @@ if ($profile >= 2) {
                         $wc['avatar_highwide'] = smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);
                         $wc['cface']           = $Wall->Gravatar($cdata['uid_fk']);
                         $wc['avatar_link']     = smallworld_getAvatarLink($cdata['uid_fk'], $wc['cface']);
-                        $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . "/modules/smallworld/permalink.php?ownerid=" . Smallworld_getOwnerFromComment($cdata['msg_id_fk']);
-                        $wc['compl_msg_lnk']   .= "&updid=" . $cdata['msg_id_fk'] . "#" . $cdata['com_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . "</a>";
+                        $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . Smallworld_getOwnerFromComment($cdata['msg_id_fk']);
+                        $wc['compl_msg_lnk']   .= '&updid=' . $cdata['msg_id_fk'] . '#' . $cdata['com_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
                         $wc['vote_up']         = $Wall->countVotesCom('com', 'up', $cdata['msg_id_fk'], $cdata['com_id']);
                         $wc['vote_down']       = $Wall->countVotesCom('com', 'down', $cdata['msg_id_fk'], $cdata['com_id']);
                         $tpl->append('comm', $wc);

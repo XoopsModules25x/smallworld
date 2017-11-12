@@ -18,12 +18,12 @@
  * @Last       changed date:    $Date: 2013-05-22 15:25:30 +0200 (on, 22 maj 2013) $
  * @ID         :                    $Id: editimages.php 11576 2013-05-22 13:25:30Z djculex $
  **/
-include_once("../../mainfile.php");
+include_once('../../mainfile.php');
 $xoopsOption['template_main'] = 'smallworld_images_edittemplate.html';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/functions.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/include/arrays.php");
-include_once(XOOPS_ROOT_PATH . "/modules/smallworld/class/class_collector.php");
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php');
+include_once(XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php');
 global $xoopsUser, $xoopsTpl, $xoopsDB, $xoTheme;
 
 if ($xoopsUser) {
@@ -32,7 +32,7 @@ if ($xoopsUser) {
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = Smallworld_isInspected($userID);
     if ($inspect['inspect'] == 'yes') {
-        redirect_header("userprofile.php?username=" . $xoopsUser->getVar('uname'), 1);
+        redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
 
     $check   = new SmallWorldUser;
@@ -43,7 +43,7 @@ if ($xoopsUser) {
         $db   = new SmallWorldDB;
 
         $editimages = '';
-        $sql        = "SELECT *FROM " . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userID . "'";
+        $sql        = 'SELECT *FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userID . "'";
         $result     = $xoopsDB->query($sql);
         $i          = 0;
         while ($sqlfetch = $xoopsDB->fetchArray($result)) {
@@ -54,8 +54,8 @@ if ($xoopsUser) {
         $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
         //$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/colorbox.css');
     } else {
-        redirect_header("index.php", 1);
+        redirect_header('index.php', 1);
     }
 }
-include(XOOPS_ROOT_PATH . "/footer.php");
+include(XOOPS_ROOT_PATH . '/footer.php');
 ?>

@@ -52,13 +52,13 @@ class SmallWorldFriends
         $data   = array();
         if ($xoopsUser) {
             if ($action == 'pending') {
-                $sql = "SELECT * FROM " . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $id . "' AND status = 1";
+                $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $id . "' AND status = 1";
             } elseif ($action == 'friends') {
-                $sql = "SELECT * FROM " . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $id . "' AND status = 2";
+                $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $id . "' AND status = 2";
             } elseif ($action == 'following') {
-                $sql = "SELECT * FROM " . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . $id . "'";
+                $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . $id . "'";
             } elseif ($action == 'followingme') {
-                $sql = "SELECT * FROM " . $xoopsDB->prefix('smallworld_followers') . " WHERE you = '" . $id . "'";
+                $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE you = '" . $id . "'";
             }
             $result = $xoopsDB->queryF($sql);
             $count  = $xoopsDB->getRowsNum($result);

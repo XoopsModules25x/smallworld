@@ -111,10 +111,10 @@ class SmallworldUploadHandler
 
         // Generate new name for file
         //$file->name = basename(stripslashes($name));
-        $file->name = time() . rand(0, 99999) . "." . $this->getFileExtension($name);
+        $file->name = time() . rand(0, 99999) . '.' . $this->getFileExtension($name);
         $file->size = intval($size);
         $file->type = $type;
-        $img        = XOOPS_URL . "/uploads/albums_smallworld/" . $userid . "/" . $file->name;
+        $img        = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file->name;
 
         // Save to database for later use
         $db->saveImage("'', '" . $userid . "', '" . $file->name . "', '" . addslashes($img) . "', '" . time() . "', ''");
@@ -205,7 +205,7 @@ class SmallworldUploadHandler
         $db        = new SmallWorldDB;
         $file_name = isset($_REQUEST['file']) ? basename(stripslashes($_REQUEST['file'])) : null;
         $file_path = $this->upload_dir . $file_name;
-        $img       = XOOPS_URL . "/uploads/albums_smallworld/" . $userid . "/" . $file->name;
+        $img       = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file->name;
 
         // Delete file based on user and filename
         $db->DeleteImage($userid, $file_name);

@@ -21,8 +21,8 @@
  * @ID        :                $Id: modinfo.php 11992 2013-08-31 18:06:22Z djculex $
  **/
 
-define("_MI_SMALLWORLD_MODULE_NAME", "Smallworld");
-define("_MI_SMALLWORLD_MODULE_DESC", "A social network module in the small. With wall and profiling");
+define('_MI_SMALLWORLD_MODULE_NAME', 'Smallworld');
+define('_MI_SMALLWORLD_MODULE_DESC', 'A social network module in the small. With wall and profiling');
 define('_MI_SMALLWORLD_ADMENU', 'Administration');
 define('_MI_SMALLWORLDMENU_INDEX', 'Home');
 define('_MI_SMALLWORLDMENU_STATS', 'Statistics');
@@ -33,29 +33,29 @@ define('_MI_SMALLWORLDMENU_ABOUT', 'About');
 /* -------- Configs ---------- */
 
 // Map apis
-define("_MI_SMALLWORLD_USEGOOGLEMAPS", "Use google maps geolocation Api ?");
-define("_MI_SMALLWORLD_USEGOOGLEMAPS_DESC", "Default yes");
+define('_MI_SMALLWORLD_USEGOOGLEMAPS', 'Use google maps geolocation Api ?');
+define('_MI_SMALLWORLD_USEGOOGLEMAPS_DESC', 'Default yes');
 
 // Messages per page
-define("_MI_SMALLWORLD_MSGTOSHOW", "Messages to show ?");
-define("_MI_SMALLWORLD_MSGTOSHOW_DESC", "How many messages (updates) to show from the beginning on profile and index page.");
+define('_MI_SMALLWORLD_MSGTOSHOW', 'Messages to show ?');
+define('_MI_SMALLWORLD_MSGTOSHOW_DESC', 'How many messages (updates) to show from the beginning on profile and index page.');
 
 // Use validation
-define("_MI_SMALLWORLD_VALIDATIONSTRENGHT", "Validation of steps");
-define("_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC", "Use validation on register and edit profile.<br><br>Options are:<br><br>No: No validation<br>Yes: Most *important* fields must be validated ");
+define('_MI_SMALLWORLD_VALIDATIONSTRENGHT', 'Validation of steps');
+define('_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC', 'Use validation on register and edit profile.<br><br>Options are:<br><br>No: No validation<br>Yes: Most *important* fields must be validated ');
 
 // Smallworld take-over user name links ?
-define("_MI_SMALLWORLD_TAKEOVERLINKS", "Convert username links to smallworld");
-define("_MI_SMALLWORLD_TAKEOVERLINKS_DESC", "Smallworld will use a small javascript to change links on load to point to userprofile<br>instead of userinfo.php<br><br>Default is 'no'");
+define('_MI_SMALLWORLD_TAKEOVERLINKS', 'Convert username links to smallworld');
+define('_MI_SMALLWORLD_TAKEOVERLINKS_DESC', "Smallworld will use a small javascript to change links on load to point to userprofile<br>instead of userinfo.php<br><br>Default is 'no'");
 
-define("_MI_SMALLWORLD_USERSOWNMSGCOUNTS", "Users own posts count in check ? ");
-define("_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC", "Every 10 seconds the posts of your followers are counted and a refresh button will show, <br>if result is not 0. If you choose yes to this, this button will also react when you post/delete posts.");
+define('_MI_SMALLWORLD_USERSOWNMSGCOUNTS', 'Users own posts count in check ? ');
+define('_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC', 'Every 10 seconds the posts of your followers are counted and a refresh button will show, <br>if result is not 0. If you choose yes to this, this button will also react when you post/delete posts.');
 
-define("_MI_SMALLWORLD_BOOKMARSAVATARS", "Use Smallworld Logo when bookmarking ? ");
-define("_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC", "When posts are public and you want to share on social networks. You can here decide whether to use<br>smallworld logo as shared image or 'no' = the posting users avatar.<br><br>Default is 'yes' = smallworld logo.");
+define('_MI_SMALLWORLD_BOOKMARSAVATARS', 'Use Smallworld Logo when bookmarking ? ');
+define('_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC', "When posts are public and you want to share on social networks. You can here decide whether to use<br>smallworld logo as shared image or 'no' = the posting users avatar.<br><br>Default is 'yes' = smallworld logo.");
 
-define("_MI_SMALLWORLD_USEMAILNOTIFICATION", "Use mail notifications ? ");
-define("_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC", "When new user register a mail is sent to admin, or when a comment is added to a post where user is part a mail is sent to user.<br><br>Default is 'yes'");
+define('_MI_SMALLWORLD_USEMAILNOTIFICATION', 'Use mail notifications ? ');
+define('_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC', "When new user register a mail is sent to admin, or when a comment is added to a post where user is part a mail is sent to user.<br><br>Default is 'yes'");
 
 // Select fields & Mandetory fields
 define('_MI_SMALLWORLD_VIEWFIELDS', 'Use fields in registration and profile');
