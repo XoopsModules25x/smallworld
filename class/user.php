@@ -3,22 +3,22 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/user.php $
- * @Last       committed:        $Revision: 11992 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
- * @ID         :                    $Id: user.php 11992 2013-08-31 18:06:22Z djculex $
- **/
+ */
 
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
 class SmallWorldUser
 {
 
@@ -27,7 +27,7 @@ class SmallWorldUser
      * @param int $userID
      * @return int
      */
-    function CheckIfProfile($userID)
+    public function CheckIfProfile($userID)
     {
         global $xoopsUser, $xoopsDB;
         $i      = 0;
@@ -54,7 +54,7 @@ class SmallWorldUser
      * @param int $userid
      * @return void
      */
-    function createUser($userid)
+    public function createUser($userid)
     {
         global $xoopsUser, $xoopsDB;
         $a      = new $xoopsUser($userid);
@@ -67,7 +67,7 @@ class SmallWorldUser
      * @Check is user is smallworld user
      * @return void
      */
-    function chkUser()
+    public function chkUser()
     {
         global $xoopsUser, $xoopsTpl;
         $greeting = '<br>';
@@ -82,12 +82,12 @@ class SmallWorldUser
      * @Check is user is friend
      * @param int $user
      * @param int $userID
-     * @return int
+     * @return array|int
      */
-    function friendcheck($user, $userID)
+    public function friendcheck($user, $userID)
     {
         global $xoopsUser, $xoopsDB;
-        $respons = array();
+        $respons = [];
         if ($user == $userID) {
             $respons[0] = 2;
             return $respons;
@@ -105,10 +105,10 @@ class SmallWorldUser
                 $respons[0] = 0;
             }
 
-            if (1 == $i AND 1 == $row['status']) {
+            if (1 == $i and 1 == $row['status']) {
                 $respons[0] = 1;
             }
-            if (1 == $i AND 2 == $row['status']) {
+            if (1 == $i and 2 == $row['status']) {
                 $respons[0] = 2;
             }
             return $respons;
@@ -120,7 +120,7 @@ class SmallWorldUser
      * @param int $userID
      * @return string
      */
-    function getName($userID)
+    public function getName($userID)
     {
         global $xoopsUser, $xoopsDB;
         $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
@@ -137,7 +137,7 @@ class SmallWorldUser
      * @param int $friendid
      * @return int
      */
-    function following_or($userid, $friendid)
+    public function following_or($userid, $friendid)
     {
         global $xoopsDB, $xoopsUser;
         $respons[0] = 0;
@@ -150,10 +150,10 @@ class SmallWorldUser
                     $respons[0] = 0;
                 }
 
-                if (1 == $i AND 1 == $row['status']) {
+                if (1 == $i and 1 == $row['status']) {
                     $respons[0] = 1;
                 }
-                if (1 == $i AND 2 == $row['status']) {
+                if (1 == $i and 2 == $row['status']) {
                     $respons[0] = 2;
                 }
             }
@@ -167,10 +167,10 @@ class SmallWorldUser
      * @param int $userid
      * @return array
      */
-    function getRequests($userid)
+    public function getRequests($userid)
     {
         global $xoopsDB, $xoopsUser;
-        $msg      = array();
+        $msg      = [];
         $sql      = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE you = '" . (int)$userid . "' AND status = '1'";
         $result   = $xoopsDB->queryF($sql);
         $i        = $xoopsDB->getRowsNum($result);
@@ -178,16 +178,16 @@ class SmallWorldUser
         $Wall     = new Wall_Updates();
         $myavatar = $Wall->Gravatar($userid);
         $start    = 0;
-        while ($row = $xoopsDB->fetchArray($result) AND $start <= count($row)) {
+        while ($row = $xoopsDB->fetchArray($result) and $start <= count($row)) {
             $msg[$start]['friendname']  = $this->getName($row['me']);
             $msg[$start]['img']         = $Wall->Gravatar($row['me']);
-            $msg[$start]['friendimage'] = "<img src='" . XOOPS_UPLOAD_URL . '/' . $msg[$start]['img'] . "' height='40px'/>";
+            $msg[$start]['friendimage'] = "<img src='" . XOOPS_UPLOAD_URL . '/' . $msg[$start]['img'] . "' height='40px'>";
             $msg[$start]['frienddate']  = date('d-m-Y', $row['date']);
             $msg[$start]['accept']      = '<a class="smallworldrequestlink" id = "smallworldfriendrequest_' . $msg[$start]['friendname'] . '" href = "javascript:Smallworld_AcceptDenyFriend(1,' . $row['me'] . ',' . $row['you'] . ',' . $start . ');">' . _SMALLWORLD_ACCEPT . '</a>';
             $msg[$start]['deny']        = '<a class="smallworldrequestlink" id = "smallworldfriendrequest_' . $msg[$start]['friendname'] . '" href = "javascript:Smallworld_AcceptDenyFriend(-1,' . $row['me'] . ',' . $row['you'] . ',' . $start . ');">' . _SMALLWORLD_DENY . '</a>';
             $msg[$start]['later']       = '<a class="smallworldrequestlink" id = "smallworldfriendrequest_' . $msg[$start]['friendname'] . '" href = "javascript:Smallworld_AcceptDenyFriend(0,' . $row['me'] . ',' . $row['you'] . ',' . $start . ');">' . _SMALLWORLD_LATER . '</a>';
             $msg[$start]['cnt']         = $start;
-            $start++;
+            ++$start;
         }
         return $msg;
     }
@@ -197,7 +197,7 @@ class SmallWorldUser
      * @param string $name
      * @return int
      */
-    function spousexist($name)
+    public function spousexist($name)
     {
         global $xoopsUser, $xoopsDB;
         $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE username = '" . $name . "'";
@@ -211,7 +211,7 @@ class SmallWorldUser
      * @return array
      */
 
-    function allUsers()
+    public function allUsers()
     {
         global $xoopsDB;
         $sql    = 'SELECT userid FROM ' . $xoopsDB->prefix('smallworld_user') . ' ORDER BY userid';
@@ -229,5 +229,3 @@ class SmallWorldUser
         }
     }
 }
-
-

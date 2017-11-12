@@ -103,8 +103,10 @@ define('_SMALLWORLD_NOTYETUSER_GREETING', 'Bienvenue');
 define('_SMALLWORLD_NOTYETUSER_BOXTEXT', "Afin d'utiliser ce module, vous devez remplir un formulaire de profil supplémentaire.
 		<br><br>Cliquez sur S'enregister pour continuer l'enregistrement ou cliquez sur Annuler<br>pour revenir à la page d'accueil.");
 define('_SMALLWORLD_NOTYETREGISTERED_TITLE', "Continuez pour terminer l'enregistrement");
-define('_SMALLWORLD_TEXTBEFORESUBMIT',
-       "Continuez en cliquant sur Enregistrer pour enregistrer vos informations dans la base de données.<br><br>Après cela, vous serez en mesure de visiter votre page, <br>et les pages des autres utilisateurs.<br><br>En vous remerciant d'avoir pris le temps de remplir ce formulaire.");
+define(
+    '_SMALLWORLD_TEXTBEFORESUBMIT',
+       "Continuez en cliquant sur Enregistrer pour enregistrer vos informations dans la base de données.<br><br>Après cela, vous serez en mesure de visiter votre page, <br>et les pages des autres utilisateurs.<br><br>En vous remerciant d'avoir pris le temps de remplir ce formulaire."
+);
 define('_SMALLWORLD_FRIENDSINVITATIONS', 'Ajouter en ami');
 define('_SMALLWORLD_DATERECIEVED', 'Date');
 define('_SMALLWORLD_ACCEPT', 'Accepter');
@@ -254,8 +256,10 @@ define('_SMALLWORLD_INTERESTS_TITLE', 'Intérêts et contact');
 define('_SMALLWORLD_MORE', ' .. tous les détails');
 
 /*-------------- Upload form --------------------*/
-define('_SMALLWORLD_UPLOAD_HOWTO',
-       'Toutes les images de votre album sont affichées ici. Vous pouvez utiliser cet outil pour télécharger ou supprimer des images<br><br>Cliquez sur les fichiers de téléchargement vert, Sélectionnez vos images à télécharger&thinsp;: <br> 1) Une par une à l\'aide des - src="images/icon_start.PNG" style="display: inline-block;height:13px;"/>icônes.<br> 2)Sélectionnez-en plusieurs en parcourant ou * en faisant glisser les fichiers sur le téléchargement vert (* ne fonctionne pas sous IE) et cliquez sur Démarrer <br> Remarque&thinsp;:. Si vous choisissez d\'autres types de fichiers autres que des fichiers d\'image, le script échouera. La taille de l\'image peut aller jusqu\'à 5 Mo <br> ');
+define(
+    '_SMALLWORLD_UPLOAD_HOWTO',
+       'Toutes les images de votre album sont affichées ici. Vous pouvez utiliser cet outil pour télécharger ou supprimer des images<br><br>Cliquez sur les fichiers de téléchargement vert, Sélectionnez vos images à télécharger&thinsp;: <br> 1) Une par une à l\'aide des - src="images/icon_start.PNG" style="display: inline-block;height:13px;">icônes.<br> 2)Sélectionnez-en plusieurs en parcourant ou * en faisant glisser les fichiers sur le téléchargement vert (* ne fonctionne pas sous IE) et cliquez sur Démarrer <br> Remarque&thinsp;:. Si vous choisissez d\'autres types de fichiers autres que des fichiers d\'image, le script échouera. La taille de l\'image peut aller jusqu\'à 5 Mo <br> '
+);
 define('_SMALLWORLD_UPLOADTITLE', 'Titre de l\'image');
 define('_SMALLWORLD_UPLOADDESC', 'Description de l\'image');
 define('_SMALLWORLD_UPLOAD_TITLE', 'Télécharger les images vers votre album d\'images');
@@ -266,7 +270,7 @@ define('_SMALLWORLD_IMGTITLE', 'Titre de l\'image');
 define('_SMALLWORLD_IMAGE_EDIT_TITLE', 'Modifier la description');
 define('_SMALLWORLD_WELCOME_TITLE', 'Bienvenue');
 define('_SMALLWORLD_WELCOMETEXT', ', Bienvenue. Je vous souhaite de passer un bon moment.');
-define('_SMALLWORLD_UPLOADEDSOMEIMAGES', " a envoyé de nouvelles images <br/> Cliquez sur l'image pour voir sa taille réelle ou sur ce lien<br/>pour ouvrir la Gallerie.");
+define('_SMALLWORLD_UPLOADEDSOMEIMAGES', " a envoyé de nouvelles images <br> Cliquez sur l'image pour voir sa taille réelle ou sur ce lien<br>pour ouvrir la Gallerie.");
 define('_SMALLWORLD_IMAGES_START', 'Envoyer');
 define('_SMALLWORLD_IMAGES_CANCEL', 'Annuler');
 define('_SMALLWORLD_IMAGES_DELETE', 'Supprimer');
@@ -348,7 +352,7 @@ define('_SMALLWORLD_ONEMONTHAGO', 'Il y a un mois');
 define('_SMALLWORLD_MONTHSAGO', ' il y a quelques mois');
 define('_SMALLWORLD_ONEYEARAGO', 'il y a un an');
 define('_SMALLWORLD_YEARSAGO', ' il y a quelques années');
-define('_SMALLWORLD_CLICKIMAGETHUMB', "<br/><br/>Cliquez ici pour voir la taille de l'image originale.");
+define('_SMALLWORLD_CLICKIMAGETHUMB', "<br><br>Cliquez ici pour voir la taille de l'image originale.");
 define('_SMALLWORLD_PRIVATEUPDATE', 'Privé');
 define('_SMALLWORLD_PUBLICUPDATE', 'Public');
 define('_SMALLWORLD_UPDATEBUTTONTEXT', ' Envoi ');
@@ -377,9 +381,9 @@ define('_SMALLWORLD_MAIL_NEWFRIENDFOLLOWER', "Nouvelle demande d'ami ou nouvel u
 
 define('_SMALLWORLD_MAIL_FRIENDTAGGEDYOU', 'Un ami vous a tagué dans ');
 /* ------------ Inspection & countdown ---------------- */
-define('_SMALLWORLD_INSPEC_DESC', "L'Administrateur a suspendu ce compte afin effectuer un contrôle.<br/><br/>Temps estimé de l'inspection&thinsp;:");
+define('_SMALLWORLD_INSPEC_DESC', "L'Administrateur a suspendu ce compte afin effectuer un contrôle.<br><br>Temps estimé de l'inspection&thinsp;:");
 define('_SMALLWORLD_INSPEC_DESC2', 'Revenez à ce moment là.');
-define('_SMALLWORLD_INSPEC_usermsg', "L'Administrateur a désactivé ce compte pour inspection.<br/><br/>Accès temporairement refusé !");
+define('_SMALLWORLD_INSPEC_usermsg', "L'Administrateur a désactivé ce compte pour inspection.<br><br>Accès temporairement refusé !");
 define('_SMALLWORLD_BDAY_TODAY', "Aujourd'hui");
 define('_SMALLWORLD_BDAY_ISIN', 'Anniversaire dans&thinsp;: ');
 define('_SMALLWORLD_BDAY_YEARS', 'ans');
@@ -402,4 +406,3 @@ define('_SMALLWORLD_STATS_LIKETHISMODULE', 'Vous aimez ce module&thinsp;?');
 /* ----------------- donate link -------------- */
 define('_SMALLWORLD_DONATETEXT', ' Offrez-moi un café ici ');
 //Traduit par Cesagonchu (frxoops.org) le 1er Octobre 2015
-

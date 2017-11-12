@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @return bool
+ */
 function xoops_module_update_smallworld()
 {
     $db  =& XoopsDatabaseFactory::getDatabaseConnection();

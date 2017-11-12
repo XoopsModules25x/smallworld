@@ -3,25 +3,27 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * SmallWorld
  *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/friendinvite.php $
- * @Last       committed:        $Revision: 11992 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
- * @ID         :                    $Id: friendinvite.php 11992 2013-08-31 18:06:22Z djculex $
- **/
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
 global $xoopsUser;
-include_once '../../mainfile.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once __DIR__ . '/../../mainfile.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;
 
@@ -42,28 +44,27 @@ if ($xoopsUser) {
 
     if ('1' == $invitation) {
         if ($friendProfile >= 2) {
-
             $friendshipExists = $check->friendcheck($myUid, $friend);
             if (0 == $friendshipExists[0]) {
                 $resultMsg = _SMALLWORLD_JSON_ADDFRIEND . $friendName . _SMALLWORLD_JSON_REQUEST_PENDING;
                 if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {
                     if (1 == $USC['notify']) {
-                        $mail->sendMails($friend, $friend, 'friendshipfollow', $link = null, array());
+                        $mail->sendMails($friend, $friend, 'friendshipfollow', $link = null, []);
                     }
                 }
                 $db->toogleFriendInvite($friendshipExists, $friend, $myUid);
-                echo json_encode(array('error' => 'no', 'msg' => $resultMsg, 'msgChange' => _SMALLWORLD_JSON_CANCELFR_TEXT));
+                echo json_encode(['error' => 'no', 'msg' => $resultMsg, 'msgChange' => _SMALLWORLD_JSON_CANCELFR_TEXT]);
             }
 
-            if ($friendshipExists[0] > 0 AND $friendshipExists[0] < 2) {
+            if ($friendshipExists[0] > 0 and $friendshipExists[0] < 2) {
                 $resultMsg = _SMALLWORLD_JSON_CANCEL_ADDFRIEND . $friendName;
                 $db->toogleFriendInvite($friendshipExists, $friend, $myUid);
-                echo json_encode(array('error' => 'no', 'msg' => $resultMsg, 'msgChange' => _SMALLWORLD_JSON_ADDFR_TEXT));
+                echo json_encode(['error' => 'no', 'msg' => $resultMsg, 'msgChange' => _SMALLWORLD_JSON_ADDFR_TEXT]);
             }
             if (2 == $friendshipExists[0]) {
                 $resultMsg = _SMALLWORLD_JSON_DELETE_FRIEND_START . $friendName . _SMALLWORLD_JSON_DELETE_FRIEND_END;
                 $db->toogleFriendInvite($friendshipExists, $friend, $myUid);
-                echo json_encode(array('error' => 'no', 'msg' => $resultMsg, 'msgChange' => _SMALLWORLD_JSON_ADDFR_TEXT));
+                echo json_encode(['error' => 'no', 'msg' => $resultMsg, 'msgChange' => _SMALLWORLD_JSON_ADDFR_TEXT]);
             }
         } else {
             echo 'friend does not exist';
@@ -77,14 +78,13 @@ if ($xoopsUser) {
             if (0 == $following[0]) {
                 $resultMsgFollow = _SMALLWORLD_JSON_FOLLOWINGFRIEND . $friendName . _SMALLWORLD_JSON_FOLLOWINGFRIEND_DESC;
                 $db->toogleFollow($following[0], $myUid, $friend);
-                echo json_encode(array('error' => 'no', 'msg' => $resultMsgFollow, 'msgChange' => _SMALLWORLD_JSON_FLNO_TEXT));
+                echo json_encode(['error' => 'no', 'msg' => $resultMsgFollow, 'msgChange' => _SMALLWORLD_JSON_FLNO_TEXT]);
             }
             if ($following[0] > 0) {
                 $resultMsgFollow = _SMALLWORLD_JSON_UNFOLLOWINGFRIEND . $friendName . _SMALLWORLD_JSON_UNFOLLOWINGFRIEND_DESC;
                 $db->toogleFollow($following[0], $myUid, $friend);
-                echo json_encode(array('error' => 'no', 'msg' => $resultMsgFollow, 'msgChange' => _SMALLWORLD_JSON_FLYES_TEXT));
+                echo json_encode(['error' => 'no', 'msg' => $resultMsgFollow, 'msgChange' => _SMALLWORLD_JSON_FLYES_TEXT]);
             }
-
         }
     }
     if ('3' == $invitation) {
@@ -94,15 +94,14 @@ if ($xoopsUser) {
                 // Friendship is accepted (update status in mysql)
                 $db->SetFriendshitStat(1, $myUid, $friend);
                 $acceptMsg = _SMALLWORLD_JSON_DELETE_FRIEND_START . $friendName . _SMALLWORLD_JSON_DELETE_FRIEND_END;
-                echo json_encode(array('error' => 'no', 'msg' => $acceptMsg, 'msgChange' => _SMALLWORLD_JSON_REMOVEFR_TEXT));
+                echo json_encode(['error' => 'no', 'msg' => $acceptMsg, 'msgChange' => _SMALLWORLD_JSON_REMOVEFR_TEXT]);
             }
             if ($stat < 0) {
                 // friendship is denied (delete from mysql)
                 $db->SetFriendshitStat(-1, $myUid, $friend);
                 $acceptMsg = _SMALLWORLD_JSON_ADDFRIEND . $friendName . _SMALLWORLD_JSON_REQUEST_PENDING;
-                echo json_encode(array('error' => 'no', 'msg' => $acceptMsg, 'msgChange' => _SMALLWORLD_JSON_ADDFR_TEXT));
+                echo json_encode(['error' => 'no', 'msg' => $acceptMsg, 'msgChange' => _SMALLWORLD_JSON_ADDFR_TEXT]);
             }
         }
     }
 }
-

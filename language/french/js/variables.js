@@ -53,7 +53,7 @@ var args = {
     'textCancel': 'Annuler',  	// Boutton "Annuler", texte par défaut
     'textYes': 'Oui !',	    // Boutton "Oui !", texte par défaut
     'textNo': 'Non !'	        // Boutton "Non !", texte par défaut
-}
+};
 
 // Variables pour la Galerie de photos
 var SmallworldPhotoPlaySlideshow = 'Lancer le Diaporama';

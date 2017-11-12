@@ -53,7 +53,7 @@ var args = {
     'textCancel': 'Afbryd',	// Cancel button default text
     'textYes': 'Ja!',		// Yes button default text
     'textNo': 'Nej!'		// No button default text
-}
+};
 
 
 // Variables for photo gallery

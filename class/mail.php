@@ -3,25 +3,29 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * SmallWorld
  *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/mail.php $
- * @Last       committed:        $Revision: 12175 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
- * @ID         :                    $Id: mail.php 12175 2013-10-15 17:41:43Z djculex $
- **/
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
 
-include_once XOOPS_ROOT_PATH . '/class/mail/xoopsmultimailer.php';
-include_once XOOPS_ROOT_PATH . '/class/template.php';
+require_once XOOPS_ROOT_PATH . '/class/mail/xoopsmultimailer.php';
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 
+/**
+ * Class smallworld_mail
+ */
 class smallworld_mail
 {
     /* Function to send mails to users based on certain events
@@ -35,7 +39,15 @@ class smallworld_mail
          * Result: send mail, return true or false
          */
 
-    function sendMails($fromUserID, $toUserID, $event, $link = null, array $data)
+    /**
+     * @param       $fromUserID
+     * @param       $toUserID
+     * @param       $event
+     * @param null  $link
+     * @param array $data
+     * @throws \phpmailerException
+     */
+    public function sendMails($fromUserID, $toUserID, $event, $link = null, array $data)
     {
         global $xoopsConfig, $xoopsUser;
         $date    = date('m-d-Y H:i:s', time());
@@ -61,7 +73,7 @@ class smallworld_mail
         $RecieveNameUrl = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $RecieveName . "'>" . $RecieveName . '</a>';
 
         // Checking content of 'event' to send right message
-        if ('register' == $event) {
+        if ('register' === $event) {
             $subject = _SMALLWORLD_MAIL_REGISTERSUBJECT . $xoopsConfig['sitename'];
 
             $registername  = $SendName;
@@ -79,8 +91,7 @@ class smallworld_mail
             $toMail     = $xoopsConfig['adminmail'];
 
             // Send email to admin if red/yellow card has been pressed indicating a "bad" thread has been found.
-        } elseif ('complaint' == $event) {
-
+        } elseif ('complaint' === $event) {
             $subject = _SMALLWORLD_MAIL_COMPLAINT . $xoopsConfig['sitename'];
 
             $senders_id   = $fromUserID;
@@ -100,14 +111,13 @@ class smallworld_mail
             $message    = $tpl->fetch($lnk);
             $mail->Body = $message;
             $toMail     = $xoopsConfig['adminmail'];
-
-        } elseif ('commentToWM' == $event) {
+        } elseif ('commentToWM' === $event) {
             $subject = _SMALLWORLD_MAIL_NEWCOMMENT . $xoopsConfig['sitename'];
 
             $ownermessage = stripslashes($this->getOwnerUpdateFromMsgID($data['msg_id_fk']));
             if (preg_match('/UPLIMAGE/', $ownermessage)) {
                 $ownmsg       = str_replace('UPLIMAGE ', '', $ownermessage);
-                $ownermessage = "<img width='300px' src='" . $ownmsg . "' style='margin: 5px 0px;' />";
+                $ownermessage = "<img width='300px' src='" . $ownmsg . "' style='margin: 5px 0px;' >";
             }
 
             $owner            = Smallworld_getOwnerFromComment($data['msg_id_fk']);
@@ -138,8 +148,7 @@ class smallworld_mail
             $mail->Body = $message;
 
             $toMail = $ToUser->getVar('email');
-
-        } elseif ('friendshipfollow' == $event) {
+        } elseif ('friendshipfollow' === $event) {
             $subject = _SMALLWORLD_MAIL_NEWFRIENDFOLLOWER . $xoopsConfig['sitename'];
             $link    = "<a href='" . XOOPS_URL . "/modules/smallworld/index.php'>";
             $link    .= _SMALLWORLD_GOTOSMALLWORLDHERE . '</a>';
@@ -154,7 +163,7 @@ class smallworld_mail
             $message    = $tpl->fetch($lnk);
             $mail->Body = $message;
             $toMail     = $ToUser->getVar('email');
-        } elseif ('tag' == $event) {
+        } elseif ('tag' === $event) {
             $subject = _SMALLWORLD_MAIL_FRIENDTAGGEDYOU . $xoopsConfig['sitename'];
             $tpl     = new XoopsTpl();
             $tpl->assign('toUser', $RecieveName);
@@ -182,10 +191,14 @@ class smallworld_mail
     /*
      From msg_id_fk get userids in the thread and return unique array
     */
-    function getPartsFromComment($msg_id_fk)
+    /**
+     * @param $msg_id_fk
+     * @return array
+     */
+    public function getPartsFromComment($msg_id_fk)
     {
         global $xoopsDB;
-        $parts  = array();
+        $parts  = [];
         $sql    = 'SELECT uid_fk FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE msg_id_fk = '" . $msg_id_fk . "'";
         $result = $xoopsDB->queryF($sql);
         while ($r = $xoopsDB->fetchArray($result)) {
@@ -194,7 +207,11 @@ class smallworld_mail
         return array_unique($parts);
     }
 
-    function getOwnerUpdateFromMsgID($msgid)
+    /**
+     * @param $msgid
+     * @return mixed
+     */
+    public function getOwnerUpdateFromMsgID($msgid)
     {
         global $xoopsDB;
         $sql    = 'SELECT message FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE msg_id = '" . $msgid . "'";
@@ -204,7 +221,4 @@ class smallworld_mail
         }
         return $message;
     }
-
 }
-
-

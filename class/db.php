@@ -3,22 +3,22 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/db.php $
- * @Last       committed:        $Revision: 12175 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
- * @ID         :                    $Id: db.php 12175 2013-10-15 17:41:43Z djculex $
- **/
+ */
 
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
 class SmallWorldDB
 {
     /**
@@ -26,11 +26,11 @@ class SmallWorldDB
      * @param int $id
      * @returns Array
      */
-    function getJobsToDiv($id)
+    public function getJobsToDiv($id)
     {
         global $xoopsUser, $xoopsDB;
-        $msg    = array();
-        $new    = array();
+        $msg    = [];
+        $new    = [];
         $sql    = 'SELECT employer,position,jobstart,jobstop,description  FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
         $result = $xoopsDB->query($sql);
         while ($row = $xoopsDB->fetchArray($result)) {
@@ -48,7 +48,7 @@ class SmallWorldDB
             $msg[$start]['jobstart']    = $jobstart[$start];
             $msg[$start]['jobstop']     = $jobstop[$start];
             $msg[$start]['description'] = $description[$start];
-            $start++;
+            ++$start;
         }
         return $msg;
     }
@@ -58,10 +58,10 @@ class SmallWorldDB
      * @param int $id
      * @returns Array
      */
-    function getSchoolToDiv($id)
+    public function getSchoolToDiv($id)
     {
         global $xoopsUser, $xoopsDB, $arr7;
-        $msg    = array();
+        $msg    = [];
         $sql    = 'SELECT school_type,school,schoolstart,schoolstop FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
         $result = $xoopsDB->query($sql);
         while ($row = $xoopsDB->fetchArray($result)) {
@@ -87,10 +87,10 @@ class SmallWorldDB
      * @param int $id
      * @returns Array
      */
-    function getScreennamesToDiv($id)
+    public function getScreennamesToDiv($id)
     {
         global $xoopsUser, $xoopsDB, $arr06;
-        $msg    = array();
+        $msg    = [];
         $sql    = 'SELECT screenname_type,screenname FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
         $result = $xoopsDB->query($sql);
         while ($row = $xoopsDB->fetchArray($result)) {
@@ -103,7 +103,7 @@ class SmallWorldDB
             $msg[$start]['screenname']      = $screenname_type[$start];
             $msg[$start]['screenname_type'] = $arr06[$screenname[$start]];
             $msg[$start]['link']            = "<span class='smallworld_website'>" . Smallworld_sociallinks($screenname[$start], $msg[$start]['screenname']);
-            $start++;
+            ++$start;
         }
         return $msg;
     }
@@ -112,9 +112,9 @@ class SmallWorldDB
      * getVar function
      * @param int    $id
      * @param string $var
-     * @returns Array
+     * @return array|int
      */
-    function getVar($id, $var)
+    public function getVar($id, $var)
     {
         global $xoopsUser, $xoopsDB;
         $sql    = 'SELECT ' . $var . ' FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
@@ -136,23 +136,23 @@ class SmallWorldDB
      * @param int    $value
      * @return void
      */
-    function updateSingleValue($table, $userid, $field, $value)
+    public function updateSingleValue($table, $userid, $field, $value)
     {
         global $xoopsUser, $xoopsDB;
-        $myts   =& MyTextSanitizer::getInstance();
+        $myts   = MyTextSanitizer::getInstance();
         $sql    = 'UPDATE ' . $xoopsDB->prefix($table) . ' SET ' . $field . "='" . $myts->addSlashes($value) . "' WHERE userid='" . (int)$userid . "'";
         $result = $xoopsDB->queryF($sql);
     }
 
     /**
      * saveImage function
-     * @param int $value
+     * @param $values
      * @return void
      */
-    function saveImage($values)
+    public function saveImage($values)
     {
         global $xoopsUser, $xoopsDB;
-        $myts   =& MyTextSanitizer::getInstance();
+        $myts   = MyTextSanitizer::getInstance();
         $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_images') . ' VALUES (' . $values . ')';
         $result = $xoopsDB->queryF($sql);
     }
@@ -163,10 +163,10 @@ class SmallWorldDB
      * @param string $imagename
      * @return void
      */
-    function DeleteImage($userid, $imagename)
+    public function DeleteImage($userid, $imagename)
     {
         global $xoopsUser, $xoopsDB;
-        $myts   =& MyTextSanitizer::getInstance();
+        $myts   = MyTextSanitizer::getInstance();
         $sql    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE imgname = '" . stripslashes($imagename) . "' AND userid='" . $userid . "'";
         $result = $xoopsDB->queryF($sql);
     }
@@ -175,10 +175,10 @@ class SmallWorldDB
      * handlePosts function
      * @return void
      */
-    function handlePosts()
+    public function handlePosts()
     {
         global $xoopsUser, $xoopsDB;
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $uid  = $xoopsUser->getVar('uid');
         $user = new XoopsUser($uid);
         $img  = new SmallWorldImages;
@@ -198,9 +198,9 @@ class SmallWorldDB
         $username               = $user->uname();
         $realname               = Smallworld_sanitize($_POST['realname']);
         $gender                 = isset($_POST['gender']) ? $_POST['gender'] : '';
-        $intingender            = isset($_POST['intingender']) ? Smallworld_sanitize(serialize($_POST['intingender'])) : Smallworld_sanitize(serialize(array(0 => '3')));
+        $intingender            = isset($_POST['intingender']) ? Smallworld_sanitize(serialize($_POST['intingender'])) : Smallworld_sanitize(serialize([0 => '3']));
         $relationship           = Smallworld_sanitize($_POST['relationship']);
-        $searchrelat            = isset($_POST['searchrelat']) ? Smallworld_sanitize(serialize($_POST['searchrelat'])) : Smallworld_sanitize(serialize(array(0 => '0')));
+        $searchrelat            = isset($_POST['searchrelat']) ? Smallworld_sanitize(serialize($_POST['searchrelat'])) : Smallworld_sanitize(serialize([0 => '0']));
         $birthday               = Smallworld_sanitize(Smallworld_euroToUsDate($_POST['birthday']));
         $birthplace             = Smallworld_sanitize($_POST['birthplace']);
         $birthplace_lat         = Smallworld_sanitize($_POST['birthplace_lat']);
@@ -239,7 +239,7 @@ class SmallWorldDB
 
         $sql = '';
 
-        if ('edit' == $_POST['function']) {
+        if ('edit' === $_POST['function']) {
             // Update all values in user_table
             $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_user') . ' SET ';
             $sql    .= "realname = '" . $realname . "', username= '" . $username . "', userimage = '" . $avatar . "', gender = '" . $gender . "',";
@@ -265,7 +265,7 @@ class SmallWorldDB
             $img->createAlbum($uid);
         }
 
-        if ('save' == $_POST['function']) {
+        if ('save' === $_POST['function']) {
             $sql    = 'INSERT INTO '
                       . $xoopsDB->prefix('smallworld_user')
                       . ' (id, userid, regdate, username, userimage, realname, gender, intingender, relationship, partner, searchrelat, birthday, birthplace, birthplace_lat, birthplace_lng, birthplace_country, politic, religion, emailtype, screenname_type, screenname, mobile, phone, adress, present_city, present_lat, present_lng, present_country, website, interests, music, tvshow, movie, books, aboutme, school_type, school, schoolstart, schoolstop, employer, position, jobstart, jobstop, description, friends, followers, admin_flag) ';
@@ -292,7 +292,7 @@ class SmallWorldDB
      * @param mixed  $avatar
      * @return void
      */
-    function SetAdmins($userID, $username, $realname, $avatar)
+    public function SetAdmins($userID, $username, $realname, $avatar)
     {
         global $xoopsDB, $xoopsUser;
         $ip     = $_SERVER['REMOTE_ADDR'];
@@ -307,7 +307,7 @@ class SmallWorldDB
      * @param mixed  $avatar
      * @return void
      */
-    function EditAdmins($userID, $realname, $avatar)
+    public function EditAdmins($userID, $realname, $avatar)
     {
         global $xoopsDB;
         $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET realname = '" . $realname . "', userimage = '" . $avatar . "' WHERE userid = '" . (int)$userID . "'";
@@ -322,7 +322,7 @@ class SmallWorldDB
      * @param int    $against
      * @return int
      */
-    function alreadycomplaint($msg, $by, $against)
+    public function alreadycomplaint($msg, $by, $against)
     {
         global $xoopsDB;
         $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_complaints') . " WHERE byuser_id = '" . (int)$by . "' AND owner = '" . (int)$against . "' AND link = '" . addslashes($msg) . "'";
@@ -341,7 +341,7 @@ class SmallWorldDB
      * @param int $userID
      * @return void
      */
-    function updateComplaint($userID)
+    public function updateComplaint($userID)
     {
         global $xoopsDB;
         $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . ' SET complaint = complaint + 1 ' . "WHERE userid = '" . (int)$userID . "'";
@@ -355,7 +355,7 @@ class SmallWorldDB
      * @param int stop
      * @return void
      */
-    function updateInspection($userID, $start, $stop)
+    public function updateInspection($userID, $start, $stop)
     {
         global $xoopsDB;
         $newstop = $time() + $stop;
@@ -367,10 +367,10 @@ class SmallWorldDB
      * handleImageEdit function
      * @return void
      */
-    function handleImageEdit()
+    public function handleImageEdit()
     {
         global $xoopsDB;
-        for ($i = 0; $i < count($_POST['id']); $i++) {
+        for ($i = 0, $iMax = count($_POST['id']); $i < $iMax; ++$i) {
             $id     = (int)$_POST['id'][$i];
             $desc   = $_POST['imgdesc'][$i];
             $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_images') . " SET `desc` = '" . addslashes($desc) . "' WHERE `id`='" . $id . "'";
@@ -382,11 +382,11 @@ class SmallWorldDB
      * updateInspection function
      * - insert aplication for friendship into db or delete if denied
      * @param int $status
+     * @param int $friendid
      * @param int $userid
-     * @param int stop
      * @return void
      */
-    function toogleFriendInvite($status, $friendid, $userid)
+    public function toogleFriendInvite($status, $friendid, $userid)
     {
         global $xoopsDB;
         if (0 == $status) {
@@ -402,7 +402,6 @@ class SmallWorldDB
             // Since friendship is canceled also following is deleted
             $this->toogleFollow(1, $userid, $friendid);
         }
-
     }
 
     /**
@@ -413,7 +412,7 @@ class SmallWorldDB
      * @param int $friend
      * @return void
      */
-    function toogleFollow($following, $myUid, $friend)
+    public function toogleFollow($following, $myUid, $friend)
     {
         global $xoopsDB;
         if (0 == $following) {
@@ -436,7 +435,7 @@ class SmallWorldDB
      * @param int $friend
      * @return void
      */
-    function SetFriendshitStat($stat, $myUid, $friend)
+    public function SetFriendshitStat($stat, $myUid, $friend)
     {
         global $xoopsDB;
         if (1 == $stat) {
@@ -459,7 +458,7 @@ class SmallWorldDB
      * @param int $smallworld_msg_id
      * @return true
      */
-    function deleteWallMsg($id, $smallworld_msg_id)
+    public function deleteWallMsg($id, $smallworld_msg_id)
     {
         global $xoopsDB;
         $query   = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE msg_id = '" . $smallworld_msg_id . "'";
@@ -475,7 +474,7 @@ class SmallWorldDB
     /**
      * deleteWallComment function
      * - Delete Comments
-     * @param int $smallworldComId
+     * @param int $smallworld_com_id
      * @return true
      */
     public function deleteWallComment($smallworld_com_id)
@@ -515,7 +514,7 @@ class SmallWorldDB
      * @param int $userid
      * @return string
      */
-    function deleteAccount($userid)
+    public function deleteAccount($userid)
     {
         global $xoopsDB, $xoopsUser;
         $user     = new XoopsUser($userid);
@@ -553,7 +552,7 @@ class SmallWorldDB
      * @param int $userid
      * @return true
      */
-    function SmallworldDeleteDirectory($userid)
+    public function SmallworldDeleteDirectory($userid)
     {
         $dirname = XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . '/' . $userid . '/';
         if (is_dir($dirname)) {
@@ -563,7 +562,7 @@ class SmallWorldDB
             return false;
         }
         while ($file = readdir($dir_handle)) {
-            if ('.' != $file && '..' != $file) {
+            if ('.' !== $file && '..' !== $file) {
                 if (!is_dir($dirname . '/' . $file)) {
                     unlink($dirname . '/' . $file);
                 } else {
@@ -581,13 +580,13 @@ class SmallWorldDB
      * - Remove user image dir in uploads.
      * @param int    $userid
      * @param string $directory
-     * @param int    $empty
+     * @param bool|int $empty
      * @return true
      */
-    function smallworld_remDir($userid, $directory, $empty = false)
+    public function smallworld_remDir($userid, $directory, $empty = false)
     {
         if ('' != $userid) {
-            if ('/' == substr($directory, -1)) {
+            if ('/' === substr($directory, -1)) {
                 $directory = substr($directory, 0, -1);
             }
 
@@ -598,7 +597,7 @@ class SmallWorldDB
             } else {
                 $directoryHandle = opendir($directory);
                 while ($contents = readdir($directoryHandle)) {
-                    if ('.' != $contents && '..' != $contents) {
+                    if ('.' !== $contents && '..' !== $contents) {
                         $path = $directory . '/' . $contents;
                         if (is_dir($path)) {
                             $this->smallworld_remDir($userid, $path);
@@ -624,7 +623,7 @@ class SmallWorldDB
      * @param string posts (serialized values)
      * @return void
      */
-    function saveSettings($id, $posts)
+    public function saveSettings($id, $posts)
     {
         global $xoopsDB;
         $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . (int)$id . '';
@@ -642,20 +641,20 @@ class SmallWorldDB
     /**
      * Retrieve private settings
      * @param int userid
-     * @return serialized array values
+     * @return serialized|string
      */
-    function GetSettings($userid)
+    public function GetSettings($userid)
     {
         global $xoopsDB;
         $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . (int)$userid . '';
         $result = $xoopsDB->queryF($sql);
         $i      = $xoopsDB->getRowsNum($result);
         if ($i < 1) {
-            $posts = serialize(array(
+            $posts = serialize([
                                    'posts'    => 0,
                                    'comments' => 0,
                                    'notify'   => 1
-                               ));
+                               ]);
             $this->saveSettings($userid, $posts);
             $this->GetSettings($userid);
         } else {
@@ -664,9 +663,5 @@ class SmallWorldDB
             }
             return json_encode(unserialize(stripslashes($data)));
         }
-
     }
-
 }
-
-

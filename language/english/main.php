@@ -1,25 +1,24 @@
 <?php
 /**
  * You may not change or alter any portion of this comment or credits
- * of supporting developers from this source code or any supporting
- * source code which is considered copyrighted (c) material of the
- * original comment or credit authors.
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * SmallWorld
  *
- * @copyright :         {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license   :           {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @packet    :            Modules
- * @sub-packet:        Smallworld
- * @since     :             Xoops 2.5.4
- * @Author    :            Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright :         2011 Culex
- * @Last      committed:    $Revision: 12114 $
- * @Last      changed by:   $Author: djculex $
- * @Last      changed date: $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
- * @ID        :                $Id: main.php 12114 2013-10-01 17:11:18Z djculex $
- **/
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
 
 /*----------------- Menu items ---------------*/
 
@@ -253,8 +252,10 @@ define('_SMALLWORLD_INTERESTS_TITLE', 'Interests & contact');
 define('_SMALLWORLD_MORE', '..more');
 
 /*-------------- Upload form --------------------*/
-define('_SMALLWORLD_UPLOAD_HOWTO',
-       'All images from your album is shown here, and you can use this tool to upload or delete images<br><br>Press the green upload file(s), Select your pictures and upload either:<br>1) One by one using the <img src="images/icon_start.PNG" style="display: inline-block;height:13px;"/> icon.<br>2) Select multible by browsing or Drag* files onto the green upload (* does currently not work in IE) and press start all<br><br>Note: If you choose other filetypes than image files the script wil break. Image size is maximum 5 MBytes<br>');
+define(
+    '_SMALLWORLD_UPLOAD_HOWTO',
+       'All images from your album is shown here, and you can use this tool to upload or delete images<br><br>Press the green upload file(s), Select your pictures and upload either:<br>1) One by one using the <img src="images/icon_start.PNG" style="display: inline-block;height:13px;"> icon.<br>2) Select multible by browsing or Drag* files onto the green upload (* does currently not work in IE) and press start all<br><br>Note: If you choose other filetypes than image files the script wil break. Image size is maximum 5 MBytes<br>'
+);
 define('_SMALLWORLD_UPLOADTITLE', 'Image title');
 define('_SMALLWORLD_UPLOADDESC', 'Image description');
 define('_SMALLWORLD_UPLOAD_TITLE', 'Upload images to your image album');
@@ -265,7 +266,7 @@ define('_SMALLWORLD_IMGTITLE', 'Image title');
 define('_SMALLWORLD_IMAGE_EDIT_TITLE', 'Edit descriptions where needed and send');
 define('_SMALLWORLD_WELCOME_TITLE', 'Welcome');
 define('_SMALLWORLD_WELCOMETEXT', ", welcome. Hope you'll enjoy your stay.");
-define('_SMALLWORLD_UPLOADEDSOMEIMAGES', ' uploaded some new pictures <br/> Press image to see full size or this link<br/>to open gallery');
+define('_SMALLWORLD_UPLOADEDSOMEIMAGES', ' uploaded some new pictures <br> Press image to see full size or this link<br>to open gallery');
 define('_SMALLWORLD_IMAGES_START', 'Start');
 define('_SMALLWORLD_IMAGES_CANCEL', 'Cancel');
 define('_SMALLWORLD_IMAGES_DELETE', 'Delete');
@@ -347,7 +348,7 @@ define('_SMALLWORLD_ONEMONTHAGO', 'one month ago');
 define('_SMALLWORLD_MONTHSAGO', ' months ago');
 define('_SMALLWORLD_ONEYEARAGO', 'one year ago');
 define('_SMALLWORLD_YEARSAGO', ' years ago');
-define('_SMALLWORLD_CLICKIMAGETHUMB', '<br/><br/>Click here to see original size image');
+define('_SMALLWORLD_CLICKIMAGETHUMB', '<br><br>Click here to see original size image');
 define('_SMALLWORLD_PRIVATEUPDATE', 'Private');
 define('_SMALLWORLD_PUBLICUPDATE', 'Public');
 define('_SMALLWORLD_UPDATEBUTTONTEXT', ' Update ');
@@ -377,9 +378,9 @@ define('_SMALLWORLD_MAIL_NEWFRIENDFOLLOWER', 'New friend request or new user fol
 define('_SMALLWORLD_MAIL_FRIENDTAGGEDYOU', 'A friend tagged you at ');
 
 /* ------------ Inspection & countdown ---------------- */
-define('_SMALLWORLD_INSPEC_DESC', 'Admin has taken this account down for inspection.<br/><br/>Estimated inspection time will finish in');
+define('_SMALLWORLD_INSPEC_DESC', 'Admin has taken this account down for inspection.<br><br>Estimated inspection time will finish in');
 define('_SMALLWORLD_INSPEC_DESC2', 'Try again at this time.');
-define('_SMALLWORLD_INSPEC_usermsg', 'Admin has taken this account down for inspection.<br/><br/>Access is temporarily denied!');
+define('_SMALLWORLD_INSPEC_usermsg', 'Admin has taken this account down for inspection.<br><br>Access is temporarily denied!');
 define('_SMALLWORLD_BDAY_TODAY', 'Today');
 define('_SMALLWORLD_BDAY_ISIN', 'Birthday is in: ');
 define('_SMALLWORLD_BDAY_YEARS', 'years');
@@ -401,4 +402,3 @@ define('_SMALLWORLD_STATS_LIKETHISMODULE', 'Like this module ???');
 
 /* ----------------- donate link -------------- */
 define('_SMALLWORLD_DONATETEXT', ' Donate me coffey here ');
-

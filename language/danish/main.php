@@ -249,8 +249,10 @@ define('_SMALLWORLD_INTERESTS_TITLE', 'Interesser og kontakt');
 define('_SMALLWORLD_MORE', '.. mere');
 
 /* -------------- Upload formular -------------------- */
-define('_SMALLWORLD_UPLOAD_HOWTO',
-       'Alle billeder fra dit album er vist her, og du kan bruge dette værktøj til at uploade eller slette billeder <br>Tryk på den grønne upload fil(er), Vælg dine billeder og uploade enten: < br> 1) En efter en - brug <img src="images/icon_start.PNG" style="display: inline-block;height:13px;"/>ikon.<br> 2) Vælg flere ved gennemsyn eller Drag * filer over på den grønne upload (* virker pt. ikke i IE) og tryk på Start alle <br> Bemærk: Hvis du vælger andre filtyper end billedfiler vil scriptet afbryde. Billedstørrelsen er højst 5 MBytes <br> ');
+define(
+    '_SMALLWORLD_UPLOAD_HOWTO',
+       'Alle billeder fra dit album er vist her, og du kan bruge dette værktøj til at uploade eller slette billeder <br>Tryk på den grønne upload fil(er), Vælg dine billeder og uploade enten: < br> 1) En efter en - brug <img src="images/icon_start.PNG" style="display: inline-block;height:13px;">ikon.<br> 2) Vælg flere ved gennemsyn eller Drag * filer over på den grønne upload (* virker pt. ikke i IE) og tryk på Start alle <br> Bemærk: Hvis du vælger andre filtyper end billedfiler vil scriptet afbryde. Billedstørrelsen er højst 5 MBytes <br> '
+);
 define('_SMALLWORLD_UPLOADTITLE', 'Billedtitel');
 define('_SMALLWORLD_UPLOADDESC', 'Billedbeskrivelse');
 define('_SMALLWORLD_UPLOAD_TITLE', 'Upload billeder til dit album');
@@ -261,7 +263,7 @@ define('_SMALLWORLD_IMGTITLE', 'Billedetitel');
 define('_SMALLWORLD_IMAGE_EDIT_TITLE', 'Rediger beskrivelser, efter du trykker Send');
 define('_SMALLWORLD_WELCOME_TITLE', 'Velkommen');
 define('_SMALLWORLD_WELCOMETEXT', '., velkommen Håber du vil nyde dit ophold.');
-define('_SMALLWORLD_UPLOADEDSOMEIMAGES', " oploadede no'en nye billeder <br/>");
+define('_SMALLWORLD_UPLOADEDSOMEIMAGES', " oploadede no'en nye billeder <br>");
 define('_SMALLWORLD_IMAGES_START', 'Start');
 define('_SMALLWORLD_IMAGES_CANCEL', 'Afbryd');
 define('_SMALLWORLD_IMAGES_DELETE', 'Slet');
@@ -365,7 +367,7 @@ define('_SMALLWORLD_COMP_MSG_LNK_DESC', 'Klik her for at se berørte besked');
 define('_SMALLWORLD_MAIL_NEWFRIENDFOLLOWER', 'Ny venneanmodning eller en ny bruger følger dig på ');
 
 /* ------------ Inspektion & nedtællingen ---------------- */
-define('_SMALLWORLD_INSPEC_DESC', '. Admin har taget denne konto ned for inspektion <br/> Anslået inspektiontid vil slutte om');
+define('_SMALLWORLD_INSPEC_DESC', '. Admin har taget denne konto ned for inspektion <br> Anslået inspektiontid vil slutte om');
 define('_SMALLWORLD_INSPEC_DESC2', 'Prøv igen på dette tidspunkt.');
 define('_SMALLWORLD_BDAY_TODAY', 'Idag');
 define('_SMALLWORLD_BDAY_ISIN', 'Fødselsdag er om: ');
@@ -388,4 +390,3 @@ define('_SMALLWORLD_STATS_LIKETHISMODULE', 'Kan du lide dette modul?? ');
 
 /* ----------------- Donere link -------------- */
 define('_SMALLWORLD_DONATETEXT', 'Doner til en kop kaffe her ');
-

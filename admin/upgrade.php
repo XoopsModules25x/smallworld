@@ -12,16 +12,16 @@ function smallworld_doUpgrade()
     smallworld_adminAvatarRename();
     if (smallworld_DoTableExists($xoopsDB->prefix('smallworld_settings'))) {
         // Table exists
-        Return false;
+        return false;
     } else {
         // Table does not exist -> create
 
-        $sql    = 'CREATE TABLE IF NOT EXISTS ' . $xoopsDB->prefix('smallworld_settings') . ' (';
-        $sql    .= '`id` int(11) NOT NULL AUTO_INCREMENT,';
-        $sql    .= '`userid` int(11) NOT NULL,';
-        $sql    .= '`value` text NOT NULL,';
-        $sql    .= 'PRIMARY KEY (`id`)';
-        $sql    .= ') ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . $xoopsDB->prefix('smallworld_settings') . ' (';
+        $sql .= '`id` int(11) NOT NULL AUTO_INCREMENT,';
+        $sql .= '`userid` int(11) NOT NULL,';
+        $sql .= '`value` text NOT NULL,';
+        $sql .= 'PRIMARY KEY (`id`)';
+        $sql .= ') ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
         $result = $xoopsDB->queryF($sql);
     }
 }
@@ -35,10 +35,15 @@ function smallworld_adminAvatarRename()
     $result2 = $xoopsDB->queryF($sql2);
 }
 
+/**
+ * @param $tablename
+ * @return bool
+ */
 function smallworld_DoTableExists($tablename)
 {
     global $xoopsDB;
     $result = $xoopsDB->queryF("SHOW TABLES LIKE '$tablename'");
+
     return ($xoopsDB->getRowsNum($result) > 0);
 }
 
@@ -49,7 +54,7 @@ function smallworld_DoTableExists($tablename)
 function varcharToBlog()
 {
     global $xoopsDB;
-    $sql    = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_messages') . ' CHANGE message message TEXT';
+    $sql = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_messages') . ' CHANGE message message TEXT';
     $result = $xoopsDB->queryF($sql);
 }
 
@@ -60,8 +65,6 @@ function varcharToBlog()
 function smallworld_comToBlog()
 {
     global $xoopsDB;
-    $sql    = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_comments') . ' CHANGE comment comment TEXT';
+    $sql = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_comments') . " CHANGE 'comments' 'comments' TEXT";
     $result = $xoopsDB->queryF($sql);
 }
-
-

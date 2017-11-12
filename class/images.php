@@ -3,30 +3,30 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://xoops.svn.sourceforge.net/svnroot/xoops/XoopsModules/smallworld/trunk/smallworld/class/images.php $
- * @Last       committed:        $Revision: 8932 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2012-02-11 17:27:44 +0100 (lø, 11 feb 2012) $
- * @ID         :                    $Id: images.php 8932 2012-02-11 16:27:44Z djculex $
- **/
+ */
 
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
 class SmallWorldImages
 {
     /**
      * @Create folders
-     * @param int $userID
+     * @param  int $userID
      * @return void
      */
-    function createAlbum($userID)
+    public function createAlbum($userID)
     {
         $dir = XOOPS_ROOT_PATH . '/uploads/albums_smallworld';
         if (!file_exists($dir . '/' . $userID . '/thumbnails') || !file_exists($dir . '/' . $userID . '/')) {
@@ -44,14 +44,14 @@ class SmallWorldImages
 
     /**
      * @View user album. Userid = owner, user = visitor
-     * @param int $userID
-     * @param int $user
-     * @return array
+     * @param  int $userID
+     * @param  int $user
+     * @return array|bool
      */
-    function viewalbum($userID, $user)
+    public function viewalbum($userID, $user)
     {
         global $xoopsUser, $xoopsDB, $xoopsTpl;
-        $post        = array();
+        $post        = [];
         $checkFriend = new SmallWorldUser;
         if (0 != $checkFriend->friendcheck($userID, $user)) {
             // check friend is good to go
@@ -65,8 +65,8 @@ class SmallWorldImages
                 $post[$i]['desc']    = Smallworld_cleanup_string($sqlfetch['desc']);
                 $post[$i]['alt']     = Smallworld_cleanup_string($sqlfetch['desc']);
                 $post[$i]['time']    = stripslashes($sqlfetch['time']);
-                $post[$i]['editimg'] = "<span class='smallworld_edit_imgdesc_holder'><img src='images/edit_icon.png'/></span> <a class='smallworld_edit_imgdesc' href='editimages.php'>" . _SMALLWORLD_EDITDESCRIPTION . '</a>';
-                $i++;
+                $post[$i]['editimg'] = "<span class='smallworld_edit_imgdesc_holder'><img src='images/edit_icon.png'></span> <a class='smallworld_edit_imgdesc' href='editimages.php'>" . _SMALLWORLD_EDITDESCRIPTION . '</a>';
+                ++$i;
             }
 
             return $post;
@@ -78,16 +78,15 @@ class SmallWorldImages
 
     /**
      * @Get image count for user
-     * @param int $userid
+     * @param  int $userid
      * @return int
      */
-    function count($userid)
+    public function count($userid)
     {
         global $xoopsDB;
         $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userid . "'";
         $result = $xoopsDB->queryF($sql);
+
         return $xoopsDB->getRowsNum($result);
     }
 }
-
-

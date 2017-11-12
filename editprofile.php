@@ -3,27 +3,29 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * SmallWorld
  *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/editprofile.php $
- * @Last       committed:        $Revision: 12114 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
- * @ID         :                    $Id: editprofile.php 12114 2013-10-01 17:11:18Z djculex $
- **/
-include_once '../../mainfile.php';
-$xoopsOption['template_main'] = 'smallworld_userprofile_edittemplate.html';
-include XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+require_once __DIR__ . '/../../mainfile.php';
+$GLOBALS['xoopsOption']['template_main'] = 'smallworld_userprofile_edittemplate.html';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoopsTpl, $xoopsDB, $xoTheme;
 
 if ($xoopsUser) {
@@ -33,7 +35,7 @@ if ($xoopsUser) {
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = Smallworld_isInspected($id);
-    if ('yes' == $inspect['inspect']) {
+    if ('yes' === $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
 
@@ -160,7 +162,7 @@ if ($xoopsUser) {
                     $screenname .= $item->dropdown_add('smallworld_add', 'screenname', 'screenname_type', '.smallworld_clone', $arr06, $addmore1, $selected = stripslashes($nr4[$k]), $preset = stripslashes($v));
                     $screenname .= "<span class='smallworld_remove' id='screennameremove'>";
                     $screenname .= "<a href='javascript:void(0);' id='screennameremovelnk'>" . _SMALLWORLD_REMOVE . '</a><br></span>';
-                    $cnt1++;
+                    ++$cnt1;
                 }
                 $screenname .= "<a class='smallworld_addscreenname' href='javascript:void(0);' id='screennameAdd'>" . _SMALLWORLD_ADDMORE . '</a><br><br>';
                 $xoopsTpl->append('screenname', $screenname);
@@ -286,8 +288,18 @@ if ($xoopsUser) {
                 $nr13 = unserialize(stripslashes($r['description']));
                 $job  = '';
                 foreach ($nr9 as $k => $v) {
-                    $job .= $item->job('smallworld_add4', 'job', 'job_type', '.smallworld_clone4', _SMALLWORLD_ADDMORE, $employer = stripslashes($v), $position = stripslashes($nr10[$k]), $selectedstart = ('' != $nr11[$k]) ? date('Y', $nr11[$k]) : '',
-                                       $selectedstop = ('' != $nr12[$k]) ? date('Y', $nr12[$k]) : '', $description = $nr13[$k]);
+                    $job .= $item->job(
+                        'smallworld_add4',
+                        'job',
+                        'job_type',
+                        '.smallworld_clone4',
+                        _SMALLWORLD_ADDMORE,
+                        $employer = stripslashes($v),
+                        $position = stripslashes($nr10[$k]),
+                        $selectedstart = ('' != $nr11[$k]) ? date('Y', $nr11[$k]) : '',
+                                       $selectedstop = ('' != $nr12[$k]) ? date('Y', $nr12[$k]) : '',
+                        $description = $nr13[$k]
+                    );
                     $job .= "<span class='smallworld_remove3' id='jobremove'>";
                     $job .= "<a href='javascript:void(0);' id='jobremovelnk'>" . _SMALLWORLD_REMOVE . '</a><br></span>';
                 }
@@ -322,5 +334,4 @@ if ($xoopsUser) {
 } else {
     redirect_header(XOOPS_URL . '/user.php', 1, _NOPERM);
 }
-include XOOPS_ROOT_PATH . '/footer.php';
-
+require_once XOOPS_ROOT_PATH . '/footer.php';

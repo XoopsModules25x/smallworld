@@ -3,26 +3,27 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://xoops.svn.sourceforge.net/svnroot/xoops/XoopsModules/smallworld/trunk/smallworld/index.php $
- * @Last       committed:        $Revision: 8924 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2012-02-09 21:13:23 +0100 (to, 09 feb 2012) $
- * @ID         :                    $Id: index.php 8924 2012-02-09 20:13:23Z djculex $
- **/
+ */
 
-include_once '../../mainfile.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-include_once XOOPS_ROOT_PATH . '/class/template.php';
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+require_once __DIR__ . '/../../mainfile.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsTpl, $xoopsLogger;
 $xoopsLogger->activated = false;
 
@@ -33,28 +34,28 @@ $user = new XoopsUser($id);
 
 $uid = $user->getVar('uid');
 
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 
 xoops_loadLanguage('user');
 
-$module_handler =& xoops_getHandler('module');
-$config_handler =& xoops_getHandler('config');
-$thisUser       =& $member_handler->getUser($id);
+$moduleHandler = xoops_getHandler('module');
+$configHandler = xoops_getHandler('config');
+$thisUser      = $memberHandler->getUser($id);
 
-$gperm_handler =& xoops_getHandler('groupperm');
+$gpermHandler = xoops_getHandler('groupperm');
 $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : 0;
 
 $criteria = new CriteriaCompo(new Criteria('hassearch', 1));
 $criteria->add(new Criteria('isactive', 1));
-$mids = array_keys($module_handler->getList($criteria));
+$mids = array_keys($moduleHandler->getList($criteria));
 
 foreach ($mids as $mid) {
-    if ($gperm_handler->checkRight('module_read', $mid, $groups)) {
-        $module  = $module_handler->get($mid);
+    if ($gpermHandler->checkRight('module_read', $mid, $groups)) {
+        $module  = $moduleHandler->get($mid);
         $results = $module->search('', '', 5, 0, $thisUser->getVar('uid'));
         $count   = count($results);
         if (is_array($results) && $count > 0) {
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 if (isset($results[$i]['image']) && '' != $results[$i]['image']) {
                     $results[$i]['image'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/' . $results[$i]['image'];
                 } else {
@@ -74,14 +75,13 @@ foreach ($mids as $mid) {
                 $showall_link = '';
             }
             $tpl->assign('lang_allaboutuser', sprintf(_US_ALLABOUT, $thisUser->getVar('uname')));
-            $tpl->append('modules', array(
+            $tpl->append('modules', [
                 'name'         => $module->getVar('name'),
                 'results'      => $results,
                 'showall_link' => $showall_link
-            ));
+            ]);
         }
         unset($module);
     }
 }
 $tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/smallworld_userinfo.html');
-

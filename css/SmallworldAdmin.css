@@ -2,17 +2,23 @@
 * You may not change or alter any portion of this comment or credits
 * of supporting developers from this source code or any supporting source code
 * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * SmallWorld
 *
-* @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
-* @license         http://www.fsf.org/copyleft/gpl.html GNU public license
-* @package         modules
-* @subpackage      Small World
-* @since           1.0.0
-* @author          Culex  - homepage.: http://culex.dk		& email.: culex@culex.dk
-**/
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
 
 ul.smallworldadmin_tabs {
     margin: 0;

@@ -3,42 +3,44 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * SmallWorld
  *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/permalink.php $
- * @Last       committed:        $Revision: 12114 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
- * @ID         :                    $Id: permalink.php 12114 2013-10-01 17:11:18Z djculex $
- **/
-include_once '../../mainfile.php';
-$xoopsOption['template_main'] = 'smallworld_permalink.html';
-include_once XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+require_once __DIR__ . '/../../mainfile.php';
+$GLOBALS['xoopsOption']['template_main'] = 'smallworld_permalink.html';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
 
 $xoopsLogger->activated = false;
 /* error_reporting(E_ALL); */
 
-$module_handler =& xoops_getHandler('module');
-$module         = $module_handler->getByDirname('smallworld');
-$config_handler =& xoops_getHandler('config');
-$moduleConfig   =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+$moduleHandler = xoops_getHandler('module');
+$module        = $moduleHandler->getByDirname('smallworld');
+$configHandler = xoops_getHandler('config');
+$moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 
 $set   = smallworld_checkPrivateOrPublic();
 $check = new SmallWorldUser;
 $pub   = smallworld_checkUserPubPostPerm();
 $dBase = new SmallWorldDB;
 
-if (isset($_GET['updid']) AND isset($_GET['ownerid'])) {
+if (isset($_GET['updid']) and isset($_GET['ownerid'])) {
     $updID   = $_GET['updid'];
     $ownerID = $_GET['ownerid'];
 } else {
@@ -80,5 +82,4 @@ $xoopsTpl->assign('myusername', $username);
 $xoopsTpl->assign('pagename', 'index');
 $xoopsTpl->assign('check', $profile);
 
-include XOOPS_ROOT_PATH . '/footer.php';
-
+require_once XOOPS_ROOT_PATH . '/footer.php';

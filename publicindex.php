@@ -3,35 +3,38 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://xoops.svn.sourceforge.net/svnroot/xoops/XoopsModules/smallworld/trunk/smallworld/index.php $
- * @Last       committed:        $Revision: 9482 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2012-05-11 12:02:24 +0200 (fr, 11 maj 2012) $
- * @ID         :                    $Id: index.php 9482 2012-05-11 10:02:24Z djculex $
- **/
+ */
 
-include_once '../../mainfile.php';
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+require_once __DIR__ . '/../../mainfile.php';
 $page = basename($_SERVER['PHP_SELF'], '.php');
 
-if ($xoopsUser && 'publicindex' != $page) {
-    $xoopsOption['template_main'] = 'smallworld_index.html';
+if ($xoopsUser && 'publicindex' !== $page) {
+    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.html';
 } else {
-    $xoopsOption['template_main'] = 'smallworld_publicindex.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.html';
 }
-include_once XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsLogger;
+//$xoopsLogger->activated = true;
+//error_reporting(E_ALL);
 
 $set   = smallworld_checkPrivateOrPublic();
 $dBase = new SmallWorldDB;
@@ -41,10 +44,10 @@ $id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 $username = $xoopsUser ? $xoopsUser->getVar('uname') : '';
 $profile  = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
-$module_handler =& xoops_getHandler('module');
-$module         = $module_handler->getByDirname('smallworld');
-$config_handler =& xoops_getHandler('config');
-$moduleConfig   =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+$moduleHandler = xoops_getHandler('module');
+$module        = $moduleHandler->getByDirname('smallworld');
+$configHandler = xoops_getHandler('config');
+$moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 $pub            = smallworld_checkUserPubPostPerm();
 $wall           = new Public_Wall_Updates;
 $updates        = $wall->updates(0, $pub);
@@ -82,4 +85,4 @@ $xoopsTpl->assign('pagename', 'publicindex');
 $xoopsTpl->assign('check', $profile);
 $xoopsTpl->assign('access', $set['access']);
 
-include XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

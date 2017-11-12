@@ -15,4 +15,4 @@ Upgrading
 3) Goto smallworld admin page (automatic check for changing or adding things to tables, converting values in tables etc)
 4) done
 
-Detailed instructions on installing modules are available in the XOOPS Operations Manual: http://goo.gl/adT2i
+Detailed instructions on installing modules are available in the XOOPS Operations Manual: https://www.gitbook.com/book/xoops/xoops-operations-guide/

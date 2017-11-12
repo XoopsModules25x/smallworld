@@ -93,4 +93,3 @@ define('_MI_SMALLWORLD_EMPLOYMENT', 'Arbejde');
 //Private or public module
 define('_MI_SMALLWORLD_PRIVATEMODULE', 'Vis offentlige indlæg ?');
 define('_MI_SMALLWORLD_PRIVATEMODULE_DESC', 'Hvis "ja" kan alle offentlige indlæg skrevet af forfatter med autorisation læses af alle besøgende. Dog skal bruger stadig været logget ind for at (stemme / kommentere osv).');
-

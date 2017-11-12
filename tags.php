@@ -292,20 +292,21 @@ if ($_GET) {
     $arr[] = 'Zambia';
     $arr[] = 'Zimbabwe';
     $arr[] = 'Åland Islands';
-
 }
 
+/**
+ * @param $array
+ * @return bool|string
+ */
 function array_to_json($array)
 {
-
     if (!is_array($array)) {
         return false;
     }
 
     $associative = count(array_diff(array_keys($array), array_keys(array_keys($array))));
     if ($associative) {
-
-        $construct = array();
+        $construct = [];
         foreach ($array as $key => $value) {
 
             // We first copy each key/value pair into a staging array,
@@ -320,7 +321,7 @@ function array_to_json($array)
             // Format the value:
             if (is_array($value)) {
                 $value = array_to_json($value);
-            } else if (!is_numeric($value) || is_string($value)) {
+            } elseif (!is_numeric($value) || is_string($value)) {
                 $value = '"' . addslashes($value) . '"';
             }
 
@@ -330,16 +331,15 @@ function array_to_json($array)
 
         // Then we collapse the staging array into the JSON form:
         $result = '{ ' . implode(', ', $construct) . ' }';
-
     } else { // If the array is a vector (not associative):
 
-        $construct = array();
+        $construct = [];
         foreach ($array as $value) {
 
             // Format the value:
             if (is_array($value)) {
                 $value = array_to_json($value);
-            } else if (!is_numeric($value) || is_string($value)) {
+            } elseif (!is_numeric($value) || is_string($value)) {
                 $value = "'" . addslashes($value) . "'";
             }
 
@@ -354,14 +354,13 @@ function array_to_json($array)
     return $result;
 }
 
-$result = array();
+$result = [];
 foreach ($arr as $key => $value) {
     if (false !== stripos($key, $q)) {
-        array_push($result, array('id' => $value, 'label' => $key, 'value' => strip_tags($key)));
+        array_push($result, ['id' => $value, 'label' => $key, 'value' => strip_tags($key)]);
     }
     if (count($result) > 11) {
         break;
     }
 }
 echo array_to_json($result);
-

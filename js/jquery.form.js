@@ -282,8 +282,7 @@
                     t ? form.setAttribute('target', t) : $form.removeAttr('target');
                     $(extraInputs).remove();
                 }
-            };
-
+            }
             if (opts.forceSync)
                 doSubmit();
             else
@@ -365,8 +364,7 @@
                     $io.remove();
                     xhr.responseXML = null;
                 }, 100);
-            };
-
+            }
             function toXml(s, doc) {
                 if (window.ActiveXObject) {
                     doc = new ActiveXObject('Microsoft.XMLDOM');
@@ -376,8 +374,8 @@
                 else
                     doc = (new DOMParser()).parseFromString(s, 'text/xml');
                 return (doc && doc.documentElement && doc.documentElement.tagName != 'parsererror') ? doc : null;
-            };
-        };
+            }
+        }
     };
 
     /**
@@ -683,6 +681,5 @@
             else if (window.opera && window.opera.postError)
                 window.opera.postError(msg);
         }
-    };
-
+    }
 })(jQuery);

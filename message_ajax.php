@@ -3,26 +3,27 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/message_ajax.php $
- * @Last       committed:        $Revision: 12114 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
- * @ID         :                    $Id: message_ajax.php 12114 2013-10-01 17:11:18Z djculex $
- **/
+ */
 
-include_once '../../mainfile.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/class/template.php';
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+require_once __DIR__ . '/../../mainfile.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger, $xoopsTpl;
 $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
@@ -32,7 +33,6 @@ $check   = new SmallWorldUser;
 $profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
 if ($profile >= 2) {
-
     $Xuser    = new XoopsUser($id);
     $username = $Xuser->getVar('uname');
     $Wall     = new Wall_Updates();
@@ -40,7 +40,7 @@ if ($profile >= 2) {
     $dBase    = new SmallWorldDB;
     $mail     = new smallworld_mail;
 
-    if (isSet($_POST['update'])) {
+    if (isset($_POST['update'])) {
         if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
             $tpl->assign('isadminuser', 'YES');
         }
@@ -58,7 +58,7 @@ if ($profile >= 2) {
         if ($insdata) {
             //$updatesarray=$Wall->Updates('a', $id, $followers,$page);
             foreach ($insdata as $data) {
-                $USW             = array();
+                $USW             = [];
                 $USW['posts']    = 0;
                 $USW['comments'] = 0;
 
@@ -76,7 +76,7 @@ if ($profile >= 2) {
                 }
 
                 $wm['msg_id']          = $data['msg_id'];
-                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(array("\r", "\n"), '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
+                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(["\r", "\n"], '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
                 $wm['message']         = (1 == $USW['posts'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETPOSTS;
                 $wm['message']         = Smallworld_cleanup($wm['message']);
                 $wm['created']         = smallworld_time_stamp($data['created']);
@@ -118,7 +118,7 @@ if ($profile >= 2) {
 
                 if (!empty($wm['commentsarray'])) {
                     foreach ($wm['commentsarray'] as $cdata) {
-                        $USC             = array();
+                        $USC             = [];
                         $USC['posts']    = 0;
                         $USC['comments'] = 0;
 
@@ -153,11 +153,9 @@ if ($profile >= 2) {
                         $wc['vote_up']         = $Wall->countVotesCom('com', 'up', $cdata['msg_id_fk'], $cdata['com_id']);
                         $wc['vote_down']       = $Wall->countVotesCom('com', 'down', $cdata['msg_id_fk'], $cdata['com_id']);
                         $tpl->append('comm', $wc);
-
                     }
                 }
             }
-
         }
         $tpl->assign('myusername', $username);
         $tpl->assign('pagename', $page);
@@ -169,4 +167,3 @@ if ($profile >= 2) {
 } else {
     header('HTTP/1.1 403 Forbidden');
 }
-

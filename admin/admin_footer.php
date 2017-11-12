@@ -20,7 +20,7 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "    <a href='http://www.xoops.org' target='_blank'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . '  ' . _AM_SMALLWORLD_FOOTER . "\n" . '</div>';
+echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "    <a href='https://xoops.org' target='_blank'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . '  ' . _AM_SMALLWORLD_FOOTER . "\n" . '</div>';
 
 echo "<span style='margin: 27%; height: 50px; position: relative;'>" . _AM_SMALLWORLD_SP . '</span>';
 

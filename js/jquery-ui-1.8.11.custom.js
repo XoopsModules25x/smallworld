@@ -1587,8 +1587,6 @@
                     }
 
                 }
-                ;
-
             });
 
         }
@@ -1753,8 +1751,6 @@
                 inst.snapElements[i].snapping = (ts || bs || ls || rs || first);
 
             }
-            ;
-
         }
     });
 
@@ -2014,7 +2010,7 @@
                         continue droppablesLoop;
                     }
                 }
-                ; //Filter out elements in the current dragged item
+                 //Filter out elements in the current dragged item
                 m[i].visible = m[i].element.css("display") != "none";
                 if (!m[i].visible) continue; 									//If the element is not visible, continue
 
@@ -2204,8 +2200,6 @@
                     if ('se' == handle) {
                         axis.addClass('ui-icon ui-icon-gripsmall-diagonal-se');
                     }
-                    ;
-
                     //Insert into internal handles object and append to element
                     this.handles[handle] = '.ui-resizable-' + handle;
                     this.element.append(axis);
@@ -2528,8 +2522,6 @@
                 });
 
             }
-            ;
-
         },
 
         _renderProxy: function () {
@@ -3736,9 +3728,7 @@
                             queries.push([$.isFunction(inst.options.items) ? inst.options.items.call(inst.element) : $(inst.options.items, inst.element).not(".ui-sortable-helper").not('.ui-sortable-placeholder'), inst]);
                         }
                     }
-                    ;
                 }
-                ;
             }
 
             queries.push([$.isFunction(this.options.items) ? this.options.items.call(this.element, null, {options: this.options, item: this.currentItem}) : $(this.options.items, this.element).not(".ui-sortable-helper").not('.ui-sortable-placeholder'), this]);
@@ -3748,8 +3738,6 @@
                     items.push(this);
                 });
             }
-            ;
-
             return $(items);
 
         },
@@ -3764,11 +3752,7 @@
                     if (list[j] == this.items[i].item[0])
                         this.items.splice(i, 1);
                 }
-                ;
-
             }
-            ;
-
         },
 
         _refreshItems: function (event) {
@@ -3790,9 +3774,7 @@
                             this.containers.push(inst);
                         }
                     }
-                    ;
                 }
-                ;
             }
 
             for (var i = queries.length - 1; i >= 0; i--) {
@@ -3811,10 +3793,7 @@
                         left: 0, top: 0
                     });
                 }
-                ;
             }
-            ;
-
         },
 
         refreshPositions: function (fast) {
@@ -3838,8 +3817,6 @@
                 item.left = p.left;
                 item.top = p.top;
             }
-            ;
-
             if (this.options.custom && this.options.custom.refreshContainers) {
                 this.options.custom.refreshContainers.call(this);
             } else {
@@ -3850,7 +3827,6 @@
                     this.containers[i].containerCache.width = this.containers[i].element.outerWidth();
                     this.containers[i].containerCache.height = this.containers[i].element.outerHeight();
                 }
-                ;
             }
 
             return this;
@@ -3884,11 +3860,9 @@
                         if (!p.height()) {
                             p.height(self.currentItem.innerHeight() - parseInt(self.currentItem.css('paddingTop') || 0, 10) - parseInt(self.currentItem.css('paddingBottom') || 0, 10));
                         }
-                        ;
                         if (!p.width()) {
                             p.width(self.currentItem.innerWidth() - parseInt(self.currentItem.css('paddingLeft') || 0, 10) - parseInt(self.currentItem.css('paddingRight') || 0, 10));
                         }
-                        ;
                     }
                 };
             }
@@ -4239,10 +4213,7 @@
                         }).call(this, this.containers[i]));
                     }
                 }
-                ;
             }
-            ;
-
             //Post events to containers
             for (var i = this.containers.length - 1; i >= 0; i--) {
                 if (!noPropagation) delayedTriggers.push((function (c) {
@@ -4272,7 +4243,7 @@
                     for (var i = 0; i < delayedTriggers.length; i++) {
                         delayedTriggers[i].call(this, event);
                     }
-                    ; //Trigger all delayed events
+                     //Trigger all delayed events
                     this._trigger("stop", event, this._uiHash());
                 }
                 return false;
@@ -4290,7 +4261,7 @@
                 for (var i = 0; i < delayedTriggers.length; i++) {
                     delayedTriggers[i].call(this, event);
                 }
-                ; //Trigger all delayed events
+                 //Trigger all delayed events
                 this._trigger("stop", event, this._uiHash());
             }
 
@@ -9996,14 +9967,12 @@
             if (props[name] == null || props[name] == undefined)
                 target[name] = props[name];
         return target;
-    };
-
+    }
     /* Determine whether an object is an array. */
     function isArray(a) {
         return (a && (($.browser.safari && typeof a == 'object' && a.length) ||
             (a.constructor && a.constructor.toString().match(/\Array\(\)/))));
-    };
-
+    }
     /* Invoke the datepicker functionality.
    @param  options  string - a command, optionally followed by additional parameters or
                     Object - settings for attaching new datepicker functionality
@@ -10160,8 +10129,7 @@
  *
  * http://docs.jquery.com/UI/Effects/
  */
-;jQuery.effects || (function ($, undefined) {
-
+jQuery.effects || (function ($, undefined) {
     $.effects = {};
 
 
@@ -10237,8 +10205,7 @@
         } while (elem = elem.parentNode);
 
         return getRGB(color);
-    };
-
+    }
 // Some named colors to work with
 // From Interface by Stefan Petre
 // http://interface.eyecon.ro/
@@ -10498,7 +10465,6 @@
                 default:
                     y = origin[0] / original.height;
             }
-            ;
             switch (origin[1]) {
                 case 'left':
                     x = 0;
@@ -10512,7 +10478,6 @@
                 default:
                     x = origin[1] / original.width;
             }
-            ;
             return {x: x, y: y};
         },
 
@@ -11034,7 +10999,6 @@
                 distance = distance / 2;
                 times--;
             }
-            ;
             for (var i = 0; i < times; i++) { // Bounces
                 var animation1 = {}, animation2 = {};
                 animation1[ref] = (motion == 'pos' ? '-=' : '+=') + distance;
@@ -11042,7 +11006,6 @@
                 el.animate(animation1, speed / 2, o.options.easing).animate(animation2, speed / 2, o.options.easing);
                 distance = (mode == 'hide') ? distance * 2 : distance / 2;
             }
-            ;
             if (mode == 'hide') { // Last Bounce
                 var animation = {opacity: 0};
                 animation[ref] = (motion == 'pos' ? '-=' : '+=') + distance;
@@ -11062,7 +11025,6 @@
                     if (o.callback) o.callback.apply(this, arguments); // Callback
                 });
             }
-            ;
             el.queue('fx', function () {
                 el.dequeue();
             });
@@ -11530,15 +11492,11 @@
                     el.from.opacity = 0;
                     el.to.opacity = 1;
                 }
-                ;
                 if (mode == 'hide') {
                     el.from.opacity = 1;
                     el.to.opacity = 0;
                 }
-                ;
             }
-            ;
-
             // Animation
             options.from = el.from;
             options.to = el.to;
@@ -11579,7 +11537,6 @@
                 el.to.top = (original.height - el.to.height) * baseline.y;
                 el.to.left = (original.width - el.to.width) * baseline.x;
             }
-            ;
             var factor = { // Set scaling factor
                 from: {y: el.from.height / original.height, x: el.from.width / original.width},
                 to: {y: el.to.height / original.height, x: el.to.width / original.width}
@@ -11590,24 +11547,19 @@
                     el.from = $.effects.setTransition(el, vProps, factor.from.y, el.from);
                     el.to = $.effects.setTransition(el, vProps, factor.to.y, el.to);
                 }
-                ;
                 if (factor.from.x != factor.to.x) { // Horizontal props scaling
                     props = props.concat(hProps);
                     el.from = $.effects.setTransition(el, hProps, factor.from.x, el.from);
                     el.to = $.effects.setTransition(el, hProps, factor.to.x, el.to);
                 }
-                ;
             }
-            ;
             if (scale == 'content' || scale == 'both') { // Scale the content
                 if (factor.from.y != factor.to.y) { // Vertical props scaling
                     props = props.concat(cProps);
                     el.from = $.effects.setTransition(el, cProps, factor.from.y, el.from);
                     el.to = $.effects.setTransition(el, cProps, factor.to.y, el.to);
                 }
-                ;
             }
-            ;
             $.effects.save(el, restore ? props : props1);
             el.show(); // Save & Show
             $.effects.createWrapper(el); // Create Wrapper
@@ -11628,20 +11580,16 @@
                         child.from = $.effects.setTransition(child, vProps, factor.from.y, child.from);
                         child.to = $.effects.setTransition(child, vProps, factor.to.y, child.to);
                     }
-                    ;
                     if (factor.from.x != factor.to.x) { // Horizontal props scaling
                         child.from = $.effects.setTransition(child, hProps, factor.from.x, child.from);
                         child.to = $.effects.setTransition(child, hProps, factor.to.x, child.to);
                     }
-                    ;
                     child.css(child.from); // Shift children
                     child.animate(child.to, o.duration, o.options.easing, function () {
                         if (restore) $.effects.restore(child, props2); // Restore children
                     }); // Animate children
                 });
             }
-            ;
-
             // Animate
             el.animate(el.to, {
                 queue: false, duration: o.duration, easing: o.options.easing, complete: function () {
@@ -11707,7 +11655,6 @@
             for (var i = 1; i < times; i++) { // Shakes
                 el.animate(animation1, speed, o.options.easing).animate(animation2, speed, o.options.easing);
             }
-            ;
             el.animate(animation1, speed, o.options.easing).animate(animation, speed / 2, o.options.easing, function () { // Last shake
                 $.effects.restore(el, props);
                 $.effects.removeWrapper(el); // Restore

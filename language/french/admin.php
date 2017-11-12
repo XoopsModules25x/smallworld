@@ -66,7 +66,7 @@ define('_AM_SMALLWORLD_ADDTIMEDROPDOWN_NOCHANGE', 'Pas de changement');
 // Divers, autres
 define('_AM_SMALLWORLD_UPDATE_CRITICAL_UPD', ' Une mise à jour critique est disponible&thinsp;!');
 define('_AM_SMALLWORLD_UPDATE_NORMAL_UPD', ' Il y a une version plus récente, disponible en téléchargement');
-define('_AM_SMALLWORLD_UPDATE_SERVER_ERROR', 'Le serveur est en panne ou en cours de mise à jour, <br/> veuillez retenter plus tard.');
+define('_AM_SMALLWORLD_UPDATE_SERVER_ERROR', 'Le serveur est en panne ou en cours de mise à jour, <br> veuillez retenter plus tard.');
 define('_AM_SMALLWORLD_UPDATE_FILE_DESC', 'Description de la nouvelle version');
 define('_AM_SMALLWORLD_UPDATE_SERVER_FILE', 'Vous pouvez télécharger la nouvelle version d\'ici');
 define('_AM_SMALLWORLD_UPDATE_YOUHAVENEWESTVERSION', ' Vous avez déjà la version la plus récente');
@@ -77,6 +77,8 @@ define('_AM_SMALLWORLD_STATS_NAME', 'Nom');
 define('_AM_SMALLWORLD_STATS_AMOUNT', 'Nombre');
 define('_AM_SMALLWORLD_STATS_IMG', 'Icône');
 
-define('_AM_SMALLWORLD_SP',
-       '<img style="margin: 0pt 5px 0pt 0pt; vertical-align: middle;" src="../images/sp.png" height="30px" width="30px"> <a style="position: relative; margin: 0px;vertical-align: middle;" href="javascript:void(0);" id="smallworldDonate">Si vous aimez ce module et le travail effectué, vous pouvez me garder éveillé en m\'offrant un café</a>');
+define(
+    '_AM_SMALLWORLD_SP',
+       '<img style="margin: 0pt 5px 0pt 0pt; vertical-align: middle;" src="../images/sp.png" height="30px" width="30px"> <a style="position: relative; margin: 0px;vertical-align: middle;" href="javascript:void(0);" id="smallworldDonate">Si vous aimez ce module et le travail effectué, vous pouvez me garder éveillé en m\'offrant un café</a>'
+);
 define('_AM_SMALLWORLD_FOOTER', "<div class='center smallsmall italic pad5'>Le module SmallWorld est suivi par <a class='tooltip' rel='external' href='http://culex.dk/' title='Visitez mon site internet'>Culex</a></div>");

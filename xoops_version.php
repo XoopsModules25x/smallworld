@@ -3,22 +3,24 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * SmallWorld
  *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/xoops_version.php $
- * @Last       committed:        $Revision: 11992 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
- * @ID         :                    $Id: xoops_version.php 11992 2013-08-31 18:06:22Z djculex $
- **/
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
 $modversion['name']                = _MI_SMALLWORLD_MODULE_NAME;
 $modversion['version']             = 1.15;
@@ -34,10 +36,10 @@ $modversion['status_version']      = 'RC';
 $modversion['module_status']       = 'Release Candidate';
 $modversion['release_date']        = '2011/12/24';
 $modversion['help']                = 'page=help';
-$modversion['min_php']             = '5.3';
-$modversion['min_xoops']           = '2.5.5';
+$modversion['min_php']             = '5.5';
+$modversion['min_xoops']           = '2.5.9';
 $modversion['min_admin']           = '1.1';
-$modversion['min_db']              = array('mysql' => '5.0.5', 'mysqli' => '5.0.5');
+$modversion['min_db']              = ['mysql' => '5.5'];
 $modversion['system_menu']         = 1;
 $modversion['official']            = 0;
 $modversion['image']               = 'images/smallworld.png';
@@ -73,37 +75,37 @@ $modversion['tables'][9]        = 'smallworld_settings';
 $i                                          = 1;
 $modversion['templates'][$i]['file']        = 'smallworld_index.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_userprofile_template.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_userprofile_regtemplate.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_userprofile_edittemplate.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_userprofile_imgupload.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_galleryshow.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_images_edittemplate.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_friends_template.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_permalink.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_admin.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_share.html';
 $modversion['templates'][$i]['description'] = '';
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'smallworld_publicindex.html';
 $modversion['templates'][$i]['description'] = '';
 
@@ -118,7 +120,7 @@ $modversion['blocks'][$i]['template']    = 'smallworld_block.html';
 //Module Configs
 $i = 0;
 
-$i++;
+++$i;
 $modversion['config'][$i]['name']        = 'msgtoshow';
 $modversion['config'][$i]['title']       = '_MI_SMALLWORLD_MSGTOSHOW';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_MSGTOSHOW_DESC';
@@ -126,7 +128,7 @@ $modversion['config'][$i]['formtype']    = 'textbox';
 $modversion['config'][$i]['valuetype']   = 'int';
 $modversion['config'][$i]['default']     = 5;
 
-$i++;
+++$i;
 $modversion['config'][$i]['name']        = 'validationstrenght';
 $modversion['config'][$i]['title']       = '_MI_SMALLWORLD_VALIDATIONSTRENGHT';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC';
@@ -134,7 +136,7 @@ $modversion['config'][$i]['formtype']    = 'yesno';
 $modversion['config'][$i]['valuetype']   = 'int';
 $modversion['config'][$i]['default']     = 1;
 
-$i++;
+++$i;
 $modversion['config'][$i]['name']        = 'takeoveruserlinks';
 $modversion['config'][$i]['title']       = '_MI_SMALLWORLD_TAKEOVERLINKS';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_TAKEOVERLINKS_DESC';
@@ -142,7 +144,7 @@ $modversion['config'][$i]['formtype']    = 'yesno';
 $modversion['config'][$i]['valuetype']   = 'int';
 $modversion['config'][$i]['default']     = 1;
 
-$i++;
+++$i;
 $modversion['config'][$i]['name']        = 'usersownpostscount';
 $modversion['config'][$i]['title']       = '_MI_SMALLWORLD_USERSOWNMSGCOUNTS';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC';
@@ -150,7 +152,7 @@ $modversion['config'][$i]['formtype']    = 'yesno';
 $modversion['config'][$i]['valuetype']   = 'int';
 $modversion['config'][$i]['default']     = 0;
 
-$i++;
+++$i;
 $modversion['config'][$i]['name']        = 'smallworldbookmarkavatar';
 $modversion['config'][$i]['title']       = '_MI_SMALLWORLD_BOOKMARSAVATARS';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC';
@@ -158,7 +160,7 @@ $modversion['config'][$i]['formtype']    = 'yesno';
 $modversion['config'][$i]['valuetype']   = 'int';
 $modversion['config'][$i]['default']     = 1;
 
-$i++;
+++$i;
 $modversion['config'][$i]['name']        = 'smallworldusemailnotis';
 $modversion['config'][$i]['title']       = '_MI_SMALLWORLD_USEMAILNOTIFICATION';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC';
@@ -166,13 +168,13 @@ $modversion['config'][$i]['formtype']    = 'yesno';
 $modversion['config'][$i]['valuetype']   = 'int';
 $modversion['config'][$i]['default']     = 1;
 
-$i++;
+++$i;
 $modversion['config'][$i]['name']        = 'smallworldusethesefields';
 $modversion['config'][$i]['title']       = '_MI_SMALLWORLD_VIEWFIELDS';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_VIEWFIELDS_DESC';
 $modversion['config'][$i]['formtype']    = 'select_multi';
 $modversion['config'][$i]['valuetype']   = 'array';
-$modversion['config'][$i]['options']     = array(
+$modversion['config'][$i]['options']     = [
     '_MI_SMALLWORLD_REALNAME'           => 'realname',
     '_MI_SMALLWORLD_GENDER'             => 'gender',
     '_MI_SMALLWORLD_INTERESTEDIN'       => 'interestedin',
@@ -199,8 +201,8 @@ $modversion['config'][$i]['options']     = array(
     '_MI_SMALLWORLD_ABOUTME'            => 'aboutme',
     '_MI_SMALLWORLD_EDUCATION'          => 'education',
     '_MI_SMALLWORLD_EMPLOYMENT'         => 'employment',
-);
-$modversion['config'][$i]['default']     = array(
+];
+$modversion['config'][$i]['default']     = [
     'realname',
     'gender',
     'interestedin',
@@ -227,16 +229,16 @@ $modversion['config'][$i]['default']     = array(
     'aboutme',
     'education',
     'employment'
-);
+];
 
 // Mandatory fields
-$i++;
+++$i;
 $modversion['config'][$i]['name']        = 'smallworldmandatoryfields';
 $modversion['config'][$i]['title']       = '_MI_SMALLWORLD_VERIFYFIELDS';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_VERIFYFIELDS_DESC';
 $modversion['config'][$i]['formtype']    = 'select_multi';
 $modversion['config'][$i]['valuetype']   = 'array';
-$modversion['config'][$i]['options']     = array(
+$modversion['config'][$i]['options']     = [
     '_MI_SMALLWORLD_REALNAME'           => 'realname',
     '_MI_SMALLWORLD_GENDER'             => 'gender',
     '_MI_SMALLWORLD_INTERESTEDIN'       => 'interestedin',
@@ -263,8 +265,8 @@ $modversion['config'][$i]['options']     = array(
     '_MI_SMALLWORLD_ABOUTME'            => 'aboutme',
     '_MI_SMALLWORLD_EDUCATION'          => 'education',
     '_MI_SMALLWORLD_EMPLOYMENT'         => 'employment',
-);
-$modversion['config'][$i]['default']     = array(
+];
+$modversion['config'][$i]['default']     = [
     'realname',
     'gender',
     'interestedin',
@@ -277,10 +279,10 @@ $modversion['config'][$i]['default']     = array(
     'streetadress',
     'presentcity',
     'country'
-);
+];
 
 // Module is private or public
-$i++;
+++$i;
 $modversion['config'][$i]['name']        = 'smallworldprivorpub';
 $modversion['config'][$i]['title']       = '_MI_SMALLWORLD_PRIVATEMODULE';
 $modversion['config'][$i]['description'] = '_MI_SMALLWORLD_PRIVATEMODULE_DESC';
@@ -291,7 +293,7 @@ $modversion['config'][$i]['default']     = 1;
 /**
  * Authorized groups to upload
  */
-$i++;
+++$i;
 $obj                                     = smallworld_xv_getGroupd();
 $modversion['config'][$i]['name']        = 'smallworldshowPoPubPage';
 $modversion['config'][$i]['title']       = '_MI_SHOWPUBLICPAGE';
@@ -313,5 +315,3 @@ $modversion['config'][$i]['default']     = 1;
 $modversion['hasSearch']      = 1;
 $modversion['search']['file'] = 'include/search.inc.php';
 $modversion['search']['func'] = 'smallworld_search';
-
-

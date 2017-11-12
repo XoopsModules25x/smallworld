@@ -3,25 +3,27 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * SmallWorld
  *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/comment_ajax.php $
- * @Last       committed:        $Revision: 12175 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
- * @ID         :                    $Id: comment_ajax.php 12175 2013-10-15 17:41:43Z djculex $
- **/
-include_once '../../mainfile.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/class/template.php';
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+require_once __DIR__ . '/../../mainfile.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger, $xoopsTpl;
 $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
@@ -31,7 +33,6 @@ $id      = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 $profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
 if ($profile >= 2) {
-
     $Xuser    = new XoopsUser($id);
     $username = $Xuser->getVar('uname');
     $Wall     = new Wall_Updates();
@@ -39,7 +40,7 @@ if ($profile >= 2) {
     $mail     = new smallworld_mail;
     $dBase    = new SmallWorldDB;
 
-    if (isSet($_POST['comment'])) {
+    if (isset($_POST['comment'])) {
         if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
             $tpl->assign('isadminuser', 'YES');
         }
@@ -59,13 +60,12 @@ if ($profile >= 2) {
             // Is comments's user a friend ?
             $frC = $check->friendcheck($id, $data['uid_fk']);
 
-            $USC             = array();
+            $USC             = [];
             $USC['posts']    = 0;
             $USC['comments'] = 0;
             //$USC['notify'] = 0;
 
             if ($xoopsUser) {
-
                 if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) || $data['uid_fk'] == $id) {
                     $USC['posts']    = 1;
                     $USC['comments'] = 1;
@@ -125,4 +125,3 @@ if ($profile >= 2) {
         }
     }
 }
-

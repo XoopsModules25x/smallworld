@@ -1,25 +1,24 @@
 <?php
 /**
  * You may not change or alter any portion of this comment or credits
- * of supporting developers from this source code or any supporting
- * source code which is considered copyrighted (c) material of the
- * original comment or credit authors.
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * SmallWorld
  *
- * @copyright :         {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license   :           {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @packet    :            Modules
- * @sub-packet:        Smallworld
- * @since     :             Xoops 2.5.4
- * @Author    :            Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright :         2011 Culex
- * @Last      committed:    $Revision: 11992 $
- * @Last      changed by:   $Author: djculex $
- * @Last      changed date: $Date: 2013-08-31 20:06:22 +0200 (lø, 31 aug 2013) $
- * @ID        :                $Id: modinfo.php 11992 2013-08-31 18:06:22Z djculex $
- **/
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
 
 define('_MI_SMALLWORLD_MODULE_NAME', 'Smallworld');
 define('_MI_SMALLWORLD_MODULE_DESC', 'A social network module in the small. With wall and profiling');
@@ -102,4 +101,3 @@ define('_MI_SHOWPUBLICPAGE_DESC', 'Default is "All users" wich means that all us
     show the latest users.
         ');
 define('_MI_SMALLWORLD_ALL', 'All users');
-

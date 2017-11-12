@@ -233,8 +233,7 @@
             var isValid = callback.apply(xoops_smallworldthis, [clicked + 1]);
 
             return !(isValid || isValid === undefined);
-        };
-
+        }
         function createBackButton(index) {
             xoops_smallworld('<a/>', {
                 id: id + '-back-' + index,
@@ -251,8 +250,7 @@
                 }
             })
                 .appendTo(xoops_smallworld('p#' + id + '-buttons-' + index));
-        };
-
+        }
         function createNextButton(index) {
             xoops_smallworld('<a/>', {
                 id: id + '-next-' + index,
@@ -272,8 +270,7 @@
                 }
             })
                 .appendTo(xoops_smallworld('p#' + id + '-buttons-' + index));
-        };
-
+        }
         function getMaxStep(context, opt, clicked) { // TODO: give support of validation from public function. .data().
             var maxStep = clicked,
                 isValid = true;
@@ -290,8 +287,7 @@
             }
 
             return maxStep;
-        };
-
+        }
         return xoops_smallworldthis;
     };
 
@@ -325,8 +321,7 @@
         xoops_smallworld('fieldset:visible').find('input[name="emailtype[]"]').each(function () {
             xoops_smallworld(this).blur();
         });
-    };
-
+    }
     function validate(context, index, opt) {
         if (!context.is('form')) {
             return true;
@@ -362,8 +357,7 @@
         });
 
         return isValid;
-    };
-
+    }
     xoops_smallworld.fn.stepy.step = function (index, idOrClass) {
         var context = getContext(index, idOrClass, 'step');
 
@@ -406,14 +400,12 @@
         }
 
         return context;
-    };
-
+    }
     function debug(message) {
         if (window.console && window.console.log) {
             window.console.log(message);
         }
-    };
-
+    }
     xoops_smallworld.fn.stepy.defaults = {
         back: null,
         backLabel: '&lt; Back',

@@ -34,10 +34,10 @@
                     <td><p><{$smarty.const._SMALLWORLD_INTERESTEDIN}></p></td>
                     <td><label for="select"></label>
                         <span id="intingender">
-									<{section name=i loop=$intingender}>
-										<{$intingender[i]}>
-									<{/section}> 
-									</span>
+                                    <{section name=i loop=$intingender}>
+                                        <{$intingender[i]}>
+                                    <{/section}>
+                                    </span>
                     </td>
                 </tr>
                 <{/if}>
@@ -69,11 +69,11 @@
                     <td valign="top"><p><{$smarty.const._SMALLWORLD_LOOKINGFOR}></p></td>
                     <td><label for="select"></label>
                         <span id="searchrelat">
-									<{section name=i loop=$searchrelat}>
-										<{$searchrelat[i]}>
-									<{/section}> 
-									</span>
-                        <br/>
+                                    <{section name=i loop=$searchrelat}>
+                                        <{$searchrelat[i]}>
+                                    <{/section}>
+                                    </span>
+                        <br>
                     </td>
                 </tr>
                 <{/if}>
@@ -241,7 +241,7 @@
                 </tr>
                 <{/if}>
             </table>
-            <br/>
+            <br>
 
         </fieldset>
 
@@ -317,7 +317,7 @@
                 <tr>
                     <td></td>
                 </tr>
-                <br/>
+                <br>
             </table>
 
         </fieldset>
@@ -368,8 +368,8 @@
                 </tr>
             </table>
         </fieldset>
-        <input type="submit" id="smallworld_save1" value="<{$smallworld_save}>" class="smallworld_finish"/>
-        <input type="hidden" name="function" value="save"/>
+        <input type="submit" id="smallworld_save1" value="<{$smallworld_save}>" class="smallworld_finish">
+        <input type="hidden" name="function" value="save">
     </form>
     <{/if}>
 </div>

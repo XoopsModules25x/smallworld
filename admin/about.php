@@ -10,7 +10,7 @@
  */
 
 /**
- * Publisher
+ * SmallWorld
  *
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
@@ -20,8 +20,7 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 global $xoTheme;
@@ -33,4 +32,4 @@ echo $aboutAdmin->renderAbout('', false);
 
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
-include 'admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';

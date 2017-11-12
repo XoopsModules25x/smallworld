@@ -3,31 +3,32 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * SmallWorld
  *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/include/functions.php $
- * @Last       committed:        $Revision: 12175 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
- * @ID         :                    $Id: functions.php 12175 2013-10-15 17:41:43Z djculex $
- **/
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
 
 /*
 Get array of timestamps based on the timetype configured in preferences
 */
 function SmallworldGetTimestampsToForm()
 {
-    $timearray = array();
+    $timearray = [];
     $start     = 1900;
     $end       = date('Y');
-    for ($i = $start; $i <= $end; $i++) {
+    for ($i = $start; $i <= $end; ++$i) {
         $key             = $i;
         $timearray[$key] = $i;
     }
@@ -36,8 +37,12 @@ function SmallworldGetTimestampsToForm()
 }
 
 // Clean vars or arrays
-// If array check for magicQuotes. 
-// Pass string to Smallworld_cleanup_string 
+// If array check for magicQuotes.
+// Pass string to Smallworld_cleanup_string
+/**
+ * @param $text
+ * @return array|mixed
+ */
 function Smallworld_cleanup($text)
 {
     if (is_array($text)) {
@@ -51,6 +56,10 @@ function Smallworld_cleanup($text)
 }
 
 // Sanitize string
+/**
+ * @param $text
+ * @return mixed
+ */
 function Smallworld_cleanup_string($text)
 {
     $myts = MyTextSanitizer::getInstance();
@@ -60,6 +69,10 @@ function Smallworld_cleanup_string($text)
 
 // clean Array for mysql insertion
 // or send string to Smallworld_sanitize_string
+/**
+ * @param $text
+ * @return array|mixed
+ */
 function Smallworld_sanitize($text)
 {
     if (is_array($text)) {
@@ -72,41 +85,61 @@ function Smallworld_sanitize($text)
     return $text;
 }
 
+/**
+ * @param $value
+ * @return mixed
+ */
 function Smallworld_sanitize_string($value)
 {
     $myts = MyTextSanitizer::getInstance();
     if (get_magic_quotes_gpc()) {
         $value = $myts->stripSlashesGPC($value);
     } else {
-        $value = mysql_real_escape_string($value);
+        $value = $GLOBALS['xoopsDB']->escape($value);
     }
     return $value;
 }
 
+/**
+ * @param $array
+ * @return array
+ */
 function Smallworld_DateOfArray($array)
 {
-    $data = array();
+    $data = [];
     foreach ($array as $k => $v) {
         $data[$k] = strtotime($v);
     }
     return $data;
 }
 
+/**
+ * @param $array
+ * @return array
+ */
 function Smallworld_YearOfArray($array)
 {
-    $data = array();
+    $data = [];
     foreach ($array as $k => $v) {
         $data[$k] = $v;
     }
     return $data;
 }
 
+/**
+ * @param $folderUrl
+ */
 function Smallworld_CreateIndexFiles($folderUrl)
 {
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     file_put_contents($folderUrl . 'index.html', '<script>history.go(-1);</script>');
 }
 
+/**
+ * @param string $glue
+ * @param        $pieces
+ * @return string
+ */
 function smallworld_ImplodeArray($glue = ', ', $pieces)
 {
     return implode($glue, $pieces);
@@ -114,7 +147,13 @@ function smallworld_ImplodeArray($glue = ', ', $pieces)
 
 // recursively reduces deep arrays to single-dimensional arrays
 // $preserve_keys: (0=>never, 1=>strings, 2=>always)
-function Smallworld_array_flatten($array, $preserve_keys = 1, &$newArray = Array())
+/**
+ * @param       $array
+ * @param int   $preserve_keys
+ * @param array $newArray
+ * @return array
+ */
+function Smallworld_array_flatten($array, $preserve_keys = 1, &$newArray = [])
 {
     foreach ($array as $key => $child) {
         if (is_array($child)) {
@@ -133,6 +172,10 @@ function Smallworld_array_flatten($array, $preserve_keys = 1, &$newArray = Array
  * @param date $birth
  * @returns integer
  */
+/**
+ * @param $birth
+ * @return false|string
+ */
 function Smallworld_Birthday($birth)
 {
     list($year, $month, $day) = explode('-', $birth);
@@ -150,6 +193,10 @@ function Smallworld_Birthday($birth)
     return $yearDiff;
 }
 
+/**
+ * @param $check
+ * @return bool
+ */
 function smallworld_isset_or($check)
 {
     global $xoopsDB, $xoopsUser;
@@ -165,7 +212,11 @@ function smallworld_isset_or($check)
 }
 
 //Srinivas Tamada http://9lessons.info
-//Loading Comments link with load_updates.php 
+//Loading Comments link with load_updates.php
+/**
+ * @param $session_time
+ * @return string
+ */
 function smallworld_time_stamp($session_time)
 {
     global $xoopsConfig;
@@ -179,31 +230,31 @@ function smallworld_time_stamp($session_time)
     $years           = round($time_difference / 29030400);
     if ($seconds <= 60) {
         $t = "$seconds" . _SMALLWORLD_SECONDSAGO;
-    } else if ($minutes <= 60) {
+    } elseif ($minutes <= 60) {
         if (1 == $minutes) {
             $t = _SMALLWORLD_ONEMINUTEAGO;
         } else {
             $t = "$minutes" . _SMALLWORLD_MINUTESAGO;
         }
-    } else if ($hours <= 24) {
+    } elseif ($hours <= 24) {
         if (1 == $hours) {
             $t = _SMALLWORLD_ONEHOURAGO;
         } else {
             $t = "$hours" . _SMALLWORLD_HOURSAGO;
         }
-    } else if ($days <= 7) {
+    } elseif ($days <= 7) {
         if (1 == $days) {
             $t = _SMALLWORLD_ONEDAYAGO;
         } else {
             $t = "$days" . _SMALLWORLD_DAYSAGO;
         }
-    } else if ($weeks <= 4) {
+    } elseif ($weeks <= 4) {
         if (1 == $weeks) {
             $t = _SMALLWORLD_ONEWEEKAGO;
         } else {
             $t = "$weeks" . _SMALLWORLD_WEEKSAGO;
         }
-    } else if ($months <= 12) {
+    } elseif ($months <= 12) {
         if (1 == $months) {
             $t = _SMALLWORLD_ONEMONTHAGO;
         } else {
@@ -221,6 +272,11 @@ function smallworld_time_stamp($session_time)
 
 // Return only url/link
 // If url is image link return <img>
+/**
+ * @param $text
+ * @param $uid
+ * @return string
+ */
 function smallworld_tolink($text, $uid)
 {
     global $xoopsUser;
@@ -234,15 +290,20 @@ function smallworld_tolink($text, $uid)
     $username = $user->getVar('uname');
     $gallery  = XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $usr->getVar('uname');
 
-    if (in_array($ext, array('.jpg', '.bmp', '.gif', '.png')) || in_array($ext, array('.JPG', '.BMP', '.GIF', '.PNG')) || in_array($ext2, array('.jpeg'))) {
+    if (in_array($ext, ['.jpg', '.bmp', '.gif', '.png']) || in_array($ext, ['.JPG', '.BMP', '.GIF', '.PNG']) || in_array($ext2, ['.jpeg'])) {
         if (false !== strpos($text, 'UPLIMAGE')) {
             $text = str_replace('UPLIMAGE', '', $text);
-            $text = preg_replace('/(((f|ht){1}tp:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
-                                 '<span class="smallworldUplImgTxt"><br/><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_self">' . $usr->getVar('uname') . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>', $text);
-            $text = preg_replace('/(((f|ht){1}tps:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
-                                 '<span class="smallworldUplImgTxt"><br/><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_self">' . $usr->getVar('uname') . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>', $text);
-            $text = preg_replace('/([[:space:]()[{}])(www.[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
-                                 '\\1<span class="smallworldUplImgTxt"><br/><img class="smallworldAttImg" src="//\\2"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_self">' . $username . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>', $text);
+            $text = preg_replace(
+                '/(((f|ht){1}tp:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
+                                 '<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $usr->getVar('uname') . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
+                $text
+            );
+            $text = preg_replace('/(((f|ht){1}tps:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i', '<a href="\\1">lala</a>', $text);
+            $text = preg_replace(
+                '/([[:space:]()[{}])(www.[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
+                                 '\\1<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="//\\2"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $username . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
+                $text
+            );
             $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
         } else {
             $text = preg_replace('/(((f|ht){1}tp:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i', '<img class="smallworldAttImg" src="\\1"><a class="smallworldAttImgTxt" href="\\1">' . _SMALLWORLD_CLICKIMAGETHUMB . ' </a><br>', $text);
@@ -258,78 +319,89 @@ function smallworld_tolink($text, $uid)
     return linkify_twitter_status($text);
 }
 
+/**
+ * @param $text
+ * @return mixed
+ */
 function Smallworld_stripWordsKeepUrl($text)
 {
     preg_replace('/(((f|ht){1}tps:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i', '<div class=".embed"><a href="\\1">\\1</a></div>', $text);
     return $text;
 }
 
+/**
+ * @param $num
+ * @param $name
+ * @return string
+ */
 function Smallworld_sociallinks($num, $name)
 {
     if (0 == $num) {
-        $image = '<img title="Msn" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/msn.png"/>';
+        $image = '<img title="Msn" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/msn.png">';
         $link  = '<a title="Msn" id="Smallworld_socialnetwork" target="_blank" href="http://members.msn.com/' . $name . '">';
     }
     if (1 == $num) {
-        $image = '<img title="facebook" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/facebook.png"/>';
+        $image = '<img title="facebook" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/facebook.png">';
         $link  = '<a title="facebook" id="Smallworld_socialnetwork" target="_blank" href="http://www.facebook.com/' . $name . '">';
     }
     if (2 == $num) {
-        $image = '<img title="GooglePlus" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/googleplus.png"/>';
+        $image = '<img title="GooglePlus" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/googleplus.png">';
         $link  = '<a title="GooglePlus" id="Smallworld_socialnetwork" target="_blank" href="https://plus.google.com/' . $name . '">';
     }
     if (3 == $num) {
-        $image = '<img title="Icq" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/icq.png"/>';
+        $image = '<img title="Icq" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/icq.png">';
         $link  = '<a title="icq" id="Smallworld_socialnetwork" target="_blank" href="http://www.icq.com/people/' . $name . '/">';
     }
     if (4 == $num) {
-        $image = '<img title="Skype" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/skype.png"/>';
+        $image = '<img title="Skype" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/skype.png">';
         $link  = '<a title="Skype" id="Smallworld_socialnetwork" target="_blank" href="skype:' . $name . '?userinfo">';
     }
     if (5 == $num) {
-        $image = '<img title="Twitter" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/twitter.png"/>';
+        $image = '<img title="Twitter" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/twitter.png">';
         $link  = '<a title="Twitter" id="Smallworld_socialnetwork" target="_blank" href="http://twitter.com/#!/' . $name . '">';
     }
     if (6 == $num) {
-        $image = '<img title="MySpace" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/myspace.png"/>';
+        $image = '<img title="MySpace" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/myspace.png">';
         $link  = '<a title="MySpace" id="Smallworld_socialnetwork" target="_blank" href="http://www.myspace.com/' . $name . '">';
     }
     if (7 == $num) {
-        $image = '<img title="Xoops" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/xoops.png"/>';
-        $link  = '<a title="Xoops" id="Smallworld_socialnetwork" target="_blank" href="http://xoops.org/modules/profile/userinfo.php?uid=' . $name . '">';
+        $image = '<img title="Xoops" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/xoops.png">';
+        $link  = '<a title="Xoops" id="Smallworld_socialnetwork" target="_blank" href="https://xoops.org/modules/profile/userinfo.php?uid=' . $name . '">';
     }
     if (8 == $num) {
-        $image = '<img title="Yahoo Messenger" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/yahoo.png"/>';
+        $image = '<img title="Yahoo Messenger" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/yahoo.png">';
         $link  = '<a title="Yahoo Messenger" id="Smallworld_socialnetwork" target="_blank" href="ymsgr:sendim?' . $name . '">';
     }
     if (9 == $num) {
-        $image = '<img title="Youtube" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/youtube.png"/>';
+        $image = '<img title="Youtube" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/youtube.png">';
         $link  = '<a title="Youtube" id="Smallworld_socialnetwork" target="_blank" href="http://www.youtube.com/user/' . $name . '">';
     }
     return $image . $link;
 }
 
+/**
+ * @param        $option
+ * @param string $repmodule
+ * @return bool|mixed
+ */
 function smallworld_GetModuleOption($option, $repmodule = 'smallworld')
 {
     global $xoopsModuleConfig, $xoopsModule;
-    static $tbloptions = Array();
+    static $tbloptions = [];
     if (is_array($tbloptions) && array_key_exists($option, $tbloptions)) {
         return $tbloptions[$option];
     }
     $retval = false;
-    if (isset($xoopsModuleConfig)
-        && (is_object($xoopsModule)
-            && $xoopsModule->getVar('dirname') == $repmodule
-            && $xoopsModule->getVar('isactive'))) {
+    if (isset($xoopsModuleConfig) && (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $repmodule && $xoopsModule->getVar('isactive'))) {
         if (isset($xoopsModuleConfig[$option])) {
             $retval = $xoopsModuleConfig[$option];
         }
     } else {
-        $module_handler =& xoops_getHandler('module');
-        $module         =& $module_handler->getByDirname($repmodule);
-        $config_handler =& xoops_getHandler('config');
+        $moduleHandler = xoops_getHandler('module');
+        $module        = $moduleHandler->getByDirname($repmodule);
+        $configHandler = xoops_getHandler('config');
         if ($module) {
-            $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+            $moduleConfig =& $configHandler->getConfigsByCat(0, $module->getVar('mid'));
             if (isset($moduleConfig[$option])) {
                 $retval = $moduleConfig[$option];
             }
@@ -369,8 +441,7 @@ function smallworld_getAvatarLink($userid, $image)
         $link = $image;
     }
 
-    if (in_array($ext, array('jpg', 'bmp', 'gif', 'png', 'jpeg')) || '' == $image || 'blank.gif' == $image) {
-
+    if (in_array($ext, ['jpg', 'bmp', 'gif', 'png', 'jpeg']) || '' == $image || 'blank.gif' == $image) {
         if ('1' == $gender) {
             $link = XOOPS_URL . '/modules/smallworld/images/ano_woman.png';
         }
@@ -387,6 +458,9 @@ function smallworld_getAvatarLink($userid, $image)
     return $link;
 }
 
+/**
+ * @return bool
+ */
 function smallworld_checkForXim()
 {
     $filename = XOOPS_ROOT_PATH . '/modules/xim/chat.php';
@@ -421,6 +495,10 @@ function smallworld_XIMversion()
 * Return owner of thread (original poster)
 * Return Integer
 */
+/**
+ * @param $msg_id_fk
+ * @return mixed
+ */
 function Smallworld_getOwnerFromComment($msg_id_fk)
 {
     global $xoopsDB;
@@ -433,6 +511,10 @@ function Smallworld_getOwnerFromComment($msg_id_fk)
 }
 
 // Get username from userID
+/**
+ * @param $userID
+ * @return mixed
+ */
 function Smallworld_getName($userID)
 {
     global $xoopsUser, $xoopsDB;
@@ -447,10 +529,14 @@ function Smallworld_getName($userID)
 // Check if user has been taken down for inspection by admin
 // Userid = user id of user to check
 // return array
+/**
+ * @param $userid
+ * @return array
+ */
 function Smallworld_isInspected($userid)
 {
     global $xoopsDB;
-    $data   = array();
+    $data   = [];
     $sql    = 'SELECT inspect_start, inspect_stop FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "' AND (inspect_start+inspect_stop) > " . time() . '';
     $result = $xoopsDB->queryF($sql);
     if ($xoopsDB->getRowsNum($result) > 0) {
@@ -475,6 +561,9 @@ function SmallworldDeleteOldInspects()
 
 // Function to get sum of users in you following array
 // Used to calculate new message flash in jQuery intval fetch
+/**
+ * @return mixed
+ */
 function smallworld_getCountFriendMessagesEtc()
 {
     global $xoopsUser, $xoopsDB;
@@ -505,6 +594,10 @@ function smallworld_getCountFriendMessagesEtc()
 
 // Function to get sum of users in you following array
 // Used to calculate new message flash in jQuery intval fetch
+/**
+ * @param $id
+ * @return mixed
+ */
 function smallworld_countUsersMessages($id)
 {
     global $xoopsUser, $xoopsDB;
@@ -530,10 +623,13 @@ function smallworld_countUsersMessages($id)
 }
 
 // Get the three newest members to array
+/**
+ * @return array
+ */
 function smallworld_Stats_newest()
 {
     global $xoopsDB, $xoopsUser;
-    $nu     = array();
+    $nu     = [];
     $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . ' ORDER BY regdate DESC LIMIT 3';
     $result = $xoopsDB->queryF($sql);
     if ($xoopsDB->getRowsNum($result) > 0) {
@@ -546,13 +642,17 @@ function smallworld_Stats_newest()
             $nu[$i]['username_link']  .= $r['username'] . ' (' . $r['realname'] . ') [' . $nu[$i]['regdate'] . '] </a>';
             $nu[$i]['userimage']      = $r['userimage'];
             $nu[$i]['userimage_link'] = smallworld_getAvatarLink($r['userid'], Smallworld_Gravatar($r['userid']));
-            $i++;
+            ++$i;
         }
     }
     return $nu;
 }
 
 //Avatar Image
+/**
+ * @param $uid
+ * @return string
+ */
 function Smallworld_Gravatar($uid)
 {
     global $xoopsUser, $xoopsDB;
@@ -563,14 +663,14 @@ function Smallworld_Gravatar($uid)
         $image = $r['userimage'];
     }
 
-    $image = ('' == $image || 'blank.gif' == $image) ? smallworld_getAvatarLink($uid, $image) : $image;
+    $image = ('' == $image || 'blank.gif' === $image) ? smallworld_getAvatarLink($uid, $image) : $image;
 
-    $type = Array(
+    $type = [
         1 => 'jpg',
         2 => 'jpeg',
         3 => 'png',
         4 => 'gif'
-    );
+    ];
 
     $ext = explode('.', $image);
 
@@ -583,10 +683,13 @@ function Smallworld_Gravatar($uid)
 }
 
 // find user with most posted messages
+/**
+ * @return array
+ */
 function Smallworld_mostactiveusers_allround()
 {
     global $xoopsDB, $xoopsUser;
-    $msg     = array();
+    $msg     = [];
     $sql     = 'SELECT uid_fk, COUNT( * ) as cnt ';
     $sql     .= 'FROM ( ';
     $sql     .= 'SELECT uid_fk ';
@@ -600,7 +703,6 @@ function Smallworld_mostactiveusers_allround()
     $counter = $xoopsDB->getRowsNum($result);
     if ($counter < 1) {
     } else {
-
         $counter = 1;
         while ($row = $xoopsDB->fetchArray($result)) {
             $msg[$counter]['counter']       = $counter;
@@ -610,17 +712,20 @@ function Smallworld_mostactiveusers_allround()
             $msg[$counter]['username']      = $xoopsUser->getUnameFromId($row['uid_fk']);
             $msg[$counter]['username_link'] = "<a href = '" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $msg[$counter]['username'] . "'>";
             $msg[$counter]['username_link'] .= $msg[$counter]['username'] . ' (' . $msg[$counter]['msgs'] . ')</a>';
-            $counter++;
+            ++$counter;
         }
     }
     return $msg;
 }
 
 // Find worst rated users overall
+/**
+ * @return array
+ */
 function Smallworld_worstratedusers()
 {
     global $xoopsUser, $xoopsDB;
-    $array   = array();
+    $array   = [];
     $counter = 1;
     $sql     = 'SELECT owner, (';
     $sql     .= 'sum( up ) - sum( down )';
@@ -635,16 +740,19 @@ function Smallworld_worstratedusers()
         $array[$counter]['rating']    = $row['total'];
         $array[$counter]['user_link'] = "<a href = '" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $array[$counter]['user'] . "'>";
         $array[$counter]['user_link'] .= $array[$counter]['user'] . ' (' . $array[$counter]['rating'] . ')</a>';
-        $counter++;
+        ++$counter;
     }
     return $array;
 }
 
 // Find best rated users overall
+/**
+ * @return array
+ */
 function Smallworld_topratedusers()
 {
     global $xoopsUser, $xoopsDB;
-    $array   = array();
+    $array   = [];
     $counter = 1;
     $sql     = 'SELECT owner, (';
     $sql     .= 'sum( up ) - sum( down )';
@@ -659,16 +767,19 @@ function Smallworld_topratedusers()
         $array[$counter]['rating']    = $row['total'];
         $array[$counter]['user_link'] = "<a href = '" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $array[$counter]['user'] . "'>";
         $array[$counter]['user_link'] .= $array[$counter]['user'] . ' (' . $array[$counter]['rating'] . ')</a>';
-        $counter++;
+        ++$counter;
     }
     return $array;
 }
 
+/**
+ * @return array
+ */
 function smallworld_nextBirthdays()
 {
     global $xoopsDB, $xoopsUser;
     $now     = date('d-m');
-    $res     = array();
+    $res     = [];
     $sql     = 'SELECT userid, username, userimage, realname, birthday, CURDATE(),'
                . ' DATE_FORMAT(birthday, "%d / %m") AS daymon , '
                . ' (YEAR(CURDATE())-YEAR(birthday))'
@@ -692,7 +803,7 @@ function smallworld_nextBirthdays()
         $res[$i]['username_link'] = "<a href = '" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $res[$i]['username'] . "'>";
         $res[$i]['username_link'] .= $res[$i]['username'] . ' (' . $r['daymon'] . ') ' . $r['age_now'] . ' ' . _SMALLWORLD_BDAY_YEARS;
         $res[$i]['username_link'] .= '</a>';
-        $i++;
+        ++$i;
     }
     return $res;
 }
@@ -702,6 +813,10 @@ function smallworld_nextBirthdays()
  * @param date $stringDate
  * $returns date
 */
+/**
+ * @param $stringDate
+ * @return string
+ */
 function Smallworld_euroToUsDate($stringDate)
 {
     if (0 != $stringDate || '' != $stringDate) {
@@ -718,6 +833,10 @@ function Smallworld_euroToUsDate($stringDate)
  * @param date $stringDate
  * $returns date
 */
+/**
+ * @param $stringDate
+ * @return string
+ */
 function Smallworld_UsToEuroDate($stringDate)
 {
     if (0 != $stringDate || '' != $stringDate) {
@@ -729,14 +848,21 @@ function Smallworld_UsToEuroDate($stringDate)
     }
 }
 
+/**
+ * @return array
+ */
 function smallworld_sp()
 {
-    $sp               = array();
-    $sp[0]['spimage'] = "<img id = 'smallworld_img_sp' src = '" . XOOPS_URL . "/modules/smallworld/images/sp.png' height='30px' width='30px' />";
+    $sp               = [];
+    $sp[0]['spimage'] = "<img id = 'smallworld_img_sp' src = '" . XOOPS_URL . "/modules/smallworld/images/sp.png' height='30px' width='30px' >";
     return $sp;
 }
 
 //Check privacy settings in permapage
+/**
+ * @param $id
+ * @return mixed
+ */
 function smallworldCheckPriv($id)
 {
     global $xoopsDB;
@@ -752,6 +878,10 @@ function smallworldCheckPriv($id)
 // Input $d : date('Y-m-d') format
 // return seconds until date at midnight, or
 // return 0 if date ('Y-m-d') is equal to today
+/**
+ * @param $d
+ * @return bool|int|string
+ */
 function smallworldNextBDaySecs($d)
 {
     $olddate   = substr($d, 4);
@@ -780,6 +910,11 @@ function smallworldNextBDaySecs($d)
 }
 
 //Function to get value from xoopsConfig array
+/**
+ * @param $key
+ * @param $array
+ * @return int
+ */
 function smallworldGetValfromArray($key, $array)
 {
     $ar  = smallworld_GetModuleOption($array, $repmodule = 'smallworld');
@@ -790,12 +925,17 @@ function smallworldGetValfromArray($key, $array)
     } else {
         return 0;
     }
-
 }
 
 //Function to resize images proportionally
 // Using imagesize($imageurl) returns $img[0], $img[1]
 // Target = new max height or width in px
+/**
+ * @param $width
+ * @param $height
+ * @param $target
+ * @return string
+ */
 function smallworld_imageResize($width, $height, $target)
 {
     //takes the larger size of the width and height and applies the
@@ -826,10 +966,10 @@ function smallworld_imageResize($width, $height, $target)
 function smallworld_getImageSize($w, $h, $url)
 {
     $bn = basename($url);
-    if ('blank.gif' != $bn
-        || 'blank.png' != $bn
-        || 'blank.jpg' != $bn
-        || 'image_missing.png' != $bn) {
+    if ('blank.gif' !== $bn
+        || 'blank.png' !== $bn
+        || 'blank.jpg' !== $bn
+        || 'image_missing.png' !== $bn) {
         if (ini_get('allow_url_fopen')) {
             $imagesize = getimagesize($url);
         } else {
@@ -853,7 +993,7 @@ function smallworld_getImageSize($w, $h, $url)
         }
         return $imagesize;
     } else {
-        return array(0 => '0', 1 => '0');
+        return [0 => '0', 1 => '0'];
     }
 }
 
@@ -909,6 +1049,7 @@ function smallworld_getHostRequest()
 
 /**
  * @Get htmlentities
+ * @param $text
  * @return translated string to utf-8
  */
 function smallworld_decodeEntities($text)
@@ -921,23 +1062,23 @@ function smallworld_decodeEntities($text)
 
 /**
  * @Get string and shorten so contains only ? chars
- * @Param $text
- * @Param $chars
- * return string first ? chars
+ * @param $text
+ * @param $chars
+ * @return string
  */
 function smallworld_shortenText($text, $chars)
 {
-    $text = $text . ' ';
+    $text .= ' ';
     $text = substr($text, 0, $chars);
     $text = substr($text, 0, strrpos($text, ' '));
-    $text = $text . '...';
+    $text .= '...';
     return $text;
 }
 
 /**
  * @Get languagefile if constants are not defined
  * @param $def
- * @file
+ * @param $file
  * return file include
  */
 function smallworld_isDefinedLanguage($def, $file)
@@ -946,10 +1087,10 @@ function smallworld_isDefinedLanguage($def, $file)
     if (!defined($def)) {
         // language files (main.php)
         if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/' . $file)) {
-            include_once XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/' . $file;
+            require_once XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/' . $file;
         } else {
             // fallback english
-            include_once XOOPS_ROOT_PATH . '/modules/smallworld/language/english/' . '/' . $file;
+            require_once XOOPS_ROOT_PATH . '/modules/smallworld/language/english/' . '/' . $file;
         }
     }
 }
@@ -961,7 +1102,7 @@ function smallworld_isDefinedLanguage($def, $file)
 function smallworld_checkPrivateOrPublic()
 {
     global $xoopsUser;
-    $opt = array();
+    $opt = [];
     $set = smallworld_GetModuleOption('smallworldprivorpub', $repmodule = 'smallworld');
     if (0 != $set) {
         $opt['access'] = 1;
@@ -993,18 +1134,18 @@ function smallworld_checkPrivateOrPublic()
  */
 function smallworld_xv_getGroupd()
 {
-    $db     =& XoopsDatabaseFactory::getDatabaseConnection();
-    $myts   =& MyTextSanitizer::getInstance();
+    $db     = XoopsDatabaseFactory::getDatabaseConnection();
+    $myts   = MyTextSanitizer::getInstance();
     $sql    = 'SELECT userid, username FROM ' . $db->prefix('smallworld_user') . ' ORDER BY userid';
     $result = $db->queryF($sql);
     $num    = $db->getRowsNum($result);
     if (0 == $num) {
-        $ndata = array(0 => _MI_SMALLWORLD_ALL);
+        $ndata = [0 => _MI_SMALLWORLD_ALL];
     } else {
         while ($r = $db->fetchArray($result)) {
             $data[$r['userid']] = $r['username'];
         }
-        $ndata = array(0 => _MI_SMALLWORLD_ALL) + $data;
+        $ndata = array_merge([0 => _MI_SMALLWORLD_ALL], $data);
     }
     return $ndata;
 }
@@ -1017,11 +1158,11 @@ function smallworld_SetCoreScript()
 {
     global $xoopsUser, $xoopsConfig, $xoTheme;
 
-    $module_handler =& xoops_getHandler('module');
-    $module         = $module_handler->getByDirname('smallworld');
-    $config_handler =& xoops_getHandler('config');
+    $moduleHandler = xoops_getHandler('module');
+    $module        = $moduleHandler->getByDirname('smallworld');
+    $configHandler = xoops_getHandler('config');
     if ($module) {
-        $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+        $moduleConfig =& $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     }
 
     // IF logged in define xoops / smallworld user id
@@ -1063,7 +1204,7 @@ function smallworld_SetCoreScript()
     // Check if request url is with www or without
     $urltest   = smallworld_getHostRequest();
     $xoops_url = XOOPS_URL;
-    if (!strstr($urltest, 'www.')) {
+    if (false === strpos($urltest, 'www.')) {
         $xoops_url = str_replace('www.', '', $xoops_url);
     }
 
@@ -1097,7 +1238,6 @@ function smallworld_SetCoreScript()
     }
 
     smallworld_includeScripts();
-
 }
 
 /**
@@ -1269,9 +1409,9 @@ function linkify_twitter_status($status_text)
 
 /**
  * Extract users from @tags
- * @param $txt
+ * @param $name
  * @return array @users
- **/
+ */
 function smallworld_getUidFromName($name)
 {
     global $xoopsDB;
@@ -1285,9 +1425,11 @@ function smallworld_getUidFromName($name)
 
 /**
  * Extract users from @tags
- * @param $txt
- * @return array @users
- **/
+ * @param        $txt
+ * @param        $sender
+ * @param string $permalink
+ * @return void @users
+ */
 function smallworld_getTagUsers($txt, $sender, $permalink = '')
 {
     $dBase = new SmallWorldDB;
@@ -1297,12 +1439,11 @@ function smallworld_getTagUsers($txt, $sender, $permalink = '')
     foreach ($users as $users) {
         $uid    = smallworld_getUidFromName($users);
         $notify = json_decode($dBase->GetSettings($uid), true);
-        if (isset ($notify['notify'])) {
+        if (isset($notify['notify'])) {
             if (0 != $notify['notify']) {
-                $mail->sendMails($sender, $uid, 'tag', $link = $permalink, array($txt));
+                $mail->sendMails($sender, $uid, 'tag', $link = $permalink, [$txt]);
             }
         }
-
     }
 }
 

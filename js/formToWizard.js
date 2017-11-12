@@ -68,10 +68,7 @@
                     if (!stepIsValid) {
                         return false;
                     }
-                    ;
                 }
-                ;
-
                 xoops_smallworld("#" + stepName).hide();
                 xoops_smallworld("#step" + (i + 1)).show();
                 if (i + 2 == count)

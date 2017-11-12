@@ -3,24 +3,27 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/admin/index.php $
- * @Last       committed:        $Revision: 11723 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-06-19 18:48:22 +0200 (on, 19 jun 2013) $
- * @ID         :                    $Id: index.php 11723 2013-06-19 16:48:22Z djculex $
- **/
+ */
 
-//require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
-include_once __DIR__ . '/admin_header.php';
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+//require_once dirname(dirname(dirname( __DIR__))) . '/include/cp_header.php';
+require_once __DIR__ . '/admin_header.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
 xoops_cp_header();
 global $xoTheme;
@@ -30,7 +33,7 @@ $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 $indexAdmin = new ModuleAdmin();
 
 $admin = new SmallworldAdmin();
-$d     = new SmallWorldDoSync;
+$d = new SmallWorldDoSync;
 $d->checkOrphans();
 
 // Find oldest message and apply to template
@@ -56,7 +59,7 @@ $installCheck = $admin->doCheckUpdate();
 $sumallusers = $admin->TotalUsers();
 // Find list of most active users (total)
 $maAllround = $admin->mostactiveusers_allround();
-$ma_cnt     = 0;
+$ma_cnt = 0;
 if (!empty($maAllround)) {
     $count = count($maAllround['cnt']);
 } else {
@@ -65,15 +68,15 @@ if (!empty($maAllround)) {
 $mat_cnt = 0;
 if (0 != $count) {
     $ma_cnt = 1;
-    $ma     = "<table class='smallworldadmin'><tr>";
-    $ma     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
-    $i      = 1;
+    $ma = "<table class='smallworldadmin'><tr>";
+    $ma .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
+    $i = 1;
     while ($i <= count($maAllround['cnt'])) {
-        $ma .= vsprintf('<tr><td>%s</td>', array($maAllround['counter'][$i]));
-        $ma .= vsprintf('<td>%s</td>', array($maAllround['img'][$i]));
-        $ma .= vsprintf('<td>%s</td>', array($maAllround['cnt'][$i]));
-        $ma .= vsprintf('<td>%s</td></tr>', array($maAllround['from'][$i]));
-        $i++;
+        $ma .= vsprintf('<tr><td>%s</td>', [$maAllround['counter'][$i]]);
+        $ma .= vsprintf('<td>%s</td>', [$maAllround['img'][$i]]);
+        $ma .= vsprintf('<td>%s</td>', [$maAllround['cnt'][$i]]);
+        $ma .= vsprintf('<td>%s</td></tr>', [$maAllround['from'][$i]]);
+        ++$i;
     }
     $ma .= '</tr></table>';
 } else {
@@ -89,15 +92,15 @@ if (!empty($maToday)) {
 $mat_cnt = 0;
 if (0 != $count) {
     $mat_cnt = 1;
-    $mat     = "<table class='smallworldadmin'><tr>";
-    $mat     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
-    $i       = 1;
+    $mat = "<table class='smallworldadmin'><tr>";
+    $mat .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
+    $i = 1;
     while ($i <= $count) {
-        $mat .= vsprintf('<tr><td>%s</td>', array($maToday['counter'][$i]));
-        $mat .= vsprintf('<td>%s</td>', array($maToday['img'][$i]));
-        $mat .= vsprintf('<td>%s</td>', array($maToday['cnt'][$i]));
-        $mat .= vsprintf('<td>%s</td></tr>', array($maToday['from'][$i]));
-        $i++;
+        $mat .= vsprintf('<tr><td>%s</td>', [$maToday['counter'][$i]]);
+        $mat .= vsprintf('<td>%s</td>', [$maToday['img'][$i]]);
+        $mat .= vsprintf('<td>%s</td>', [$maToday['cnt'][$i]]);
+        $mat .= vsprintf('<td>%s</td></tr>', [$maToday['from'][$i]]);
+        ++$i;
     }
     $mat .= '</tr></table>';
 } else {
@@ -113,15 +116,15 @@ if (!empty($topusers)) {
 $top_cnt = 0;
 if (0 != $count) {
     $top_cnt = 1;
-    $top     = "<table class='smallworldadmin'><tr>";
-    $top     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
-    $i       = 1;
+    $top = "<table class='smallworldadmin'><tr>";
+    $top .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
+    $i = 1;
     while ($i <= $count) {
-        $top .= vsprintf('<tr><td>%s</td>', array($topusers['counter'][$i]));
-        $top .= vsprintf('<td>%s</td>', array($topusers['img'][$i]));
-        $top .= vsprintf('<td>%s</td>', array($topusers['cnt'][$i]));
-        $top .= vsprintf('<td>%s</td></tr>', array($topusers['user'][$i]));
-        $i++;
+        $top .= vsprintf('<tr><td>%s</td>', [$topusers['counter'][$i]]);
+        $top .= vsprintf('<td>%s</td>', [$topusers['img'][$i]]);
+        $top .= vsprintf('<td>%s</td>', [$topusers['cnt'][$i]]);
+        $top .= vsprintf('<td>%s</td></tr>', [$topusers['user'][$i]]);
+        ++$i;
     }
     $top .= '</tr></table>';
 } else {
@@ -130,7 +133,7 @@ if (0 != $count) {
 
 // FInd list of worst rated users overall
 $lowusers = $admin->topratedusers('down');
-$low_cnt  = 0;
+$low_cnt = 0;
 if (!empty($lowusers)) {
     $count = count($lowusers['cnt']);
 } else {
@@ -138,15 +141,15 @@ if (!empty($lowusers)) {
 }
 if (0 != $count) {
     $low_cnt = 1;
-    $low     = "<table class='smallworldadmin'><tr>";
-    $low     .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
-    $i       = 1;
+    $low = "<table class='smallworldadmin'><tr>";
+    $low .= '<td><b>' . _AM_SMALLWORLD_STATS_POS . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_IMG . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_AMOUNT . '</b></td><td><b>' . _AM_SMALLWORLD_STATS_NAME . '</b></td></tr>';
+    $i = 1;
     while ($i <= $count) {
-        $low .= vsprintf('<tr><td>%s</td>', array($lowusers['counter'][$i]));
-        $low .= vsprintf('<td>%s</td>', array($lowusers['img'][$i]));
-        $low .= vsprintf('<td>%s</td>', array($lowusers['cnt'][$i]));
-        $low .= vsprintf('<td>%s</td></tr>', array($lowusers['user'][$i]));
-        $i++;
+        $low .= vsprintf('<tr><td>%s</td>', [$lowusers['counter'][$i]]);
+        $low .= vsprintf('<td>%s</td>', [$lowusers['img'][$i]]);
+        $low .= vsprintf('<td>%s</td>', [$lowusers['cnt'][$i]]);
+        $low .= vsprintf('<td>%s</td></tr>', [$lowusers['user'][$i]]);
+        ++$i;
     }
     $low .= '</tr></table>';
 } else {
@@ -196,4 +199,4 @@ if (0 != $low_cnt) {
 
 echo $indexAdmin->addNavigation('index.php');
 echo $indexAdmin->renderIndex();
-include 'admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';

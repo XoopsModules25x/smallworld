@@ -7,8 +7,8 @@
 -- 
 --  Smallworld - social network
 -- 
---  @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
---  @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+--  @copyright       {@link https://xoops.org 2001-2017 XOOPS Project}
+--  @license         {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
 --  @package         modules
 --  @subpackage      smallworld
 --  @since           1.0

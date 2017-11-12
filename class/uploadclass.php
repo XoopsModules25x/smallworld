@@ -3,22 +3,22 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://xoops.svn.sourceforge.net/svnroot/xoops/XoopsModules/smallworld/trunk/smallworld/class/uploadclass.php $
- * @Last       committed:        $Revision: 8905 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2012-02-07 22:57:57 +0100 (ti, 07 feb 2012) $
- * @ID         :                    $Id: uploadclass.php 8905 2012-02-07 21:57:57Z djculex $
- **/
+ */
 
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
 class SmallworldUploadHandler
 {
     private $upload_dir;
@@ -29,7 +29,11 @@ class SmallworldUploadHandler
     private $thumbnail_max_height;
     private $field_name;
 
-    function __construct($options)
+    /**
+     * SmallworldUploadHandler constructor.
+     * @param $options
+     */
+    public function __construct($options)
     {
         $this->upload_dir           = $options['upload_dir'];
         $this->upload_url           = $options['upload_url'];
@@ -40,10 +44,14 @@ class SmallworldUploadHandler
         $this->field_name           = $options['field_name'];
     }
 
+    /**
+     * @param $file_name
+     * @return null|\stdClass
+     */
     private function get_file_object($file_name)
     {
         $file_path = $this->upload_dir . $file_name;
-        if (is_file($file_path) && '.' !== $file_name[0] && 'index.html' != $file_name && 'Thumbs.db' != $file_name) {
+        if (is_file($file_path) && '.' !== $file_name[0] && 'index.html' !== $file_name && 'Thumbs.db' !== $file_name) {
             $file            = new stdClass();
             $file->name      = $file_name;
             $file->size      = filesize($file_path);
@@ -54,6 +62,10 @@ class SmallworldUploadHandler
         return null;
     }
 
+    /**
+     * @param $file_name
+     * @return bool
+     */
     private function create_thumbnail($file_name)
     {
         $file_path      = $this->upload_dir . $file_name;
@@ -86,8 +98,7 @@ class SmallworldUploadHandler
             default:
                 $src_img = $write_thumbnail = null;
         }
-        $success = $src_img
-                   && @imagecopyresampled($thumbnail_img, $src_img, 0, 0, 0, 0, $thumbnail_width, $thumbnail_height, $img_width, $img_height)
+        $success = $src_img && @imagecopyresampled($thumbnail_img, $src_img, 0, 0, 0, 0, $thumbnail_width, $thumbnail_height, $img_width, $img_height)
                    && $write_thumbnail($thumbnail_img, $thumbnail_path);
         // Free up memory (imagedestroy does not delete files):
         @imagedestroy($src_img);
@@ -96,12 +107,25 @@ class SmallworldUploadHandler
     }
 
     //function to return file extension from a path or file name
-    function getFileExtension($path)
+
+    /**
+     * @param $path
+     * @return mixed
+     */
+    public function getFileExtension($path)
     {
         $parts = pathinfo($path);
         return $parts['extension'];
     }
 
+    /**
+     * @param $uploaded_file
+     * @param $name
+     * @param $size
+     * @param $type
+     * @param $error
+     * @return \stdClass
+     */
     private function handle_file_upload($uploaded_file, $name, $size, $type, $error)
     {
         global $xoopsUser;
@@ -155,7 +179,7 @@ class SmallworldUploadHandler
         if ($file_name) {
             $info = $this->get_file_object($file_name);
         } else {
-            $info = array_values(array_filter(array_map(array($this, 'get_file_object'), scandir($this->upload_dir, SCANDIR_SORT_NONE))));
+            $info = array_values(array_filter(array_map([$this, 'get_file_object'], scandir($this->upload_dir, SCANDIR_SORT_NONE))));
         }
         header('Cache-Control: no-cache, must-revalidate');
         header('Content-type: application/json');
@@ -164,33 +188,37 @@ class SmallworldUploadHandler
 
     public function post()
     {
-        $upload = isset($_FILES[$this->field_name]) ? $_FILES[$this->field_name] : array(
+        $upload = isset($_FILES[$this->field_name]) ? $_FILES[$this->field_name] : [
             'tmp_name' => null,
             'name'     => null,
             'size'     => null,
             'type'     => null,
             'error'    => null
-        );
+        ];
         if (is_array($upload['tmp_name']) && count($upload['tmp_name']) > 1) {
-            $info = array();
+            $info = [];
             foreach ($upload['tmp_name'] as $index => $value) {
                 $info[] = $this->handle_file_upload($upload['tmp_name'][$index], $upload['name'][$index], $upload['size'][$index], $upload['type'][$index], $upload['error'][$index]);
             }
         } else {
             if (is_array($upload['tmp_name'])) {
-                $upload = array(
+                $upload = [
                     'tmp_name' => $upload['tmp_name'][0],
                     'name'     => $upload['name'][0],
                     'size'     => $upload['size'][0],
                     'type'     => $upload['type'][0],
                     'error'    => $upload['error'][0]
-                );
+                ];
             }
-            $info = $this->handle_file_upload($upload['tmp_name'], isset($_SERVER['HTTP_X_FILE_NAME']) ? $_SERVER['HTTP_X_FILE_NAME'] : $upload['name'], isset($_SERVER['HTTP_X_FILE_SIZE']) ? $_SERVER['HTTP_X_FILE_SIZE'] : $upload['size'],
-                                              isset($_SERVER['HTTP_X_FILE_TYPE']) ? $_SERVER['HTTP_X_FILE_TYPE'] : $upload['type'], $upload['error']);
+            $info = $this->handle_file_upload(
+                $upload['tmp_name'],
+                isset($_SERVER['HTTP_X_FILE_NAME']) ? $_SERVER['HTTP_X_FILE_NAME'] : $upload['name'],
+                isset($_SERVER['HTTP_X_FILE_SIZE']) ? $_SERVER['HTTP_X_FILE_SIZE'] : $upload['size'],
+                                              isset($_SERVER['HTTP_X_FILE_TYPE']) ? $_SERVER['HTTP_X_FILE_TYPE'] : $upload['type'],
+                $upload['error']
+            );
         }
-        if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-            && 'XMLHttpRequest' === $_SERVER['HTTP_X_REQUESTED_WITH']) {
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'XMLHttpRequest' === $_SERVER['HTTP_X_REQUESTED_WITH']) {
             header('Content-type: application/json');
         } else {
             header('Content-type: text/plain');
@@ -219,5 +247,3 @@ class SmallworldUploadHandler
         echo json_encode($success);
     }
 }
-
-

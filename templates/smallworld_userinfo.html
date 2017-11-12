@@ -40,14 +40,14 @@
     <!-- start results item loop -->
     <{foreach item=result from=$module.results}>
 
-    <img src="<{$result.image}>" alt="<{$module.name}>"/>
-    <strong> <a href="<{$result.link}>" title="<{$result.title}>"><{$result.title}></a></strong><br/><span class="x-small">(<{$result.time}>)</span><br/>
+    <img src="<{$result.image}>" alt="<{$module.name}>">
+    <strong> <a href="<{$result.link}>" title="<{$result.title}>"><{$result.title}></a></strong><br><span class="x-small">(<{$result.time}>)</span><br>
 
     <{/foreach}>
     <!-- end results item loop -->
     <br>
     <{$module.showall_link}>
-    <br/><br/>
+    <br><br>
     <{/foreach}>
     <{else}>
     <br><{$smarty.const._SMALLWORLD_ALL_FIELDS_DISABLED}>

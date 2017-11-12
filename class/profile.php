@@ -3,39 +3,37 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/profile.php $
- * @Last       committed:        $Revision: 11843 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
- * @ID         :                    $Id: profile.php 11843 2013-07-18 17:29:48Z djculex $
- **/
+ */
 
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
 class SmallWorldProfile
 {
-
     /**
      * @Show user
-     * @param int $id
+     * @param  int $id
      * @return void
      */
-    function ShowUser($id)
+    public function ShowUser($id)
     {
         global $xoopsUser, $xoTheme, $xoopsTpl, $arr04, $arr05, $xoopsDB;
         if ($xoopsUser) {
-
-            $module_handler =& xoops_getHandler('module');
-            $module         = $module_handler->getByDirname('smallworld');
-            $config_handler =& xoops_getHandler('config');
-            $moduleConfig   =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+            $moduleHandler = xoops_getHandler('module');
+            $module        = $moduleHandler->getByDirname('smallworld');
+            $configHandler = xoops_getHandler('config');
+            $moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 
             $user   = new XoopsUser($id);
             $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
@@ -73,12 +71,12 @@ class SmallWorldProfile
                 $rank            = $user->rank();
                 $rank_title      = $rank['title'];
                 if (isset($rank['image'])) {
-                    $rank_image = "<img align='center' src='" . XOOPS_UPLOAD_URL . '/' . $rank['image'] . "'/>";
+                    $rank_image = "<img align='center' src='" . XOOPS_UPLOAD_URL . '/' . $rank['image'] . "'>";
                 } else {
                     $rank_image = '';
                 }
-                $commentsrating = "<img src='" . XOOPS_URL . "/modules/smallworld/images/like.png' height='10px' width='10px'" . '/> ' . $usersratedplus;
-                $commentsrating .= " <img src='" . XOOPS_URL . "/modules/smallworld/images/dislike.png' height='10px' width='10px'" . '/> ' . $usersratedminus;
+                $commentsrating = "<img src='" . XOOPS_URL . "/modules/smallworld/images/like.png' height='10px' width='10px'" . '> ' . $usersratedplus;
+                $commentsrating .= " <img src='" . XOOPS_URL . "/modules/smallworld/images/dislike.png' height='10px' width='10px'" . '> ' . $usersratedminus;
                 $lastlogin      = $user->getVar('last_login');
 
                 $gender = $r['gender'];
@@ -97,7 +95,7 @@ class SmallWorldProfile
                 $avatar          = $Wall->Gravatar($id);
                 $avatar_size     = smallworld_getImageSize(80, 100, smallworld_getAvatarLink($id, $avatar));
                 $avatar_highwide = smallworld_imageResize($avatar_size[0], $avatar_size[1], 100);
-                $user_img        = "<img src='" . smallworld_getAvatarLink($id, $avatar) . "' id='smallworld_user_img' " . $avatar_highwide . '/>';
+                $user_img        = "<img src='" . smallworld_getAvatarLink($id, $avatar) . "' id='smallworld_user_img' " . $avatar_highwide . '>';
 
                 $currentcity = $r['present_city'];
                 $currlng     = $r['present_lng'];
@@ -257,7 +255,4 @@ class SmallWorldProfile
             $xoopsTpl->assign('pagename', 'profile');
         }
     }
-
 }
-
-

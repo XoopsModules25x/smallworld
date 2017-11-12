@@ -58,7 +58,7 @@
                     <td class="smallworldadmin"><{$topratedusers[i].counter}></td>
                     <td class="smallworldadmin"><{$topratedusers[i].user}></td>
                     <td class="smallworldadmin"><{$topratedusers[i].cnt}></td>
-                    <td class="smallworldadmin"><img height="8px" width="8px" src="../images/like.png"/></td>
+                    <td class="smallworldadmin"><img height="8px" width="8px" src="../images/like.png"></td>
                 </tr>
                 <{/section}>
             </table>
@@ -70,7 +70,7 @@
                     <td class="smallworldadmin"><{$bottomratedusers[i].counter}></td>
                     <td class="smallworldadmin"><{$bottomratedusers[i].user}></td>
                     <td class="smallworldadmin"><{$bottomratedusers[i].cnt}></td>
-                    <td class="smallworldadmin"><img height="8px" width="8px" src="../images/dislike.png"/></td>
+                    <td class="smallworldadmin"><img height="8px" width="8px" src="../images/dislike.png"></td>
                 </tr>
                 <{/section}>
             </table>
@@ -98,21 +98,20 @@
                     <{foreach item=post from=$allusersinspect}>
                     <tr>
                         <td>
-                            <img src="<{$post.userimage}>" <{$post.avatar_highwide}>/>
+                            <img src="<{$post.userimage}>" <{$post.avatar_highwide}>>
                         </td>
                         <td><{$post.username}></td>
                         <td><{$post.realname}></td>
                         <td><{$post.ip}></td>
                         <td><{$post.complaint}></td>
                         <td>
-								<span id="clock-<{$post.userid}>">
-								</span>
+                                <span id="clock-<{$post.userid}>">
+                                </span>
                             <script type='text/javascript'>
                                 (function ($) {
                                     $(function () {
                                         $('#clock-<{$post.userid}>').countdown({onExpiry: SmallworldCountdownliftOff, until: + < {$post.userinspect_timetotal} >
                                     })
-                                        ;
                                     });
                                 })(jQuery);
                             </script>
@@ -120,23 +119,23 @@
                         </td>
 
                         <td>
-								<span id="smallworld_addmoretime">
-								<select rel="<{$post.userid}>" id="smallworld_addmoretime_options<{$post.userid}>">
-									<option id="<{$post.userid}>" value="0"><{$smarty.const._AM_SMALLWORLD_ADDTIMEDROPDOWN_NOCHANGE}></option>
-									<{section name=addtimevalue start=1 loop=61 step=1}>
-										<option rel="<{$post.userid}>" value="<{$smarty.section.addtimevalue.index}>">
-											<{$smarty.section.addtimevalue.index}><{$smarty.const._AM_SMALLWORLD_ADDTIMEDROPDOWN_MINUTES}>
-										</option>
-									<{/section}>
-								</select>
-								</span>
-                            <img id="smallworld_addtime_img" rel="<{$post.userid}>" height="16px" width="16px" src="../images/time_add.png"/>
+                                <span id="smallworld_addmoretime">
+                                <select rel="<{$post.userid}>" id="smallworld_addmoretime_options<{$post.userid}>">
+                                    <option id="<{$post.userid}>" value="0"><{$smarty.const._AM_SMALLWORLD_ADDTIMEDROPDOWN_NOCHANGE}></option>
+                                    <{section name=addtimevalue start=1 loop=61 step=1}>
+                                        <option rel="<{$post.userid}>" value="<{$smarty.section.addtimevalue.index}>">
+                                            <{$smarty.section.addtimevalue.index}><{$smarty.const._AM_SMALLWORLD_ADDTIMEDROPDOWN_MINUTES}>
+                                        </option>
+                                    <{/section}>
+                                </select>
+                                </span>
+                            <img id="smallworld_addtime_img" rel="<{$post.userid}>" height="16px" width="16px" src="../images/time_add.png">
                         </td>
                         <td>
-                            <img id="smallworld_deletetime_img" rel="<{$post.userid}>" height="16px" width="16px" src="../images/time_delete.png"/>
+                            <img id="smallworld_deletetime_img" rel="<{$post.userid}>" height="16px" width="16px" src="../images/time_delete.png">
                         </td>
                         <td>
-                            <img id="smallworld_accountdelete_img" name="<{$post.username}>" rel="<{$post.userid}>" height="16px" width="16px" src="../images/accountdelete.png"/>
+                            <img id="smallworld_accountdelete_img" name="<{$post.username}>" rel="<{$post.userid}>" height="16px" width="16px" src="../images/accountdelete.png">
                         </td>
 
                     </tr>
@@ -144,7 +143,7 @@
                 </table>
                 <{/if}>
 
-                <br/>
+                <br>
 
                 <{if $allusersnoinspectcounter > 0}>
                 <table id="smallworld_admin_allusers_table">
@@ -162,7 +161,7 @@
                     <{foreach item=posts from=$allusersnoinspect}>
                     <tr>
                         <td>
-                            <img src="<{$posts.userimage}>" <{$posts.avatar_highwide}>/>
+                            <img src="<{$posts.userimage}>" <{$posts.avatar_highwide}>>
                         </td>
                         <td><{$posts.username}></td>
                         <td><{$posts.realname}></td>
@@ -172,23 +171,23 @@
                         </td>
 
                         <td>
-								<span id="smallworld_addmoretime">
-								<select rel="<{$posts.userid}>" id="smallworld_addmoretime_options<{$posts.userid}>">
-									<option value="0"><{$smarty.const._AM_SMALLWORLD_ADDTIMEDROPDOWN_NOCHANGE}></option>
-									<{section name=addtimevalue start=1 loop=61 step=1}>
-										<option value="<{$smarty.section.addtimevalue.index}>">
-											<{$smarty.section.addtimevalue.index}><{$smarty.const._AM_SMALLWORLD_ADDTIMEDROPDOWN_MINUTES}>
-										</option>
-									<{/section}>
-								</select>
-								</span>
-                            <img id="smallworld_addtime_img" rel="<{$posts.userid}>" height="16px" width="16px" src="../images/time_add.png"/>
+                                <span id="smallworld_addmoretime">
+                                <select rel="<{$posts.userid}>" id="smallworld_addmoretime_options<{$posts.userid}>">
+                                    <option value="0"><{$smarty.const._AM_SMALLWORLD_ADDTIMEDROPDOWN_NOCHANGE}></option>
+                                    <{section name=addtimevalue start=1 loop=61 step=1}>
+                                        <option value="<{$smarty.section.addtimevalue.index}>">
+                                            <{$smarty.section.addtimevalue.index}><{$smarty.const._AM_SMALLWORLD_ADDTIMEDROPDOWN_MINUTES}>
+                                        </option>
+                                    <{/section}>
+                                </select>
+                                </span>
+                            <img id="smallworld_addtime_img" rel="<{$posts.userid}>" height="16px" width="16px" src="../images/time_add.png">
                         </td>
                         <td>
-                            <img id="smallworld_deletetime_img" rel="<{$posts.userid}>" height="16px" width="16px" src="../images/time_delete.png"/>
+                            <img id="smallworld_deletetime_img" rel="<{$posts.userid}>" height="16px" width="16px" src="../images/time_delete.png">
                         </td>
                         <td>
-                            <img id="smallworld_accountdelete_img" name="<{$posts.username}>" rel="<{$posts.userid}>" height="16px" width="16px" src="../images/accountdelete.png"/>
+                            <img id="smallworld_accountdelete_img" name="<{$posts.username}>" rel="<{$posts.userid}>" height="16px" width="16px" src="../images/accountdelete.png">
                         </td>
 
                     </tr>

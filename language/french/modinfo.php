@@ -49,16 +49,22 @@ define('_MI_SMALLWORLD_TAKEOVERLINKS', "Convertir les liens des noms d'utilisate
 define('_MI_SMALLWORLD_TAKEOVERLINKS_DESC', "Smallworld utilisera un petit javascript pour modifier les liens au chargement et les pointer vers le profil utilisateur, plutôt que vers userinfo.php<br><br>La valeur par défaut est 'non'.");
 
 define('_MI_SMALLWORLD_USERSOWNMSGCOUNTS', 'Vérifier le nombre de messages des utilisateurs&thinsp;? ');
-define('_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC',
-       "Toutes les 10 secondes, les messages des utilisateurs qui vous suivent sont comptés et un bouton d'actualisation s'affichera, si le résultat n'est pas 0.<br>Si vous choisissez Oui, ce bouton s'affichera aussi lorsque vous écrirez ou supprimerez des messages.");
+define(
+    '_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC',
+       "Toutes les 10 secondes, les messages des utilisateurs qui vous suivent sont comptés et un bouton d'actualisation s'affichera, si le résultat n'est pas 0.<br>Si vous choisissez Oui, ce bouton s'affichera aussi lorsque vous écrirez ou supprimerez des messages."
+);
 
 define('_MI_SMALLWORLD_BOOKMARSAVATARS', 'Utiliser le logo de Smallworld lors de la création de signets&thinsp;? ');
-define('_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC',
-       "Quand les messages sont publics et que vous souhaitez partager sur les réseaux sociaux, vous pouvez décider d'utiliser l'image du logo Smallworld ou<br>« non » = affichage de l'avatar des utilisateurs. <br > La valeur par défaut est «oui» = logo Smallworld.");
+define(
+    '_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC',
+       "Quand les messages sont publics et que vous souhaitez partager sur les réseaux sociaux, vous pouvez décider d'utiliser l'image du logo Smallworld ou<br>« non » = affichage de l'avatar des utilisateurs. <br > La valeur par défaut est «oui» = logo Smallworld."
+);
 
 define('_MI_SMALLWORLD_USEMAILNOTIFICATION', 'Notifications par courrier électronique&thinsp;? ');
-define('_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC',
-       "Quand un nouvel utilisateur s'inscrit, un message est envoyé à l'Administrateur par courrier éléctronique.<br>Quand un commentaire a été ajouté à un message dont un utilisateur a participé, un courrier électronique lui est envoyé.<br><br>La valeur par défaut est 'Oui'.");
+define(
+    '_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC',
+       "Quand un nouvel utilisateur s'inscrit, un message est envoyé à l'Administrateur par courrier éléctronique.<br>Quand un commentaire a été ajouté à un message dont un utilisateur a participé, un courrier électronique lui est envoyé.<br><br>La valeur par défaut est 'Oui'."
+);
 
 // Select fields & Mandetory fields
 define('_MI_SMALLWORLD_VIEWFIELDS', 'Champs pour l\'enregistrement et le profil');
@@ -106,4 +112,3 @@ define('_MI_SHOWPUBLICPAGE_DESC', 'Default is "All users" wich means that all us
         ');
 define('_MI_SMALLWORLD_ALL', 'All users');
 //Traduit par Cesagonchu (frxoops.org) le 1er Octobre 2015
-

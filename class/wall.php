@@ -3,26 +3,29 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/class/wall.php $
- * @Last       committed:        $Revision: 12114 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-10-01 19:11:18 +0200 (ti, 01 okt 2013) $
- * @ID         :                    $Id: wall.php 12114 2013-10-01 17:11:18Z djculex $
- **/
+ */
 
-// Moderrated and fitted from the tutorial by Srinivas Tamada http://9lessons.info
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+// Moderated and fitted from the tutorial by Srinivas Tamada http://9lessons.info
 
 class Wall_Updates
 {
+    /**
+     * @return array
+     */
     private function getAdminModerators()
     {
         global $xoopsDB, $xoopsUser;
@@ -37,12 +40,18 @@ class Wall_Updates
         return $data;
     }
 
+    /**
+     * @param $last
+     * @param $uid
+     * @param $followers
+     * @return array|bool
+     */
     public function Updates($last, $uid, $followers)
     {
         global $xoopsUser, $xoopsDB, $moduleConfig;
         $hm        = smallworld_GetModuleOption('msgtoshow');
         $set       = smallworld_checkPrivateOrPublic();
-        $followers = is_array($followers) ? $followers : array($followers);
+        $followers = is_array($followers) ? $followers : [$followers];
         $followers = array_unique(Smallworld_array_flatten($followers, 0));
 
         $i = 0;
@@ -50,7 +59,7 @@ class Wall_Updates
             $query = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . " U  WHERE M.uid_fk=U.userid AND M.uid_fk='" . $uid . "'";
         } elseif ($last > 0) {
             $query = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . " U  WHERE M.uid_fk=U.userid AND M.uid_fk='" . $uid . "' AND M.msg_id < '" . $last . "'";
-        } elseif ('a' == $last) {
+        } elseif ('a' === $last) {
             $query = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . " U  WHERE M.uid_fk=U.userid AND M.uid_fk='" . $uid . "'";
         }
 
@@ -60,10 +69,10 @@ class Wall_Updates
                     $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $v . "' and M.msg_id < '" . $last . "'";
                 } elseif (0 == $last) {
                     $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $v . "'";
-                } elseif ('a' == $last) {
+                } elseif ('a' === $last) {
                     $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $v . "'";
                 }
-                $i++;
+                ++$i;
             }
         }
         if (!is_array($followers)) {
@@ -72,14 +81,14 @@ class Wall_Updates
                 $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $followers . "' and M.msg_id < '" . $last . "'";
             } elseif (0 == $last) {
                 $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $followers . "'";
-            } elseif ('a' == $last) {
+            } elseif ('a' === $last) {
                 $query .= " OR M.uid_fk=U.userid and M.uid_fk= '" . $followers . "'";
             }
         }
 
         if ($last > 0) {
             $query .= ' order by created DESC LIMIT ' . $hm;
-        } elseif ('a' == $last) {
+        } elseif ('a' === $last) {
             $query .= ' order by M.msg_id DESC LIMIT ' . $hm;
         } else {
             $query .= ' order by created DESC LIMIT ' . $hm;
@@ -132,14 +141,14 @@ class Wall_Updates
             $image = $r['userimage'];
         }
 
-        $image = ('' == $image || 'blank.gif' == $image) ? smallworld_getAvatarLink($uid, $image) : $image;
+        $image = ('' == $image || 'blank.gif' === $image) ? smallworld_getAvatarLink($uid, $image) : $image;
 
-        $type = Array(
+        $type = [
             1 => 'jpg',
             2 => 'jpeg',
             3 => 'png',
             4 => 'gif'
-        );
+        ];
 
         $ext = explode('.', $image);
 
@@ -156,7 +165,7 @@ class Wall_Updates
      * @param int    $uid
      * @param string $update
      * @param int    $priv
-     * @return array
+     * @return array|bool
      */
     public function Insert_Update($uid, $update, $priv)
     {
@@ -193,7 +202,7 @@ class Wall_Updates
     /**
      * @Insert comment
      * @param int    $uid
-     * @param int    $msgid
+     * @param  int    $msg_id
      * @param string $comment
      * @return string / void
      */
@@ -241,7 +250,7 @@ class Wall_Updates
             $data[] = $row;
         }
         if (0 == $i) {
-            $data = array($me);
+            $data = [$me];
         }
         if (!empty($data)) {
             return $data;
@@ -302,7 +311,7 @@ class Wall_Updates
     public function HasVoted($userid, $type, $comid, $msgid)
     {
         global $xoopsUser, $xoopsDB;
-        if ('msg' == $type) {
+        if ('msg' === $type) {
             $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE com_id = '0' AND msg_id = '" . $msgid . "' AND user_id = '" . $userid . "'";
             $result = $xoopsDB->queryF($sql);
             $i      = $xoopsDB->getRowsNum($result);
@@ -333,7 +342,7 @@ class Wall_Updates
      * @param int $updid
      * @param int $uid
      * @param int $ownerID
-     * @return array
+     * @return array|bool
      */
     public function UpdatesPermalink($updid, $uid, $ownerID)
     {
@@ -359,7 +368,7 @@ class Wall_Updates
      * @Get share link
      * @param int $updid
      * @param int $ownerID
-     * @return array
+     * @return array|bool
      */
     public function UpdatesSharelink($updid, $ownerID)
     {
@@ -389,7 +398,7 @@ class Wall_Updates
      * @param int $priv
      * @return string
      */
-    function GetSharing($id, $priv)
+    public function GetSharing($id, $priv)
     {
         if (1 != $priv) {
             $text = " | <span class='smallworld_share' id='smallworld_share'>";
@@ -409,7 +418,7 @@ class Wall_Updates
      * @param string $username
      * @return string
      */
-    function GetSharingDiv($id, $priv, $permalink, $desc, $username)
+    public function GetSharingDiv($id, $priv, $permalink, $desc, $username)
     {
         if (1 != $priv) {
             $text = "<div style='display: none;' class='smallworld_bookmarks' id='share-page' name='share-page" . $id . "'>";
@@ -423,12 +432,11 @@ class Wall_Updates
 
     /**
      * @Parse update and comments array to template for public updates
-     * @param array  $updatesarray
-     * @param int    $id
-     * @param string $permalink
+     * @param array $updatesarray
+     * @param int   $id
      * @return void
      */
-    function ParsePubArray($updatesarray, $id)
+    public function ParsePubArray($updatesarray, $id)
     {
         global $xoopsUser, $xoopsTpl, $tpl, $xoopsModule, $xoopsConfig;
 
@@ -455,7 +463,7 @@ class Wall_Updates
                 // Is update's user a friend ?
                 $frU = $check->friendcheck($id, $data['uid_fk']);
 
-                $USW             = array();
+                $USW             = [];
                 $USW['posts']    = 0;
                 $USW['comments'] = 0;
 
@@ -474,7 +482,7 @@ class Wall_Updates
                 }
 
                 $wm['msg_id']          = $data['msg_id'];
-                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(array("\r", "\n"), '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
+                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(["\r", "\n"], '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
                 $wm['message']         = (1 == $USW['posts'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETPOSTS;
                 $wm['message']         = Smallworld_cleanup($wm['message']);
                 $wm['created']         = smallworld_time_stamp($data['created']);
@@ -514,7 +522,7 @@ class Wall_Updates
                         // Is commentuser a friend ?
                         $frC = $check->friendcheck($id, $cdata['uid_fk']);
 
-                        $USC             = array();
+                        $USC             = [];
                         $USC['posts']    = 0;
                         $USC['comments'] = 0;
 
@@ -557,5 +565,3 @@ class Wall_Updates
         }
     }
 }
-
-

@@ -7,8 +7,8 @@
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * copyright       {@link https://xoops.org 2001-2017 XOOPS Project}
+ * license         {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
  * author 2011     Culex - homepage.: http://culex.dk & email.: culex@culex.dk
  */
 xoops_smallworld(function () {
@@ -42,7 +42,6 @@ xoops_smallworld(function () {
                 href: "#smallworldStatsDiv"
             });
         }
-        ;
     });
 
     // GET pop for recentactivities
@@ -69,7 +68,6 @@ xoops_smallworld(function () {
                 href: "#smallworld_recentactivitiesDiv"
             });
         }
-        ;
     });
 
     // Attach colorbox.js to selector in register.php and edit_profile.php
@@ -99,7 +97,6 @@ xoops_smallworld(function () {
                 }
             });
         }
-        ;
     });
 
     // Function to make friend invitations form into ui dialog
@@ -121,7 +118,6 @@ xoops_smallworld(function () {
                     }
                 });
             }
-            ;
             xoops_smallworld('.smallworldrequestlink').on('click', function () {
                 var smallworld_request_id = xoops_smallworld(this).prop('id');
                 if (xoops_smallworld("tr[id^='smallworldfriendrequest_']").length === 0) {
@@ -153,7 +149,6 @@ xoops_smallworld(function () {
                 href: "#smallworld_edit_imageform"
             });
         }
-        ;
     });
 
     // Function to make File upload form into ui dialog
@@ -179,7 +174,6 @@ xoops_smallworld(function () {
                 }
             });
         }
-        ;
     });
 
     // Function to make Div with id page into ui dialog
@@ -200,7 +194,6 @@ xoops_smallworld(function () {
                 href: "div#page"
             });
         }
-        ;
     });
 
     // If user does not have a profile in smallworld then goto register.
@@ -209,15 +202,15 @@ xoops_smallworld(function () {
         var buttons = {};
         buttons[_smallworldContinueToReg] = function () {
             location.href = smallworld_url + 'register.php';
-        }
+        };
         buttons[_smallworldCancel] = function () {
             xoops_smallworld(this).dialog("close");
             location.href = smallworld_url + 'publicindex.php';
-        }
+        };
         buttons[_smallworldClose] = function () {
             xoops_smallworld(this).dialog("close");
             location.href = smallworld_url + 'publicindex.php';
-        }
+        };
 
         xoops_smallworld('#smallworld_notyetusercontent').dialog({
             minWidth: 500,
@@ -680,7 +673,6 @@ xoops_smallworld(function () {
                     href: "#lookingglassuseravatar"
                 });
             }
-            ;
         }); //close click
     });
 
@@ -701,7 +693,6 @@ xoops_smallworld(function () {
                 href: "#workfull"
             });
         }
-        ;
     });
 
     // Show educations in dialog when clicked on more
@@ -721,7 +712,6 @@ xoops_smallworld(function () {
                 href: "#educationfull"
             });
         }
-        ;
     });
 
     // Show more info in dialog
@@ -741,7 +731,6 @@ xoops_smallworld(function () {
                 href: "#interestsandmore"
             });
         }
-        ;
     });
 
     // Show Privacy settings dialog
@@ -760,7 +749,6 @@ xoops_smallworld(function () {
                 href: "div .smallworld_usersetings",
             });
         }
-        ;
     });
 
     //Function to show images in birthplace input
@@ -787,9 +775,7 @@ xoops_smallworld(function () {
                     href: "#_smallworld_birthplace_map",
                 });
             }
-            ;
         }
-        ;
     });
 
     //Function to show images in present location input
@@ -816,9 +802,7 @@ xoops_smallworld(function () {
                     href: "#_smallworld_present_map"
                 });
             }
-            ;
         }
-        ;
     });
 
 
@@ -1002,7 +986,7 @@ function Smallworld_initialize_birthplace(smallworld_birthlng, smallworld_birthl
         zoom: 8,
         center: birth_myLatlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
+    };
     var birth_map = new google.maps.Map(document.getElementById("_smallworld_birthplace_map"), birth_myOptions);
     var birth_marker = new google.maps.Marker({
         position: birth_myLatlng,
@@ -1018,7 +1002,7 @@ function Smallworld_initialize_currplace(smallworld_currlng, smallworld_currlatt
         zoom: 8,
         center: currplace_myLatlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
+    };
     var currplace_map = new google.maps.Map(document.getElementById("_smallworld_present_map"), currplace_myOptions);
     var currplace_marker = new google.maps.Marker({
         position: currplace_myLatlng,
@@ -1167,8 +1151,7 @@ function smallworld_getCountFriendMessagesEtcJS() {
         }
     });
     setTimeout('smallworld_getCountFriendMessagesEtcJS()', 10000);
-};
-
+}
 function smallworld_DoValStart() {
     xoops_smallworld(document).ready(function () {
         // Attact validation to registeration parts in register form
@@ -1304,7 +1287,6 @@ function Smallworld_attachAvatarOpen() {
                     href: "#lookingglassuseravatar"
                 });
             }
-            ;
         }); //close click
     });
     return false;

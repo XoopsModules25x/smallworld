@@ -6,8 +6,8 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @copyright       {@link https://xoops.org 2001-2017 XOOPS Project}
+ * @license         {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
  * @package         modules
  * @subpackage      Small World
  * @since           1.0.0

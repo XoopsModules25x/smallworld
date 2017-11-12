@@ -61,7 +61,6 @@
             for (var i = 0; i < elements.length; i++) {
                 xoops_smallworld(elements[i]).css('z-index', String(elements.length - i)).css('position', 'absolute').hide();
             }
-            ;
             if (settings.type == "sequence") {
                 setTimeout(function () {
                     xoops_smallworld.innerfade.next(elements, settings, 1, 0);

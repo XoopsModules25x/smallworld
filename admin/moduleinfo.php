@@ -3,26 +3,27 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://xoops.svn.sourceforge.net/svnroot/xoops/XoopsModules/smallworld/trunk/smallworld/admin/moduleinfo.php $
- * @Last       committed:        $Revision: 9412 $
- * @Last       changed by:        $Author: beckmi $
- * @Last       changed date:    $Date: 2012-04-30 06:07:58 +0200 (ma, 30 apr 2012) $
- * @ID         :                    $Id: moduleinfo.php 9412 2012-04-30 04:07:58Z beckmi $
- **/
+ */
 
-require_once 'admin_header.php';
-require_once '../../../include/cp_header.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+require_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 if (!isset($xoopsTpl)) {
@@ -33,7 +34,7 @@ $xoopsTpl->caching = 0;
 xoops_cp_header();
 
 $admin = new SmallworldAdmin();
-$tpl   = new XoopsTpl();
+$tpl = new XoopsTpl();
 
 // Smallworld version number
 $installversion = $admin->ModuleInstallVersion();
@@ -55,8 +56,7 @@ $xoopsTpl->assign('installversion_status', $installCheck);
 $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/admin_moduleinfo.html');
 
 global $xoTheme;
-$xoTheme->addStyleSheet('modules/smallworld/css/SmallworldAdmin.css');
+$xoTheme->addStylesheet('modules/smallworld/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 
 xoops_cp_footer();
-

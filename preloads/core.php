@@ -3,29 +3,33 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/preloads/core.php $
- * @Last       committed:        $Revision: 11723 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-06-19 18:48:22 +0200 (on, 19 jun 2013) $
- * @ID         :                    $Id: core.php 11723 2013-06-19 16:48:22Z djculex $
- **/
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+ */
 
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+
+/**
+ * Class SmallworldCorePreload
+ */
 class SmallworldCorePreload extends XoopsPreloadItem
 {
-
-    function eventCoreHeaderAddmeta()
+    public static function eventCoreHeaderAddmeta()
     {
         global $xoTheme, $xoopsUser, $xoopsConfig;
         //Load language if not defined
@@ -59,12 +63,14 @@ class SmallworldCorePreload extends XoopsPreloadItem
         $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/smallworld.js');
     }
 
-    function isActive()
-    {
-        $module_handler =& xoops_getHandler('module');
-        $module         = $module_handler->getByDirname('smallworld');
-        return ($module && $module->getVar('isactive')) ? true : false;
-    }
+    /**
+     * @return bool
+     */
+//    public function isActive()
+//    {
+//        $moduleHandler = xoops_getHandler('module');
+//        $module        = $moduleHandler->getByDirname('smallworld');
+//
+//        return ($module && $module->getVar('isactive')) ? true : false;
+//    }
 }
-
-

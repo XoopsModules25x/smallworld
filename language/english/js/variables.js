@@ -53,7 +53,7 @@ var args = {
     'textCancel': 'Cancel',	// Cancel button default text
     'textYes': 'Yes!',		// Yes button default text
     'textNo': 'No!'		// No button default text
-}
+};
 
 // Variables for photo gallery
 var SmallworldPhotoPlaySlideshow = 'Play Slideshow';

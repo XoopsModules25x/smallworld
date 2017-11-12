@@ -3,26 +3,27 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://xoops.svn.sourceforge.net/svnroot/xoops/XoopsModules/smallworld/trunk/smallworld/admin/useradmin.php $
- * @Last       committed:        $Revision: 9412 $
- * @Last       changed by:        $Author: beckmi $
- * @Last       changed date:    $Date: 2012-04-30 06:07:58 +0200 (ma, 30 apr 2012) $
- * @ID         :                    $Id: useradmin.php 9412 2012-04-30 04:07:58Z beckmi $
- **/
+ */
 
-require_once 'admin_header.php';
-require_once '../../../include/cp_header.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+require_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 if (!isset($xoopsTpl)) {
@@ -33,25 +34,25 @@ $xoopsTpl->caching = 0;
 xoops_cp_header();
 
 $admin = new SmallworldAdmin();
-$tpl   = new XoopsTpl();
+$tpl = new XoopsTpl();
 
-$ai  = array();
-$ani = array();
+$ai = [];
+$ani = [];
 
 $allusers_inspect = $admin->getAllUsers('yes');
 if (!empty($allusers_inspect)) {
     foreach ($allusers_inspect as $data) {
-        $ai['id']                    = $data['id'];
-        $ai['userid']                = $data['userid'];
-        $ai['username']              = $data['username'];
-        $ai['realname']              = $data['realname'];
-        $ai['userimage']             = smallworld_getAvatarLink($data['userid'], $data['userimage']);
-        $ai['avatar_size']           = smallworld_getImageSize(80, 100, $ai['userimage']);
-        $ai['avatar_highwide']       = smallworld_imageResize($ai['avatar_size'][0], $ai['avatar_size'][1], 50);
-        $ai['ip']                    = $data['ip'];
-        $ai['complaint']             = $data['complaint'];
-        $ai['inspect_start']         = $data['inspect_start'];
-        $ai['inspect_stop']          = $data['inspect_stop'];
+        $ai['id'] = $data['id'];
+        $ai['userid'] = $data['userid'];
+        $ai['username'] = $data['username'];
+        $ai['realname'] = $data['realname'];
+        $ai['userimage'] = smallworld_getAvatarLink($data['userid'], $data['userimage']);
+        $ai['avatar_size'] = smallworld_getImageSize(80, 100, $ai['userimage']);
+        $ai['avatar_highwide'] = smallworld_imageResize($ai['avatar_size'][0], $ai['avatar_size'][1], 50);
+        $ai['ip'] = $data['ip'];
+        $ai['complaint'] = $data['complaint'];
+        $ai['inspect_start'] = $data['inspect_start'];
+        $ai['inspect_stop'] = $data['inspect_stop'];
         $ai['userinspect_timetotal'] = ($data['inspect_start'] + $data['inspect_stop']) - time();
         $xoopsTpl->append('allusersinspect', $ai);
     }
@@ -61,17 +62,17 @@ $xoopsTpl->assign('allusersinspectcounter', count($ai));
 $allusers_noinspect = $admin->getAllUsers('no');
 if (!empty($allusers_noinspect)) {
     foreach ($allusers_noinspect as $data) {
-        $ani['id']                    = $data['id'];
-        $ani['userid']                = $data['userid'];
-        $ani['username']              = $data['username'];
-        $ani['realname']              = $data['realname'];
-        $ani['userimage']             = smallworld_getAvatarLink($data['userid'], $data['userimage']);
-        $ani['avatar_size']           = smallworld_getImageSize(80, 100, $ani['userimage']);
-        $ani['avatar_highwide']       = smallworld_imageResize($ani['avatar_size'][0], $ani['avatar_size'][1], 50);
-        $ani['ip']                    = $data['ip'];
-        $ani['complaint']             = $data['complaint'];
-        $ani['inspect_start']         = '';
-        $ani['inspect_stop']          = '';
+        $ani['id'] = $data['id'];
+        $ani['userid'] = $data['userid'];
+        $ani['username'] = $data['username'];
+        $ani['realname'] = $data['realname'];
+        $ani['userimage'] = smallworld_getAvatarLink($data['userid'], $data['userimage']);
+        $ani['avatar_size'] = smallworld_getImageSize(80, 100, $ani['userimage']);
+        $ani['avatar_highwide'] = smallworld_imageResize($ani['avatar_size'][0], $ani['avatar_size'][1], 50);
+        $ani['ip'] = $data['ip'];
+        $ani['complaint'] = $data['complaint'];
+        $ani['inspect_start'] = '';
+        $ani['inspect_stop'] = '';
         $ani['userinspect_timetotal'] = '';
         $xoopsTpl->append('allusersnoinspect', $ani);
     }
@@ -97,10 +98,10 @@ if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/js/' . $lang . '
 }
 
 $adminscript = <<<SCRIPT
-		var smallworld_url="XOOPS_URL/modules/smallworld/";
-		//var $ = jQuery();
+        var smallworld_url="XOOPS_URL/modules/smallworld/";
+        //var $ = jQuery();
 SCRIPT;
-$xoTheme->addStyleSheet('modules/smallworld/css/SmallworldAdmin.css');
+$xoTheme->addStylesheet('modules/smallworld/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/browse.php?Frameworks/jquery/jquery.js');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery-ui-1.8.11.custom.js');
 $xoTheme->addScript('modules/smallworld/js/smallworld_tabs.js');
@@ -117,4 +118,3 @@ if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/js/' . $lang . '
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 
 xoops_cp_footer();
-

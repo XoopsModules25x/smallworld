@@ -3,28 +3,29 @@
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/register.php $
- * @Last       committed:        $Revision: 11843 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-07-18 19:29:48 +0200 (to, 18 jul 2013) $
- * @ID         :                    $Id: register.php 11843 2013-07-18 17:29:48Z djculex $
- **/
+ */
 
-include_once '../../mainfile.php';
-$xoopsOption['template_main'] = 'smallworld_userprofile_regtemplate.html';
-include XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+/**
+ * SmallWorld
+ *
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @copyright    2011 Culex
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ */
+
+require_once __DIR__ . '/../../mainfile.php';
+$GLOBALS['xoopsOption']['template_main'] = 'smallworld_userprofile_regtemplate.html';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoopsTpl, $xoTheme;
 
 if ($xoopsUser) {
@@ -35,7 +36,7 @@ if ($xoopsUser) {
     // Check if inspected userid -> redirect to userprofile and show admin countdown
 
     $inspect = Smallworld_isInspected($id);
-    if ('yes' == $inspect['inspect']) {
+    if ('yes' === $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
 
@@ -284,10 +285,8 @@ if ($xoopsUser) {
         $xoopsTpl->append('smallworld_register_title', _SMALLWORLD_REGRISTATION_TITLE);
         $xoopsTpl->assign('smallworld_beforesubmit', _SMALLWORLD_TEXTBEFORESUBMIT);
         $xoopsTpl->assign('smallworld_save', _SMALLWORLD_SUBMIT);
-
     }
 } else {
     redirect_header(XOOPS_URL . '/register.php', 1, _NOPERM);
 }
-include XOOPS_ROOT_PATH . '/footer.php';
-
+require_once XOOPS_ROOT_PATH . '/footer.php';
