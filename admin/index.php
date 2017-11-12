@@ -30,7 +30,7 @@ global $xoTheme;
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 
-$indexAdmin = new ModuleAdmin();
+$indexAdmin = \Xmf\Module\Admin::getInstance();
 
 $admin = new SmallworldAdmin();
 $d = new SmallWorldDoSync;
@@ -197,6 +197,6 @@ if (0 != $low_cnt) {
     $indexAdmin->addInfoBoxLine(_AM_SMALLWORLD_USERSTATS, "<p class='smallworldadmin'>" . _AM_SMALLWORLD_BOTTOMRATEDUSERS . ' : %s</p>', $low, 'Red', 'default');
 }
 
-echo $indexAdmin->addNavigation('index.php');
-echo $indexAdmin->renderIndex();
+echo $indexAdmin->displayNavigation('index.php');
+echo $indexAdmin->displayIndex();
 require_once __DIR__ . '/admin_footer.php';

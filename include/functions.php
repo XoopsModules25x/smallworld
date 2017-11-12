@@ -401,7 +401,7 @@ function smallworld_GetModuleOption($option, $repmodule = 'smallworld')
         $module        = $moduleHandler->getByDirname($repmodule);
         $configHandler = xoops_getHandler('config');
         if ($module) {
-            $moduleConfig =& $configHandler->getConfigsByCat(0, $module->getVar('mid'));
+            $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
             if (isset($moduleConfig[$option])) {
                 $retval = $moduleConfig[$option];
             }
@@ -1162,7 +1162,7 @@ function smallworld_SetCoreScript()
     $module        = $moduleHandler->getByDirname('smallworld');
     $configHandler = xoops_getHandler('config');
     if ($module) {
-        $moduleConfig =& $configHandler->getConfigsByCat(0, $module->getVar('mid'));
+        $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     }
 
     // IF logged in define xoops / smallworld user id
@@ -1454,7 +1454,7 @@ function smallworld_getTagUsers($txt, $sender, $permalink = '')
  */
 function smallworld_countUserWallMsges($uid)
 {
-    $db     =& XoopsDatabaseFactory::getDatabaseConnection();
+    $db     = XoopsDatabaseFactory::getDatabaseConnection();
     $sql    = 'SELECT message FROM ' . $db->prefix('smallworld_messages') . " WHERE uid_fk='" . $uid . "'";
     $result = $db->queryF($sql);
     $count  = $db->getRowsNum($result);

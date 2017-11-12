@@ -257,7 +257,7 @@ class SmallWorldDB
             $sql    .= "jobstop = '" . $jobstop . "', description = '" . $jobdescription . "' ";
             $sql    .= "WHERE userid ='" . (int)$uid . "'";
             $result = $xoopsDB->queryF($sql);
-            if (false == $result) {
+            if (false === $result) {
                 die('SQL error:' . $sql . '');
             }
 
@@ -276,7 +276,7 @@ class SmallWorldDB
             $sql    .= $school_type . "', '" . $school . "', '" . $schoolstart . "', '" . $schoolstop . "', '" . $jobemployer . "', '" . $jobposition . "', '" . $jobstart . "', '" . $jobstop . "', '" . $jobdescription . "', ";
             $sql    .= "'0', '0', '0')";
             $result = $xoopsDB->queryF($sql);
-            if (false == $result) {
+            if (false === $result) {
                 die('SQL error:' . $sql . '');
             }
             $this->SetAdmins($uid, $username, $realname, $avatar);
@@ -607,7 +607,7 @@ class SmallWorldDB
                     }
                 }
                 closedir($directoryHandle);
-                if (false == $empty) {
+                if (false === $empty) {
                     if (!rmdir($directory)) {
                         return false;
                     }

@@ -18,7 +18,7 @@
  * @Last       changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
  * @ID         :                    $Id: search.php 12175 2013-10-15 17:41:43Z djculex $
  **/
-include_once '../../mainfile.php';
+include_once __DIR__ . '/../../mainfile.php';
 include XOOPS_ROOT_PATH . '/header.php';
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';

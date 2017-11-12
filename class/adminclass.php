@@ -549,7 +549,7 @@ class SmallWorldDoSync
                     }
                 }
                 closedir($directoryHandle);
-                if (false == $empty) {
+                if (false === $empty) {
                     if (!rmdir($directory)) {
                         return false;
                     }

@@ -133,7 +133,7 @@ if ($xoopsUser) {
 
         // Check for folder xim to add messenger user to menu items
         $hasxim = smallworld_checkForXim();
-        if (true == $hasxim) {
+        if (true === $hasxim) {
             $xoopsTpl->assign('sendxim', 'YES');
             if (2 == $fr[0]) {
                 if ($yourid != $id) {

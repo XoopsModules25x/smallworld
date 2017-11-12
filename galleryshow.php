@@ -50,7 +50,7 @@ if ($xoopsUser) {
     }
 
     $profile = $check->checkIfProfile($id);
-    if ($profile >= 2 || 2 == $userisfriend[0] || true == $admin) {
+    if ($profile >= 2 || 2 == $userisfriend[0] || true === $admin) {
         $myusername = $xoopsUser->getVar('uname');
 
         $user        = new XoopsUser($id);
