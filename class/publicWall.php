@@ -451,7 +451,7 @@ class Public_Wall_Updates
                 } else {
                     $wm['sharediv'] = $this->GetSharingDiv($wm['msg_id'], 1, $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
                 }
-                $wm['linkimage']     = XOOPS_URL . '/modules/smallworld/images/link.png';
+                $wm['linkimage']     = XOOPS_URL . '/modules/smallworld/assets/images/link.png';
                 $wm['permalink']     = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id'];
                 $wm['commentsarray'] = $this->Comments($data['msg_id']);
 

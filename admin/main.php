@@ -172,7 +172,7 @@ $adminscript = <<<SCRIPT
         var smallworld_url="XOOPS_URL/modules/smallworld/";
         var $ = jQuery();
 SCRIPT;
-$xoTheme->addStylesheet('modules/smallworld/css/SmallworldAdmin.css');
+$xoTheme->addStylesheet('modules/smallworld/assets/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/browse.php?Frameworks/jquery/jquery.js');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery-ui-1.8.11.custom.js');
 $xoTheme->addScript('modules/smallworld/js/smallworld_tabs.js');

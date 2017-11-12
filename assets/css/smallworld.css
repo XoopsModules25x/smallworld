@@ -110,7 +110,7 @@
 
 /*-------- Pagesetup items ---------*/
 .smallworld_nofrienddiv {
-    background-image: url('../images/nofriendbg.png');
+    background-image: url('../assets/images/nofriendbg.png');
     height: 100px;
     width: 500px;
     margin: 0 0 30px;
@@ -434,7 +434,7 @@ fieldset.step #realname, #partner, input[name='emailtype[]'], input[name='screen
 }
 
 li.error-image {
-    background: url('../images/error.png') no-repeat right top;
+    background: url('../assets/images/error.png') no-repeat right top;
 }
 
 ul.stepy-titles {
@@ -465,7 +465,7 @@ ul.stepy-titles li span {
 /*** Optionaly (jQuery Validate) ***/
 
 label.error {
-    background: url("../images/alert.png") no-repeat scroll 0 0 transparent;
+    background: url("../assets/images/alert.png") no-repeat scroll 0 0 transparent;
     color: #DE5130;
     display: block;
     float: right;
@@ -695,7 +695,7 @@ input.jobstart, input.jobstop {
 /*-------- JqueryUI items ---------*/
 
 .ui-autocomplete-loading {
-    background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
+    background: white url('../assets/images/ui-anim_basic_16x16.gif') right center no-repeat;
 }
 
 .ui-widget .ui-widget {
@@ -1256,7 +1256,7 @@ ul#smallworld_avatarfiles li img {
 }
 
 hr {
-    background: url("../images/hr.png") repeat-x scroll 25% 50% transparent;
+    background: url("../assets/images/hr.png") repeat-x scroll 25% 50% transparent;
     border: 0 none;
     height: 10px;
     margin: 2px auto 2px auto;
@@ -1342,7 +1342,7 @@ html:first-child .bookmark_list { /* Opera */
 }
 
 .bookmark_list span.bookmark_icons {
-    background: url(../images/bookmarks.png) no-repeat center;
+    background: url(../assets/images/bookmarks.png) no-repeat center;
 }
 
 .bookmark_list img {

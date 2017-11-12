@@ -117,11 +117,11 @@ if ($xoopsUser) {
         $xoopsTpl->assign('usersetting', $usersettings);
 
         // Get usermenu to template
-        $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
-        $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
-        $menu_profile   = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
-        $menu_gallery   = "<a href='" . XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/picture.png'>" . _SMALLWORLD_GALLERY . '</a>';
-        $menu_friends   = "<a href='" . XOOPS_URL . '/modules/smallworld/friends.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
+        $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
+        $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
+        $menu_profile   = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
+        $menu_gallery   = "<a href='" . XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/picture.png'>" . _SMALLWORLD_GALLERY . '</a>';
+        $menu_friends   = "<a href='" . XOOPS_URL . '/modules/smallworld/friends.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
 
         if (smallworld_XIMversion() > 102) {
             $menu_xim_js = "javascript:xim_chatWith('" . $id . "','" . $Xusername . "')";
@@ -129,7 +129,7 @@ if ($xoopsUser) {
             $menu_xim_js = "javascript:chatWith('" . $id . "','" . $Xusername . "')";
         }
 
-        $menu_ximme = "<a href='javascript:void(0);' onClick=" . $menu_xim_js . "><img height='10px' width='10px' src='" . XOOPS_URL . "/modules/smallworld/images/messenger.png'>" . _SMALLWORLD_XIMUSER . $Xusername . '</a>';
+        $menu_ximme = "<a href='javascript:void(0);' onClick=" . $menu_xim_js . "><img height='10px' width='10px' src='" . XOOPS_URL . "/modules/smallworld/assets/images/messenger.png'>" . _SMALLWORLD_XIMUSER . $Xusername . '</a>';
 
         // Check for folder xim to add messenger user to menu items
         $hasxim = smallworld_checkForXim();

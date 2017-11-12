@@ -52,8 +52,8 @@ if ($xoopsUser) {
             ++$i;
         }
         $xoopsTpl->append('editimages', $editimages);
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
-        //$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/colorbox.css');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
+        //$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/assets/css/colorbox.css');
     } else {
         redirect_header('index.php', 1);
     }

@@ -96,7 +96,7 @@ if ($profile >= 2) {
                 $wm['sharelinkurl']    = XOOPS_URL . '/modules/smallworld/smallworldshare.php?ownerid=' . $data['uid_fk'];
                 $wm['sharelinkurl']    .= '&updid=' . $data['msg_id'] . '';
                 $wm['usernameTitle']   = $wm['username'] . _SMALLWORLD_UPDATEONSITEMETA . $xoopsConfig['sitename'];
-                $wm['linkimage']       = XOOPS_URL . '/modules/smallworld/images/link.png';
+                $wm['linkimage']       = XOOPS_URL . '/modules/smallworld/assets/images/link.png';
                 $wm['permalink']       = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id'];
                 if (1 == $USW['posts'] || $profile >= 2) {
                     $wm['sharelink'] = $Wall->GetSharing($wm['msg_id'], $wm['priv']);

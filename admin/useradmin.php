@@ -101,20 +101,20 @@ $adminscript = <<<SCRIPT
         var smallworld_url="XOOPS_URL/modules/smallworld/";
         //var $ = jQuery();
 SCRIPT;
-$xoTheme->addStylesheet('modules/smallworld/css/SmallworldAdmin.css');
+$xoTheme->addStylesheet('modules/smallworld/assets/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/browse.php?Frameworks/jquery/jquery.js');
-$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery-ui-1.8.11.custom.js');
-$xoTheme->addScript('modules/smallworld/js/smallworld_tabs.js');
+$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery-ui-1.8.11.custom.js');
+$xoTheme->addScript('modules/smallworld/assets/js/smallworld_tabs.js');
 $xoTheme->addScript('', '', $adminscript);
-$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.form.js');
-$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.countdown.js');
-if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/js/' . $lang . '/jquery.ui.datepicker-language.js')) {
+$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.form.js');
+$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.countdown.js');
+if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/assets/js/' . $lang . '/jquery.ui.datepicker-language.js')) {
     $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/' . $lang . '/js/jquery.ui.datepicker-language.js');
     $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/' . $lang . '/js/jquery.countdown.js');
 } else {
     $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/english/js/jquery.ui.datepicker-language.js');
     $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/english/js/jquery.countdown.js');
 }
-$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
+$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/adminsmallworld.js');
 
 xoops_cp_footer();

@@ -22,296 +22,329 @@
 
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
-$modversion['name']                = _MI_SMALLWORLD_MODULE_NAME;
-$modversion['version']             = 1.15;
-$modversion['description']         = _MI_SMALLWORLD_MODULE_DESC;
-$modversion['author']              = 'Michael Albertsen';
-$modversion['nickname']            = 'Culex';
-$modversion['credits']             = 'Mariane, Mrsculex, Mamba, Rune, Zth, Cesag, Flipse, Dante';
-$modversion['module_website_name'] = 'www.culex.dk';
-$modversion['module_website_url']  = 'www.culex.dk';
-$modversion['license']             = 'GNU GPL';
-$modversion['license_url']         = 'www.gnu.org/licenses/gpl-2.0.html/';
-$modversion['status_version']      = 'RC';
-$modversion['module_status']       = 'Release Candidate';
-$modversion['release_date']        = '2011/12/24';
-$modversion['help']                = 'page=help';
-$modversion['min_php']             = '5.5';
-$modversion['min_xoops']           = '2.5.9';
-$modversion['min_admin']           = '1.1';
-$modversion['min_db']              = ['mysql' => '5.5'];
-$modversion['system_menu']         = 1;
-$modversion['official']            = 0;
-$modversion['image']               = 'images/smallworld.png';
-$modversion['dirname']             = 'smallworld';
+$moduleDirName = basename(__DIR__);
 
-$modversion['icons16'] = '../../Frameworks/moduleclasses/icons/16';
-$modversion['icons32'] = '../../Frameworks/moduleclasses/icons/32';
+// ------------------- Informations ------------------- //
+$modversion = [
+    'version'             => 1.16,
+    'module_status'       => 'Beta 1',
+    'release_date'        => '2017/11/11',
+    'name'                => _MI_SMALLWORLD_MODULE_NAME,
+    'description'         => _MI_SMALLWORLD_MODULE_DESC,
+    'official'            => 0,
+    //1 indicates official XOOPS module supported by XOOPS Dev Team, 0 means 3rd party supported
+    'author'              => 'Michael Albertsen',
+    'nickname'            => 'Culex',
+    'credits'             => 'XOOPS Development Team, Mariane, Mrsculex, Mamba, Rune, Zth, Cesag, Flipse, Dante',
+    'author_mail'         => 'author-email',
+    'author_website_url'  => 'www.culex.dk',
+    'author_website_name' => 'www.culex.dk',
+    'license'             => 'GPL 2.0 or later',
+    'license_url'         => 'www.gnu.org/licenses/gpl-2.0.html/',
+    'help'                => 'page=help',
+    // ------------------- Folders & Files -------------------
+    'release_info'        => 'Changelog',
+    'release_file'        => XOOPS_URL . "/modules/$moduleDirName/docs/changelog.txt",
+    //
+    'manual'              => 'link to manual file',
+    'manual_file'         => XOOPS_URL . "/modules/$moduleDirName/docs/install.txt",
+    // images
+    'image'               => 'assets/images/logoModule.png',
+    'iconsmall'           => 'assets/images/iconsmall.png',
+    'iconbig'             => 'assets/images/iconbig.png',
+    'dirname'             => $moduleDirName,
+    // Local path icons
+    'modicons16'          => 'assets/images/icons/16',
+    'modicons32'          => 'assets/images/icons/32',
+    //About
+    'demo_site_url'       => 'www.culex.dk',
+    'demo_site_name'      => 'www.culex.dk',
+    'support_url'         => 'https://xoops.org/modules/newbb/viewforum.php?forum=28/',
+    'support_name'        => 'Support Forum',
+    'submit_bug'          => 'https://github.com/XoopsModules25x/' . $moduleDirName . '/issues',
+    'module_website_url'  => 'www.xoops.org',
+    'module_website_name' => 'XOOPS Project',
+    // ------------------- Min Requirements -------------------
+    'min_php'             => '5.5',
+    'min_xoops'           => '2.5.9',
+    'min_admin'           => '1.2',
+    'min_db'              => ['mysql' => '5.5'],
+    // ------------------- Admin Menu -------------------
+    'system_menu'         => 1,
+    'hasAdmin'            => 1,
+    'adminindex'          => 'admin/index.php',
+    'adminmenu'           => 'admin/menu.php',
+    // ------------------- Main Menu -------------------
+    'hasMain'             => 1,
 
-//update
-$modversion['onUpdate'] = 'include/update.php';
+    // ------------------- Install/Update -------------------
+//    'onInstall'           => 'include/oninstall.php',
+    'onUpdate'            => 'include/onupdate.php',
+    //  'onUninstall'         => 'include/onuninstall.php',
+    // -------------------  PayPal ---------------------------
+    'paypal'              => [
+        'business'      => 'foundation@xoops.org',
+        'item_name'     => 'Donation : ' . _MI_SMALLWORLD_MODULE_NAME,
+        'amount'        => 0,
+        'currency_code' => 'USD'
+    ],
+    // ------------------- Search ---------------------------
+    'hasSearch'           => 1,
+    'search'              => [
+        'file' => 'include/search.inc.php',
+        'func' => 'smallworld_search'
+    ],
 
-// Admin
-$modversion['hasAdmin'] = 1;
+    // ------------------- Mysql -----------------------------
+    'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
+    // ------------------- Tables ----------------------------
+    'tables'              => [
+        $moduleDirName . '_' . 'admin',
+        $moduleDirName . '_' . 'comments',
+        $moduleDirName . '_' . 'followers',
+        $moduleDirName . '_' . 'friends',
+        $moduleDirName . '_' . 'images',
+        $moduleDirName . '_' . 'messages',
+        $moduleDirName . '_' . 'user',
+        $moduleDirName . '_' . 'vote',
+        $moduleDirName . '_' . 'complaints',
+        $moduleDirName . '_' . 'settings'
+    ],
+];
 
-// Menu
-$modversion['hasMain']    = 1;
-$modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
-
-$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
-$modversion['tables'][0]        = 'smallworld_admin';
-$modversion['tables'][1]        = 'smallworld_comments';
-$modversion['tables'][2]        = 'smallworld_followers';
-$modversion['tables'][3]        = 'smallworld_friends';
-$modversion['tables'][4]        = 'smallworld_images';
-$modversion['tables'][5]        = 'smallworld_messages';
-$modversion['tables'][6]        = 'smallworld_user';
-$modversion['tables'][7]        = 'smallworld_vote';
-$modversion['tables'][8]        = 'smallworld_complaints';
-$modversion['tables'][9]        = 'smallworld_settings';
 
 // Templates
-$i                                          = 1;
-$modversion['templates'][$i]['file']        = 'smallworld_index.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_userprofile_template.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_userprofile_regtemplate.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_userprofile_edittemplate.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_userprofile_imgupload.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_galleryshow.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_images_edittemplate.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_friends_template.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_permalink.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_admin.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_share.html';
-$modversion['templates'][$i]['description'] = '';
-++$i;
-$modversion['templates'][$i]['file']        = 'smallworld_publicindex.html';
-$modversion['templates'][$i]['description'] = '';
+
+$modversion['templates'] = [
+    ['file' => 'smallworld_index.html', 'description' => ''],
+    ['file' => 'smallworld_userprofile_template.html', 'description' => ''],
+    ['file' => 'smallworld_userprofile_regtemplate.html', 'description' => ''],
+    ['file' => 'smallworld_userprofile_edittemplate.html', 'description' => ''],
+    ['file' => 'smallworld_userprofile_imgupload.html', 'description' => ''],
+    ['file' => 'smallworld_galleryshow.html', 'description' => ''],
+    ['file' => 'smallworld_images_edittemplate.html', 'description' => ''],
+    ['file' => 'smallworld_friends_template.html', 'description' => ''],
+    ['file' => 'smallworld_permalink.html', 'description' => ''],
+    ['file' => 'smallworld_admin.html', 'description' => ''],
+    ['file' => 'smallworld_share.html', 'description' => ''],
+    ['file' => 'smallworld_publicindex.html', 'description' => '']
+];
 
 // Blocks
-$i                                       = 1;
-$modversion['blocks'][$i]['file']        = 'smallworld_block.php';
-$modversion['blocks'][$i]['name']        = 'Block for empty module';
-$modversion['blocks'][$i]['description'] = 'This is a Block for the empty module';
-$modversion['blocks'][$i]['show_func']   = 'smallworld_block';
-$modversion['blocks'][$i]['template']    = 'smallworld_block.html';
-
-//Module Configs
-$i = 0;
-
-++$i;
-$modversion['config'][$i]['name']        = 'msgtoshow';
-$modversion['config'][$i]['title']       = '_MI_SMALLWORLD_MSGTOSHOW';
-$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_MSGTOSHOW_DESC';
-$modversion['config'][$i]['formtype']    = 'textbox';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 5;
-
-++$i;
-$modversion['config'][$i]['name']        = 'validationstrenght';
-$modversion['config'][$i]['title']       = '_MI_SMALLWORLD_VALIDATIONSTRENGHT';
-$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC';
-$modversion['config'][$i]['formtype']    = 'yesno';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 1;
-
-++$i;
-$modversion['config'][$i]['name']        = 'takeoveruserlinks';
-$modversion['config'][$i]['title']       = '_MI_SMALLWORLD_TAKEOVERLINKS';
-$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_TAKEOVERLINKS_DESC';
-$modversion['config'][$i]['formtype']    = 'yesno';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 1;
-
-++$i;
-$modversion['config'][$i]['name']        = 'usersownpostscount';
-$modversion['config'][$i]['title']       = '_MI_SMALLWORLD_USERSOWNMSGCOUNTS';
-$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC';
-$modversion['config'][$i]['formtype']    = 'yesno';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 0;
-
-++$i;
-$modversion['config'][$i]['name']        = 'smallworldbookmarkavatar';
-$modversion['config'][$i]['title']       = '_MI_SMALLWORLD_BOOKMARSAVATARS';
-$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC';
-$modversion['config'][$i]['formtype']    = 'yesno';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 1;
-
-++$i;
-$modversion['config'][$i]['name']        = 'smallworldusemailnotis';
-$modversion['config'][$i]['title']       = '_MI_SMALLWORLD_USEMAILNOTIFICATION';
-$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC';
-$modversion['config'][$i]['formtype']    = 'yesno';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 1;
-
-++$i;
-$modversion['config'][$i]['name']        = 'smallworldusethesefields';
-$modversion['config'][$i]['title']       = '_MI_SMALLWORLD_VIEWFIELDS';
-$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_VIEWFIELDS_DESC';
-$modversion['config'][$i]['formtype']    = 'select_multi';
-$modversion['config'][$i]['valuetype']   = 'array';
-$modversion['config'][$i]['options']     = [
-    '_MI_SMALLWORLD_REALNAME'           => 'realname',
-    '_MI_SMALLWORLD_GENDER'             => 'gender',
-    '_MI_SMALLWORLD_INTERESTEDIN'       => 'interestedin',
-    '_MI_SMALLWORLD_RELATIONSHIPSTATUS' => 'relationshipstatus',
-    '_MI_SMALLWORLD_PARTNER'            => 'partner',
-    '_MI_SMALLWORLD_LOOKINGFOR'         => 'lookingfor',
-    '_MI_SMALLWORLD_BIRTHDAY'           => 'birthday',
-    '_MI_SMALLWORLD_BIRTHPLACE'         => 'birthplace',
-    '_MI_SMALLWORLD_POLITICALVIEWS'     => 'politicalview',
-    '_MI_SMALLWORLD_RELIGIOUSVIEWS'     => 'religiousview',
-    '_MI_SMALLWORLD_EMAILS'             => 'emails',
-    '_MI_SMALLWORLD_SCREENNAMES'        => 'screennames',
-    '_MI_SMALLWORLD_MOBILE'             => 'mobile',
-    '_MI_SMALLWORLD_LANDPHONE'          => 'landphone',
-    '_MI_SMALLWORLD_STREETADRESS'       => 'streetadress',
-    '_MI_SMALLWORLD_PRESENTCITY'        => 'presentcity',
-    '_MI_SMALLWORLD_COUNTRY'            => 'country',
-    '_MI_SMALLWORLD_WEBSITE'            => 'website',
-    '_MI_SMALLWORLD_INTERESTS'          => 'interests',
-    '_MI_SMALLWORLD_FAVOURITEMUSIC'     => 'favouritemusic',
-    '_MI_SMALLWORLD_FAVOURITETVSHOWS'   => 'favouritetvshows',
-    '_MI_SMALLWORLD_FAVOURITEMOVIES'    => 'favouritemovies',
-    '_MI_SMALLWORLD_FAVOURITEBOOKS'     => 'favouritebooks',
-    '_MI_SMALLWORLD_ABOUTME'            => 'aboutme',
-    '_MI_SMALLWORLD_EDUCATION'          => 'education',
-    '_MI_SMALLWORLD_EMPLOYMENT'         => 'employment',
+$modversion['blocks'][] = [
+    'file'        => 'smallworld_block.php',
+    'name'        => 'Block for empty module',
+    'description' => 'This is a Block for the empty module',
+    'show_func'   => 'smallworld_block',
+    'template'    => 'smallworld_block.html',
 ];
-$modversion['config'][$i]['default']     = [
-    'realname',
-    'gender',
-    'interestedin',
-    'relationshipstatus',
-    'partner',
-    'lookingfor',
-    'birthday',
-    'birthplace',
-    'politicalview',
-    'religiousview',
-    'emails',
-    'screennames',
-    'mobile',
-    'landphone',
-    'streetadress',
-    'presentcity',
-    'country',
-    'website',
-    'interests',
-    'favouritemusic',
-    'favouritetvshows',
-    'favouritemovies',
-    'favouritebooks',
-    'aboutme',
-    'education',
-    'employment'
+//Module Configs
+
+$modversion['config'][] = [
+    'name'        => 'msgtoshow',
+    'title'       => '_MI_SMALLWORLD_MSGTOSHOW',
+    'description' => '_MI_SMALLWORLD_MSGTOSHOW_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 5,
+
+];
+
+$modversion['config'][] = [
+    'name'        => 'validationstrenght',
+    'title'       => '_MI_SMALLWORLD_VALIDATIONSTRENGHT',
+    'description' => '_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+
+];
+
+$modversion['config'][] = [
+    'name'        => 'takeoveruserlinks',
+    'title'       => '_MI_SMALLWORLD_TAKEOVERLINKS',
+    'description' => '_MI_SMALLWORLD_TAKEOVERLINKS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+
+];
+
+$modversion['config'][] = [
+    'name'        => 'usersownpostscount',
+    'title'       => '_MI_SMALLWORLD_USERSOWNMSGCOUNTS',
+    'description' => '_MI_SMALLWORLD_USERSOWNMSGCOUNTS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
+];
+
+$modversion['config'][] = [
+    'name'        => 'smallworldbookmarkavatar',
+    'title'       => '_MI_SMALLWORLD_BOOKMARSAVATARS',
+    'description' => '_MI_SMALLWORLD_BOOKMARKSAVATARS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+$modversion['config'][] = [
+    'name'        => 'smallworldusemailnotis',
+    'title'       => '_MI_SMALLWORLD_USEMAILNOTIFICATION',
+    'description' => '_MI_SMALLWORLD_USEMAILNOTIFICATION_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+$modversion['config'][] = [
+    'name'        => 'smallworldusethesefields',
+    'title'       => '_MI_SMALLWORLD_VIEWFIELDS',
+    'description' => '_MI_SMALLWORLD_VIEWFIELDS_DESC',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'options'     => [
+        '_MI_SMALLWORLD_REALNAME'           => 'realname',
+        '_MI_SMALLWORLD_GENDER'             => 'gender',
+        '_MI_SMALLWORLD_INTERESTEDIN'       => 'interestedin',
+        '_MI_SMALLWORLD_RELATIONSHIPSTATUS' => 'relationshipstatus',
+        '_MI_SMALLWORLD_PARTNER'            => 'partner',
+        '_MI_SMALLWORLD_LOOKINGFOR'         => 'lookingfor',
+        '_MI_SMALLWORLD_BIRTHDAY'           => 'birthday',
+        '_MI_SMALLWORLD_BIRTHPLACE'         => 'birthplace',
+        '_MI_SMALLWORLD_POLITICALVIEWS'     => 'politicalview',
+        '_MI_SMALLWORLD_RELIGIOUSVIEWS'     => 'religiousview',
+        '_MI_SMALLWORLD_EMAILS'             => 'emails',
+        '_MI_SMALLWORLD_SCREENNAMES'        => 'screennames',
+        '_MI_SMALLWORLD_MOBILE'             => 'mobile',
+        '_MI_SMALLWORLD_LANDPHONE'          => 'landphone',
+        '_MI_SMALLWORLD_STREETADRESS'       => 'streetadress',
+        '_MI_SMALLWORLD_PRESENTCITY'        => 'presentcity',
+        '_MI_SMALLWORLD_COUNTRY'            => 'country',
+        '_MI_SMALLWORLD_WEBSITE'            => 'website',
+        '_MI_SMALLWORLD_INTERESTS'          => 'interests',
+        '_MI_SMALLWORLD_FAVOURITEMUSIC'     => 'favouritemusic',
+        '_MI_SMALLWORLD_FAVOURITETVSHOWS'   => 'favouritetvshows',
+        '_MI_SMALLWORLD_FAVOURITEMOVIES'    => 'favouritemovies',
+        '_MI_SMALLWORLD_FAVOURITEBOOKS'     => 'favouritebooks',
+        '_MI_SMALLWORLD_ABOUTME'            => 'aboutme',
+        '_MI_SMALLWORLD_EDUCATION'          => 'education',
+        '_MI_SMALLWORLD_EMPLOYMENT'         => 'employment',
+    ],
+    'default'     => [
+        'realname',
+        'gender',
+        'interestedin',
+        'relationshipstatus',
+        'partner',
+        'lookingfor',
+        'birthday',
+        'birthplace',
+        'politicalview',
+        'religiousview',
+        'emails',
+        'screennames',
+        'mobile',
+        'landphone',
+        'streetadress',
+        'presentcity',
+        'country',
+        'website',
+        'interests',
+        'favouritemusic',
+        'favouritetvshows',
+        'favouritemovies',
+        'favouritebooks',
+        'aboutme',
+        'education',
+        'employment'
+    ]
 ];
 
 // Mandatory fields
-++$i;
-$modversion['config'][$i]['name']        = 'smallworldmandatoryfields';
-$modversion['config'][$i]['title']       = '_MI_SMALLWORLD_VERIFYFIELDS';
-$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_VERIFYFIELDS_DESC';
-$modversion['config'][$i]['formtype']    = 'select_multi';
-$modversion['config'][$i]['valuetype']   = 'array';
-$modversion['config'][$i]['options']     = [
-    '_MI_SMALLWORLD_REALNAME'           => 'realname',
-    '_MI_SMALLWORLD_GENDER'             => 'gender',
-    '_MI_SMALLWORLD_INTERESTEDIN'       => 'interestedin',
-    '_MI_SMALLWORLD_RELATIONSHIPSTATUS' => 'relationshipstatus',
-    '_MI_SMALLWORLD_PARTNER'            => 'partner',
-    '_MI_SMALLWORLD_LOOKINGFOR'         => 'lookingfor',
-    '_MI_SMALLWORLD_BIRTHDAY'           => 'birthday',
-    '_MI_SMALLWORLD_BIRTHPLACE'         => 'birthplace',
-    '_MI_SMALLWORLD_POLITICALVIEWS'     => 'politicalview',
-    '_MI_SMALLWORLD_RELIGIOUSVIEWS'     => 'religiousview',
-    '_MI_SMALLWORLD_EMAILS'             => 'emails',
-    '_MI_SMALLWORLD_SCREENNAMES'        => 'screennames',
-    '_MI_SMALLWORLD_MOBILE'             => 'mobile',
-    '_MI_SMALLWORLD_LANDPHONE'          => 'landphone',
-    '_MI_SMALLWORLD_STREETADRESS'       => 'streetadress',
-    '_MI_SMALLWORLD_PRESENTCITY'        => 'presentcity',
-    '_MI_SMALLWORLD_COUNTRY'            => 'country',
-    '_MI_SMALLWORLD_WEBSITE'            => 'website',
-    '_MI_SMALLWORLD_INTERESTS'          => 'interests',
-    '_MI_SMALLWORLD_FAVOURITEMUSIC'     => 'favouritemusic',
-    '_MI_SMALLWORLD_FAVOURITETVSHOWS'   => 'favouritetvshows',
-    '_MI_SMALLWORLD_FAVOURITEMOVIES'    => 'favouritemovies',
-    '_MI_SMALLWORLD_FAVOURITEBOOKS'     => 'favouritebooks',
-    '_MI_SMALLWORLD_ABOUTME'            => 'aboutme',
-    '_MI_SMALLWORLD_EDUCATION'          => 'education',
-    '_MI_SMALLWORLD_EMPLOYMENT'         => 'employment',
-];
-$modversion['config'][$i]['default']     = [
-    'realname',
-    'gender',
-    'interestedin',
-    'relationshipstatus',
-    'lookingfor',
-    'birthday',
-    'birthplace',
-    'emails',
-    'screennames',
-    'streetadress',
-    'presentcity',
-    'country'
+
+$modversion['config'][] = [
+    'name'        => 'smallworldmandatoryfields',
+    'title'       => '_MI_SMALLWORLD_VERIFYFIELDS',
+    'description' => '_MI_SMALLWORLD_VERIFYFIELDS_DESC',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'options'     => [
+        '_MI_SMALLWORLD_REALNAME'           => 'realname',
+        '_MI_SMALLWORLD_GENDER'             => 'gender',
+        '_MI_SMALLWORLD_INTERESTEDIN'       => 'interestedin',
+        '_MI_SMALLWORLD_RELATIONSHIPSTATUS' => 'relationshipstatus',
+        '_MI_SMALLWORLD_PARTNER'            => 'partner',
+        '_MI_SMALLWORLD_LOOKINGFOR'         => 'lookingfor',
+        '_MI_SMALLWORLD_BIRTHDAY'           => 'birthday',
+        '_MI_SMALLWORLD_BIRTHPLACE'         => 'birthplace',
+        '_MI_SMALLWORLD_POLITICALVIEWS'     => 'politicalview',
+        '_MI_SMALLWORLD_RELIGIOUSVIEWS'     => 'religiousview',
+        '_MI_SMALLWORLD_EMAILS'             => 'emails',
+        '_MI_SMALLWORLD_SCREENNAMES'        => 'screennames',
+        '_MI_SMALLWORLD_MOBILE'             => 'mobile',
+        '_MI_SMALLWORLD_LANDPHONE'          => 'landphone',
+        '_MI_SMALLWORLD_STREETADRESS'       => 'streetadress',
+        '_MI_SMALLWORLD_PRESENTCITY'        => 'presentcity',
+        '_MI_SMALLWORLD_COUNTRY'            => 'country',
+        '_MI_SMALLWORLD_WEBSITE'            => 'website',
+        '_MI_SMALLWORLD_INTERESTS'          => 'interests',
+        '_MI_SMALLWORLD_FAVOURITEMUSIC'     => 'favouritemusic',
+        '_MI_SMALLWORLD_FAVOURITETVSHOWS'   => 'favouritetvshows',
+        '_MI_SMALLWORLD_FAVOURITEMOVIES'    => 'favouritemovies',
+        '_MI_SMALLWORLD_FAVOURITEBOOKS'     => 'favouritebooks',
+        '_MI_SMALLWORLD_ABOUTME'            => 'aboutme',
+        '_MI_SMALLWORLD_EDUCATION'          => 'education',
+        '_MI_SMALLWORLD_EMPLOYMENT'         => 'employment',
+    ],
+    'default'     => [
+        'realname',
+        'gender',
+        'interestedin',
+        'relationshipstatus',
+        'lookingfor',
+        'birthday',
+        'birthplace',
+        'emails',
+        'screennames',
+        'streetadress',
+        'presentcity',
+        'country'
+    ],
 ];
 
 // Module is private or public
-++$i;
-$modversion['config'][$i]['name']        = 'smallworldprivorpub';
-$modversion['config'][$i]['title']       = '_MI_SMALLWORLD_PRIVATEMODULE';
-$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_PRIVATEMODULE_DESC';
-$modversion['config'][$i]['formtype']    = 'hidden';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 1;
+$modversion['config'][] = [
+    'name'        => 'smallworldprivorpub',
+    'title'       => '_MI_SMALLWORLD_PRIVATEMODULE',
+    'description' => '_MI_SMALLWORLD_PRIVATEMODULE_DESC',
+    'formtype'    => 'hidden',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
 
 /**
  * Authorized groups to upload
  */
-++$i;
-$obj                                     = smallworld_xv_getGroupd();
-$modversion['config'][$i]['name']        = 'smallworldshowPoPubPage';
-$modversion['config'][$i]['title']       = '_MI_SHOWPUBLICPAGE';
-$modversion['config'][$i]['description'] = '_MI_SHOWPUBLICPAGE_DESC';
-$modversion['config'][$i]['formtype']    = 'select_multi';
-$modversion['config'][$i]['valuetype']   = 'array';
-$modversion['config'][$i]['default']     = 0;
-$modversion['config'][$i]['options']     = array_flip($obj);
 
-$i++;
-$modversion['config'][$i]['name']        = 'smallworldUseGoogleMaps';
-$modversion['config'][$i]['title']       = '_MI_SMALLWORLD_USEGOOGLEMAPS';
-$modversion['config'][$i]['description'] = '_MI_SMALLWORLD_USEGOOGLEMAPS_DESC';
-$modversion['config'][$i]['formtype']    = 'yesno';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 1;
+$obj                    = smallworld_xv_getGroupd();
+$modversion['config'][] = [
+    'name'        => 'smallworldshowPoPubPage',
+    'title'       => '_MI_SHOWPUBLICPAGE',
+    'description' => '_MI_SHOWPUBLICPAGE_DESC',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'default'     => 0,
+    'options'     => array_flip($obj),
 
-// Search
-$modversion['hasSearch']      = 1;
-$modversion['search']['file'] = 'include/search.inc.php';
-$modversion['search']['func'] = 'smallworld_search';
+];
+
+$modversion['config'][] = [
+    'name'        => 'smallworldUseGoogleMaps',
+    'title'       => '_MI_SMALLWORLD_USEGOOGLEMAPS',
+    'description' => '_MI_SMALLWORLD_USEGOOGLEMAPS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+

@@ -61,6 +61,6 @@ $xoopsTpl->assign('lang_hlp_otherhelp', _AM_SMALLWORLD_HELP_OTHERHELP);
 $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/admin_help.html');
 
 global $xoTheme;
-$xoTheme->addStylesheet('modules/smallworld/css/SmallworldAdmin.css');
+$xoTheme->addStylesheet('modules/smallworld/assets/css/SmallworldAdmin.css');
 
 xoops_cp_footer();

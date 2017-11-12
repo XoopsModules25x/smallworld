@@ -73,8 +73,8 @@ $xoopsTpl->assign('usersetting', $usersettings);
 
 $xuser = new SmallWorldProfile;
 
-$menu_home     = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
-$menu_register = ($profile < 2) ? "<a href='" . XOOPS_URL . "/modules/smallworld/register.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/join.jpg'>" . _MB_SYSTEM_RNOW . '</a>' : '';
+$menu_home     = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
+$menu_register = ($profile < 2) ? "<a href='" . XOOPS_URL . "/modules/smallworld/register.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/join.jpg'>" . _MB_SYSTEM_RNOW . '</a>' : '';
 
 $updatesarray = $wall->updates(0, $pub);
 $wall->ParsePubArray($updatesarray, $id);

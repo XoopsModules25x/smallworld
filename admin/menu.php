@@ -20,27 +20,43 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-$dirname = basename(dirname(__DIR__));
-$moduleHandler = xoops_getHandler('module');
-$module = $moduleHandler->getByDirname($dirname);
-$pathIcon32 = $module->getInfo('icons32');
+$moduleDirName = basename(dirname(__DIR__));
 
-$i = 1;
-$adminmenu[$i]['title'] = _MI_SMALLWORLDMENU_INDEX;
-$adminmenu[$i]['link'] = 'admin/index.php';
-$adminmenu[$i]['icon'] = $pathIcon32 . '/home.png';
+if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
+} else {
+    $moduleHelper = Xmf\Module\Helper::getHelper('system');
+}
 
-//++$i;
-//$adminmenu[$i]['title'] = _MI_SMALLWORLD_ADMENU;
-//$adminmenu[$i]['link'] = 'admin/moduleinfo.php';
-//$adminmenu[$i]['icon'] = $pathIcon32."/update.png";
 
-++$i;
-$adminmenu[$i]['title'] = _MI_SMALLWORLDMENU_USERADMIN;
-$adminmenu[$i]['link'] = 'admin/useradmin.php';
-$adminmenu[$i]['icon'] = $pathIcon32 . '/administration.png';
+$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
+//$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
 
-++$i;
-$adminmenu[$i]['title'] = _MI_SMALLWORLDMENU_ABOUT;
-$adminmenu[$i]['link'] = 'admin/about.php';
-$adminmenu[$i]['icon'] = $pathIcon32 . '/about.png';
+// Load language files
+$moduleHelper->loadLanguage('admin');
+$moduleHelper->loadLanguage('modinfo');
+$moduleHelper->loadLanguage('main');
+
+$adminmenu[] = [
+    'title' => _MI_SMALLWORLDMENU_INDEX,
+    'link'  => 'admin/index.php',
+    'icon'  => $pathIcon32 . '/home.png'
+];
+
+//$adminmenu[] = [
+//    'title' => _MI_SMALLWORLD_ADMENU,
+//    'link'  => 'admin/moduleinfo.php',
+//    'icon'  => $pathIcon32 . '/update.png'
+//];
+
+$adminmenu[] = [
+    'title' => _MI_SMALLWORLDMENU_USERADMIN,
+    'link'  => 'admin/useradmin.php',
+    'icon'  => $pathIcon32 . '/administration.png'
+];
+
+$adminmenu[] = [
+    'title' => _MI_SMALLWORLDMENU_ABOUT,
+    'link'  => 'admin/about.php',
+    'icon'  => $pathIcon32 . '/about.png'
+];
+

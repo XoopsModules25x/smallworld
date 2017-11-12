@@ -337,43 +337,43 @@ function Smallworld_stripWordsKeepUrl($text)
 function Smallworld_sociallinks($num, $name)
 {
     if (0 == $num) {
-        $image = '<img title="Msn" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/msn.png">';
+        $image = '<img title="Msn" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/msn.png">';
         $link  = '<a title="Msn" id="Smallworld_socialnetwork" target="_blank" href="http://members.msn.com/' . $name . '">';
     }
     if (1 == $num) {
-        $image = '<img title="facebook" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/facebook.png">';
+        $image = '<img title="facebook" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/facebook.png">';
         $link  = '<a title="facebook" id="Smallworld_socialnetwork" target="_blank" href="http://www.facebook.com/' . $name . '">';
     }
     if (2 == $num) {
-        $image = '<img title="GooglePlus" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/googleplus.png">';
+        $image = '<img title="GooglePlus" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/googleplus.png">';
         $link  = '<a title="GooglePlus" id="Smallworld_socialnetwork" target="_blank" href="https://plus.google.com/' . $name . '">';
     }
     if (3 == $num) {
-        $image = '<img title="Icq" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/icq.png">';
+        $image = '<img title="Icq" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/icq.png">';
         $link  = '<a title="icq" id="Smallworld_socialnetwork" target="_blank" href="http://www.icq.com/people/' . $name . '/">';
     }
     if (4 == $num) {
-        $image = '<img title="Skype" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/skype.png">';
+        $image = '<img title="Skype" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/skype.png">';
         $link  = '<a title="Skype" id="Smallworld_socialnetwork" target="_blank" href="skype:' . $name . '?userinfo">';
     }
     if (5 == $num) {
-        $image = '<img title="Twitter" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/twitter.png">';
+        $image = '<img title="Twitter" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/twitter.png">';
         $link  = '<a title="Twitter" id="Smallworld_socialnetwork" target="_blank" href="http://twitter.com/#!/' . $name . '">';
     }
     if (6 == $num) {
-        $image = '<img title="MySpace" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/myspace.png">';
+        $image = '<img title="MySpace" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/myspace.png">';
         $link  = '<a title="MySpace" id="Smallworld_socialnetwork" target="_blank" href="http://www.myspace.com/' . $name . '">';
     }
     if (7 == $num) {
-        $image = '<img title="Xoops" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/xoops.png">';
+        $image = '<img title="Xoops" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/xoops.png">';
         $link  = '<a title="Xoops" id="Smallworld_socialnetwork" target="_blank" href="https://xoops.org/modules/profile/userinfo.php?uid=' . $name . '">';
     }
     if (8 == $num) {
-        $image = '<img title="Yahoo Messenger" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/yahoo.png">';
+        $image = '<img title="Yahoo Messenger" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/yahoo.png">';
         $link  = '<a title="Yahoo Messenger" id="Smallworld_socialnetwork" target="_blank" href="ymsgr:sendim?' . $name . '">';
     }
     if (9 == $num) {
-        $image = '<img title="Youtube" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/images/socialnetworkicons/youtube.png">';
+        $image = '<img title="Youtube" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/youtube.png">';
         $link  = '<a title="Youtube" id="Smallworld_socialnetwork" target="_blank" href="http://www.youtube.com/user/' . $name . '">';
     }
     return $image . $link;
@@ -443,15 +443,15 @@ function smallworld_getAvatarLink($userid, $image)
 
     if (in_array($ext, ['jpg', 'bmp', 'gif', 'png', 'jpeg']) || '' == $image || 'blank.gif' == $image) {
         if ('1' == $gender) {
-            $link = XOOPS_URL . '/modules/smallworld/images/ano_woman.png';
+            $link = XOOPS_URL . '/modules/smallworld/assets/images/ano_woman.png';
         }
 
         if ('2' == $gender) {
-            $link = XOOPS_URL . '/modules/smallworld/images/ano_man.png';
+            $link = XOOPS_URL . '/modules/smallworld/assets/images/ano_man.png';
         }
 
         if ('' == $gender) {
-            $link = XOOPS_URL . '/modules/smallworld/images/genderless.png';
+            $link = XOOPS_URL . '/modules/smallworld/assets/images/genderless.png';
         }
     }
     //echo $link."<br>";
@@ -854,7 +854,7 @@ function Smallworld_UsToEuroDate($stringDate)
 function smallworld_sp()
 {
     $sp               = [];
-    $sp[0]['spimage'] = "<img id = 'smallworld_img_sp' src = '" . XOOPS_URL . "/modules/smallworld/images/sp.png' height='30px' width='30px' >";
+    $sp[0]['spimage'] = "<img id = 'smallworld_img_sp' src = '" . XOOPS_URL . "/modules/smallworld/assets/images/sp.png' height='30px' width='30px' >";
     return $sp;
 }
 
@@ -1233,8 +1233,8 @@ function smallworld_SetCoreScript()
     // Include geolocate styling
     if (1 == $googlemaps) {
         $xoTheme->addScript('https://maps.googleapis.com/maps/api/js?sensor=false&language=' . _LANGCODE);
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/ui.geo_autocomplete.js');
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/ui.geo_autocomplete_now.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/ui.geo_autocomplete.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/ui.geo_autocomplete_now.js');
     }
 
     smallworld_includeScripts();
@@ -1251,116 +1251,116 @@ function smallworld_includeScripts()
     $page = basename($_SERVER['PHP_SELF'], '.php');
     switch ($page) {
         case 'register':
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.validate.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.validation.functions.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.stepy.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.elastic.source.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/smallworld.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.validate.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.validation.functions.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.stepy.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.elastic.source.js');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
             break;
 
         case 'publicindex':
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.oembed.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.elastic.source.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/wall.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/ajaxupload.3.5.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.avatar_helper.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.bookmark.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/oembed.css');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/smallworld.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.oembed.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.elastic.source.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/wall.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/ajaxupload.3.5.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.avatar_helper.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.bookmark.js');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/oembed.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
             break;
 
         case 'permalink':
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.oembed.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/wall.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/oembed.css');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/smallworld.css');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.innerfade.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.elastic.source.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.bookmark.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.oembed.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/wall.js');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/oembed.css');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.innerfade.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.elastic.source.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.bookmark.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
             break;
 
         case 'index':
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.oembed.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.elastic.source.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/wall.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/ajaxupload.3.5.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.avatar_helper.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.bookmark.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/oembed.css');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/tag-it.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/smallworld.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.oembed.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.elastic.source.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/wall.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/ajaxupload.3.5.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.avatar_helper.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.bookmark.js');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/oembed.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/tag-it.js');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
             break;
 
         case 'img_upload':
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/uploader/bootstrap.min.css');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/uploader/style.css');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/uploader/bootstrap-responsive.min.css');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/uploader/bootstrap-image-gallery.min.css');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/uploader/bootstrap.min.css');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/uploader/style.css');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/uploader/bootstrap-responsive.min.css');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/uploader/bootstrap-image-gallery.min.css');
 
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/vendor/jquery.ui.widget.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/uploader/tmpl.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/uploader/load-image.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/uploader/canvas-to-blob.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/uploader/bootstrap.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/uploader/bootstrap-image-gallery.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.iframe-transport.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.fileupload.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.fileupload-fp.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.fileupload-ui.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/main.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/vendor/jquery.ui.widget.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/uploader/tmpl.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/uploader/load-image.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/uploader/canvas-to-blob.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/uploader/bootstrap.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/uploader/bootstrap-image-gallery.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.iframe-transport.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.fileupload.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.fileupload-fp.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.fileupload-ui.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/main.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
             break;
 
         case 'galleryshow':
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/galleriffic-5.css');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.galleriffic.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.history.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.opacityrollover.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/gallery_mod.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.innerfade.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/galleriffic-5.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.galleriffic.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.history.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.opacityrollover.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/gallery_mod.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.innerfade.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
             break;
 
         case 'friends':
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/apprise-1.5.full.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/jquery.fileupload-ui.css');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/oembed.css');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.oembed.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/wall.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/ajaxupload.3.5.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.avatar_helper.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.innerfade.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
-            //$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/css/colorbox.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/apprise-1.5.full.js');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/jquery.fileupload-ui.css');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/oembed.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.oembed.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/wall.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/ajaxupload.3.5.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.avatar_helper.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.innerfade.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
+            //$xoTheme->addStylesheet(XOOPS_URL.'/modules/smallworld/assets/css/colorbox.css');
             break;
 
         case 'editprofile':
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.validate.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.validation.functions.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.stepy.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.elastic.source.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/smallworld.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.validate.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.validation.functions.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.stepy.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.elastic.source.js');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
             break;
 
         case 'smallworldshare':
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.oembed.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/wall.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.innerfade.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.bookmark.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/oembed.css');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/smallworld.css');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.oembed.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/wall.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.innerfade.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.bookmark.js');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/oembed.css');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
             break;
 
         case 'userprofile':
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/apprise-1.5.full.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/jquery.fileupload-ui.css');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/oembed.css');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/jquery.fileupload-ui.css');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/oembed.css');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.oembed.js');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/wall.js');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/ajaxupload.3.5.js');
@@ -1369,7 +1369,7 @@ function smallworld_includeScripts()
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.elastic.source.js');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.countdown.js');
-            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/smallworld.css');
+            $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
             break;
     }
 }

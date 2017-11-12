@@ -25,11 +25,10 @@ require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 global $xoTheme;
 
-$aboutAdmin = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation(basename(__FILE__));
+$adminObject->setPaypal('xoopsfoundation@gmail.com');
+$adminObject->displayAbout(false);
 
-$aboutAdmin->displayNavigation('about.php');
-$aboutAdmin->renderAbout('', false);
-
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/SmallworldAdmin.css');
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 require_once __DIR__ . '/admin_footer.php';

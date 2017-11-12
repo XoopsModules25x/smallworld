@@ -36,22 +36,22 @@ class SmallworldCorePreload extends XoopsPreloadItem
         smallworld_isDefinedLanguage('_SMALLWORLD_SYSERROR', 'main.php');
 
         //$xoTheme->addScript("http://code.jquery.com/jquery-1.9.1.js");
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.min.js');
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jqueryui.min.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.min.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jqueryui.min.js');
         //$xoTheme->addScript("http://code.jquery.com/ui/1.10.2/jquery-ui.js");
-        $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/base/jquery.ui.all.css');
-        $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/smallworld.css');
+        $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/base/jquery.ui.all.css');
+        $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
 
         //Get variables
         smallworld_SetCoreScript();
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.validate.js');
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.validation.functions.js');
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.stepy.js');
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.elastic.source.js');
-        $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/css/smallworld.css');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.validate.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.validation.functions.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.stepy.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.elastic.source.js');
+        $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
 
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.countdown.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.countdown.js');
 
         if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/js/jquery.ui.datepicker-language.js')) {
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/' . $xoopsConfig['language'] . '/js/jquery.ui.datepicker-language.js');
@@ -60,7 +60,7 @@ class SmallworldCorePreload extends XoopsPreloadItem
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/english/js/jquery.ui.datepicker-language.js');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/english/js/jquery.countdown.js');
         }
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/smallworld.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/smallworld.js');
     }
 
     /**

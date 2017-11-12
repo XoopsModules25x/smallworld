@@ -289,11 +289,11 @@ ul.help {
 
 ul.help li {
     /*list-style-position: inside;
-    list-style-image: url(../images/ul-breaker.png);*/
+    list-style-image: url(../assets/images/ul-breaker.png);*/
     padding-left: 15px;
     padding-top: 1px;
     padding-bottom: 2px;
-    background: url(../images/ul-breaker.png) no-repeat left center;
+    background: url(../assets/images/ul-breaker.png) no-repeat left center;
     list-style: none;
     font-size: 11px;
     text-decoration: bold;

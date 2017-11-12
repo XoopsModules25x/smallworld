@@ -149,7 +149,7 @@ class SmallworldAdmin
             $i = 1;
             while ($row = $xoopsDB->fetchArray($result)) {
                 $msg['counter'][$i] = $i;
-                $msg['img'][$i] = "<img style='margin:0px 5px;' src = '../images/" . $i . ".png'>";
+                $msg['img'][$i] = "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>";
                 if ($msg['counter'][$i] > 3) {
                     $msg['img'][$i] = '';
                 }
@@ -188,7 +188,7 @@ class SmallworldAdmin
             $i = 1;
             while ($row = $xoopsDB->fetchArray($result)) {
                 $msgtoday['counter'][$i] = $i;
-                $msgtoday['img'][$i] = "<img style='margin:0px 5px;' src = '../images/" . $i . ".png'>";
+                $msgtoday['img'][$i] = "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>";
                 if ($msgtoday['counter'][$i] > 3) {
                     $msgtoday['img'][$i] = '';
                 }
@@ -221,7 +221,7 @@ class SmallworldAdmin
             if ($count >= $i) {
                 while ($row = $xoopsDB->fetchArray($result)) {
                     $array['counter'][$i] = $i;
-                    $array['img'][$i] = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../images/like.png'>";
+                    $array['img'][$i] = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../assets/images/like.png'>";
                     if ($array['counter'][$i] > 3) {
                         $array['img'][$i] = '';
                     }
@@ -240,7 +240,7 @@ class SmallworldAdmin
             if (0 != $count) {
                 while ($row = $xoopsDB->fetchArray($result)) {
                     $array['counter'][$i] = $i;
-                    $array['img'][$i] = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../images/dislike.png'>";
+                    $array['img'][$i] = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../assets/images/dislike.png'>";
                     if ($array['counter'][$i] > 3) {
                         $array['img'][$i] = '';
                     }
@@ -307,7 +307,7 @@ class SmallworldAdmin
         }
         if ($read[0] > $version && '1' != $read[2]) {
             $update = true;
-            $upd_img = '../images/upd_normal.png';
+            $upd_img = '../assets/images/upd_normal.png';
         }
         if ($critical) {
             $rt = "<div class='smallworld_update'><img src='" . $upd_img . "'>";

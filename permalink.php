@@ -64,8 +64,8 @@ $username = $xoopsUser ? $user->getVar('uname') : '';
 $friend = $check->friendcheck($id, $ownerID);
 
 $profile        = $check->checkIfProfile($id);
-$menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
-$menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
+$menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
+$menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
 
 // Things to do with wall
 $Wall = new Wall_Updates();

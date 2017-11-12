@@ -57,7 +57,7 @@ if ($perm <= 0) {
         $wm['priv']       = $data['priv'];
         $wm['avatar']     = $Wall->Gravatar($data['uid_fk']);
         if (smallworld_GetModuleOption('smallworldbookmarkavatar', $repmodule = 'smallworld' !== 1)) {
-            $wm['avatar_link'] = XOOPS_URL . '/modules/smallworld/images/smallworld.png';
+            $wm['avatar_link'] = XOOPS_URL . '/modules/smallworld/assets/images/smallworld.png';
         } else {
             $wm['avatar_link'] = smallworld_getAvatarLink($data['uid_fk'], $wm['avatar']);
         }
@@ -80,7 +80,7 @@ if ($perm <= 0) {
         $xoopsTpl->append('walldata', $wm);
     }
 } else {
-    $xoTheme->addMeta('meta', 'og:image', XOOPS_URL . '/modules/smallworld/images/smallworld.png');
+    $xoTheme->addMeta('meta', 'og:image', XOOPS_URL . '/modules/smallworld/assets/images/smallworld.png');
 }
 
 require_once XOOPS_ROOT_PATH . '/footer.php';

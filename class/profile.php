@@ -75,8 +75,8 @@ class SmallWorldProfile
                 } else {
                     $rank_image = '';
                 }
-                $commentsrating = "<img src='" . XOOPS_URL . "/modules/smallworld/images/like.png' height='10px' width='10px'" . '> ' . $usersratedplus;
-                $commentsrating .= " <img src='" . XOOPS_URL . "/modules/smallworld/images/dislike.png' height='10px' width='10px'" . '> ' . $usersratedminus;
+                $commentsrating = "<img src='" . XOOPS_URL . "/modules/smallworld/assets/images/like.png' height='10px' width='10px'" . '> ' . $usersratedplus;
+                $commentsrating .= " <img src='" . XOOPS_URL . "/modules/smallworld/assets/images/dislike.png' height='10px' width='10px'" . '> ' . $usersratedminus;
                 $lastlogin      = $user->getVar('last_login');
 
                 $gender = $r['gender'];

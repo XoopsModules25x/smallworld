@@ -69,11 +69,11 @@ if (1 == $set['access']) {
     if ($profile >= 2) {
         $xuser = new SmallWorldProfile;
         $xuser->ShowUser($id);
-        $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
-        $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
-        $menu_profile   = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
-        $menu_gallery   = "<a href='" . XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/picture.png'>" . _SMALLWORLD_GALLERY . '</a>';
-        $menu_friends   = "<a href='" . XOOPS_URL . '/modules/smallworld/friends.php?username=' . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
+        $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
+        $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
+        $menu_profile   = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
+        $menu_gallery   = "<a href='" . XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/picture.png'>" . _SMALLWORLD_GALLERY . '</a>';
+        $menu_friends   = "<a href='" . XOOPS_URL . '/modules/smallworld/friends.php?username=' . $username . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
     }
 
     // Things to do with wall

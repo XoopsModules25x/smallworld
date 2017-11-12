@@ -56,7 +56,7 @@ $xoopsTpl->assign('installversion_status', $installCheck);
 $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/admin_moduleinfo.html');
 
 global $xoTheme;
-$xoTheme->addStylesheet('modules/smallworld/css/SmallworldAdmin.css');
+$xoTheme->addStylesheet('modules/smallworld/assets/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 
 xoops_cp_footer();

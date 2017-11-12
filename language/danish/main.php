@@ -251,7 +251,7 @@ define('_SMALLWORLD_MORE', '.. mere');
 /* -------------- Upload formular -------------------- */
 define(
     '_SMALLWORLD_UPLOAD_HOWTO',
-       'Alle billeder fra dit album er vist her, og du kan bruge dette værktøj til at uploade eller slette billeder <br>Tryk på den grønne upload fil(er), Vælg dine billeder og uploade enten: < br> 1) En efter en - brug <img src="images/icon_start.PNG" style="display: inline-block;height:13px;">ikon.<br> 2) Vælg flere ved gennemsyn eller Drag * filer over på den grønne upload (* virker pt. ikke i IE) og tryk på Start alle <br> Bemærk: Hvis du vælger andre filtyper end billedfiler vil scriptet afbryde. Billedstørrelsen er højst 5 MBytes <br> '
+       'Alle billeder fra dit album er vist her, og du kan bruge dette værktøj til at uploade eller slette billeder <br>Tryk på den grønne upload fil(er), Vælg dine billeder og uploade enten: < br> 1) En efter en - brug <img src="assets/images/icon_start.PNG" style="display: inline-block;height:13px;">ikon.<br> 2) Vælg flere ved gennemsyn eller Drag * filer over på den grønne upload (* virker pt. ikke i IE) og tryk på Start alle <br> Bemærk: Hvis du vælger andre filtyper end billedfiler vil scriptet afbryde. Billedstørrelsen er højst 5 MBytes <br> '
 );
 define('_SMALLWORLD_UPLOADTITLE', 'Billedtitel');
 define('_SMALLWORLD_UPLOADDESC', 'Billedbeskrivelse');
