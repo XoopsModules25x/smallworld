@@ -485,7 +485,7 @@ function smallworld_getCountFriendMessagesEtc()
     if (smallworld_GetModuleOption('usersownpostscount', $repmodule = 'smallworld') == 1) {
         array_push($followers, $userid);
     }
-    $ids    = join(',', $followers);
+    $ids    = implode(',', $followers);
     $sql    = 'SELECT COUNT(*) AS total '
               . ' FROM ( '
               . ' SELECT com_id , count( * ) as comments FROM '
