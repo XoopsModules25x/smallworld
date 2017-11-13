@@ -30,7 +30,7 @@ global $xoTheme;
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/SmallworldAdmin.css');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/adminsmallworld.js');
 
-$indexAdmin = \Xmf\Module\Admin::getInstance();
+$adminObject = \Xmf\Module\Admin::getInstance();
 
 $admin = new SmallworldAdmin();
 $d = new SmallWorldDoSync;
@@ -171,32 +171,32 @@ $xoopsTpl->assign('lang_installdate', _AM_SMALLWORLD_INSTALLDATE);
 
 //-----------------------
 
-$indexAdmin->addInfoBox(_AM_SMALLWORLD_MODULEINFO);
-$indexAdmin->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . _AM_SMALLWORLD_MODULEINSTALL . ' : %s</br>', $installversion),'', 'Green', 'default');
-$indexAdmin->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . _AM_SMALLWORLD_INSTALLDATE . ': %s', $installdate),'', 'Green', 'default');
-$indexAdmin->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . '%s', $installCheck),'', 'Green', 'default');
+$adminObject->addInfoBox(_AM_SMALLWORLD_MODULEINFO);
+$adminObject->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . _AM_SMALLWORLD_MODULEINSTALL . ' : %s</br>', $installversion),'', 'Green', 'default');
+$adminObject->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . _AM_SMALLWORLD_INSTALLDATE . ': %s', $installdate),'', 'Green', 'default');
+$adminObject->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . '%s', $installCheck),'', 'Green', 'default');
 
-$indexAdmin->addInfoBox(_AM_SMALLWORLD_USERSTATS);
-$indexAdmin->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . _AM_SMALLWORLD_DATEOFFIRSTMESSAGE . ' : %s</br>', $dateoffirstmessage),'', 'Green', 'default');
-$indexAdmin->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . _AM_SMALLWORLD_TOTALUSERS . ' : %s</br>', $sumallusers),'', 'Red', 'default');
+$adminObject->addInfoBox(_AM_SMALLWORLD_USERSTATS);
+$adminObject->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . _AM_SMALLWORLD_DATEOFFIRSTMESSAGE . ' : %s</br>', $dateoffirstmessage),'', 'Green', 'default');
+$adminObject->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . _AM_SMALLWORLD_TOTALUSERS . ' : %s</br>', $sumallusers),'', 'Red', 'default');
 
 if ($avgperday > 0) {
-    $indexAdmin->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . _AM_SMALLWORLD_AVERAGEMSGPERDAY . ' : %s</br>', $avgperday),'', 'Red', 'default');
+    $adminObject->addInfoBoxLine(sprintf( "<class='smallworldadmin'>" . _AM_SMALLWORLD_AVERAGEMSGPERDAY . ' : %s</br>', $avgperday),'', 'Red', 'default');
 }
 
 if (0 != $mat_cnt) {
-    $indexAdmin->addInfoBoxLine(sprintf( "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPCHATTERS_TODAY . ' : %s</p>', $mat),'', 'Red', 'default');
+    $adminObject->addInfoBoxLine(sprintf( "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPCHATTERS_TODAY . ' : %s</p>', $mat),'', 'Red', 'default');
 }
 if (0 != $ma_cnt) {
-    $indexAdmin->addInfoBoxLine(sprintf( "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPCHATTERS . ' : %s</p>', $ma),'', 'Red', 'default');
+    $adminObject->addInfoBoxLine(sprintf( "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPCHATTERS . ' : %s</p>', $ma),'', 'Red', 'default');
 }
 if (0 != $top_cnt) {
-    $indexAdmin->addInfoBoxLine(sprintf( "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPRATEDUSERS . ' : %s</p>', $top),'', 'Red', 'default');
+    $adminObject->addInfoBoxLine(sprintf( "<p class='smallworldadmin'>" . _AM_SMALLWORLD_TOPRATEDUSERS . ' : %s</p>', $top),'', 'Red', 'default');
 }
 if (0 != $low_cnt) {
-    $indexAdmin->addInfoBoxLine(sprintf( "<p class='smallworldadmin'>" . _AM_SMALLWORLD_BOTTOMRATEDUSERS . ' : %s</p>', $low),'', 'Red', 'default');
+    $adminObject->addInfoBoxLine(sprintf( "<p class='smallworldadmin'>" . _AM_SMALLWORLD_BOTTOMRATEDUSERS . ' : %s</p>', $low),'', 'Red', 'default');
 }
 
-echo $indexAdmin->displayNavigation('index.php');
-echo $indexAdmin->displayIndex();
+echo $adminObject->displayNavigation('index.php');
+echo $adminObject->displayIndex();
 require_once __DIR__ . '/admin_footer.php';
