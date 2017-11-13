@@ -20,6 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_galleryshow.html';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -32,8 +36,8 @@ $admin = false;
 
 if ($xoopsUser) {
     $id           = $xoopsUser->getVar('uid');
-    $check        = new SmallWorldUser;
-    $image        = new SmallWorldImages;
+    $check        = new smallworld\SmallWorldUser;
+    $image        = new smallworld\SmallWorldImages;
     $username     = $_GET['username'];
     $userID       = smallworld_isset_or($_GET['username']); // Id of user wich profile you want to see
     $userisfriend = $check->friendcheck($id, $userID);
@@ -49,7 +53,7 @@ if ($xoopsUser) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1, _SMALLWORLD_INSPEC_usermsg);
     }
 
-    $profile = $check->checkIfProfile($id);
+    $profile = $check->CheckIfProfile($id);
     if ($profile >= 2 || 2 == $userisfriend[0] || true === $admin) {
         $myusername = $xoopsUser->getVar('uname');
 

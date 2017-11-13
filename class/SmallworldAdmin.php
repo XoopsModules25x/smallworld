@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -416,7 +416,7 @@ class SmallworldAdmin
      * Smallworld_sanitize(array(array) )
      * flatten multidimentional arrays to one dimentional
      * @param array $array
-     * @returns Array
+     * @return array
      */
     public function flatten($array)
     {
@@ -443,7 +443,7 @@ class SmallworldAdmin
     public function Smallworld_sanitize($text)
     {
         $text = htmlspecialchars($text, ENT_QUOTES);
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $text = $myts->displayTarea($text, 1, 1, 1, 1);
         $text = str_replace("\n\r", "\n", $text);
         $text = str_replace("\r\n", "\n", $text);
@@ -489,7 +489,7 @@ class SmallWorldDoSync
     public function deleteAccount($userid)
     {
         global $xoopsDB, $xoopsUser;
-        $user = new XoopsUser($userid);
+        $user = new \XoopsUser($userid);
         $username = $user->uname();
         $sql01 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "'";
         $sql02 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "'";
@@ -510,8 +510,8 @@ class SmallWorldDoSync
         $result06 = $xoopsDB->queryF($sql06);
         $result07 = $xoopsDB->queryF($sql07);
         $result08 = $xoopsDB->queryF($sql08);
-        $result08 = $xoopsDB->queryF($sql09);
-        $result08 = $xoopsDB->queryF($sql10);
+        $result09 = $xoopsDB->queryF($sql09);
+        $result10 = $xoopsDB->queryF($sql10);
         // Remove picture dir
         $dirname = XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . '/' . $userid . '/';
         $this->smallworld_remDir($userid, $dirname, $empty = false);
@@ -521,7 +521,7 @@ class SmallWorldDoSync
      * smallworld_remDir function
      * - Remove user image dir in uploads.
      * @param  int $userid
-     * @param  string $directory
+     * @param  string|bool $directory
      * @param bool|int $empty
      * @return true
      */

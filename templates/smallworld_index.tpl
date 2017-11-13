@@ -20,11 +20,11 @@
                 </div>
                 <div class="smallworld_userstat_menu">
                     <h1><{$username}></h1>
-                    <center><{$rankimage}></center>
+                    <div style="text-align: center;"><{$rankimage}></div>
                     <br>
-                    <center><{$smarty.const._SMALLWORLD_TOTALPOSTS}>
+                    <div style="text-align: center;"><{$smarty.const._SMALLWORLD_TOTALPOSTS}>
                         <{$totalposts}>
-                    </center>
+                    </div>
                     <br><br>
                     <h1><{$smarty.const._SMALLWORLD_TOTALUSERRATINGS}></h1>
                     <p class="smallworld_rating_menu"><{$usersratinf}></p>
@@ -63,7 +63,7 @@
                         <br>
                         <br>
                         
-                        <center><input id="smallworld_searchform" size="35" type="text" value="<{$smarty.const._SMALLWORLD_SEARCHMEMBER}>"></center>
+                        <div style="text-align: center;"><input id="smallworld_searchform" size="35" type="text" value="<{$smarty.const._SMALLWORLD_SEARCHMEMBER}>"></div>
                         <br>
                         <br>
                                 <div id="smallworld_wall_container">
@@ -88,7 +88,7 @@
                                     </div>
                                     <hr>
                                     <div id="smallworld_Stats_container"></div>
-                                    <button id='smallworld_messagecounter_id' onClick='javascript:smallworldRefresh();return false;'></button>
+                                    <button id='smallworld_messagecounter_id' onClick='smallworldRefresh();return false;'></button>
                                     <div id='smallworld_flashmessage'>
                                         <div id="smallworld_flash" align="left"></div>
                                     </div>										

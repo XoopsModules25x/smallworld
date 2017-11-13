@@ -29,6 +29,15 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
  */
 class SmallworldCorePreload extends XoopsPreloadItem
 {
+    // to add PSR-4 autoloader
+    /**
+     * @param $args
+     */
+    public static function eventCoreIncludeCommonEnd($args)
+    {
+        include __DIR__ . '/autoloader.php';
+    }
+
     public static function eventCoreHeaderAddmeta()
     {
         global $xoTheme, $xoopsUser, $xoopsConfig;

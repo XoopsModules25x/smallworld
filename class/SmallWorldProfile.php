@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -35,11 +35,11 @@ class SmallWorldProfile
             $configHandler = xoops_getHandler('config');
             $moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 
-            $user   = new XoopsUser($id);
+            $user   = new \XoopsUser($id);
             $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
             $db     = new SmallWorldDB;
             $check  = new SmallWorldUser;
-            $Wall   = new Wall_Updates();
+            $Wall   = new WallUpdates();
 
             $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
             $result = $xoopsDB->queryF($cdb);

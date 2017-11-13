@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,6 +19,10 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
+
+//include_once $GLOBALS['xoops']->path('include/common.php');
+
+
 class SmallWorldUser
 {
 
@@ -27,7 +31,7 @@ class SmallWorldUser
      * @param int $userID
      * @return int
      */
-    public function CheckIfProfile($userID)
+    public function checkIfProfile($userID)
     {
         global $xoopsUser, $xoopsDB;
         $i      = 0;
@@ -176,7 +180,7 @@ class SmallWorldUser
         $result   = $xoopsDB->queryF($sql);
         $i        = $xoopsDB->getRowsNum($result);
         $db       = new SmallWorldDB;
-        $Wall     = new Wall_Updates();
+        $Wall     = new WallUpdates();
         $myavatar = $Wall->Gravatar($userid);
         $start    = 0;
         while ($row = $xoopsDB->fetchArray($result) and $start <= count($row)) {

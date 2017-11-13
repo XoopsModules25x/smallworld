@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,9 +19,12 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
+
+//include_once $GLOBALS['xoops']->path('include/common.php');
+
 // Moderated and fitted from the tutorial by Srinivas Tamada http://9lessons.info
 
-class Wall_Updates
+class WallUpdates
 {
     /**
      * @return array
@@ -165,7 +168,7 @@ class Wall_Updates
     /**
      * @Insert update
      * @param int    $uid
-     * @param string $update
+     * @param string|array $update
      * @param int    $priv
      * @return array|bool
      */
@@ -206,7 +209,7 @@ class Wall_Updates
      * @Insert comment
      * @param int    $uid
      * @param  int    $msg_id
-     * @param string $comment
+     * @param string|array $comment
      * @return string / void
      */
     public function Insert_Comment($uid, $msg_id, $comment)

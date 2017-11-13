@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -31,7 +31,7 @@ class SmallWorldFriends
     {
         global $xoopsUser, $xoTheme, $xoopsTpl, $arr04, $arr05, $xoopsDB;
         if ($xoopsUser) {
-            $user   = new XoopsUser($id);
+            $user   = new \XoopsUser($id);
             $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
             $db     = new SmallWorldDB;
             $check  = new SmallWorldUser;

@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -24,9 +24,9 @@ require_once XOOPS_ROOT_PATH . '/class/mail/xoopsmultimailer.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 
 /**
- * Class smallworld_mail
+ * Class SmallWorldMail
  */
-class smallworld_mail
+class SmallWorldMail
 {
     /* Function to send mails to users based on certain events
          * $fromUserID = uid, $toUserID = uid
@@ -40,28 +40,28 @@ class smallworld_mail
          */
 
     /**
-     * @param       $fromUserID
-     * @param       $toUserID
-     * @param       $event
-     * @param null  $link
-     * @param array $data
+     * @param             $fromUserID
+     * @param             $toUserID
+     * @param             $event
+     * @param null|string $link
+     * @param array       $data
      * @throws \phpmailerException
      */
     public function sendMails($fromUserID, $toUserID, $event, $link = null, array $data)
     {
         global $xoopsConfig, $xoopsUser;
         $date    = date('m-d-Y H:i:s', time());
-        $mail    = new XoopsMultiMailer;
-        $wall    = new Wall_Updates;
-        $tpl     = new XoopsTpl();
+        $mail    = new \XoopsMultiMailer;
+        $wall    = new WallUpdates;
+        $tpl     = new \XoopsTpl();
         $message = '';
 
         // From and To user ids
-        $FromUser        = new xoopsUser($fromUserID);
+        $FromUser        = new \XoopsUser($fromUserID);
         $from_avatar     = $wall->Gravatar($fromUserID);
         $from_avatarlink = "<img class='left' src='" . smallworld_getAvatarLink($fromUserID, $from_avatar) . "' height='90px' width='90px'>";
 
-        $ToUser        = new xoopsUser($toUserID);
+        $ToUser        = new \XoopsUser($toUserID);
         $To_avatar     = $wall->Gravatar($toUserID);
         $To_avatarlink = "<img class='left' src='" . smallworld_getAvatarLink($toUserID, $To_avatar) . "' height='90px' width='90px'>";
         // Senders username
@@ -79,7 +79,7 @@ class smallworld_mail
             $registername  = $SendName;
             $To_avatarlink = "<img class='left' src='" . smallworld_getAvatarLink($fromUserID, $To_avatar) . "' height='90px' width='90px'>";
 
-            $tpl = new XoopsTpl();
+            $tpl = new \XoopsTpl();
             $tpl->assign('registername', $registername);
             $tpl->assign('sitename', $xoopsConfig['sitename']);
             $tpl->assign('registerurl', $SendNameUrl);
@@ -100,7 +100,7 @@ class smallworld_mail
             $time         = date('d-m-Y H:i:s', $data['time']);
             $link         = stripslashes($data['link']);
 
-            $tpl = new XoopsTpl();
+            $tpl = new \XoopsTpl();
             $tpl->assign('sendername', $senders_name);
             $tpl->assign('against', $against_user);
             $tpl->assign('time', $time);
@@ -121,7 +121,7 @@ class smallworld_mail
             }
 
             $owner            = Smallworld_getOwnerFromComment($data['msg_id_fk']);
-            $OwnerUser        = new xoopsUser($owner);
+            $OwnerUser        = new \XoopsUser($owner);
             $Owner_avatar     = $wall->Gravatar($owner);
             $Owner_avatarlink = "<img class='left' src='" . smallworld_getAvatarLink($owner, $Owner_avatar) . "' height='90px' width='90px'>";
             $OwnerName        = $OwnerUser->getVar('uname');
@@ -130,7 +130,7 @@ class smallworld_mail
             $replylink = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $owner . '&updid=' . $data['msg_id_fk'] . "'>";
             $replylink .= _SMALLWORLD_SEEANDREPLYHERE . '</a>';
 
-            $tpl = new XoopsTpl();
+            $tpl = new \XoopsTpl();
             $tpl->assign('recievename', $RecieveName);
             $tpl->assign('ownername', $OwnerName);
             $tpl->assign('ownernameurl', $OwnerNameUrl);
@@ -153,7 +153,7 @@ class smallworld_mail
             $link    = "<a href='" . XOOPS_URL . "/modules/smallworld/index.php'>";
             $link    .= _SMALLWORLD_GOTOSMALLWORLDHERE . '</a>';
 
-            $tpl = new XoopsTpl();
+            $tpl = new \XoopsTpl();
             $tpl->assign('toUser', $RecieveName);
             $tpl->assign('date', $date);
             $tpl->assign('link', $link);
@@ -165,7 +165,7 @@ class smallworld_mail
             $toMail     = $ToUser->getVar('email');
         } elseif ('tag' === $event) {
             $subject = _SMALLWORLD_MAIL_FRIENDTAGGEDYOU . $xoopsConfig['sitename'];
-            $tpl     = new XoopsTpl();
+            $tpl     = new \XoopsTpl();
             $tpl->assign('toUser', $RecieveName);
             $tpl->assign('fromUser', $SendName);
             $tpl->assign('date', $date);

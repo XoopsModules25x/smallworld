@@ -20,6 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 global $xoopsUser;
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
@@ -28,8 +32,8 @@ global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;
 
 if ($xoopsUser) {
-    $check    = new SmallWorldUser;
-    $db       = new SmallWorldDB;
+    $check    = new smallworld\SmallWorldUser;
+    $db       = new smallworld\SmallWorldDB;
     $id       = $xoopsUser->getVar('uid');
     $settings = [];
     if (isset($_POST['posts']) && isset($_POST['comments'])) {

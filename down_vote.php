@@ -19,6 +19,11 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
+
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -27,7 +32,7 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 
 global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger, $xoopsDB;
 $xoopsLogger->activated = false;
-$Wall                   = new Wall_Updates();
+$Wall                   = new smallworld\WallUpdates();
 if ($xoopsUser) {
     if ($_POST['id']) {
         $id       = (int)$_POST['id'];

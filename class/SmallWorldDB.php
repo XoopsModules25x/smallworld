@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -24,7 +24,7 @@ class SmallWorldDB
     /**
      * getJobsToDiv function
      * @param int $id
-     * @returns Array
+     * @return array
      */
     public function getJobsToDiv($id)
     {
@@ -56,7 +56,7 @@ class SmallWorldDB
     /**
      * getSchoolToDiv function
      * @param int $id
-     * @returns Array
+     * @return array
      */
     public function getSchoolToDiv($id)
     {
@@ -85,7 +85,7 @@ class SmallWorldDB
     /**
      * getScreennamesToDiv function
      * @param int $id
-     * @returns Array
+     * @return array
      */
     public function getScreennamesToDiv($id)
     {
@@ -139,7 +139,7 @@ class SmallWorldDB
     public function updateSingleValue($table, $userid, $field, $value)
     {
         global $xoopsUser, $xoopsDB;
-        $myts   = MyTextSanitizer::getInstance();
+        $myts   = \MyTextSanitizer::getInstance();
         $sql    = 'UPDATE ' . $xoopsDB->prefix($table) . ' SET ' . $field . "='" . $myts->addSlashes($value) . "' WHERE userid='" . (int)$userid . "'";
         $result = $xoopsDB->queryF($sql);
     }
@@ -152,7 +152,7 @@ class SmallWorldDB
     public function saveImage($values)
     {
         global $xoopsUser, $xoopsDB;
-        $myts   = MyTextSanitizer::getInstance();
+        $myts   = \MyTextSanitizer::getInstance();
         $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_images') . ' VALUES (' . $values . ')';
         $result = $xoopsDB->queryF($sql);
     }
@@ -166,7 +166,7 @@ class SmallWorldDB
     public function DeleteImage($userid, $imagename)
     {
         global $xoopsUser, $xoopsDB;
-        $myts   = MyTextSanitizer::getInstance();
+        $myts   = \MyTextSanitizer::getInstance();
         $sql    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE imgname = '" . stripslashes($imagename) . "' AND userid='" . $userid . "'";
         $result = $xoopsDB->queryF($sql);
     }
@@ -178,9 +178,9 @@ class SmallWorldDB
     public function handlePosts()
     {
         global $xoopsUser, $xoopsDB;
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $uid  = $xoopsUser->getVar('uid');
-        $user = new XoopsUser($uid);
+        $user = new \XoopsUser($uid);
         $img  = new SmallWorldImages;
         if ('' == $this->getVar($uid, 'userimage')) {
             $avatar = $user->user_avatar();
@@ -517,7 +517,7 @@ class SmallWorldDB
     public function deleteAccount($userid)
     {
         global $xoopsDB, $xoopsUser;
-        $user     = new XoopsUser($userid);
+        $user     = new \XoopsUser($userid);
         $username = $user->uname();
         $sql01    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "'";
         $sql02    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "'";
@@ -538,8 +538,8 @@ class SmallWorldDB
         $result06 = $xoopsDB->queryF($sql06);
         $result07 = $xoopsDB->queryF($sql07);
         $result08 = $xoopsDB->queryF($sql08);
-        $result08 = $xoopsDB->queryF($sql09);
-        $result08 = $xoopsDB->queryF($sql10);
+        $result09 = $xoopsDB->queryF($sql09);
+        $result10 = $xoopsDB->queryF($sql10);
         // Remove picture dir
         $dirname = XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . '/' . $userid . '/';
         $this->smallworld_remDir($userid, $dirname, $empty = false);
@@ -579,7 +579,7 @@ class SmallWorldDB
      * smallworld_remDir function
      * - Remove user image dir in uploads.
      * @param int    $userid
-     * @param string $directory
+     * @param string|bool $directory
      * @param bool|int $empty
      * @return true
      */

@@ -20,6 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -29,16 +33,16 @@ $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
 $page    = 'index';
 $id      = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
-$check   = new SmallWorldUser;
-$profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
+$check   = new smallworld\SmallWorldUser;
+$profile = $xoopsUser ? $check->CheckIfProfile($id) : 0;
 
 if ($profile >= 2) {
-    $Xuser    = new XoopsUser($id);
+    $Xuser    = new \XoopsUser($id);
     $username = $Xuser->getVar('uname');
-    $Wall     = new Wall_Updates();
-    $tpl      = new XoopsTpl();
-    $dBase    = new SmallWorldDB;
-    $mail     = new smallworld_mail;
+    $Wall     = new smallworld\WallUpdates();
+    $tpl      = new \XoopsTpl();
+    $dBase    = new smallworld\SmallWorldDB;
+    $mail     = new smallworld\SmallWorldMail;
 
     if (isset($_POST['update'])) {
         if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {

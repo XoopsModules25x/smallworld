@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,9 +19,9 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-// Moderrated and fitted from the tutorial by Srinivas Tamada http://9lessons.info
+// Moderated and fitted from the tutorial by Srinivas Tamada http://9lessons.info
 
-class Public_Wall_Updates
+class PublicWallUpdates
 {
     private function getAdminModerators()
     {

@@ -20,6 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -31,7 +35,7 @@ $msgowner = $_POST['msgowner'];
 
 if ($xoopsUser) {
     if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) || $id == $msgowner) {
-        $db = new SmallWorldDB;
+        $db = new smallworld\SmallWorldDB;
         if (isset($_POST['smallworld_com_id'])) {
             $smallworld_com_id = $_POST['smallworld_com_id'];
             $data              = $db->deleteWallComment($smallworld_com_id);

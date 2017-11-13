@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -52,7 +52,7 @@ class SmallworldUploadHandler
     {
         $file_path = $this->upload_dir . $file_name;
         if (is_file($file_path) && '.' !== $file_name[0] && 'index.html' !== $file_name && 'Thumbs.db' !== $file_name) {
-            $file            = new stdClass();
+            $file            = new \stdClass();
             $file->name      = $file_name;
             $file->size      = filesize($file_path);
             $file->url       = $this->upload_url . rawurlencode($file->name);
@@ -124,18 +124,18 @@ class SmallworldUploadHandler
      * @param $size
      * @param $type
      * @param $error
-     * @return \stdClass
+     * @return \Xoopsmodules\smallworld|\stdClass
      */
     private function handle_file_upload($uploaded_file, $name, $size, $type, $error)
     {
         global $xoopsUser;
-        $file   = new stdClass();
+        $file   = new \stdClass();
         $db     = new SmallWorldDB;
         $userid = $xoopsUser->getVar('uid');
 
         // Generate new name for file
         //$file->name = basename(stripslashes($name));
-        $file->name = time() . rand(0, 99999) . '.' . $this->getFileExtension($name);
+        $file->name = time() . mt_rand(0, 99999) . '.' . $this->getFileExtension($name);
         $file->size = (int)$size;
         $file->type = $type;
         $img        = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file->name;

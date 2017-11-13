@@ -20,6 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_share.html';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -43,7 +47,7 @@ $xoopsTpl->caching = 0;
 
 if ($perm <= 0) {
     // Things to do with wall
-    $Wall         = new Wall_Updates();
+    $Wall         = new smallworld\WallUpdates();
     $updatesarray = $Wall->UpdatesSharelink($updID, $ownerID);
     //Srinivas Tamada http://9lessons.info
     //Loading Comments link with load_updates.php

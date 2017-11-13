@@ -21,6 +21,7 @@
 - php-cs-fixer updates (mamba)
 - short array syntax (mamba)
 - Yoda notation (mamba)
+- namespaces (mamba)
 - started conversion to XMF (mamba)
     &nbsp;&nbsp;- updated addInfoBoxLine entries (mamba)
     &nbsp;&nbsp;- displayNavigation(basename(__FILE__))  (mamba)
@@ -143,7 +144,7 @@ Changelog v.1.15 RC 11
 
 NEW: Added upgraded image upload
 NEW: Added upgraded mail class
-NEW: class/publicWall.php, publicindex.php, templates for public postings
+NEW: class/PublicWallUpdates.php, publicindex.php, templates for public postings
 
 Bugfix: Missing image
 Bugfix: Making new jquery work with existing code
@@ -407,7 +408,7 @@ Changelog v.1.10 RC 2
 
 24. januar 2012
 - Trolls stole code changes... bringing back verification php array to javascript array (djculex)
-- fixing cURL problem in adminclass.php (beckmi)
+- fixing cURL problem in SmallworldAdmin.php (beckmi)
 - code clean-up (beckmi)
 
 23. januar 2012

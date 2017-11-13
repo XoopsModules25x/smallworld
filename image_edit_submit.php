@@ -20,13 +20,17 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger;
 $xoopsLogger->activated = false;
-$db                     = new SmallWorldDB;
-$upd                    = new Wall_Updates;
+$db                     = new smallworld\SmallWorldDB;
+$upd                    = new smallworld\WallUpdates;
 $userID                 = $xoopsUser->getVar('uid');
 $user                   = new XoopsUser($userID);
 $username               = $user->getVar('uname');

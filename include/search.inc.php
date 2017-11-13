@@ -52,7 +52,7 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
     if (is_object($xoopsUser)) {
         $groups    =& $xoopsUser->getGroups();
         $id        = $xoopsUser->getVar('uid');
-        $Wall      = new Wall_Updates();
+        $Wall      = new WallUpdates();
         $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
     } else {
         $id        = 0;

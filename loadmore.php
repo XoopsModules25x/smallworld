@@ -20,12 +20,16 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/PublicWallUpdates.php';
 $set = smallworld_checkPrivateOrPublic();
 $pub = smallworld_checkUserPubPostPerm();
 $hm  = smallworld_GetModuleOption('msgtoshow');
@@ -39,9 +43,9 @@ $xoopsLogger->activated = false;
 $xoopsTpl = new XoopsTpl();
 $id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 if ($id <= 0 || 'publicindex' === $page && $set['access'] = 1) {
-    $Wall = new Public_Wall_Updates();
+    $Wall = new smallworld\PublicWallUpdates();
 } else {
-    $Wall = new Wall_Updates();
+    $Wall = new smallworld\WallUpdates();
 }
 if (isset($_POST['userid'])) {
     $userid = (int)$_POST['userid'];
@@ -50,9 +54,9 @@ if (isset($_POST['userid'])) {
 }
 $Xuser    = ($id > 0) ? new XoopsUser($id) : 0;
 $username = ($id > 0) ? $Xuser->getVar('uname') : '';
-$dBase    = new SmallWorldDB;
-$check    = new SmallWorldUser;
-$profile  = $xoopsUser ? $check->checkIfProfile($id) : 0;
+$dBase    = new smallworld\SmallWorldDB;
+$check    = new smallworld\SmallWorldUser;
+$profile  = $xoopsUser ? $check->CheckIfProfile($id) : 0;
 
 if ($id > 0) {
     if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {

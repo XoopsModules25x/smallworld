@@ -32,8 +32,14 @@ $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/adminsmallworld.j
 
 $adminObject = \Xmf\Module\Admin::getInstance();
 
-$admin = new SmallworldAdmin();
-$d = new SmallWorldDoSync;
+$configurator = include __DIR__ . '/../include/config.php';
+foreach (array_keys($configurator->uploadFolders) as $i) {
+    $utility::createFolder($configurator->uploadFolders[$i]);
+    $adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
+}
+
+//$admin = new SmallworldAdmin();
+//$d = new smallworld\SmallWorldDoSync;
 $d->checkOrphans();
 
 // Find oldest message and apply to template
@@ -199,4 +205,7 @@ if (0 != $low_cnt) {
 
 echo $adminObject->displayNavigation('index.php');
 echo $adminObject->displayIndex();
+
+echo $utility::getServerStats();
+
 require_once __DIR__ . '/admin_footer.php';
