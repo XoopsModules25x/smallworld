@@ -29,6 +29,7 @@ class Wall_Updates
     private function getAdminModerators()
     {
         global $xoopsDB, $xoopsUser;
+        $data = [];
         $sql    = 'SELECT userid
                 FROM ' . $xoopsDB->prefix('smallworld_user') . ' su
                 LEFT JOIN ' . $xoopsDB->prefix('groups_users_link') . ' xu ON su.userid = xu.uid
@@ -49,6 +50,7 @@ class Wall_Updates
     public function Updates($last, $uid, $followers)
     {
         global $xoopsUser, $xoopsDB, $moduleConfig;
+        $query = '';
         $hm        = smallworld_GetModuleOption('msgtoshow');
         $set       = smallworld_checkPrivateOrPublic();
         $followers = is_array($followers) ? $followers : [$followers];

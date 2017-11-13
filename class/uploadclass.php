@@ -176,7 +176,7 @@ class SmallworldUploadHandler
     public function get()
     {
         $file_name = isset($_REQUEST['file']) ? basename(stripslashes($_REQUEST['file'])) : null;
-        if ($file_name) {
+        if (null !== $file_name) {
             $info = $this->get_file_object($file_name);
         } else {
             $info = array_values(array_filter(array_map([$this, 'get_file_object'], scandir($this->upload_dir, SCANDIR_SORT_NONE))));
@@ -233,7 +233,7 @@ class SmallworldUploadHandler
         $db        = new SmallWorldDB;
         $file_name = isset($_REQUEST['file']) ? basename(stripslashes($_REQUEST['file'])) : null;
         $file_path = $this->upload_dir . $file_name;
-        $img       = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file->name;
+        $img       = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file_name;
 
         // Delete file based on user and filename
         $db->DeleteImage($userid, $file_name);

@@ -123,6 +123,7 @@ class SmallWorldUser
     public function getName($userID)
     {
         global $xoopsUser, $xoopsDB;
+        $name = '';
         $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
         $result = $xoopsDB->queryF($sql);
         while ($row = $xoopsDB->fetchArray($result)) {

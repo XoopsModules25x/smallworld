@@ -848,7 +848,7 @@ class UploadHandler
             return $this->download();
         }
         $file_name = $this->get_file_name_param();
-        if ($file_name) {
+        if (null !== $file_name) {
             $response = [
                 substr($this->options['param_name'], 0, -1) => $this->get_file_object($file_name)
             ];

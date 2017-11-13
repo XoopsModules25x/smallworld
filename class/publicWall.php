@@ -98,7 +98,7 @@ class Public_Wall_Updates
                      . ") AND M.priv = '0' AND M.msg_id < '"
                      . $last
                      . "'";
-        } elseif ('a' === $last) {
+        } elseif ('a' == $last) {
             $query = 'SELECT M.msg_id, M.uid_fk, M.priv, M.message, M.created, U.username FROM '
                      . $xoopsDB->prefix('smallworld_messages')
                      . ' M, '
@@ -112,7 +112,7 @@ class Public_Wall_Updates
 
         if ($last > 0) {
             $query .= ' order by created DESC LIMIT ' . $hm;
-        } elseif ('a' === $last) {
+        } elseif ('a' == $last) {
             $query .= ' order by M.msg_id DESC LIMIT ' . $hm;
         } else {
             $query .= ' order by created DESC LIMIT ' . $hm;
@@ -209,13 +209,14 @@ class Public_Wall_Updates
     public function countVotes($type, $val, $msgid)
     {
         global $xoopsUser, $xoopsDB;
+        $sum = 0;
         $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where msg_id = '" . $msgid . "' and com_id = '0'";
         $result = $xoopsDB->queryF($query);
         while ($row = $xoopsDB->fetchArray($result)) {
             $sum = $row['sum'];
         }
         if ('' == $sum) {
-            $sum = '0';
+            $sum = 0;
         }
         return $sum;
     }
@@ -231,13 +232,14 @@ class Public_Wall_Updates
     public function countVotesCom($type, $val, $comid, $msgid)
     {
         global $xoopsUser, $xoopsDB;
+        $sum = 0;
         $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where com_id = '" . $comid . "' AND msg_id = '" . $msgid . "'";
         $result = $xoopsDB->queryF($query);
         while ($row = $xoopsDB->fetchArray($result)) {
             $sum = $row['sum'];
         }
         if ('' == $sum) {
-            $sum = '0';
+            $sum = 0;
         }
         return $sum;
     }
@@ -379,7 +381,7 @@ class Public_Wall_Updates
     public function ParsePubArray($updatesarray, $id)
     {
         global $xoopsUser, $xoopsTpl, $tpl, $xoopsModule, $xoopsTpl, $xoopsConfig;
-
+        $wm = [];
         $check          = new SmallWorldUser;
         $dBase          = new SmallWorldDB;
         $profile        = $xoopsUser ? $check->checkIfProfile($id) : 0;
