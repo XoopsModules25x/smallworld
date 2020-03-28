@@ -21,14 +21,15 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_permalink.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsModule;
 
 $xoopsLogger->activated = false;
@@ -40,9 +41,9 @@ $configHandler = xoops_getHandler('config');
 $moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 
 $set   = smallworld_checkPrivateOrPublic();
-$check = new smallworld\SmallWorldUser;
+$check = new Smallworld\User();
 $pub   = smallworld_checkUserPubPostPerm();
-$dBase = new smallworld\SmallWorldDB;
+$dBase = new Smallworld\SwDatabase();
 
 if (isset($_GET['updid']) and isset($_GET['ownerid'])) {
     $updID   = $_GET['updid'];
@@ -67,12 +68,12 @@ $username = $xoopsUser ? $user->getVar('uname') : '';
 
 $friend = $check->friendcheck($id, $ownerID);
 
-$profile        = $check->CheckIfProfile($id);
+$profile        = $check->checkIfProfile($id);
 $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
 $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
 
 // Things to do with wall
-$Wall = new smallworld\WallUpdates();
+$Wall = new Smallworld\WallUpdates();
 
 // Follow array here
 $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);

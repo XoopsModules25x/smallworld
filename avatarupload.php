@@ -21,18 +21,19 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 global $xoopsUser, $xoopsLogger;
 require_once __DIR__ . '/../../mainfile.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 if ($xoopsUser) {
     $xoopsLogger->activated = false;
     $userID                 = $xoopsUser->getVar('uid');
     $user                   = new XoopsUser($userID);
-    $db                     = new smallworld\SmallWorldDB;
+    $db                     = new Smallworld\SwDatabase();
 
     $uploaddir = XOOPS_ROOT_PATH . '/uploads/avatars/';
     $file      = $uploaddir . basename($_FILES['smallworld_uploadfile']['name']);

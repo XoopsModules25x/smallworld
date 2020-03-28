@@ -21,25 +21,26 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 global $xoopsUser;
 require_once __DIR__ . '/../../mainfile.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;
 
 if ($xoopsUser) {
-    $check  = new smallworld\SmallWorldUser;
-    $db     = new smallworld\SmallWorldDB;
-    $mail   = new SmallWorldMail;
+    $check  = new Smallworld\User();
+    $db     = new Smallworld\SwDatabase();
+    $mail   = new Mail();
     $friend = $_POST['friend'];
     if (isset($_POST['stat'])) {
         $stat = $_POST['stat'];
     }
-    $friendProfile = $check->CheckIfProfile($friend);
+    $friendProfile = $check->checkIfProfile($friend);
     $invitation    = $_POST['invitation'];
     $myUid         = $_POST['myUid'];
     $friendName    = $check->getName($friend);

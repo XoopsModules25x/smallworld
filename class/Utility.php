@@ -1,22 +1,33 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php
 
-use Xmf\Request;
-use Xoopsmodules\smallworld\common;
+namespace XoopsModules\Smallworld;
 
-require_once __DIR__ . '/common/VersionChecks.php';
-require_once __DIR__ . '/common/ServerStats.php';
-require_once __DIR__ . '/common/FilesManagement.php';
-
-require_once __DIR__ . '/../include/common.php';
+use XoopsModules\Smallworld;
+use XoopsModules\Smallworld\Common;
+use XoopsModules\Smallworld\Constants;
 
 /**
  * Class Utility
  */
-class Utility
+class Utility extends Common\SysUtility
 {
-    use common\VersionChecks; //checkVerXoops, checkVerPhp Traits
+    //--------------- Custom module methods -----------------------------
 
-    use common\ServerStats; // getServerStats Trait
+    /**
+     * Access the only instance of this class
+     *
+     * @return object
+     *
+     */
+    public static function getInstance()
+    {
+        static $instance;
+        if (null === $instance) {
+            $instance = new static();
+        }
 
-    use common\FilesManagement; // Files Management Trait
+        return $instance;
+    }
+
 }
+

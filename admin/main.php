@@ -23,7 +23,7 @@
 require_once __DIR__ . '/admin_header.php';
 require_once __DIR__ . '/../../../include/cp_header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 if (!isset($xoopsTpl)) {
@@ -37,10 +37,10 @@ if (isset($_POST['xim_admin_message'])) {
     $_POST['xim_admin_message'] = '';
 }
 
-$admin = new SmallworldAdmin();
-$tpl = new XoopsTpl();
+$admin = new Admin();
+$tpl   = new XoopsTpl();
 
-$ai = [];
+$ai  = [];
 $ani = [];
 
 // --------------- First tab in admin ---------------
@@ -74,17 +74,17 @@ $admin->topratedusers('down');
 $allusers_inspect = $admin->getAllUsers('yes');
 if (!empty($allusers_inspect)) {
     foreach ($allusers_inspect as $data) {
-        $ai['id'] = $data['id'];
-        $ai['userid'] = $data['userid'];
-        $ai['username'] = $data['username'];
-        $ai['realname'] = $data['realname'];
-        $ai['userimage'] = smallworld_getAvatarLink($data['userid'], $data['userimage']);
-        $ai['avatar_size'] = smallworld_getImageSize(80, 100, $ai['userimage']);
-        $ai['avatar_highwide'] = smallworld_imageResize($ai['avatar_size'][0], $ai['avatar_size'][1], 50);
-        $ai['ip'] = $data['ip'];
-        $ai['complaint'] = $data['complaint'];
-        $ai['inspect_start'] = $data['inspect_start'];
-        $ai['inspect_stop'] = $data['inspect_stop'];
+        $ai['id']                    = $data['id'];
+        $ai['userid']                = $data['userid'];
+        $ai['username']              = $data['username'];
+        $ai['realname']              = $data['realname'];
+        $ai['userimage']             = smallworld_getAvatarLink($data['userid'], $data['userimage']);
+        $ai['avatar_size']           = smallworld_getImageSize(80, 100, $ai['userimage']);
+        $ai['avatar_highwide']       = smallworld_imageResize($ai['avatar_size'][0], $ai['avatar_size'][1], 50);
+        $ai['ip']                    = $data['ip'];
+        $ai['complaint']             = $data['complaint'];
+        $ai['inspect_start']         = $data['inspect_start'];
+        $ai['inspect_stop']          = $data['inspect_stop'];
         $ai['userinspect_timetotal'] = ($data['inspect_start'] + $data['inspect_stop']) - time();
         $xoopsTpl->append('allusersinspect', $ai);
     }
@@ -94,17 +94,17 @@ $xoopsTpl->assign('allusersinspectcounter', count($ai));
 $allusers_noinspect = $admin->getAllUsers('no');
 if (!empty($allusers_noinspect)) {
     foreach ($allusers_noinspect as $data) {
-        $ani['id'] = $data['id'];
-        $ani['userid'] = $data['userid'];
-        $ani['username'] = $data['username'];
-        $ani['realname'] = $data['realname'];
-        $ani['userimage'] = smallworld_getAvatarLink($data['userid'], $data['userimage']);
-        $ani['avatar_size'] = smallworld_getImageSize(80, 100, $ani['userimage']);
-        $ani['avatar_highwide'] = smallworld_imageResize($ani['avatar_size'][0], $ani['avatar_size'][1], 50);
-        $ani['ip'] = $data['ip'];
-        $ani['complaint'] = $data['complaint'];
-        $ani['inspect_start'] = '';
-        $ani['inspect_stop'] = '';
+        $ani['id']                    = $data['id'];
+        $ani['userid']                = $data['userid'];
+        $ani['username']              = $data['username'];
+        $ani['realname']              = $data['realname'];
+        $ani['userimage']             = smallworld_getAvatarLink($data['userid'], $data['userimage']);
+        $ani['avatar_size']           = smallworld_getImageSize(80, 100, $ani['userimage']);
+        $ani['avatar_highwide']       = smallworld_imageResize($ani['avatar_size'][0], $ani['avatar_size'][1], 50);
+        $ani['ip']                    = $data['ip'];
+        $ani['complaint']             = $data['complaint'];
+        $ani['inspect_start']         = '';
+        $ani['inspect_stop']          = '';
         $ani['userinspect_timetotal'] = '';
         $xoopsTpl->append('allusersnoinspect', $ani);
     }
@@ -172,7 +172,7 @@ $adminscript = <<<SCRIPT
         var smallworld_url="XOOPS_URL/modules/smallworld/";
         var $ = jQuery();
 SCRIPT;
-$xoTheme->addStylesheet('modules/smallworld/assets/css/SmallworldAdmin.css');
+$xoTheme->addStylesheet('modules/smallworld/assets/css/Admin.css');
 $xoTheme->addScript(XOOPS_URL . '/browse.php?Frameworks/jquery/jquery.js');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery-ui-1.8.11.custom.js');
 $xoTheme->addScript('modules/smallworld/js/smallworld_tabs.js');

@@ -78,7 +78,7 @@ define('_AM_SMALLWORLD_STATS_IMG', 'Icon');
 
 define(
     '_AM_SMALLWORLD_SP',
-       '<img style="margin: 0pt 5px 0pt 0pt; vertical-align: middle;" src="../assets/images/sp.png" height="30px" width="30px"> <a style="position: relative; margin: 0px;vertical-align: middle;" href="javascript:void(0);" id="smallworldDonate">If you like this module and the work I put into it, you could keep me awake by buying me a coffee</a>'
+    '<img style="margin: 0pt 5px 0pt 0pt; vertical-align: middle;" src="../assets/images/sp.png" height="30px" width="30px"> <a style="position: relative; margin: 0px;vertical-align: middle;" href="javascript:void(0);" id="smallworldDonate">If you like this module and the work I put into it, you could keep me awake by buying me a coffee</a>'
 );
 define('_AM_SMALLWORLD_FOOTER', "<div class='center smallsmall italic pad5'>Module SmallWorld is maintained by <a class='tooltip' rel='external' href='http://culex.dk/' title='Visit my Website'>Culex</a></div>");
 

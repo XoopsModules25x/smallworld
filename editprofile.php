@@ -21,7 +21,8 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
@@ -29,13 +30,13 @@ $GLOBALS['xoopsOption']['template_main'] = 'smallworld_userprofile_edittemplate.
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoopsTpl, $xoopsDB, $xoTheme;
 
 if ($xoopsUser) {
     $id      = $xoopsUser->getVar('uid');
-    $check   = new smallworld\SmallWorldUser;
-    $profile = $check->CheckIfProfile($id);
+    $check   = new Smallworld\User();
+    $profile = $check->checkIfProfile($id);
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = Smallworld_isInspected($id);
@@ -45,8 +46,8 @@ if ($xoopsUser) {
 
     if (2 == $profile) {
         $xoopsTpl->assign('check', $profile);
-        $item = new smallworld\SmallWorldForm;
-        $db   = new smallworld\SmallWorldDB;
+        $item = new Smallworld\Form();
+        $db   = new Smallworld\SwDatabase();
 
         $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
         $result = $xoopsDB->queryF($cdb);
@@ -301,7 +302,7 @@ if ($xoopsUser) {
                         $employer = stripslashes($v),
                         $position = stripslashes($nr10[$k]),
                         $selectedstart = ('' != $nr11[$k]) ? date('Y', $nr11[$k]) : '',
-                                       $selectedstop = ('' != $nr12[$k]) ? date('Y', $nr12[$k]) : '',
+                        $selectedstop = ('' != $nr12[$k]) ? date('Y', $nr12[$k]) : '',
                         $description = $nr13[$k]
                     );
                     $job .= "<span class='smallworld_remove3' id='jobremove'>";

@@ -21,28 +21,29 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger, $xoopsTpl;
 $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
 $page    = 'index';
-$check   = new smallworld\SmallWorldUser;
+$check   = new Smallworld\User();
 $id      = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
-$profile = $xoopsUser ? $check->CheckIfProfile($id) : 0;
+$profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
 if ($profile >= 2) {
     $Xuser    = new XoopsUser($id);
     $username = $Xuser->getVar('uname');
-    $Wall     = new smallworld\WallUpdates();
+    $Wall     = new Smallworld\WallUpdates();
     $tpl      = new XoopsTpl();
-    $mail     = new smallworld\SmallWorldMail;
-    $dBase    = new smallworld\SmallWorldDB;
+    $mail     = new Smallworld\Mail();
+    $dBase    = new Smallworld\SwDatabase();
 
     if (isset($_POST['comment'])) {
         if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
@@ -60,7 +61,6 @@ if ($profile >= 2) {
 
         $data = $Wall->Insert_Comment($id, $msg_id, $comment);
         if ($data) {
-
             // Is comments's user a friend ?
             $frC = $check->friendcheck($id, $data['uid_fk']);
 

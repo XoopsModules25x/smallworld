@@ -27,8 +27,7 @@ if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
     $moduleHelper = Xmf\Module\Helper::getHelper('system');
 }
 
-
-$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
+$pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
 //$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
 
 // Load language files
@@ -39,7 +38,7 @@ $moduleHelper->loadLanguage('main');
 $adminmenu[] = [
     'title' => _MI_SMALLWORLDMENU_INDEX,
     'link'  => 'admin/index.php',
-    'icon'  => $pathIcon32 . '/home.png'
+    'icon'  => $pathIcon32 . '/home.png',
 ];
 
 //$adminmenu[] = [
@@ -51,12 +50,11 @@ $adminmenu[] = [
 $adminmenu[] = [
     'title' => _MI_SMALLWORLDMENU_USERADMIN,
     'link'  => 'admin/useradmin.php',
-    'icon'  => $pathIcon32 . '/administration.png'
+    'icon'  => $pathIcon32 . '/administration.png',
 ];
 
 $adminmenu[] = [
     'title' => _MI_SMALLWORLDMENU_ABOUT,
     'link'  => 'admin/about.php',
-    'icon'  => $pathIcon32 . '/about.png'
+    'icon'  => $pathIcon32 . '/about.png',
 ];
-

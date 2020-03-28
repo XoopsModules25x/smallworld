@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -62,7 +63,7 @@ class PublicWallUpdates
     /**
      * @Get array of updates
      * @param int   $last
-     * @param  array $moderators
+     * @param array $moderators
      * @return array|bool
      */
     public function Updates($last, $moderators)
@@ -186,7 +187,7 @@ class PublicWallUpdates
             1 => 'jpg',
             2 => 'jpeg',
             3 => 'png',
-            4 => 'gif'
+            4 => 'gif',
         ];
 
         $ext = explode('.', $image);
@@ -209,7 +210,7 @@ class PublicWallUpdates
     public function countVotes($type, $val, $msgid)
     {
         global $xoopsUser, $xoopsDB;
-        $sum = 0;
+        $sum    = 0;
         $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where msg_id = '" . $msgid . "' and com_id = '0'";
         $result = $xoopsDB->queryF($query);
         while ($row = $xoopsDB->fetchArray($result)) {
@@ -228,11 +229,13 @@ class PublicWallUpdates
      * @param int $comid
      * @param int $msgid
      * @returns int
+     * @return int|mixed
+     * @return int|mixed
      */
     public function countVotesCom($type, $val, $comid, $msgid)
     {
         global $xoopsUser, $xoopsDB;
-        $sum = 0;
+        $sum    = 0;
         $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where com_id = '" . $comid . "' AND msg_id = '" . $msgid . "'";
         $result = $xoopsDB->queryF($query);
         while ($row = $xoopsDB->fetchArray($result)) {
@@ -381,14 +384,14 @@ class PublicWallUpdates
     public function ParsePubArray($updatesarray, $id)
     {
         global $xoopsUser, $xoopsTpl, $tpl, $xoopsModule, $xoopsTpl, $xoopsConfig;
-        $wm = [];
-        $check          = new SmallWorldUser;
-        $dBase          = new SmallWorldDB;
-        $profile        = $xoopsUser ? $check->checkIfProfile($id) : 0;
+        $wm            = [];
+        $check         = new User();
+        $dBase         = new SwDatabase();
+        $profile       = $xoopsUser ? $check->checkIfProfile($id) : 0;
         $moduleHandler = xoops_getHandler('module');
-        $module         = $moduleHandler->getByDirname('smallworld');
+        $module        = $moduleHandler->getByDirname('smallworld');
         $configHandler = xoops_getHandler('config');
-        $moduleConfig   = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
+        $moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 
         $myavatar          = $this->Gravatar($id);
         $myavatarlink      = smallworld_getAvatarLink($id, $myavatar);
@@ -403,7 +406,6 @@ class PublicWallUpdates
 
         if (!empty($updatesarray)) {
             foreach ($updatesarray as $data) {
-
                 // Is update's user a friend ?
                 $frU = $check->friendcheck($id, $data['uid_fk']);
 

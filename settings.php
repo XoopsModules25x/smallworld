@@ -21,27 +21,30 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 global $xoopsUser;
 require_once __DIR__ . '/../../mainfile.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;
 
 if ($xoopsUser) {
-    $check    = new smallworld\SmallWorldUser;
-    $db       = new smallworld\SmallWorldDB;
+    $check    = new Smallworld\User();
+    $db       = new Smallworld\SwDatabase();
     $id       = $xoopsUser->getVar('uid');
     $settings = [];
     if (isset($_POST['posts']) && isset($_POST['comments'])) {
-        $post = serialize([
-                              'posts'    => $_POST['posts'],
-                              'comments' => $_POST['comments'],
-                              'notify'   => $_POST['notify']
-                          ]);
+        $post = serialize(
+            [
+                'posts'    => $_POST['posts'],
+                'comments' => $_POST['comments'],
+                'notify'   => $_POST['notify'],
+            ]
+        );
 
         if ($id >= 1) {
             $db->saveSettings($id, $post);

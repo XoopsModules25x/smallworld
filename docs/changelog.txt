@@ -1,4 +1,4 @@
-<h5>1.16 Beta 1  [NOT RELEASED]</h5>
+<h5>1.16 Beta 2  [WORK IN PROGRESS - NOT RELEASED]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.4
 <hr>
 - XOOPS 2.5.9, PHP 7 (mamba)
 - removed @version (mamba)
@@ -144,7 +144,7 @@ Changelog v.1.15 RC 11
 
 NEW: Added upgraded image upload
 NEW: Added upgraded mail class
-NEW: class/PublicWallUpdates.php, publicindex.php, templates for public postings
+NEW: class/WallUpdates.php, publicindex.php, templates for public postings
 
 Bugfix: Missing image
 Bugfix: Making new jquery work with existing code
@@ -408,7 +408,7 @@ Changelog v.1.10 RC 2
 
 24. januar 2012
 - Trolls stole code changes... bringing back verification php array to javascript array (djculex)
-- fixing cURL problem in SmallworldAdmin.php (beckmi)
+- fixing cURL problem in Admin.php (beckmi)
 - code clean-up (beckmi)
 
 23. januar 2012

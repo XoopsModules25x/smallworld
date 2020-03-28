@@ -21,14 +21,15 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsDB;
 $xoopsLogger->activated = false;
@@ -45,7 +46,7 @@ if ($_GET) {
         $imageHw = smallworld_imageResize($imageSize[0], $imageSize[1], 30);
         $data[]  = [
             'label' => $image . ' ' . '<span class="searchusername">' . $row['realname'] . ' (' . $row['username'] . ')</span>',
-            'value' => $user->uname()
+            'value' => $user->uname(),
         ];
     }
     // jQuery wants JSON data

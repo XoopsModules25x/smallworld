@@ -96,16 +96,19 @@ define('_MI_SMALLWORLD_PRIVATEMODULE_DESC', 'If "yes" then all visiters can read
 // Limit users access to public posting
 
 define('_MI_SHOWPUBLICPAGE', 'Limit the posting to public to these users.');
-define('_MI_SHOWPUBLICPAGE_DESC', 'Default is "All users" wich means that all users will have their "public" posts shown on publicindex.php.<br>
+define(
+    '_MI_SHOWPUBLICPAGE_DESC',
+    'Default is "All users" wich means that all users will have their "public" posts shown on publicindex.php.<br>
     If you use a limiter and not newer users are shown here, do a smallworld module update in administration to <br>
     show the latest users.
-        ');
+        '
+);
 define('_MI_SMALLWORLD_ALL', 'All users');
 
 //1.16
 //Help
 define('_MI_SMALLWORLD_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('_MI_SMALLWORLD_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
+define('_MI_SMALLWORLD_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 define('_MI_SMALLWORLD_BACK_2_ADMIN', 'Back to Administration of ');
 define('_MI_SMALLWORLD_OVERVIEW', 'Overview');
 

@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,7 +20,7 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-class SmallWorldForm
+class Form
 {
     /**
      * @create a dropdown select
@@ -118,14 +119,14 @@ class SmallWorldForm
 
     /**
      *
-     * @param string $class
-     * @param string $name
+     * @param string  $class
+     * @param string  $name
      * @param         $name2
-     * @param string $rel
-     * @param array  $options
-     * @param string $textmore
-     * @param string $selected (optional)
-     * @param string $preset   (optional)
+     * @param string  $rel
+     * @param array   $options
+     * @param string  $textmore
+     * @param string  $selected (optional)
+     * @param string  $preset   (optional)
      * @return as|string
      */
     public function dropdown_add($class, $name, $name2, $rel, array $options, $textmore, $selected = null, $preset = null)
@@ -142,14 +143,14 @@ class SmallWorldForm
 
     /**
      *
-     * @param string $class
-     * @param string $name
+     * @param string  $class
+     * @param string  $name
      * @param         $name2
-     * @param string $rel
-     * @param int    $size
-     * @param string $textmore
-     * @param string $preset (optional)
-     * @param string $id     (optional)
+     * @param string  $rel
+     * @param int     $size
+     * @param string  $textmore
+     * @param string  $preset (optional)
+     * @param string  $id     (optional)
      * @return dynamic|string
      */
     public function input_add($class, $name, $name2, $rel, $size, $textmore, $preset = null, $id = null)
@@ -161,7 +162,6 @@ class SmallWorldForm
     }
 
     /**
-     * @return string|textarea
      * @param string $name
      * @param string $id
      * @param string $title
@@ -169,6 +169,7 @@ class SmallWorldForm
      * @param string $cols
      * @param string $class
      * @param string $preset (optional)
+     * @return string|textarea
      * @return string
      */
     public function textarea($name, $id, $title, $rows, $cols, $class, $preset = null)
@@ -177,7 +178,6 @@ class SmallWorldForm
     }
 
     /**
-     * @return dynamic|string
      * @param string $class
      * @param string $name
      * @param string $name2
@@ -188,6 +188,7 @@ class SmallWorldForm
      * @param string $preset        (optional)
      * @param string $selectedstart (optional)
      * @param string $selectedstop  (optional)
+     * @return dynamic|string
      * @return string
      */
     public function school_add(
@@ -230,16 +231,16 @@ class SmallWorldForm
 
     /**
      *
-     * @param string $class
-     * @param string $name
+     * @param string  $class
+     * @param string  $name
      * @param         $name2
-     * @param string $rel
-     * @param string $textmore
-     * @param string $employer      (optional)
-     * @param string $position      (optional)
-     * @param string $selectedstart (optional)
-     * @param string $selectedstop  (optional)
-     * @param string $description   (optional)
+     * @param string  $rel
+     * @param string  $textmore
+     * @param string  $employer      (optional)
+     * @param string  $position      (optional)
+     * @param string  $selectedstart (optional)
+     * @param string  $selectedstop  (optional)
+     * @param string  $description   (optional)
      * @return dynamic|string
      */
     public function job(
@@ -264,8 +265,8 @@ class SmallWorldForm
     }
 
     /**
-     * @return file|string
      * @param int $userID
+     * @return file|string
      * @return string
      */
     public function uploadform($userID)
@@ -279,11 +280,11 @@ class SmallWorldForm
     }
 
     /**
-     * @return dynamic|string
      * @param int    $userID
      * @param string $imgurl
      * @param string $imgdesc
      * @param string $id
+     * @return dynamic|string
      * @return string
      */
     public function edit_images($userID, $imgurl, $imgdesc, $id)

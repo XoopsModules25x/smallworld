@@ -21,14 +21,15 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_galleryshow.html';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoTheme, $xoopsLogger;
 $xoopsLogger->activated = false;
 
@@ -36,8 +37,8 @@ $admin = false;
 
 if ($xoopsUser) {
     $id           = $xoopsUser->getVar('uid');
-    $check        = new smallworld\SmallWorldUser;
-    $image        = new smallworld\SmallWorldImages;
+    $check        = new Smallworld\User();
+    $image        = new Smallworld\Images();
     $username     = $_GET['username'];
     $userID       = smallworld_isset_or($_GET['username']); // Id of user wich profile you want to see
     $userisfriend = $check->friendcheck($id, $userID);
@@ -53,7 +54,7 @@ if ($xoopsUser) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1, _SMALLWORLD_INSPEC_usermsg);
     }
 
-    $profile = $check->CheckIfProfile($id);
+    $profile = $check->checkIfProfile($id);
     if ($profile >= 2 || 2 == $userisfriend[0] || true === $admin) {
         $myusername = $xoopsUser->getVar('uname');
 

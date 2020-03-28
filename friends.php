@@ -21,14 +21,15 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 //require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_friends_template.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 global $xoopsUser;
 
@@ -37,9 +38,9 @@ if ($xoopsUser) {
     $yourid    = $xoopsUser->getVar('uid'); // your uid
     $Xuser     = new XoopsUser($id);
     $Xusername = $Xuser->getVar('uname');
-    $check     = new smallworld\SmallWorldUser;
-    $profile   = $check->CheckIfProfile($id);
-    $friends   = new smallworld\SmallWorldFriends;
+    $check     = new Smallworld\User();
+    $profile   = $check->checkIfProfile($id);
+    $friends   = new Smallworld\Friends();
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = Smallworld_isInspected($yourid);
@@ -48,7 +49,7 @@ if ($xoopsUser) {
     }
 
     if ($profile >= 2) {
-        $user = new smallworld\SmallWorldProfile;
+        $user = new Smallworld\Profile();
         $user->ShowUser($id);
         $username = $xoopsUser->getVar('uname'); //Myusername
         if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
@@ -97,7 +98,7 @@ if ($xoopsUser) {
         $getInvitations = $check->getRequests($yourid);
 
         // Things to do with wall
-        $Wall         = new smallworld\WallUpdates();
+        $Wall         = new Smallworld\WallUpdates();
         $myavatar     = $Wall->Gravatar($id);
         $myavatarlink = smallworld_getAvatarLink($id, $myavatar);
 
@@ -175,7 +176,7 @@ if ($xoopsUser) {
         }
 
         // Create form for private settings
-        $form         = new smallworld\SmallWorldForm;
+        $form         = new Smallworld\Form();
         $usersettings = $form->usersettings($yourid, $selected = null);
         $xoopsTpl->assign('usersetting', $usersettings);
 

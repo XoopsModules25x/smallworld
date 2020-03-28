@@ -20,7 +20,7 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
 
 $moduleDirName = basename(dirname(__DIR__));
 require_once __DIR__ . '/../../../include/cp_header.php';
@@ -54,7 +54,6 @@ if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)
 $pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
 $pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
 $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
-
 
 // Load language files
 $helper->loadLanguage('admin');

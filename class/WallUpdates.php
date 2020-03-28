@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -32,7 +33,7 @@ class WallUpdates
     private function getAdminModerators()
     {
         global $xoopsDB, $xoopsUser;
-        $data = [];
+        $data   = [];
         $sql    = 'SELECT userid
                 FROM ' . $xoopsDB->prefix('smallworld_user') . ' su
                 LEFT JOIN ' . $xoopsDB->prefix('groups_users_link') . ' xu ON su.userid = xu.uid
@@ -53,7 +54,7 @@ class WallUpdates
     public function Updates($last, $uid, $followers)
     {
         global $xoopsUser, $xoopsDB, $moduleConfig;
-        $query = '';
+        $query     = '';
         $hm        = smallworld_GetModuleOption('msgtoshow');
         $set       = smallworld_checkPrivateOrPublic();
         $followers = is_array($followers) ? $followers : [$followers];
@@ -152,7 +153,7 @@ class WallUpdates
             1 => 'jpg',
             2 => 'jpeg',
             3 => 'png',
-            4 => 'gif'
+            4 => 'gif',
         ];
 
         $ext = explode('.', $image);
@@ -167,9 +168,9 @@ class WallUpdates
 
     /**
      * @Insert update
-     * @param int    $uid
+     * @param int          $uid
      * @param string|array $update
-     * @param int    $priv
+     * @param int          $priv
      * @return array|bool
      */
     public function Insert_Update($uid, $update, $priv)
@@ -182,7 +183,7 @@ class WallUpdates
         }
         $query  = 'SELECT msg_id,message FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE uid_fk='" . $uid . "' ORDER BY msg_id DESC LIMIT 1";
         $result = $xoopsDB->queryF($query);
-        $row = $xoopsDB->fetchArray($result);
+        $row    = $xoopsDB->fetchArray($result);
         if ($update != $row['message']) {
             $query    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_messages') . " (message, uid_fk, priv, created) VALUES ('" . $update . "', '" . $uid . "', '" . $priv . "', '" . $time . "')";
             $result   = $xoopsDB->queryF($query);
@@ -207,8 +208,8 @@ class WallUpdates
 
     /**
      * @Insert comment
-     * @param int    $uid
-     * @param  int    $msg_id
+     * @param int          $uid
+     * @param int          $msg_id
      * @param string|array $comment
      * @return string / void
      */
@@ -291,6 +292,8 @@ class WallUpdates
      * @param int $comid
      * @param int $msgid
      * @returns int
+     * @return mixed|string
+     * @return mixed|string
      */
     public function countVotesCom($type, $val, $comid, $msgid)
     {
@@ -446,13 +449,13 @@ class WallUpdates
     {
         global $xoopsUser, $xoopsTpl, $tpl, $xoopsModule, $xoopsConfig;
 
-        $check          = new SmallWorldUser;
-        $dBase          = new SmallWorldDB;
-        $profile        = $xoopsUser ? $check->checkIfProfile($id) : 0;
+        $check         = new User();
+        $dBase         = new SwDatabase();
+        $profile       = $xoopsUser ? $check->checkIfProfile($id) : 0;
         $moduleHandler = xoops_getHandler('module');
-        $module         = $moduleHandler->getByDirname('smallworld');
+        $module        = $moduleHandler->getByDirname('smallworld');
         $configHandler = xoops_getHandler('config');
-        $moduleConfig   = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
+        $moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 
         $myavatar          = $this->Gravatar($id);
         $myavatarlink      = smallworld_getAvatarLink($id, $myavatar);
@@ -465,7 +468,6 @@ class WallUpdates
 
         if (!empty($updatesarray)) {
             foreach ($updatesarray as $data) {
-
                 // Is update's user a friend ?
                 $frU = $check->friendcheck($id, $data['uid_fk']);
 

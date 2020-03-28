@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /*
  * jQuery File Upload Plugin PHP Class 6.1.2
  * https://github.com/blueimp/jQuery-File-Upload
@@ -15,7 +16,7 @@
  */
 class UploadHandler
 {
-    public $xoopsUser;
+    public    $xoopsUser;
     protected $options;
 
     // PHP File Upload error message codes:
@@ -36,7 +37,7 @@ class UploadHandler
         'max_width'           => 'Image exceeds maximum width',
         'min_width'           => 'Image requires a minimum width',
         'max_height'          => 'Image exceeds maximum height',
-        'min_height'          => 'Image requires a minimum height'
+        'min_height'          => 'Image requires a minimum height',
     ];
 
     /**
@@ -67,12 +68,12 @@ class UploadHandler
                 'POST',
                 'PUT',
                 'PATCH',
-                'DELETE'
+                'DELETE',
             ],
             'access_control_allow_headers'     => [
                 'Content-Type',
                 'Content-Range',
-                'Content-Disposition'
+                'Content-Disposition',
             ],
             // Enable to provide file downloads via GET requests to the PHP script:
             'download_via_php'                 => false,
@@ -117,9 +118,9 @@ class UploadHandler
                     'upload_dir' => XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . '/' . $userID . '/thumbnails/',
                     'upload_url' => XOOPS_URL . '/uploads/albums_smallworld' . '/' . $userID . '/thumbnails/',
                     'max_width'  => 80,
-                    'max_height' => 80
-                ]
-            ]
+                    'max_height' => 80,
+                ],
+            ],
         ];
         if ($options) {
             $this->options = array_merge($this->options, $options);
@@ -160,7 +161,8 @@ class UploadHandler
         $https = !empty($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS'];
         return ($https ? 'https://' : 'http://')
                . (!empty($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] . '@' : '')
-               . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ($_SERVER['SERVER_NAME'] . ($https && 443 === $_SERVER['SERVER_PORT'] || 80 === $_SERVER['SERVER_PORT'] ? '' : ':' . $_SERVER['SERVER_PORT'])))
+               . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ($_SERVER['SERVER_NAME'] . ($https && 443 === $_SERVER['SERVER_PORT'] || 80 === $_SERVER['SERVER_PORT'] ? '' : ':'
+                                                                                                                                                                                        . $_SERVER['SERVER_PORT'])))
                . substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/'));
     }
 
@@ -186,7 +188,7 @@ class UploadHandler
 
     /**
      * @param null|string $file_name
-     * @param null $version
+     * @param null        $version
      * @return string
      */
     protected function get_upload_path($file_name = null, $version = null)
@@ -332,7 +334,9 @@ class UploadHandler
         if (!empty($version)) {
             $version_dir = $this->get_upload_path(null, $version);
             if (!is_dir($version_dir)) {
-                mkdir($version_dir, $this->options['mkdir_mode'], true);
+                if (!mkdir($version_dir, $this->options['mkdir_mode'], true) && !is_dir($version_dir)) {
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $version_dir));
+                }
             }
             $new_file_path = $version_dir . '/' . $file_name;
         } else {
@@ -403,10 +407,10 @@ class UploadHandler
         switch ($last) {
             case 'g':
                 $val *= 1024;
-                // no break
+            // no break
             case 'm':
                 $val *= 1024;
-                // no break
+            // no break
             case 'k':
                 $val *= 1024;
         }
@@ -608,7 +612,7 @@ class UploadHandler
      * @param      $error
      * @param null $index
      * @param null $content_range
-     * @return \Xoopsmodules\smallworld|\stdClass
+     * @return \XoopsModules\Smallworld|\stdClass
      */
     protected function handle_file_upload(
         $uploaded_file,
@@ -619,7 +623,7 @@ class UploadHandler
         $index = null,
         $content_range = null
     ) {
-        global $xoopsUser, $SmallWorldDB;
+        global $xoopsUser, $SwDatabase;
         $file = new \stdClass();
 
         $file->name = $this->get_file_name($name, $type, $index, $content_range);
@@ -627,7 +631,7 @@ class UploadHandler
         $file->type = $type;
 
         // Save to database for later use
-        $db     = new SmallWorldDB;
+        $db     = new SwDatabase();
         $userid = $xoopsUser->getVar('uid');
 
         // Generate new name for file
@@ -640,7 +644,9 @@ class UploadHandler
             $this->handle_form_data($file, $index);
             $upload_dir = $this->get_upload_path();
             if (!is_dir($upload_dir)) {
-                mkdir($upload_dir, $this->options['mkdir_mode'], true);
+                if (!mkdir($upload_dir, $this->options['mkdir_mode'], true) && !is_dir($upload_dir)) {
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $upload_dir));
+                }
             }
             $file_path   = $this->get_upload_path($file->name);
             $append_file = $content_range && is_file($file_path) && $file->size > $this->get_file_size($file_path);
@@ -847,11 +853,11 @@ class UploadHandler
         $file_name = $this->get_file_name_param();
         if (null !== $file_name) {
             $response = [
-                substr($this->options['param_name'], 0, -1) => $this->get_file_object($file_name)
+                substr($this->options['param_name'], 0, -1) => $this->get_file_object($file_name),
             ];
         } else {
             $response = [
-                $this->options['param_name'] => $this->get_file_objects()
+                $this->options['param_name'] => $this->get_file_objects(),
             ];
         }
         return $this->generate_response($response, $print_response);
@@ -886,7 +892,7 @@ class UploadHandler
                 isset($upload['tmp_name']) ? $upload['tmp_name'] : null,
                 $file_name ?: (isset($upload['name']) ? $upload['name'] : null),
                 $size ?: (isset($upload['size']) ? $upload['size'] : $_SERVER['CONTENT_LENGTH']),
-                                                 isset($upload['type']) ? $upload['type'] : $_SERVER['CONTENT_TYPE'],
+                isset($upload['type']) ? $upload['type'] : $_SERVER['CONTENT_TYPE'],
                 isset($upload['error']) ? $upload['error'] : null,
                 null,
                 $content_range
@@ -902,7 +908,7 @@ class UploadHandler
     {
         global $xoopsUser;
         $userid    = $xoopsUser->getVar('uid');
-        $db        = new SmallWorldDB;
+        $db        = new SwDatabase();
         $file_name = $this->get_file_name_param();
         $file_path = $this->get_upload_path($file_name);
         $success   = is_file($file_path) && '.' !== $file_name[0] && unlink($file_path);

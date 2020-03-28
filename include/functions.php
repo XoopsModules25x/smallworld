@@ -21,7 +21,8 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 //require_once __DIR__ . '/common.php';
 
 /*
@@ -236,42 +237,42 @@ function smallworld_time_stamp($session_time)
     $months          = round($time_difference / 2419200);
     $years           = round($time_difference / 29030400);
     if ($seconds <= 60) {
-        $t = "$seconds" . _SMALLWORLD_SECONDSAGO;
+        $t = (string)$seconds . _SMALLWORLD_SECONDSAGO;
     } elseif ($minutes <= 60) {
         if (1 == $minutes) {
             $t = _SMALLWORLD_ONEMINUTEAGO;
         } else {
-            $t = "$minutes" . _SMALLWORLD_MINUTESAGO;
+            $t = (string)$minutes . _SMALLWORLD_MINUTESAGO;
         }
     } elseif ($hours <= 24) {
         if (1 == $hours) {
             $t = _SMALLWORLD_ONEHOURAGO;
         } else {
-            $t = "$hours" . _SMALLWORLD_HOURSAGO;
+            $t = (string)$hours . _SMALLWORLD_HOURSAGO;
         }
     } elseif ($days <= 7) {
         if (1 == $days) {
             $t = _SMALLWORLD_ONEDAYAGO;
         } else {
-            $t = "$days" . _SMALLWORLD_DAYSAGO;
+            $t = (string)$days . _SMALLWORLD_DAYSAGO;
         }
     } elseif ($weeks <= 4) {
         if (1 == $weeks) {
             $t = _SMALLWORLD_ONEWEEKAGO;
         } else {
-            $t = "$weeks" . _SMALLWORLD_WEEKSAGO;
+            $t = (string)$weeks . _SMALLWORLD_WEEKSAGO;
         }
     } elseif ($months <= 12) {
         if (1 == $months) {
             $t = _SMALLWORLD_ONEMONTHAGO;
         } else {
-            $t = "$months" . _SMALLWORLD_MONTHSAGO;
+            $t = (string)$months . _SMALLWORLD_MONTHSAGO;
         }
     } else {
         if (1 == $years) {
             $t = _SMALLWORLD_ONEYEARAGO;
         } else {
-            $t = "$years" . _SMALLWORLD_YEARSAGO;
+            $t = (string)$years . _SMALLWORLD_YEARSAGO;
         }
     }
     return $t;
@@ -302,13 +303,13 @@ function smallworld_tolink($text, $uid)
             $text = str_replace('UPLIMAGE', '', $text);
             $text = preg_replace(
                 '/(((f|ht){1}tp:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
-                                 '<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $usr->getVar('uname') . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
+                '<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $usr->getVar('uname') . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
                 $text
             );
             $text = preg_replace('/(((f|ht){1}tps:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i', '<a href="\\1">lala</a>', $text);
             $text = preg_replace(
                 '/([[:space:]()[{}])(www.[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
-                                 '\\1<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="//\\2"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $username . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
+                '\\1<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="//\\2"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $username . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
                 $text
             );
             $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
@@ -424,6 +425,8 @@ function smallworld_GetModuleOption($option, $repmodule = 'smallworld')
  * @param int    $userid
  * @param string $image
  * @returns string
+ * @return string
+ * @return string
  */
 function smallworld_getAvatarLink($userid, $image)
 {
@@ -574,12 +577,12 @@ function SmallworldDeleteOldInspects()
 function smallworld_getCountFriendMessagesEtc()
 {
     global $xoopsUser, $xoopsDB;
-    $user      = new \XoopsUser;
-    $Wall      = new smallworld\WallUpdates();
+    $user      = new \XoopsUser();
+    $Wall      = new Smallworld\WallUpdates();
     $userid    = $xoopsUser->getVar('uid');
     $followers = Smallworld_array_flatten($Wall->getFollowers($userid), 0);
     if (1 == smallworld_GetModuleOption('usersownpostscount', $repmodule = 'smallworld')) {
-        array_push($followers, $userid);
+        $followers[] = $userid;
     }
     $ids    = implode(',', $followers);
     $sql    = 'SELECT COUNT(*) AS total '
@@ -608,20 +611,11 @@ function smallworld_getCountFriendMessagesEtc()
 function smallworld_countUsersMessages($id)
 {
     global $xoopsUser, $xoopsDB;
-    $user   = new XoopsUser;
-    $Wall   = new smallworld\WallUpdates();
-    $sql    = 'SELECT COUNT(*) AS total '
-              . ' FROM ( '
-              . ' SELECT com_id , count( * ) AS comments FROM '
-              . $xoopsDB->prefix('smallworld_comments')
-              . ' WHERE uid_fk = '
-              . (int)$id . ' GROUP BY com_id '
-              . ' UNION ALL '
-              . ' SELECT msg_id , count( * ) AS messages FROM '
-              . $xoopsDB->prefix('smallworld_messages')
-              . ' WHERE uid_fk = '
-              . (int)$id . 'group BY msg_id '
-              . ' ) AS d';
+    $user   = new XoopsUser();
+    $Wall   = new Smallworld\WallUpdates();
+    $sql    = 'SELECT COUNT(*) AS total ' . ' FROM ( ' . ' SELECT com_id , count( * ) AS comments FROM ' . $xoopsDB->prefix('smallworld_comments') . ' WHERE uid_fk = ' . (int)$id . ' GROUP BY com_id ' . ' UNION ALL ' . ' SELECT msg_id , count( * ) AS messages FROM ' . $xoopsDB->prefix(
+            'smallworld_messages'
+        ) . ' WHERE uid_fk = ' . (int)$id . 'group BY msg_id ' . ' ) AS d';
     $result = $xoopsDB->queryF($sql);
     while ($r = $xoopsDB->fetchArray($result)) {
         $total = $r['total'];
@@ -676,7 +670,7 @@ function Smallworld_Gravatar($uid)
         1 => 'jpg',
         2 => 'jpeg',
         3 => 'png',
-        4 => 'gif'
+        4 => 'gif',
     ];
 
     $ext = explode('.', $image);
@@ -969,6 +963,8 @@ function smallworld_imageResize($width, $height, $target)
  * @param int $h
  * @param url $url
  * @returns array
+ * @return array|false|string[]
+ * @return array|false|string[]
  */
 function smallworld_getImageSize($w, $h, $url)
 {
@@ -1009,6 +1005,8 @@ function smallworld_getImageSize($w, $h, $url)
  * If not return '' else return false
  * @param string $req
  * @returns string or void
+ * @return string|null
+ * @return string|null
  */
 
 function smallworld_isset($req)
@@ -1024,6 +1022,8 @@ function smallworld_isset($req)
  * @do db query for images upload last 5 minutes by spec. userid and return random
  * @param int $userid
  * @returns string
+ * @return bool|mixed
+ * @return bool|mixed
  */
 function smallworld_getRndImg($userid)
 {
@@ -1119,8 +1119,8 @@ function smallworld_checkPrivateOrPublic()
     if ($xoopsUser) {
         $id               = $xoopsUser->getVar('uid');
         $user             = new \XoopsUser($id);
-        $check            = new smallworld\SmallWorldUser;
-        $profile          = $check->CheckIfProfile($id);
+        $check            = new \XoopsModules\Smallworld\User();
+        $profile          = $check->checkIfProfile($id);
         $opt['xoopsuser'] = 1;
         if (0 != $profile) {
             $opt['smallworlduser'] = 1;
@@ -1187,8 +1187,8 @@ function smallworld_SetCoreScript()
     }
 
     // Check if USER is smallworld-registered user
-    $chkUser = new smallworld\SmallWorldUser;
-    $ChkProf = $xoopsUser ? $chkUser->CheckIfProfile($myid) : 0;
+    $chkUser = new Smallworld\User();
+    $ChkProf = $xoopsUser ? $chkUser->checkIfProfile($myid) : 0;
 
     // Check if there are requests pending
     $count_invit = $xoopsUser ? count($chkUser->getRequests($myid)) : 0;
@@ -1389,7 +1389,7 @@ function smallworld_includeScripts()
 function smallworld_checkUserPubPostPerm()
 {
     global $xoopsUser, $xoopsModule;
-    $check      = new smallworld\SmallWorldUser;
+    $check      = new Smallworld\User();
     $UserPerPub = smallworld_GetModuleOption('smallworldshowPoPubPage');
     $allUsers   = $check->allUsers();
     if (0 != $UserPerPub[0]) {
@@ -1402,7 +1402,7 @@ function smallworld_checkUserPubPostPerm()
 
 /**
  * Change @username to urls
- * @param  string|null $status_text
+ * @param string|null $status_text
  * @return string $status_text
  */
 function linkify_twitter_status($status_text)
@@ -1440,8 +1440,8 @@ function smallworld_getUidFromName($name)
  */
 function smallworld_getTagUsers($txt, $sender, $permalink = '')
 {
-    $dBase = new smallworld\SmallWorldDB;
-    $mail  = new smallworld\SmallWorldMail;
+    $dBase = new Smallworld\SwDatabase();
+    $mail  = new Smallworld\Mail();
     preg_match_all("/@([a-zA-Z0-9]+|\\[[a-zA-Z0-9]+\\])/", $txt, $matches);
     $users = array_unique($matches[1]);
     foreach ($users as $users) {

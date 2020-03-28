@@ -21,11 +21,12 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger;
 $xoopsLogger->activated = false;
@@ -35,7 +36,7 @@ $msgowner = $_POST['msgowner'];
 
 if ($xoopsUser) {
     if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) || $id == $msgowner) {
-        $db = new smallworld\SmallWorldDB;
+        $db = new Smallworld\SwDatabase();
         if (isset($_POST['smallworld_com_id'])) {
             $smallworld_com_id = $_POST['smallworld_com_id'];
             $data              = $db->deleteWallComment($smallworld_com_id);

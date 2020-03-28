@@ -1,16 +1,34 @@
 <?php
 
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
+include __DIR__ . '/preloads/autoloader.php';
 
 require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 $moduleDirName = basename(__DIR__);
 
-//xoops_load('instruction', $moduleDirName);
+require XOOPS_ROOT_PATH . '/header.php';
 
-//
-//include_once __DIR__ . '/class/utility.php';
-require_once __DIR__ . '/include/common.php';
+$moduleDirName = basename(__DIR__);
 
-//$helper = new \Xoopsmodules\instruction\Helper::getHelper($moduleDirName);
-// Трей
+$helper = \XoopsModules\Smallworld\Helper::getInstance();
 
+$modulePath = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
+
+$myts = \MyTextSanitizer::getInstance();
+
+if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
+    require $GLOBALS['xoops']->path('class/theme.php');
+    $GLOBALS['xoTheme'] = new \xos_opal_Theme();
+}
+
+//Handlers
+//$XXXHandler = xoops_getModuleHandler('XXX', $moduleDirName);
+
+// Load language files
+$helper->loadLanguage('main');
+
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+    require $GLOBALS['xoops']->path('class/template.php');
+    $xoopsTpl = new XoopsTpl();
+}

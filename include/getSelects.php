@@ -24,11 +24,11 @@ require_once __DIR__ . '/../../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger;
 $xoopsLogger->activated = false;
 if ($xoopsUser) {
-    $db       = new SmallWorldDB;
+    $db       = new SwDatabase();
     $id       = $xoopsUser->getVar('uid');
     $relat    = $db->getVar($id, 'relationship');
     $partner  = $db->getVar($id, 'partner');

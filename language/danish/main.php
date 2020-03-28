@@ -100,8 +100,11 @@ define('_SMALLWORLD_MOREINFO', 'Mere info klik her');
 
 /* --------------------- Meddelelser og kasser ----------------------------- */
 define('_SMALLWORLD_NOTYETUSER_GREETING', 'Velkommen');
-define('_SMALLWORLD_NOTYETUSER_BOXTEXT', 'For at bruge dette modul, skal du udfylde en ekstra profil-form.
-<br>Tryk på OK for at fortsætte til registrering eller tryk annuller<br> for at gå tilbage til indekssiden ') . define('_SMALLWORLD_NOTYETREGISTERED_TITLE', 'Fortsæt for at afslutte registrering');
+define(
+    '_SMALLWORLD_NOTYETUSER_BOXTEXT',
+    'For at bruge dette modul, skal du udfylde en ekstra profil-form.
+<br>Tryk på OK for at fortsætte til registrering eller tryk annuller<br> for at gå tilbage til indekssiden '
+) . define('_SMALLWORLD_NOTYETREGISTERED_TITLE', 'Fortsæt for at afslutte registrering');
 define('_SMALLWORLD_TEXTBEFORESUBMIT', 'Fortsæt for at gemme dine oplysninger til databasen.<br> Efter dette er du er i stand til at besøge din profil, andre brugeres sider.<br>Tak for din tid ') . define('_SMALLWORLD_FRIENDSINVITATIONS', 'Venskabsanmodninger');
 define('_SMALLWORLD_DATERECIEVED', 'Dato');
 define('_SMALLWORLD_ACCEPT', 'Accepter');
@@ -251,7 +254,7 @@ define('_SMALLWORLD_MORE', '.. mere');
 /* -------------- Upload formular -------------------- */
 define(
     '_SMALLWORLD_UPLOAD_HOWTO',
-       'Alle billeder fra dit album er vist her, og du kan bruge dette værktøj til at uploade eller slette billeder <br>Tryk på den grønne upload fil(er), Vælg dine billeder og uploade enten: < br> 1) En efter en - brug <img src="assets/images/icon_start.PNG" style="display: inline-block;height:13px;">ikon.<br> 2) Vælg flere ved gennemsyn eller Drag * filer over på den grønne upload (* virker pt. ikke i IE) og tryk på Start alle <br> Bemærk: Hvis du vælger andre filtyper end billedfiler vil scriptet afbryde. Billedstørrelsen er højst 5 MBytes <br> '
+    'Alle billeder fra dit album er vist her, og du kan bruge dette værktøj til at uploade eller slette billeder <br>Tryk på den grønne upload fil(er), Vælg dine billeder og uploade enten: < br> 1) En efter en - brug <img src="assets/images/icon_start.PNG" style="display: inline-block;height:13px;">ikon.<br> 2) Vælg flere ved gennemsyn eller Drag * filer over på den grønne upload (* virker pt. ikke i IE) og tryk på Start alle <br> Bemærk: Hvis du vælger andre filtyper end billedfiler vil scriptet afbryde. Billedstørrelsen er højst 5 MBytes <br> '
 );
 define('_SMALLWORLD_UPLOADTITLE', 'Billedtitel');
 define('_SMALLWORLD_UPLOADDESC', 'Billedbeskrivelse');

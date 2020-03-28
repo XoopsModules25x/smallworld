@@ -21,15 +21,16 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/PublicWallUpdates.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/WallUpdates.php';
 $set = smallworld_checkPrivateOrPublic();
 $pub = smallworld_checkUserPubPostPerm();
 $hm  = smallworld_GetModuleOption('msgtoshow');
@@ -43,9 +44,9 @@ $xoopsLogger->activated = false;
 $xoopsTpl = new XoopsTpl();
 $id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 if ($id <= 0 || 'publicindex' === $page && $set['access'] = 1) {
-    $Wall = new smallworld\PublicWallUpdates();
+    $Wall = new Smallworld\PublicWallUpdates();
 } else {
-    $Wall = new smallworld\WallUpdates();
+    $Wall = new Smallworld\WallUpdates();
 }
 if (isset($_POST['userid'])) {
     $userid = (int)$_POST['userid'];
@@ -54,9 +55,9 @@ if (isset($_POST['userid'])) {
 }
 $Xuser    = ($id > 0) ? new XoopsUser($id) : 0;
 $username = ($id > 0) ? $Xuser->getVar('uname') : '';
-$dBase    = new smallworld\SmallWorldDB;
-$check    = new smallworld\SmallWorldUser;
-$profile  = $xoopsUser ? $check->CheckIfProfile($id) : 0;
+$dBase    = new Smallworld\SwDatabase();
+$check    = new Smallworld\User();
+$profile  = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
 if ($id > 0) {
     if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {

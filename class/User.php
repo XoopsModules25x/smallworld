@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,11 +20,15 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-
 //include_once $GLOBALS['xoops']->path('include/common.php');
 
+use XoopsModules\Smallworld;
 
-class SmallWorldUser
+/**
+ * Class User
+ * @package XoopsModules\Smallworld
+ */
+class User
 {
 
     /**
@@ -105,14 +110,14 @@ class SmallWorldUser
             $i      = $xoopsDB->getRowsNum($result);
         }
         while ($row = $xoopsDB->fetchArray($result)) {
-            if (0 == $i and '' == $i) {
+            if (0 == $i && '' == $i) {
                 $respons[0] = 0;
             }
 
-            if (1 == $i and 1 == $row['status']) {
+            if (1 == $i && 1 == $row['status']) {
                 $respons[0] = 1;
             }
-            if (1 == $i and 2 == $row['status']) {
+            if (1 == $i && 2 == $row['status']) {
                 $respons[0] = 2;
             }
             return $respons;
@@ -127,7 +132,7 @@ class SmallWorldUser
     public function getName($userID)
     {
         global $xoopsUser, $xoopsDB;
-        $name = '';
+        $name   = '';
         $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
         $result = $xoopsDB->queryF($sql);
         while ($row = $xoopsDB->fetchArray($result)) {
@@ -155,10 +160,10 @@ class SmallWorldUser
                     $respons[0] = 0;
                 }
 
-                if (1 == $i and 1 == $row['status']) {
+                if (1 == $i && 1 == $row['status']) {
                     $respons[0] = 1;
                 }
-                if (1 == $i and 2 == $row['status']) {
+                if (1 == $i && 2 == $row['status']) {
                     $respons[0] = 2;
                 }
             }
@@ -179,11 +184,11 @@ class SmallWorldUser
         $sql      = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE you = '" . (int)$userid . "' AND status = '1'";
         $result   = $xoopsDB->queryF($sql);
         $i        = $xoopsDB->getRowsNum($result);
-        $db       = new SmallWorldDB;
-        $Wall     = new WallUpdates();
+        $db       = new \XoopsModules\Smallworld\SwDatabase();
+        $Wall     = new  \XoopsModules\Smallworld\WallUpdates();
         $myavatar = $Wall->Gravatar($userid);
         $start    = 0;
-        while ($row = $xoopsDB->fetchArray($result) and $start <= count($row)) {
+        while ($row = $xoopsDB->fetchArray($result) && $start <= count($row)) {
             $msg[$start]['friendname']  = $this->getName($row['me']);
             $msg[$start]['img']         = $Wall->Gravatar($row['me']);
             $msg[$start]['friendimage'] = "<img src='" . XOOPS_UPLOAD_URL . '/' . $msg[$start]['img'] . "' height='40px'>";

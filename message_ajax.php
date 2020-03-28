@@ -21,11 +21,12 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger, $xoopsTpl;
@@ -33,16 +34,16 @@ $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
 $page    = 'index';
 $id      = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
-$check   = new smallworld\SmallWorldUser;
-$profile = $xoopsUser ? $check->CheckIfProfile($id) : 0;
+$check   = new Smallworld\User();
+$profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
 if ($profile >= 2) {
     $Xuser    = new \XoopsUser($id);
     $username = $Xuser->getVar('uname');
-    $Wall     = new smallworld\WallUpdates();
+    $Wall     = new Smallworld\WallUpdates();
     $tpl      = new \XoopsTpl();
-    $dBase    = new smallworld\SmallWorldDB;
-    $mail     = new smallworld\SmallWorldMail;
+    $dBase    = new Smallworld\SwDatabase();
+    $mail     = new Smallworld\Mail();
 
     if (isset($_POST['update'])) {
         if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {

@@ -21,7 +21,7 @@
  */
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
 /**
@@ -75,11 +75,11 @@ class SmallworldCorePreload extends XoopsPreloadItem
     /**
      * @return bool
      */
-//    public function isActive()
-//    {
-//        $moduleHandler = xoops_getHandler('module');
-//        $module        = $moduleHandler->getByDirname('smallworld');
-//
-//        return ($module && $module->getVar('isactive')) ? true : false;
-//    }
+    //    public function isActive()
+    //    {
+    //        $moduleHandler = xoops_getHandler('module');
+    //        $module        = $moduleHandler->getByDirname('smallworld');
+    //
+    //        return ($module && $module->getVar('isactive')) ? true : false;
+    //    }
 }

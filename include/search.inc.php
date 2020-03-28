@@ -20,7 +20,9 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+use XoopsModules\Smallworld;
+
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
 /**
@@ -52,7 +54,7 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
     if (is_object($xoopsUser)) {
         $groups    =& $xoopsUser->getGroups();
         $id        = $xoopsUser->getVar('uid');
-        $Wall      = new WallUpdates();
+        $Wall      = new Smallworld\WallUpdates();
         $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
     } else {
         $id        = 0;

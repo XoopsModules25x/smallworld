@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,7 +20,7 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-class SmallWorldFriends
+class Friends
 {
 
     /**
@@ -33,8 +34,8 @@ class SmallWorldFriends
         if ($xoopsUser) {
             $user   = new \XoopsUser($id);
             $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
-            $db     = new SmallWorldDB;
-            $check  = new SmallWorldUser;
+            $db     = new SwDatabase();
+            $check  = new User();
         } else {
         }
     }

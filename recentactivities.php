@@ -21,12 +21,13 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsTpl, $xoopsLogger;
 $xoopsLogger->activated = false;
@@ -47,7 +48,7 @@ $configHandler = xoops_getHandler('config');
 $thisUser      = $memberHandler->getUser($id);
 
 $gpermHandler = xoops_getHandler('groupperm');
-$groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : 0;
+$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : 0;
 
 $criteria = new CriteriaCompo(new Criteria('hassearch', 1));
 $criteria->add(new Criteria('isactive', 1));
@@ -79,11 +80,14 @@ foreach ($mids as $mid) {
                 $showall_link = '';
             }
             $tpl->assign('lang_allaboutuser', sprintf(_US_ALLABOUT, $thisUser->getVar('uname')));
-            $tpl->append('modules', [
-                'name'         => $module->getVar('name'),
-                'results'      => $results,
-                'showall_link' => $showall_link
-            ]);
+            $tpl->append(
+                'modules',
+                [
+                    'name'         => $module->getVar('name'),
+                    'results'      => $results,
+                    'showall_link' => $showall_link,
+                ]
+            );
         }
         unset($module);
     }

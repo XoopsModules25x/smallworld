@@ -21,14 +21,13 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
-require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/PublicWallUpdates.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/WallUpdates.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsLogger, $xoopsModule;
 
 $set = smallworld_checkPrivateOrPublic();
@@ -40,11 +39,12 @@ if ($xoopsUser) {
 } else {
     redirect_header(XOOPS_URL . '/user.php', 5, _NOPERM);
 }
+
 require_once XOOPS_ROOT_PATH . '/header.php';
 if (1 == $set['access']) {
     $id    = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
     $user  = new XoopsUser($id);
-    $dBase = new smallworld\SmallWorldDB;
+    $dBase = new Smallworld\SwDatabase();
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = Smallworld_isInspected($id);
@@ -63,16 +63,16 @@ if (1 == $set['access']) {
     }
 
     // Create form for private settings
-    $form         = new smallworld\SmallWorldForm;
+    $form         = new  \XoopsModules\Smallworld\Form();
     $usersettings = $form->usersettings($id, $selected = null);
     $xoopsTpl->assign('usersetting', $usersettings);
 
     $username = $user->getVar('uname');
-    $check    = new smallworld\SmallWorldUser;
-    $profile  = $xoopsUser ? $check->CheckIfProfile($id) : 0;
+    $check    = new Smallworld\User();
+    $profile  = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
     if ($profile >= 2) {
-        $xuser = new smallworld\SmallWorldProfile;
+        $xuser = new Smallworld\Profile();
         $xuser->ShowUser($id);
         $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
         $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
@@ -82,7 +82,7 @@ if (1 == $set['access']) {
     }
 
     // Things to do with wall
-    $Wall = ($profile >= 2) ? new smallworld\WallUpdates() : new PublicWallUpdates;
+    $Wall = ($profile >= 2) ? new  \XoopsModules\Smallworld\WallUpdates() : new \XoopsModules\Smallworld\PublicWallUpdates();
     if ($profile < 2 && 1 == $set['access']) {
         $pub          = smallworld_checkUserPubPostPerm();
         $updatesarray = $Wall->Updates(0, $pub);
@@ -109,7 +109,6 @@ if (1 == $set['access']) {
 
     $xoopsTpl->assign('friendinvitations', $getInvitations);
     $xoopsTpl->assign('access', $set['access']);
-
     //	}
 }
 if (1 == $profile && 0 == $set['access']) {

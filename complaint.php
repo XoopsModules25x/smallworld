@@ -21,19 +21,20 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 
 global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;
 
-$db = new smallworld\SmallWorldDB;
+$db = new Smallworld\SwDatabase();
 
 if ($xoopsUser) {
     if ($_POST['byuser']) {
@@ -48,7 +49,7 @@ if ($xoopsUser) {
         $already   = $db->alreadycomplaint($id, $by_userid, $auserid);
 
         if (1 != $already) {
-            $mail = new SmallWorldMail;
+            $mail = new Mail();
             if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {
                 $mail->sendMails($by_userid, '', 'complaint', $link = null, $data);
             }

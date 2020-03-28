@@ -21,14 +21,15 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_share.html';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsTpl, $xoopsLogger;
 
 $xoopsLogger->activated = false;
@@ -47,7 +48,7 @@ $xoopsTpl->caching = 0;
 
 if ($perm <= 0) {
     // Things to do with wall
-    $Wall         = new smallworld\WallUpdates();
+    $Wall         = new Smallworld\WallUpdates();
     $updatesarray = $Wall->UpdatesSharelink($updID, $ownerID);
     //Srinivas Tamada http://9lessons.info
     //Loading Comments link with load_updates.php

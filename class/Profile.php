@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,11 +20,11 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-class SmallWorldProfile
+class Profile
 {
     /**
      * @Show user
-     * @param  int $id
+     * @param int $id
      * @return void
      */
     public function ShowUser($id)
@@ -37,8 +38,8 @@ class SmallWorldProfile
 
             $user   = new \XoopsUser($id);
             $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
-            $db     = new SmallWorldDB;
-            $check  = new SmallWorldUser;
+            $db     = new SwDatabase();
+            $check  = new User();
             $Wall   = new WallUpdates();
 
             $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";

@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,7 +20,7 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-class SmallWorldDB
+class SwDatabase
 {
     /**
      * getJobsToDiv function
@@ -181,7 +182,7 @@ class SmallWorldDB
         $myts = \MyTextSanitizer::getInstance();
         $uid  = $xoopsUser->getVar('uid');
         $user = new \XoopsUser($uid);
-        $img  = new SmallWorldImages;
+        $img  = new Images();
         if ('' == $this->getVar($uid, 'userimage')) {
             $avatar = $user->user_avatar();
         } else {
@@ -578,9 +579,9 @@ class SmallWorldDB
     /**
      * smallworld_remDir function
      * - Remove user image dir in uploads.
-     * @param int    $userid
+     * @param int         $userid
      * @param string|bool $directory
-     * @param bool|int $empty
+     * @param bool|int    $empty
      * @return true
      */
     public function smallworld_remDir($userid, $directory, $empty = false)
@@ -650,11 +651,13 @@ class SmallWorldDB
         $result = $xoopsDB->queryF($sql);
         $i      = $xoopsDB->getRowsNum($result);
         if ($i < 1) {
-            $posts = serialize([
-                                   'posts'    => 0,
-                                   'comments' => 0,
-                                   'notify'   => 1
-                               ]);
+            $posts = serialize(
+                [
+                    'posts'    => 0,
+                    'comments' => 0,
+                    'notify'   => 1,
+                ]
+            );
             $this->saveSettings($userid, $posts);
             $this->GetSettings($userid);
         } else {

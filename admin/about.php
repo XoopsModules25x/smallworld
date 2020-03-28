@@ -29,6 +29,6 @@ $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->setPaypal('xoopsfoundation@gmail.com');
 $adminObject->displayAbout(false);
 
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/SmallworldAdmin.css');
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/Admin.css');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 require_once __DIR__ . '/admin_footer.php';

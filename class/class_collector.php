@@ -20,13 +20,13 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SmallworldAdmin.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SmallWorldDB.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SmallWorldUser.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SmallWorldImages.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SmallWorldProfile.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/WallUpdates.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SmallWorldForm.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SmallworldUploadHandler.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SmallWorldFriends.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SmallWorldMail.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/Admin.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SwDatabase.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/User.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/Images.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/Profile.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/WallUpdates.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/Form.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/SwUploadHandler.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/Friends.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/Mail.php';

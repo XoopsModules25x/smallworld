@@ -27,8 +27,8 @@ $moduleDirName = basename(__DIR__);
 // ------------------- Informations ------------------- //
 $modversion = [
     'version'             => 1.16,
-    'module_status'       => 'Beta 1',
-    'release_date'        => '2017/11/11',
+    'module_status'       => 'Beta 2',
+    'release_date'        => '2020/03/27',
     'name'                => _MI_SMALLWORLD_MODULE_NAME,
     'description'         => _MI_SMALLWORLD_MODULE_DESC,
     'official'            => 0,
@@ -78,21 +78,21 @@ $modversion = [
     'hasMain'             => 1,
 
     // ------------------- Install/Update -------------------
-//    'onInstall'           => 'include/oninstall.php',
+    //    'onInstall'           => 'include/oninstall.php',
     'onUpdate'            => 'include/onupdate.php',
     //  'onUninstall'         => 'include/onuninstall.php',
     // -------------------  PayPal ---------------------------
     'paypal'              => [
-        'business'      => 'foundation@xoops.org',
+        'business'      => 'xoopsfoundation@gmail.com',
         'item_name'     => 'Donation : ' . _MI_SMALLWORLD_MODULE_NAME,
         'amount'        => 0,
-        'currency_code' => 'USD'
+        'currency_code' => 'USD',
     ],
     // ------------------- Search ---------------------------
     'hasSearch'           => 1,
     'search'              => [
         'file' => 'include/search.inc.php',
-        'func' => 'smallworld_search'
+        'func' => 'smallworld_search',
     ],
 
     // ------------------- Mysql -----------------------------
@@ -108,7 +108,7 @@ $modversion = [
         $moduleDirName . '_' . 'user',
         $moduleDirName . '_' . 'vote',
         $moduleDirName . '_' . 'complaints',
-        $moduleDirName . '_' . 'settings'
+        $moduleDirName . '_' . 'settings',
     ],
 ];
 
@@ -119,7 +119,6 @@ $modversion['helpsection'] = [
     ['name' => _MI_SMALLWORLD_LICENSE, 'link' => 'page=license'],
     ['name' => _MI_SMALLWORLD_SUPPORT, 'link' => 'page=support'],
 ];
-
 
 // Templates
 
@@ -135,7 +134,7 @@ $modversion['templates'] = [
     ['file' => 'smallworld_permalink.tpl', 'description' => ''],
     ['file' => 'smallworld_admin.tpl', 'description' => ''],
     ['file' => 'smallworld_share.tpl', 'description' => ''],
-    ['file' => 'smallworld_publicindex.tpl', 'description' => '']
+    ['file' => 'smallworld_publicindex.tpl', 'description' => ''],
 ];
 
 // Blocks
@@ -265,8 +264,8 @@ $modversion['config'][] = [
         'favouritebooks',
         'aboutme',
         'education',
-        'employment'
-    ]
+        'employment',
+    ],
 ];
 
 // Mandatory fields
@@ -317,7 +316,7 @@ $modversion['config'][] = [
         'screennames',
         'streetadress',
         'presentcity',
-        'country'
+        'country',
     ],
 ];
 
@@ -355,4 +354,3 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-

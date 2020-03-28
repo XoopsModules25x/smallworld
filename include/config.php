@@ -14,7 +14,7 @@
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
- * @author     XOOPS Development Team
+ * @author       XOOPS Development Team
  */
 
 //require_once  __DIR__ . '/../../../mainfile.php';
@@ -36,7 +36,7 @@ if (!defined($capsDirName . '_DIRNAME')) {
 
 //Configurator
 return (object)[
-    'name'          => strtoupper($moduleDirName) .' Module Configurator',
+    'name'          => strtoupper($moduleDirName) . ' Module Configurator',
     'paths'         => [
         'dirname'    => $moduleDirName,
         'admin'      => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/admin',
@@ -49,19 +49,19 @@ return (object)[
         constant($capsDirName . '_UPLOAD_PATH'),
         constant($capsDirName . '_UPLOAD_PATH') . '/category',
         constant($capsDirName . '_UPLOAD_PATH') . '/screenshots',
-        XOOPS_UPLOAD_PATH . '/flags'
+        XOOPS_UPLOAD_PATH . '/flags',
     ],
     'blankFiles'    => [
         constant($capsDirName . '_UPLOAD_PATH'),
         constant($capsDirName . '_UPLOAD_PATH') . '/category',
         constant($capsDirName . '_UPLOAD_PATH') . '/screenshots',
-        XOOPS_UPLOAD_PATH . '/flags'
+        XOOPS_UPLOAD_PATH . '/flags',
     ],
 
     'templateFolders' => [
         '/templates/',
         '/templates/blocks/',
-        '/templates/admin/'
+        '/templates/admin/',
 
     ],
     'oldFiles'        => [

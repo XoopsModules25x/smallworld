@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,7 +20,7 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-class SmallworldUploadHandler
+class SwUploadHandler
 {
     private $upload_dir;
     private $upload_url;
@@ -30,7 +31,7 @@ class SmallworldUploadHandler
     private $field_name;
 
     /**
-     * SmallworldUploadHandler constructor.
+     * SwUploadHandler constructor.
      * @param $options
      */
     public function __construct($options)
@@ -124,13 +125,13 @@ class SmallworldUploadHandler
      * @param $size
      * @param $type
      * @param $error
-     * @return \Xoopsmodules\smallworld|\stdClass
+     * @return \XoopsModules\Smallworld|\stdClass
      */
     private function handle_file_upload($uploaded_file, $name, $size, $type, $error)
     {
         global $xoopsUser;
         $file   = new \stdClass();
-        $db     = new SmallWorldDB;
+        $db     = new SwDatabase();
         $userid = $xoopsUser->getVar('uid');
 
         // Generate new name for file
@@ -193,7 +194,7 @@ class SmallworldUploadHandler
             'name'     => null,
             'size'     => null,
             'type'     => null,
-            'error'    => null
+            'error'    => null,
         ];
         if (is_array($upload['tmp_name']) && count($upload['tmp_name']) > 1) {
             $info = [];
@@ -207,14 +208,14 @@ class SmallworldUploadHandler
                     'name'     => $upload['name'][0],
                     'size'     => $upload['size'][0],
                     'type'     => $upload['type'][0],
-                    'error'    => $upload['error'][0]
+                    'error'    => $upload['error'][0],
                 ];
             }
             $info = $this->handle_file_upload(
                 $upload['tmp_name'],
                 isset($_SERVER['HTTP_X_FILE_NAME']) ? $_SERVER['HTTP_X_FILE_NAME'] : $upload['name'],
                 isset($_SERVER['HTTP_X_FILE_SIZE']) ? $_SERVER['HTTP_X_FILE_SIZE'] : $upload['size'],
-                                              isset($_SERVER['HTTP_X_FILE_TYPE']) ? $_SERVER['HTTP_X_FILE_TYPE'] : $upload['type'],
+                isset($_SERVER['HTTP_X_FILE_TYPE']) ? $_SERVER['HTTP_X_FILE_TYPE'] : $upload['type'],
                 $upload['error']
             );
         }
@@ -230,7 +231,7 @@ class SmallworldUploadHandler
     {
         global $xoopsUser;
         $userid    = $xoopsUser->getVar('uid');
-        $db        = new SmallWorldDB;
+        $db        = new SwDatabase();
         $file_name = isset($_REQUEST['file']) ? basename(stripslashes($_REQUEST['file'])) : null;
         $file_path = $this->upload_dir . $file_name;
         $img       = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file_name;

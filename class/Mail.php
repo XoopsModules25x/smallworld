@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -21,12 +22,12 @@
  */
 
 require_once XOOPS_ROOT_PATH . '/class/mail/xoopsmultimailer.php';
-require_once XOOPS_ROOT_PATH . '/class/template.php';
+//require_once XOOPS_ROOT_PATH . '/class/template.php';
 
 /**
- * Class SmallWorldMail
+ * Class Mail
  */
-class SmallWorldMail
+class Mail
 {
     /* Function to send mails to users based on certain events
          * $fromUserID = uid, $toUserID = uid
@@ -51,8 +52,8 @@ class SmallWorldMail
     {
         global $xoopsConfig, $xoopsUser;
         $date    = date('m-d-Y H:i:s', time());
-        $mail    = new \XoopsMultiMailer;
-        $wall    = new WallUpdates;
+        $mail    = new \XoopsMultiMailer();
+        $wall    = new WallUpdates();
         $tpl     = new \XoopsTpl();
         $message = '';
 
@@ -89,7 +90,6 @@ class SmallWorldMail
             $message    = $tpl->fetch($lnk);
             $mail->Body = $message;
             $toMail     = $xoopsConfig['adminmail'];
-
             // Send email to admin if red/yellow card has been pressed indicating a "bad" thread has been found.
         } elseif ('complaint' === $event) {
             $subject = _SMALLWORLD_MAIL_COMPLAINT . $xoopsConfig['sitename'];

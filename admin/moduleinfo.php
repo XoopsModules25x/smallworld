@@ -23,7 +23,7 @@
 require_once __DIR__ . '/admin_header.php';
 require_once __DIR__ . '/../../../include/cp_header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 if (!isset($xoopsTpl)) {
@@ -33,8 +33,8 @@ $xoopsTpl->caching = 0;
 
 xoops_cp_header();
 
-$admin = new SmallworldAdmin();
-$tpl = new XoopsTpl();
+$admin = new Admin();
+$tpl   = new XoopsTpl();
 
 // Smallworld version number
 $installversion = $admin->ModuleInstallVersion();
@@ -56,7 +56,7 @@ $xoopsTpl->assign('installversion_status', $installCheck);
 $xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/admin_moduleinfo.html');
 
 global $xoTheme;
-$xoTheme->addStylesheet('modules/smallworld/assets/css/SmallworldAdmin.css');
+$xoTheme->addStylesheet('modules/smallworld/assets/css/Admin.css');
 $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
 
 xoops_cp_footer();

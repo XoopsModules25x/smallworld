@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,11 +20,11 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-class SmallWorldImages
+class Images
 {
     /**
      * @Create folders
-     * @param  int $userID
+     * @param int $userID
      * @return void
      */
     public function createAlbum($userID)
@@ -31,10 +32,16 @@ class SmallWorldImages
         $dir = XOOPS_ROOT_PATH . '/uploads/albums_smallworld';
         if (!file_exists($dir . '/' . $userID . '/thumbnails') || !file_exists($dir . '/' . $userID . '/')) {
             if (!is_dir($dir . '/')) {
-                mkdir($dir, 0777);
+                if (!mkdir($dir, 0777) && !is_dir($dir)) {
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+                }
             } else {
-                mkdir($dir . '/' . $userID, 0777);
-                mkdir($dir . '/' . $userID . '/thumbnails', 0777);
+                if (!mkdir($concurrentDirectory = $dir . '/' . $userID, 0777) && !is_dir($concurrentDirectory)) {
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+                }
+                if (!mkdir($concurrentDirectory = $dir . '/' . $userID . '/thumbnails', 0777) && !is_dir($concurrentDirectory)) {
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+                }
                 Smallworld_CreateIndexFiles($dir . '/');
                 Smallworld_CreateIndexFiles($dir . '/' . $userID . '/');
                 Smallworld_CreateIndexFiles($dir . '/' . $userID . '/thumbnails/');
@@ -44,15 +51,15 @@ class SmallWorldImages
 
     /**
      * @View user album. Userid = owner, user = visitor
-     * @param  int $userID
-     * @param  int $user
+     * @param int $userID
+     * @param int $user
      * @return array|bool
      */
     public function viewalbum($userID, $user)
     {
         global $xoopsUser, $xoopsDB, $xoopsTpl;
         $post        = [];
-        $checkFriend = new SmallWorldUser;
+        $checkFriend = new User();
         if (0 != $checkFriend->friendcheck($userID, $user)) {
             // check friend is good to go
             $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $user . "'";
@@ -78,7 +85,7 @@ class SmallWorldImages
 
     /**
      * @Get image count for user
-     * @param  int $userid
+     * @param int $userid
      * @return int
      */
     public function count($userid)

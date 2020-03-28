@@ -21,21 +21,22 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 require_once __DIR__ . '/../../mainfile.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoopsLogger;
 $xoopsLogger->activated = false;
-$db                     = new smallworld\SmallWorldDB;
-$mail                   = new SmallWorldMail;
+$db                     = new Smallworld\SwDatabase();
+$mail                   = new Mail();
 
 $db->handlePosts();
 
 // Create user albums etc
-$img    = new smallworld\SmallWorldImages;
+$img    = new Smallworld\Images();
 $userID = $xoopsUser->getVar('uid');
 if ('edit' !== $_POST['function']) {
     $img->createAlbum($userID);

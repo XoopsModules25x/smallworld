@@ -91,7 +91,7 @@ CREATE TABLE `smallworld_user` (
   `relationship`       TEXT            NOT NULL,
   `partner`            TEXT            NOT NULL,
   `searchrelat`        TEXT            NOT NULL,
-  `birthday`           DATE            NOT NULL DEFAULT '0000-00-00',
+  `birthday`           DATE            NOT NULL,
   `birthplace`         TEXT            NOT NULL,
   `birthplace_lat`     TEXT            NOT NULL,
   `birthplace_lng`     TEXT            NOT NULL,

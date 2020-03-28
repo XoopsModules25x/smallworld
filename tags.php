@@ -20,13 +20,14 @@
  **/
 
 use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
 include_once __DIR__ . '/../../mainfile.php';
 include XOOPS_ROOT_PATH . '/header.php';
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+//include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsDB;
 $xoopsLogger->activated = false;
@@ -92,7 +93,7 @@ if ($_GET) {
     $arr[] = 'Cuba';
     $arr[] = 'Cyprus';
     $arr[] = 'Czech Republic';
-    $arr[] = 'Côte d’Ivoire';
+    $arr[] = 'Cï¿½te dï¿½Ivoire';
     $arr[] = 'Denmark';
     $arr[] = 'Djibouti';
     $arr[] = 'Dominica';
@@ -226,8 +227,8 @@ if ($_GET) {
     $arr[] = 'Romania';
     $arr[] = 'Russia';
     $arr[] = 'Rwanda';
-    $arr[] = 'Réunion';
-    $arr[] = 'Saint Barthélemy';
+    $arr[] = 'Rï¿½union';
+    $arr[] = 'Saint Barthï¿½lemy';
     $arr[] = 'Saint Helena';
     $arr[] = 'Saint Kitts and Nevis';
     $arr[] = 'Saint Lucia';
@@ -259,7 +260,7 @@ if ($_GET) {
     $arr[] = 'Sweden';
     $arr[] = 'Switzerland';
     $arr[] = 'Syria';
-    $arr[] = 'São Tomé and Príncipe';
+    $arr[] = 'Sï¿½o Tomï¿½ and Prï¿½ncipe';
     $arr[] = 'Taiwan';
     $arr[] = 'Tajikistan';
     $arr[] = 'Tanzania';
@@ -296,7 +297,7 @@ if ($_GET) {
     $arr[] = 'Yemen';
     $arr[] = 'Zambia';
     $arr[] = 'Zimbabwe';
-    $arr[] = 'Åland Islands';
+    $arr[] = 'ï¿½land Islands';
 }
 
 /**
@@ -313,7 +314,6 @@ function array_to_json($array)
     if ($associative) {
         $construct = [];
         foreach ($array as $key => $value) {
-
             // We first copy each key/value pair into a staging array,
             // formatting each key and value properly as we go.
 
@@ -340,7 +340,6 @@ function array_to_json($array)
 
         $construct = [];
         foreach ($array as $value) {
-
             // Format the value:
             if (is_array($value)) {
                 $value = array_to_json($value);
@@ -362,7 +361,7 @@ function array_to_json($array)
 $result = [];
 foreach ($arr as $key => $value) {
     if (false !== stripos($key, $q)) {
-        array_push($result, ['id' => $value, 'label' => $key, 'value' => strip_tags($key)]);
+        $result[] = ['id' => $value, 'label' => $key, 'value' => strip_tags($key)];
     }
     if (count($result) > 11) {
         break;

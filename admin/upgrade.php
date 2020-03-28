@@ -1,5 +1,6 @@
 <?php
 // Upgrade functions used when adding or altering tables etc between versions
+
 /**
  * Function to do the creatind
  *
@@ -16,12 +17,12 @@ function smallworld_doUpgrade()
     } else {
         // Table does not exist -> create
 
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . $xoopsDB->prefix('smallworld_settings') . ' (';
-        $sql .= '`id` int(11) NOT NULL AUTO_INCREMENT,';
-        $sql .= '`userid` int(11) NOT NULL,';
-        $sql .= '`value` text NOT NULL,';
-        $sql .= 'PRIMARY KEY (`id`)';
-        $sql .= ') ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
+        $sql    = 'CREATE TABLE IF NOT EXISTS ' . $xoopsDB->prefix('smallworld_settings') . ' (';
+        $sql    .= '`id` int(11) NOT NULL AUTO_INCREMENT,';
+        $sql    .= '`userid` int(11) NOT NULL,';
+        $sql    .= '`value` text NOT NULL,';
+        $sql    .= 'PRIMARY KEY (`id`)';
+        $sql    .= ') ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;';
         $result = $xoopsDB->queryF($sql);
     }
 }
@@ -54,7 +55,7 @@ function smallworld_DoTableExists($tablename)
 function varcharToBlog()
 {
     global $xoopsDB;
-    $sql = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_messages') . ' CHANGE message message TEXT';
+    $sql    = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_messages') . ' CHANGE message message TEXT';
     $result = $xoopsDB->queryF($sql);
 }
 
@@ -65,6 +66,6 @@ function varcharToBlog()
 function smallworld_comToBlog()
 {
     global $xoopsDB;
-    $sql = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_comments') . " CHANGE 'comments' 'comments' TEXT";
+    $sql    = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_comments') . " CHANGE 'comments' 'comments' TEXT";
     $result = $xoopsDB->queryF($sql);
 }

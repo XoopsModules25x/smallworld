@@ -1,4 +1,5 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace XoopsModules\Smallworld;
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -19,8 +20,7 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-
-class SmallworldAdmin
+class Admin
 {
     /**
      * Get oldest message in Db
@@ -29,9 +29,9 @@ class SmallworldAdmin
     public function oldestMsg()
     {
         global $xoopsDB;
-        $date = 0;
+        $date    = 0;
         $sql     = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_messages') . ' ORDER BY created LIMIT 1';
-        $result = $xoopsDB->queryF($sql);
+        $result  = $xoopsDB->queryF($sql);
         $counter = $xoopsDB->getRowsNum($result);
         if ($counter >= 1) {
             while ($sqlfetch = $xoopsDB->fetchArray($result)) {
@@ -50,7 +50,7 @@ class SmallworldAdmin
     public function AvgMsgDay($totaldays)
     {
         global $xoopsDB;
-        $sql = 'SELECT count( * ) / ' . $totaldays . ' AS averg FROM ' . $xoopsDB->prefix('smallworld_messages') . '';
+        $sql    = 'SELECT count( * ) / ' . $totaldays . ' AS averg FROM ' . $xoopsDB->prefix('smallworld_messages') . '';
         $result = $xoopsDB->queryF($sql);
         while ($sqlfetch = $xoopsDB->fetchArray($result)) {
             $avg = number_format($sqlfetch['averg'], 2, '.', ',');
@@ -66,8 +66,8 @@ class SmallworldAdmin
     public function TotalUsers()
     {
         global $xoopsDB;
-        $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . '';
-        $result = $xoopsDB->queryF($sql);
+        $sql     = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . '';
+        $result  = $xoopsDB->queryF($sql);
         $counter = $xoopsDB->getRowsNum($result);
         if ($counter < 1) {
             $sum = 0;
@@ -77,8 +77,8 @@ class SmallworldAdmin
                 $user[$i]['username'] = $myrow['username'];
                 ++$i;
             }
-            $all = $this->flatten($user);
-            $sum = count(array_unique($all));
+            $all    = $this->flatten($user);
+            $sum    = count(array_unique($all));
             $unique = array_unique($all);
         }
 
@@ -117,7 +117,7 @@ class SmallworldAdmin
     {
         global $xoopsDB, $xoopsModule;
         $date = $this->oldestMsg();
-        $now = time();
+        $now  = time();
         $diff = ($now - $date) / (60 * 60 * 24);
 
         return $diff;
@@ -130,30 +130,30 @@ class SmallworldAdmin
     public function mostactiveusers_allround()
     {
         global $xoopsDB, $xoopsUser;
-        $sql = 'SELECT uid_fk, COUNT( * ) as cnt ';
-        $sql .= 'FROM ( ';
-        $sql .= 'SELECT uid_fk ';
-        $sql .= 'FROM ' . $xoopsDB->prefix('smallworld_messages') . ' ';
-        $sql .= 'UNION ALL SELECT uid_fk ';
-        $sql .= 'FROM ' . $xoopsDB->prefix('smallworld_comments') . ' ';
-        $sql .= ') AS u ';
-        $sql .= 'GROUP BY uid_fk ';
-        $sql .= 'ORDER BY count( * ) DESC limit 20';
-        $result = $xoopsDB->queryF($sql);
+        $sql     = 'SELECT uid_fk, COUNT( * ) as cnt ';
+        $sql     .= 'FROM ( ';
+        $sql     .= 'SELECT uid_fk ';
+        $sql     .= 'FROM ' . $xoopsDB->prefix('smallworld_messages') . ' ';
+        $sql     .= 'UNION ALL SELECT uid_fk ';
+        $sql     .= 'FROM ' . $xoopsDB->prefix('smallworld_comments') . ' ';
+        $sql     .= ') AS u ';
+        $sql     .= 'GROUP BY uid_fk ';
+        $sql     .= 'ORDER BY count( * ) DESC limit 20';
+        $result  = $xoopsDB->queryF($sql);
         $counter = $xoopsDB->getRowsNum($result);
 
         if ($counter < 1) {
             $msg = [];
         } else {
             $msg = [];
-            $i = 1;
+            $i   = 1;
             while ($row = $xoopsDB->fetchArray($result)) {
                 $msg['counter'][$i] = $i;
-                $msg['img'][$i] = "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>";
+                $msg['img'][$i]     = "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>";
                 if ($msg['counter'][$i] > 3) {
                     $msg['img'][$i] = '';
                 }
-                $msg['cnt'][$i] = $row['cnt'];
+                $msg['cnt'][$i]  = $row['cnt'];
                 $msg['from'][$i] = $xoopsUser->getUnameFromId($row['uid_fk']);
                 ++$i;
             }
@@ -181,18 +181,18 @@ class SmallworldAdmin
         $sql .= 'GROUP BY uid_fk ';
         $sql .= 'ORDER BY count( * ) DESC limit 20';
 
-        $result = $xoopsDB->queryF($sql);
+        $result   = $xoopsDB->queryF($sql);
         $msgtoday = [];
 
         if (0 != $xoopsDB->getRowsNum($result)) {
             $i = 1;
             while ($row = $xoopsDB->fetchArray($result)) {
                 $msgtoday['counter'][$i] = $i;
-                $msgtoday['img'][$i] = "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>";
+                $msgtoday['img'][$i]     = "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>";
                 if ($msgtoday['counter'][$i] > 3) {
                     $msgtoday['img'][$i] = '';
                 }
-                $msgtoday['cnt'][$i] = $row['cnt'];
+                $msgtoday['cnt'][$i]  = $row['cnt'];
                 $msgtoday['from'][$i] = $xoopsUser->getUnameFromId($row['uid_fk']);
                 ++$i;
             }
@@ -207,6 +207,8 @@ class SmallworldAdmin
      * Find best OR worst rated users
      * @param string $direction
      * @returns array
+     * @return array
+     * @return array
      */
     public function topratedusers($direction)
     {
@@ -216,16 +218,16 @@ class SmallworldAdmin
         if ('up' === $direction) {
             $sql    = 'SELECT owner, count(*) AS cnt FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE up='1' GROUP BY owner ORDER BY cnt DESC LIMIT 20";
             $result = $xoopsDB->queryF($sql);
-            $count = $xoopsDB->getRowsNum($result);
-            $i = 1;
+            $count  = $xoopsDB->getRowsNum($result);
+            $i      = 1;
             if ($count >= $i) {
                 while ($row = $xoopsDB->fetchArray($result)) {
                     $array['counter'][$i] = $i;
-                    $array['img'][$i] = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../assets/images/like.png'>";
+                    $array['img'][$i]     = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../assets/images/like.png'>";
                     if ($array['counter'][$i] > 3) {
                         $array['img'][$i] = '';
                     }
-                    $array['cnt'][$i] = $row['cnt'];
+                    $array['cnt'][$i]  = $row['cnt'];
                     $array['user'][$i] = $xoopsUser->getUnameFromId($row['owner']);
                     ++$i;
                 }
@@ -235,16 +237,16 @@ class SmallworldAdmin
         } else {
             $sql    = 'SELECT owner, count(*) AS cnt FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE down='1' GROUP BY owner ORDER BY cnt DESC LIMIT 20";
             $result = $xoopsDB->queryF($sql);
-            $count = $xoopsDB->getRowsNum($result);
-            $i = 1;
+            $count  = $xoopsDB->getRowsNum($result);
+            $i      = 1;
             if (0 != $count) {
                 while ($row = $xoopsDB->fetchArray($result)) {
                     $array['counter'][$i] = $i;
-                    $array['img'][$i] = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../assets/images/dislike.png'>";
+                    $array['img'][$i]     = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../assets/images/dislike.png'>";
                     if ($array['counter'][$i] > 3) {
                         $array['img'][$i] = '';
                     }
-                    $array['cnt'][$i] = $row['cnt'];
+                    $array['cnt'][$i]  = $row['cnt'];
                     $array['user'][$i] = $xoopsUser->getUnameFromId($row['owner']);
                     ++$i;
                 }
@@ -260,6 +262,8 @@ class SmallworldAdmin
      * Get all users to loop in admin for administration
      * @param string $inspect
      * @returns array
+     * @return array
+     * @return array
      */
     public function getAllUsers($inspect)
     {
@@ -271,7 +275,7 @@ class SmallworldAdmin
             $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_admin') . ' WHERE (inspect_start  + inspect_stop) < ' . time() . ' ORDER BY username';
         }
         $result = $xoopsDB->queryF($sql);
-        $count = $xoopsDB->getRowsNum($result);
+        $count  = $xoopsDB->getRowsNum($result);
         if (0 != $count) {
             while ($row = $xoopsDB->fetchArray($result)) {
                 $data[] = $row;
@@ -291,22 +295,22 @@ class SmallworldAdmin
     public function doCheckUpdate()
     {
         global $pathIcon16;
-        $version = $this->ModuleInstallVersion();
+        $version  = $this->ModuleInstallVersion();
         $critical = false;
-        $update = false;
-        $rt = '';
-        $url = 'http://www.culex.dk/updates/smallworld_version.csv';
-        $fileC = $this->fetchURL($url, ['fopen', 'curl', 'socket']);
-        $read = explode(';', $fileC);
+        $update   = false;
+        $rt       = '';
+        $url      = 'http://www.culex.dk/updates/smallworld_version.csv';
+        $fileC    = $this->fetchURL($url, ['fopen', 'curl', 'socket']);
+        $read     = explode(';', $fileC);
 
         $upd_img = $pathIcon16 . '/on.png';
 
         if ($read[0] > $version && '1' == $read[2]) {
             $critical = true;
-            $upd_img = $pathIcon16 . '/off.png';
+            $upd_img  = $pathIcon16 . '/off.png';
         }
         if ($read[0] > $version && '1' != $read[2]) {
-            $update = true;
+            $update  = true;
             $upd_img = '../assets/images/upd_normal.png';
         }
         if ($critical) {
@@ -330,8 +334,10 @@ class SmallworldAdmin
      * Fetch content of comma separated text file
      * will attempt to use the fopen method first, then curl, then socket
      * @param string $url
-     * @param array $methods
+     * @param array  $methods
      * @returns string
+     * @return bool|false|string
+     * @return bool|false|string
      */
     public function fetchURL($url, $methods = ['fopen', 'curl', 'socket'])
     {
@@ -380,16 +386,17 @@ class SmallworldAdmin
                     $parts = parse_url($url);
                     if ('https' === $parts['scheme']) {
                         $target = 'ssl://' . $parts['host'];
-                        $port = isset($parts['port']) ? $parts['port'] : 443;
+                        $port   = isset($parts['port']) ? $parts['port'] : 443;
                     } else {
                         $target = $parts['host'];
-                        $port = isset($parts['port']) ? $parts['port'] : 80;
+                        $port   = isset($parts['port']) ? $parts['port'] : 80;
                     }
                     $page = isset($parts['path']) ? $parts['path'] : '';
                     $page .= isset($parts['query']) ? '?' . $parts['query'] : '';
                     $page .= isset($parts['fragment']) ? '#' . $parts['fragment'] : '';
                     $page = ('' == $page) ? '/' : $page;
-                    if ($fp = fsockopen($target, $port, $errno, $errstr, 15)) {
+                    $fp   = fsockopen($target, $port, $errno, $errstr, 15);
+                    if ($fp) {
                         $headers = "GET $page HTTP/1.1\r\n";
                         $headers .= "Host: {$parts['host']}\r\n";
                         $headers .= "Connection: Close\r\n\r\n";
@@ -439,6 +446,8 @@ class SmallworldAdmin
      * Smallworld_sanitize($string)
      * @param string $text
      * @returns string
+     * @return string|string[]
+     * @return string|string[]
      */
     public function Smallworld_sanitize($text)
     {
@@ -451,142 +460,5 @@ class SmallworldAdmin
         $text = str_replace('"', "'", $text);
 
         return $text;
-    }
-}
-
-/*
- *  Does a sync to remove orphans from smallworld db
- *
- */
-
-/**
- * Class SmallWorldDoSync
- */
-class SmallWorldDoSync
-{
-    /**
-     * check for orphans (xoops_users <-> smallworld_users) and remove from smallworld
-     * @return void
-     */
-    public function checkOrphans()
-    {
-        global $xoopsDB;
-        $sql = 'SELECT userid FROM ' . $xoopsDB->prefix('smallworld_user') . ' WHERE userid NOT IN ( SELECT uid FROM ' . $xoopsDB->prefix('users') . ')';
-        $result = $xoopsDB->queryF($sql);
-        if ($result) {
-            while ($r = $xoopsDB->fetchArray($result)) {
-                $this->deleteAccount($r['userid']);
-            }
-        }
-    }
-
-    /**
-     * deleteAccount function
-     * - Delete user account and associate rows across tables
-     * @param  int $userid
-     * @return string
-     */
-    public function deleteAccount($userid)
-    {
-        global $xoopsDB, $xoopsUser;
-        $user = new \XoopsUser($userid);
-        $username = $user->uname();
-        $sql01 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "'";
-        $sql02 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "'";
-        $sql03 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . $userid . "' OR you = '" . $userid . "'";
-        $sql04 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $userid . "' OR you = '" . $userid . "'";
-        $sql05 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userid . "'";
-        $sql06 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE uid_fk = '" . $userid . "'";
-        $sql07 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $userid . "'";
-        $sql08 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE user_id = '" . $userid . "'";
-        $sql09 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_complaints') . " WHERE owner = '" . $userid . "' OR byuser_id = '" . $userid . "'";
-        $sql10 = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_settings') . " WHERE userid = '" . $userid . "'";
-
-        $result01 = $xoopsDB->queryF($sql01);
-        $result02 = $xoopsDB->queryF($sql02);
-        $result03 = $xoopsDB->queryF($sql03);
-        $result04 = $xoopsDB->queryF($sql04);
-        $result05 = $xoopsDB->queryF($sql05);
-        $result06 = $xoopsDB->queryF($sql06);
-        $result07 = $xoopsDB->queryF($sql07);
-        $result08 = $xoopsDB->queryF($sql08);
-        $result09 = $xoopsDB->queryF($sql09);
-        $result10 = $xoopsDB->queryF($sql10);
-        // Remove picture dir
-        $dirname = XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . '/' . $userid . '/';
-        $this->smallworld_remDir($userid, $dirname, $empty = false);
-    }
-
-    /**
-     * smallworld_remDir function
-     * - Remove user image dir in uploads.
-     * @param  int $userid
-     * @param  string|bool $directory
-     * @param bool|int $empty
-     * @return true
-     */
-    public function smallworld_remDir($userid, $directory, $empty = false)
-    {
-        if ('' != $userid) {
-            if ('/' === substr($directory, -1)) {
-                $directory = substr($directory, 0, -1);
-            }
-
-            if (!file_exists($directory) || !is_dir($directory)) {
-                return false;
-            } elseif (!is_readable($directory)) {
-                return false;
-            } else {
-                $directoryHandle = opendir($directory);
-                while ($contents = readdir($directoryHandle)) {
-                    if ('.' !== $contents && '..' !== $contents) {
-                        $path = $directory . '/' . $contents;
-                        if (is_dir($path)) {
-                            $this->smallworld_remDir($userid, $path);
-                        } else {
-                            unlink($path);
-                        }
-                    }
-                }
-                closedir($directoryHandle);
-                if (false === $empty) {
-                    if (!rmdir($directory)) {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-        }
-    }
-
-    /**
-     * SmallworldDeleteDirectory function
-     * - Delete images from users on delete
-     * @param  int $userid
-     * @return true
-     */
-    public function SmallworldDeleteDirectory($userid)
-    {
-        $dirname = XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . '/' . $userid . '/';
-        if (is_dir($dirname)) {
-            $dir_handle = opendir($dirname);
-        }
-        if (!$dir_handle) {
-            return false;
-        }
-        while ($file = readdir($dir_handle)) {
-            if ('.' != $file && '..' != $file) {
-                if (!is_dir($dirname . '/' . $file)) {
-                    unlink($dirname . '/' . $file);
-                } else {
-                    $this->SmallworldDeleteDirectory($dirname . '/' . $file);
-                }
-            }
-        }
-        closedir($dir_handle);
-        rmdir($dirname);
-
-        return true;
     }
 }
