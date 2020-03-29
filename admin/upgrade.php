@@ -66,6 +66,6 @@ function varcharToBlog()
 function smallworld_comToBlog()
 {
     global $xoopsDB;
-    $sql    = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_comments') . " CHANGE 'comments' 'comments' TEXT";
+    $sql    = 'ALTER TABLE ' . $xoopsDB->prefix('smallworld_comments') . " CHANGE comment comment TEXT";
     $result = $xoopsDB->queryF($sql);
 }
