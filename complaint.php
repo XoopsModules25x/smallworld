@@ -14,8 +14,8 @@
  *
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      |XoopsModules\SmallWorld
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
@@ -23,34 +23,31 @@
 use Xmf\Request;
 use XoopsModules\Smallworld;
 
+require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 require_once __DIR__ . '/header.php';
-
-require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
+require_once $helper->path('include/functions.php');
+require_once $helper->path('include/arrays.php');
 
-global $xoopsUser, $xoopsLogger;
-$xoopsLogger->activated = false;
+$GLOBALS['xoopsLogger']->activated = false;
 
 $db = new Smallworld\SwDatabase();
 
-if ($xoopsUser) {
-    if ($_POST['byuser']) {
-        $by_userid = $xoopsUser->getVar('uid');
-        $a_user    = addslashes($_POST['a_user']);
-        $auserid   = (int)$_POST['auserid'];
-        $byuser    = addslashes($_POST['byuser']);
-        $id        = addslashes($_POST['id']);
-        $name      = addslashes($_POST['name']);
+if ($GLOBALS['xoopsUser']) {
+    if (Request::hasVar('byuser', 'POST') {
+        $by_userid = $GLOBALS['xoopsUser']->getVar('uid');
+        $a_user    = addslashes(Request::getString('a_user', '', 'POST'));
+        $auserid   = Request::getInt'auserid', 0, 'POST');
+        $byuser    = Request::getInt('byuser', 0, 'POST');
+        $id        = Request::getInt('id', 0, 'POST);
+        $name      = addslashes(Request::getString('name', '','POST'));
         $time      = time();
         $data      = ['time' => $time, 'a_user' => $a_user, 'byuser' => $byuser, 'link' => $id, 'a_userid' => $auserid];
         $already   = $db->alreadycomplaint($id, $by_userid, $auserid);
 
         if (1 != $already) {
-            $mail = new Mail();
-            if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {
+            $mail = new Smallworld\Mail();
+            if (0 !== $helper->getConfig('smallworldusemailnotis')) {
                 $mail->sendMails($by_userid, '', 'complaint', $link = null, $data);
             }
             $db->updateComplaint($auserid);
