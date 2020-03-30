@@ -1057,7 +1057,7 @@ function smallworld_getHostRequest()
 /**
  * @Get htmlentities
  * @param $text
- * @return translated string to utf-8
+ * @return string translated string to utf-8
  */
 function smallworld_decodeEntities($text)
 {
