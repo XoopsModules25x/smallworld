@@ -74,8 +74,8 @@
                                             <br>
                                             <div id="smallworld_updatePrivacyCheck">
                                                 <label for="updatePriv"><{$smarty.const._SMALLWORLD_PRIVATEUPDATE}></label>
-                                                <input type="radio" name="updatePublic" id="updatePublic" value="1">
-                                                <label for="updatePriv"><{$smarty.const._SMALLWORLD_PUBLICUPDATE}></label>
+                                                <input type="radio" name="updatePublic" id="updatePriv" value="1">
+                                                <label for="updatePublic"><{$smarty.const._SMALLWORLD_PUBLICUPDATE}></label>
                                                 <input type="radio" name="updatePublic" id="updatePublic" value="0">
                                                 <img id="smallworld_tagIMG" src="https://cdn3.iconfinder.com/data/icons/diagram_v2/PNG/96x96/diagram_v2-06.png" height="15px" width="15px" title="Insert tags for this update">
                                                 

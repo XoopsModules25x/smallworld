@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -14,8 +14,8 @@
  *
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      \XoopsModules\SmallWorld
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
@@ -25,30 +25,26 @@ use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
-require_once __DIR__ . '/../../mainfile.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+/** @var \XoopsModules\Smallworld\Helper $helper */
+require_once $helper->path('include/functions.php');
 require_once XOOPS_ROOT_PATH . '/class/template.php';
-global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsTpl, $xoopsLogger;
-$xoopsLogger->activated = false;
+$GLOBALS['xoopsLogger']->activated = false;
 
 $tpl = new \XoopsTpl();
 
-$id   = smallworld_isset_or($_GET['username']); // Id of user wich profile you want to see
+$id   = smallworld_isset_or(Request::getInt('username', 0, 'GET')); // Id of user which profile you want to see
+$id   = (int)$id; // smallworld_isset_or doesn't always return an integer
 $user = new \XoopsUser($id);
+$uid = $user->uid();
 
-$uid = $user->getVar('uid');
-
-$myts = MyTextSanitizer::getInstance();
-
-xoops_loadLanguage('user');
+$helper->loadLanguage('user');
 
 $moduleHandler = xoops_getHandler('module');
 $configHandler = xoops_getHandler('config');
 $thisUser      = $memberHandler->getUser($id);
 
-$gpermHandler = xoops_getHandler('groupperm');
-$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : 0;
+$gpermHandler  = xoops_getHandler('groupperm');
+$groups        = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : 0;
 
 $criteria = new \CriteriaCompo(new \Criteria('hassearch', 1));
 $criteria->add(new \Criteria('isactive', 1));
@@ -62,13 +58,13 @@ foreach ($mids as $mid) {
         if (is_array($results) && $count > 0) {
             for ($i = 0; $i < $count; ++$i) {
                 if (isset($results[$i]['image']) && '' != $results[$i]['image']) {
-                    $results[$i]['image'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/' . $results[$i]['image'];
+                    $results[$i]['image'] = $helper->url($results[$i]['image']);
                 } else {
                     $results[$i]['image'] = XOOPS_URL . '/images/icons/posticon2.gif';
                 }
 
                 if (!preg_match("/^http[s]*:\/\//i", $results[$i]['link'])) {
-                    $results[$i]['link'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/' . $results[$i]['link'];
+                    $results[$i]['link'] = $helper->url($results[$i]['link']);
                 }
 
                 $results[$i]['title'] = $myts->htmlspecialchars($results[$i]['title']);

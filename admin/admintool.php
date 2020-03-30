@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -14,40 +14,48 @@
  *
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      \XoopsModules\SmallWorld
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use \Xmf\Request;
+
 require_once __DIR__ . '/admin_header.php';
+$GLOBALS['xoopsLogger']->activated = false;
 
-global $xoopsDB, $xoTheme, $xoopsLogger;
-$xoopsLogger->activated = false;
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+/** @var \XoopsModules\SmallWorld\Helper $helper */
+require_once $helper->path('include/functions.php');
 
-if ('addtime' === $_POST['type']) {
-    $userid = (int)$_POST['userid'];
-    $amount = (int)$_POST['amount'];
-    $test   = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "' AND (inspect_start+inspect_stop) > " . time() . '';
-    $result = $xoopsDB->queryF($test);
-    if ($xoopsDB->getRowsNum($result) < 1) {
-        $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '" . time() . "', inspect_stop = '" . $amount . "' WHERE userid='" . $userid . "'";
-        $result = $xoopsDB->queryF($sql);
-    } else {
-        $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . ' SET inspect_stop = (inspect_stop + ' . $amount . ") WHERE userid='" . $userid . "'";
-        $result = $xoopsDB->queryF($sql);
-    }
-}
-if ('deletetime' === $_POST['type']) {
-    $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '', inspect_stop = '' WHERE userid='" . (int)$_POST['deluserid'] . "'";
-    $result = $xoopsDB->queryF($sql);
+$type = Request::getCmd('type', '', 'POST');
+if ((false === $helper->isUserAdmin()) || ('' == $type)) {
+	// @todo move hard coded language string to language file
+	$helper->redirect('admin/index.php', 3, 'Invalid Entry');
 }
 
-if ('deleteUser' === $_POST['type']) {
-    $db = new Smallworld\SwDatabase();
-
-    $userid = (int)$_POST['deluserid'];
-    $db->deleteAccount($userid);
+switch ($type) {
+	case 'addtime':
+		$userid = Request::getInt('userid', 0, 'POST');
+		$amount = Request::getInt('amount', 0, 'POST');
+		$test   = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "' AND (inspect_start+inspect_stop) > " . time() . '';
+		$result = $GLOBALS['xoopsDB']->queryF($test);
+		if ($GLOBALS['xoopsDB']->getRowsNum($result) < 1) {
+			$sql    = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . " SET inspect_start = '" . time() . "', inspect_stop = '" . $amount . "' WHERE userid='" . $userid . "'";
+			$result = $GLOBALS['xoopsDB']->queryF($sql);
+		} else {
+			$sql    = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . ' SET inspect_stop = (inspect_stop + ' . $amount . ") WHERE userid='" . $userid . "'";
+			$result = $GLOBALS['xoopsDB']->queryF($sql);
+		}
+		break;
+	case 'deletetime':
+		$deluserid = Request::getInt('deluserid', 0, 'POST');
+		$sql    = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . " SET inspect_start = '', inspect_stop = '' WHERE userid='" . $deluserid . "'";
+		$result = $GLOBALS['xoopsDB']->queryF($sql);
+		break;
+	case 'deleteuser':
+		$db = new SwDatabase();
+		$userid = Request::getInt('deluserid', 0, 'POST');
+		$db->deleteAccount($userid);
+		break;
 }
