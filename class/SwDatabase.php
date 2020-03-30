@@ -581,7 +581,7 @@ class SwDatabase
      * @param int         $userid
      * @param string|bool $directory
      * @param bool|int    $empty
-     * @return true
+     * @return bool
      */
     public function smallworld_remDir($userid, $directory, $empty = false)
     {

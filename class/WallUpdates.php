@@ -213,7 +213,7 @@ class WallUpdates
      * @param int          $uid
      * @param int          $msg_id
      * @param string|array $comment
-     * @return string / void
+     * @return string|bool
      */
     public function Insert_Comment($uid, $msg_id, $comment)
     {
