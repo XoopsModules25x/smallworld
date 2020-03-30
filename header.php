@@ -17,7 +17,7 @@ $modulePath = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
 
 $myts = \MyTextSanitizer::getInstance();
 
-if(!$GLOBALS['xoopsTpl'] instanceof \xos_opal_Theme) {
+if(!$GLOBALS['xoTheme'] instanceof \xos_opal_Theme) {
     require $GLOBALS['xoops']->path('class/theme.php');
     $GLOBALS['xoTheme'] = new \xos_opal_Theme();
 }
