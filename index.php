@@ -28,10 +28,10 @@ require_once $helper->path('include/functions.php');
 
 $set = smallworld_checkPrivateOrPublic();
 
-if ((isset($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) && !$GLOBALS['xoopsUser']->isGuest()) {
+if (($GLOBALS['xoopsUser'] instanceof \XoopsUser) && !$GLOBALS['xoopsUser']->isGuest()) {
     $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
 } elseif (((!$GLOBALS['xoopsUser'] instanceof \XoopsUser) || $GLOBALS['xoopsUser']->isGuest()) && 1 == $set['access']) {
-    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.tpl';
+    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.html';
 } else {
     redirect_header(XOOPS_URL . '/user.php', 5, _NOPERM);
 }
