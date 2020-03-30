@@ -20,6 +20,8 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/../../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -28,7 +30,7 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 global $xoopsUser, $xoopsModule, $xoopsLogger;
 $xoopsLogger->activated = false;
 if ($xoopsUser) {
-    $db       = new SwDatabase();
+    $db       = new Smallworld\SwDatabase();
     $id       = $xoopsUser->getVar('uid');
     $relat    = $db->getVar($id, 'relationship');
     $partner  = $db->getVar($id, 'partner');

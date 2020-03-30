@@ -20,6 +20,8 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/admin_header.php';
 
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -37,7 +39,7 @@ if (isset($_POST['xim_admin_message'])) {
     $_POST['xim_admin_message'] = '';
 }
 
-$admin = new Admin();
+$admin = new Smallworld\Admin();
 $tpl   = new \XoopsTpl();
 
 $ai  = [];

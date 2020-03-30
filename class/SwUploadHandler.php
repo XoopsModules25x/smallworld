@@ -20,6 +20,7 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
+
 class SwUploadHandler
 {
     private $upload_dir;
@@ -125,7 +126,7 @@ class SwUploadHandler
      * @param $size
      * @param $type
      * @param $error
-     * @return \XoopsModules\Smallworld|\stdClass
+     * @return stdClass
      */
     private function handle_file_upload($uploaded_file, $name, $size, $type, $error)
     {

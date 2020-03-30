@@ -25,5 +25,5 @@ if ($xoopsUser) {
     $img                    = new Smallworld\Images();
     $userID                 = $xoopsUser->getVar('uid');
     $user                   = new \XoopsUser($userID);
-    $uploadHandler          = new UploadHandler();
+    $uploadHandler          = new Smallworld\UploadHandler();
 }

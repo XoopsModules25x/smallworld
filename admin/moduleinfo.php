@@ -20,6 +20,8 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/admin_header.php';
 
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -33,7 +35,7 @@ $xoopsTpl->caching = 0;
 
 xoops_cp_header();
 
-$admin = new Admin();
+$admin = new Smallworld\Admin();
 $tpl   = new \XoopsTpl();
 
 // Smallworld version number

@@ -21,6 +21,7 @@
  * @link      https://github.com/XoopsModules25x/smallworld
  */
 
+use XoopsModules\Smallworld;
 use XoopsModules\Smallworld\Helper;
 use XoopsModules\Smallworld\Utility;
 

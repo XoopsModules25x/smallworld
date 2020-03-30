@@ -127,7 +127,7 @@ class Form
      * @param string  $textmore
      * @param string  $selected (optional)
      * @param string  $preset   (optional)
-     * @return as|string
+     * @return string
      */
     public function dropdown_add($class, $name, $name2, $rel, array $options, $textmore, $selected = null, $preset = null)
     {

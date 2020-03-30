@@ -642,7 +642,7 @@ class SwDatabase
     /**
      * Retrieve private settings
      * @param int userid
-     * @return serialized|string
+     * @return string serialized string
      */
     public function GetSettings($userid)
     {

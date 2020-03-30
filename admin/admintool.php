@@ -21,6 +21,7 @@
  */
 
 use \Xmf\Request;
+use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/admin_header.php';
 $GLOBALS['xoopsLogger']->activated = false;
@@ -54,7 +55,7 @@ switch ($type) {
 		$result = $GLOBALS['xoopsDB']->queryF($sql);
 		break;
 	case 'deleteuser':
-		$db = new SwDatabase();
+		$db = new Smallworld\SwDatabase();
 		$userid = Request::getInt('deluserid', 0, 'POST');
 		$db->deleteAccount($userid);
 		break;

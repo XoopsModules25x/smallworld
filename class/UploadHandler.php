@@ -612,7 +612,7 @@ class UploadHandler
      * @param      $error
      * @param null $index
      * @param null $content_range
-     * @return \XoopsModules\Smallworld|\stdClass
+     * @return \stdClass
      */
     protected function handle_file_upload(
         $uploaded_file,
