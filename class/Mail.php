@@ -53,7 +53,7 @@ class Mail
         global $xoopsConfig, $xoopsUser;
         $date    = date('m-d-Y H:i:s', time());
         $mail    = new \XoopsMultiMailer();
-        $wall    = new Smallworld\WallUpdates();
+        $wall    = new WallUpdates();
         $tpl     = new \XoopsTpl();
         $message = '';
 
