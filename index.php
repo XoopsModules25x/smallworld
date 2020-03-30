@@ -28,10 +28,10 @@ require_once $helper->path('include/functions.php');
 
 $set = smallworld_checkPrivateOrPublic();
 
-if (($GLOBALS['xoopsUser'] instanceof \XoopsUser) && !$GLOBALS['xoopsUser']->isGuest()) {
+if ((isset($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) && !$GLOBALS['xoopsUser']->isGuest()) {
     $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
 } elseif (((!$GLOBALS['xoopsUser'] instanceof \XoopsUser) || $GLOBALS['xoopsUser']->isGuest()) && 1 == $set['access']) {
-    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.tpl';
 } else {
     redirect_header(XOOPS_URL . '/user.php', 5, _NOPERM);
 }
@@ -64,7 +64,7 @@ if (1 == $set['access']) {
         $xuser = new Smallworld\Profile();
         $xuser->ShowUser($id);
         $menu_startpage = "<a href='" . $helper->url('publicindex.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/highrise.png') . "'>" . _SMALLWORLD_STARTPAGE . '</a>';
-        $menu_home      = "<a href='" . $helper->url('index.php' . "'><img id='menuimg' src='" . $helper->url('assets/images/house.png') . "'>" . _SMALLWORLD_HOME . '</a>';
+        $menu_home      = "<a href='" . $helper->url('index.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/house.png') . "'>" . _SMALLWORLD_HOME . '</a>';
         $menu_profile   = "<a href='" . $helper->url('userprofile.php?username=' . $username) . "'><img id='menuimg' src='" . $helper->url('assets/images/user_silhouette.png') . "'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
         $menu_gallery   = "<a href='" . $helper->url('galleryshow.php?username=' . $username) . "'><img id='menuimg' src='" . $helper->url('assets/images/picture.png') . "'>" . _SMALLWORLD_GALLERY . '</a>';
         $menu_friends   = "<a href='" . $helper->url('friends.php?username=' . $username) . "'><img id='menuimg' src='" . $helper->url('assets/images/group.png') . "'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
@@ -89,7 +89,7 @@ if (1 == $set['access']) {
         $GLOBALS['xoopsTpl']->assign([
             'menu_startpage' => $menu_startpage,
             'menu_home'      => $menu_home,
-            'menu_profile'   => $menu_profile.
+            'menu_profile'   => $menu_profile,
             'menu_friends'   => $menu_friends,
             'menu_gallery'   => $menu_gallery
         ]);
