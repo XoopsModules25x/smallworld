@@ -38,10 +38,10 @@ $id      = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 $profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
 
 if ($profile >= 2) {
-    $Xuser    = new XoopsUser($id);
+    $Xuser    = new \XoopsUser($id);
     $username = $Xuser->getVar('uname');
     $Wall     = new Smallworld\WallUpdates();
-    $tpl      = new XoopsTpl();
+    $tpl      = new \XoopsTpl();
     $mail     = new Smallworld\Mail();
     $dBase    = new Smallworld\SwDatabase();
 

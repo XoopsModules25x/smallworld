@@ -41,7 +41,7 @@ $page = $GLOBALS['xoopsDB']->escape($_POST['page']);
 global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger;
 $xoopsLogger->activated = false;
 /* error_reporting(E_ALL); */
-$xoopsTpl = new XoopsTpl();
+$xoopsTpl = new \XoopsTpl();
 $id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 if ($id <= 0 || 'publicindex' === $page && $set['access'] = 1) {
     $Wall = new Smallworld\PublicWallUpdates();
@@ -53,7 +53,7 @@ if (isset($_POST['userid'])) {
 } else {
     $userid = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 }
-$Xuser    = ($id > 0) ? new XoopsUser($id) : 0;
+$Xuser    = ($id > 0) ? new \XoopsUser($id) : 0;
 $username = ($id > 0) ? $Xuser->getVar('uname') : '';
 $dBase    = new Smallworld\SwDatabase();
 $check    = new Smallworld\User();

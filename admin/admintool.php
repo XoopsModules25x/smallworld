@@ -21,6 +21,7 @@
  */
 
 require_once __DIR__ . '/admin_header.php';
+
 global $xoopsDB, $xoTheme, $xoopsLogger;
 $xoopsLogger->activated = false;
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -45,7 +46,7 @@ if ('deletetime' === $_POST['type']) {
 }
 
 if ('deleteUser' === $_POST['type']) {
-    $db = new SwDatabase();
+    $db = new Smallworld\SwDatabase();
 
     $userid = (int)$_POST['deluserid'];
     $db->deleteAccount($userid);

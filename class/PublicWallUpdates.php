@@ -385,7 +385,7 @@ class PublicWallUpdates
     {
         global $xoopsUser, $xoopsTpl, $tpl, $xoopsModule, $xoopsTpl, $xoopsConfig;
         $wm            = [];
-        $check         = new User();
+        $check         = new Smallworld\User();
         $dBase         = new SwDatabase();
         $profile       = $xoopsUser ? $check->checkIfProfile($id) : 0;
         $moduleHandler = xoops_getHandler('module');

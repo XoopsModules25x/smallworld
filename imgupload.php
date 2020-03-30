@@ -24,6 +24,6 @@ if ($xoopsUser) {
     $xoopsLogger->activated = false;
     $img                    = new Smallworld\Images();
     $userID                 = $xoopsUser->getVar('uid');
-    $user                   = new XoopsUser($userID);
+    $user                   = new \XoopsUser($userID);
     $uploadHandler          = new UploadHandler();
 }

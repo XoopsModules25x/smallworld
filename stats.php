@@ -34,7 +34,7 @@ global $xoopsUser, $xoopsTpl, $xoTheme;
 $xoopsLogger->activated = false;
 //error_reporting(E_ALL);
 if ($xoopsUser) {
-    $tpl = new XoopsTpl();
+    $tpl = new \XoopsTpl();
 
     $userid    = $xoopsUser->getVar('uid');
     $newusers  = smallworld_Stats_newest();

@@ -611,7 +611,7 @@ function smallworld_getCountFriendMessagesEtc()
 function smallworld_countUsersMessages($id)
 {
     global $xoopsUser, $xoopsDB;
-    $user   = new XoopsUser();
+    $user   = new \XoopsUser();
     $Wall   = new Smallworld\WallUpdates();
     $sql    = 'SELECT COUNT(*) AS total ' . ' FROM ( ' . ' SELECT com_id , count( * ) AS comments FROM ' . $xoopsDB->prefix('smallworld_comments') . ' WHERE uid_fk = ' . (int)$id . ' GROUP BY com_id ' . ' UNION ALL ' . ' SELECT msg_id , count( * ) AS messages FROM ' . $xoopsDB->prefix(
             'smallworld_messages'
@@ -1141,7 +1141,7 @@ function smallworld_checkPrivateOrPublic()
  */
 function smallworld_xv_getGroupd()
 {
-    $db     = XoopsDatabaseFactory::getDatabaseConnection();
+    $db     = \XoopsDatabaseFactory::getDatabaseConnection();
     $myts   = MyTextSanitizer::getInstance();
     $sql    = 'SELECT userid, username FROM ' . $db->prefix('smallworld_user') . ' ORDER BY userid';
     $result = $db->queryF($sql);
@@ -1462,7 +1462,7 @@ function smallworld_getTagUsers($txt, $sender, $permalink = '')
  */
 function smallworld_countUserWallMsges($uid)
 {
-    $db     = XoopsDatabaseFactory::getDatabaseConnection();
+    $db     = \XoopsDatabaseFactory::getDatabaseConnection();
     $sql    = 'SELECT message FROM ' . $db->prefix('smallworld_messages') . " WHERE uid_fk='" . $uid . "'";
     $result = $db->queryF($sql);
     $count  = $db->getRowsNum($result);

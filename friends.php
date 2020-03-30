@@ -36,7 +36,7 @@ global $xoopsUser;
 if ($xoopsUser) {
     $id        = smallworld_isset_or($_GET['username']); // Id of user wich profile you want to see
     $yourid    = $xoopsUser->getVar('uid'); // your uid
-    $Xuser     = new XoopsUser($id);
+    $Xuser     = new \XoopsUser($id);
     $Xusername = $Xuser->getVar('uname');
     $check     = new Smallworld\User();
     $profile   = $check->checkIfProfile($id);

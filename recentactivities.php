@@ -32,10 +32,10 @@ require_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsTpl, $xoopsLogger;
 $xoopsLogger->activated = false;
 
-$tpl = new XoopsTpl();
+$tpl = new \XoopsTpl();
 
 $id   = smallworld_isset_or($_GET['username']); // Id of user wich profile you want to see
-$user = new XoopsUser($id);
+$user = new \XoopsUser($id);
 
 $uid = $user->getVar('uid');
 
@@ -50,8 +50,8 @@ $thisUser      = $memberHandler->getUser($id);
 $gpermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : 0;
 
-$criteria = new CriteriaCompo(new Criteria('hassearch', 1));
-$criteria->add(new Criteria('isactive', 1));
+$criteria = new \CriteriaCompo(new \Criteria('hassearch', 1));
+$criteria->add(new \Criteria('isactive', 1));
 $mids = array_keys($moduleHandler->getList($criteria));
 
 foreach ($mids as $mid) {

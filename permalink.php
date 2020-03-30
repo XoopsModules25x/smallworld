@@ -53,7 +53,7 @@ if (isset($_GET['updid']) and isset($_GET['ownerid'])) {
 }
 
 $id   = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
-$user = $xoopsUser ? new XoopsUser($id) : 0;
+$user = $xoopsUser ? new \XoopsUser($id) : 0;
 
 if ($xoopsUser) {
     if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {

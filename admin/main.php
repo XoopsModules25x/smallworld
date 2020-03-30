@@ -21,13 +21,13 @@
  */
 
 require_once __DIR__ . '/admin_header.php';
-require_once __DIR__ . '/../../../include/cp_header.php';
+
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 //require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 if (!isset($xoopsTpl)) {
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 }
 $xoopsTpl->caching = 0;
 
@@ -38,7 +38,7 @@ if (isset($_POST['xim_admin_message'])) {
 }
 
 $admin = new Admin();
-$tpl   = new XoopsTpl();
+$tpl   = new \XoopsTpl();
 
 $ai  = [];
 $ani = [];

@@ -39,7 +39,7 @@ if ($_GET) {
     $data   = [];
 
     while ($row = $xoopsDB->fetchArray($result)) {
-        $user   = new xoopsUser($row['userid']);
+        $user   = new \XoopsUser($row['userid']);
         $image  = '<img src="' . smallworld_getAvatarLink($row['userid'], $row['userimage']) . '" height="20">';
         $data[] = [
             'label' => $image . ' ' . '<span class="searchusername">' . $row['realname'] . ' (' . $row['username'] . ')</span>',

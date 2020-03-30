@@ -23,7 +23,8 @@
 use XoopsModules\Smallworld;
 
 $moduleDirName = basename(dirname(__DIR__));
-require_once __DIR__ . '/../../../include/cp_header.php';
+
+require_once __DIR__ . '/admin_header.php';
 require_once __DIR__ . '/../include/common.php';
 
 require_once __DIR__ . '/upgrade.php';

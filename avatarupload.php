@@ -32,7 +32,7 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 if ($xoopsUser) {
     $xoopsLogger->activated = false;
     $userID                 = $xoopsUser->getVar('uid');
-    $user                   = new XoopsUser($userID);
+    $user                   = new \XoopsUser($userID);
     $db                     = new Smallworld\SwDatabase();
 
     $uploaddir = XOOPS_ROOT_PATH . '/uploads/avatars/';

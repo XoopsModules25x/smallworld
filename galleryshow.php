@@ -58,7 +58,7 @@ if ($xoopsUser) {
     if ($profile >= 2 || 2 == $userisfriend[0] || true === $admin) {
         $myusername = $xoopsUser->getVar('uname');
 
-        $user        = new XoopsUser($id);
+        $user        = new \XoopsUser($id);
         $countimages = $image->count($userID);
 
         //$gallery = $image->viewalbum ($id, $user=$xoopsUser->getVar('uid'));

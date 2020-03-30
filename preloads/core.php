@@ -27,7 +27,7 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 /**
  * Class SmallworldCorePreload
  */
-class SmallworldCorePreload extends XoopsPreloadItem
+class SmallworldCorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
     /**

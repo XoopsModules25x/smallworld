@@ -43,7 +43,7 @@ if ($xoopsUser) {
 require_once XOOPS_ROOT_PATH . '/header.php';
 if (1 == $set['access']) {
     $id    = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
-    $user  = new XoopsUser($id);
+    $user  = new \XoopsUser($id);
     $dBase = new Smallworld\SwDatabase();
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown

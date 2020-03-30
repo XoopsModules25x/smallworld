@@ -35,7 +35,7 @@ $xoopsLogger->activated = false;
 if ($xoopsUser) {
     $check  = new Smallworld\User();
     $db     = new Smallworld\SwDatabase();
-    $mail   = new Mail();
+    $mail   = new Smallworld\Mail();
     $friend = $_POST['friend'];
     if (isset($_POST['stat'])) {
         $stat = $_POST['stat'];
