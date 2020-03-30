@@ -73,8 +73,8 @@
                                                 <br>
                                                 <div id="smallworld_updatePrivacyCheck">
                                                     <label for="updatePriv"><{$smarty.const._SMALLWORLD_PRIVATEUPDATE}></label>
-                                                    <input type="radio" name="updatePublic" id="updatePublic" value="1">
-                                                    <label for="updatePriv"><{$smarty.const._SMALLWORLD_PUBLICUPDATE}></label>
+                                                    <input type="radio" name="updatePublic" id="updatePriv" value="1">
+                                                    <label for="updatePublic"><{$smarty.const._SMALLWORLD_PUBLICUPDATE}></label>
                                                     <input type="radio" name="updatePublic" id="updatePublic" value="0">
 
                                                 </div>
