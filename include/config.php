@@ -20,7 +20,7 @@
 //require_once  __DIR__ . '/../../../mainfile.php';
 
 $moduleDirName = basename(dirname(__DIR__));
-$capsDirName   = strtoupper($moduleDirName);
+$capsDirName   = mb_strtoupper($moduleDirName);
 
 if (!defined($capsDirName . '_DIRNAME')) {
     //if (!defined(constant($capsDirName . '_DIRNAME'))) {
@@ -36,7 +36,7 @@ if (!defined($capsDirName . '_DIRNAME')) {
 
 //Configurator
 return (object)[
-    'name'          => strtoupper($moduleDirName) . ' Module Configurator',
+    'name'          => mb_strtoupper($moduleDirName) . ' Module Configurator',
     'paths'         => [
         'dirname'    => $moduleDirName,
         'admin'      => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/admin',
@@ -62,7 +62,6 @@ return (object)[
         '/templates/',
         '/templates/blocks/',
         '/templates/admin/',
-
     ],
     'oldFiles'        => [
         '/sql/wflinks.sql',

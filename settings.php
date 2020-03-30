@@ -20,13 +20,11 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
 global $xoopsUser;
-require_once __DIR__ . '/../../mainfile.php';
 //require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoopsLogger;
@@ -51,7 +49,7 @@ if ($xoopsUser) {
         }
         echo json_encode($post);
     } else {
-        $posts = stripslashes($db->GetSettings($id));
+        $posts = stripslashes($db->getSettings($id));
         echo json_encode($posts);
     }
 } else {

@@ -20,12 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
-require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 //require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
@@ -41,19 +39,19 @@ $page = $GLOBALS['xoopsDB']->escape($_POST['page']);
 global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger;
 $xoopsLogger->activated = false;
 /* error_reporting(E_ALL); */
-$xoopsTpl = new XoopsTpl();
+$xoopsTpl = new \XoopsTpl();
 $id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 if ($id <= 0 || 'publicindex' === $page && $set['access'] = 1) {
-    $Wall = new Smallworld\PublicWallUpdates();
+    $wall = new Smallworld\PublicWallUpdates();
 } else {
-    $Wall = new Smallworld\WallUpdates();
+    $wall = new Smallworld\WallUpdates();
 }
 if (isset($_POST['userid'])) {
     $userid = (int)$_POST['userid'];
 } else {
     $userid = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 }
-$Xuser    = ($id > 0) ? new XoopsUser($id) : 0;
+$Xuser    = ($id > 0) ? new \XoopsUser($id) : 0;
 $username = ($id > 0) ? $Xuser->getVar('uname') : '';
 $dBase    = new Smallworld\SwDatabase();
 $check    = new Smallworld\User();
@@ -76,18 +74,18 @@ if ($id <= 0 && 1 == $set['access']) {
     //$pub = $check->allUsers();
     $followers = $pub;
 } else {
-    $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
+    $followers = smallworld_array_flatten($wall->getFollowers($id), 0);
 }
 
 if ('index' === $page) {
-    $updatesarray = ($id > 0) ? $Wall->Updates($_POST['last'], $id, $followers) : $Wall->Updates($_POST['last'], $followers);
+    $updatesarray = ($id > 0) ? $wall->Updates($_POST['last'], $id, $followers) : $wall->Updates($_POST['last'], $followers);
 } elseif ('profile' === $page) {
-    $updatesarray = ($id > 0) ? $Wall->Updates($_POST['last'], $userid, $userid) : $Wall->Updates($_POST['last'], $userid);
+    $updatesarray = ($id > 0) ? $wall->Updates($_POST['last'], $userid, $userid) : $wall->Updates($_POST['last'], $userid);
 } elseif ('publicindex' === $page) {
-    $updatesarray = $Wall->Updates($_POST['last'], $followers);
+    $updatesarray = $wall->Updates($_POST['last'], $followers);
 }
 
-$Wall->ParsePubArray($updatesarray, $id);
+$wall->parsePubArray($updatesarray, $id);
 
 $xoopsTpl->assign('sCountResp', count($updatesarray));
 $xoopsTpl->assign('msgtoshow', $hm);

@@ -20,7 +20,6 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
@@ -28,10 +27,10 @@ require_once $helper->path('include/functions.php');
 
 $set = smallworld_checkPrivateOrPublic();
 
-if ((isset($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) && !$GLOBALS['xoopsUser']->isGuest()) {
+if (($GLOBALS['xoopsUser'] instanceof \XoopsUser) && !$GLOBALS['xoopsUser']->isGuest()) {
     $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
 } elseif (((!$GLOBALS['xoopsUser'] instanceof \XoopsUser) || $GLOBALS['xoopsUser']->isGuest()) && 1 == $set['access']) {
-    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.tpl';
+    $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.html';
 } else {
     redirect_header(XOOPS_URL . '/user.php', 5, _NOPERM);
 }
@@ -43,7 +42,7 @@ if (1 == $set['access']) {
     $dBase = new Smallworld\SwDatabase();
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
-    $inspect = Smallworld_isInspected($id);
+    $inspect = smallworld_isInspected($id);
     if ('yes' === $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $GLOBALS['xoopsUser']->getVar('uname'), 1);
     }
@@ -62,7 +61,7 @@ if (1 == $set['access']) {
 
     if ($profile >= 2) {
         $xuser = new Smallworld\Profile();
-        $xuser->ShowUser($id);
+        $xuser->showUser($id);
         $menu_startpage = "<a href='" . $helper->url('publicindex.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/highrise.png') . "'>" . _SMALLWORLD_STARTPAGE . '</a>';
         $menu_home      = "<a href='" . $helper->url('index.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/house.png') . "'>" . _SMALLWORLD_HOME . '</a>';
         $menu_profile   = "<a href='" . $helper->url('userprofile.php?username=' . $username) . "'><img id='menuimg' src='" . $helper->url('assets/images/user_silhouette.png') . "'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
@@ -71,36 +70,40 @@ if (1 == $set['access']) {
     }
 
     // Things to do with wall
-    $Wall = ($profile >= 2) ? new  Smallworld\WallUpdates() : new Smallworld\PublicWallUpdates();
+    $wall = ($profile >= 2) ? new  Smallworld\WallUpdates() : new Smallworld\PublicWallUpdates();
     if ($profile < 2 && 1 == $set['access']) {
         $pub          = smallworld_checkUserPubPostPerm();
-        $updatesarray = $Wall->Updates(0, $pub);
+        $updatesarray = $wall->Updates(0, $pub);
     } else {
         // Follow array here
-        $followers    = Smallworld_array_flatten($Wall->getFollowers($id), 0);
-        $updatesarray = $Wall->Updates(0, $id, $followers);
+        $followers    = smallworld_array_flatten($wall->getFollowers($id), 0);
+        $updatesarray = $wall->Updates(0, $id, $followers);
     }
 
     //Get friends invitations
     $getInvitations = $GLOBALS['xoopsUser'] ? $check->getRequests($id) : 0;
-    $Wall->ParsePubArray($updatesarray, $id);
+    $wall->parsePubArray($updatesarray, $id);
 
     if ($profile >= 2) {
-        $GLOBALS['xoopsTpl']->assign([
-            'menu_startpage' => $menu_startpage,
-            'menu_home'      => $menu_home,
-            'menu_profile'   => $menu_profile,
-            'menu_friends'   => $menu_friends,
-            'menu_gallery'   => $menu_gallery
-        ]);
+        $GLOBALS['xoopsTpl']->assign(
+            [
+                'menu_startpage' => $menu_startpage,
+                'menu_home'      => $menu_home,
+                'menu_profile'   => $menu_profile,
+                'menu_friends'   => $menu_friends,
+                'menu_gallery'   => $menu_gallery,
+            ]
+        );
     }
-    $GLOBALS['xoopsTpl']->assign([
-        'myusername'        => $username,
-        'pagename'          => 'index',
-        'check'             => $profile,
-        'friendinvitations' => $getInvitations,
-        'access'            => $set['access']
-    ]);
+    $GLOBALS['xoopsTpl']->assign(
+        [
+            'myusername'        => $username,
+            'pagename'          => 'index',
+            'check'             => $profile,
+            'friendinvitations' => $getInvitations,
+            'access'            => $set['access'],
+        ]
+    );
 }
 if (1 == $profile && 0 == $set['access']) {
     $helper->redirect('register.php');

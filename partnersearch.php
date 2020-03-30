@@ -20,12 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
-require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_userprofile_edittemplate.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -33,13 +31,13 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoopsDB, $xoopsLogger;
 $xoopsLogger->activated = false;
 if ($_GET) {
-    $q      = Smallworld_sanitize($_GET['term']);
+    $q      = smallworld_sanitize($_GET['term']);
     $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE realname LIKE '%" . $q . "%' OR username LIKE '%" . $q . "%' ORDER BY userid LIMIT 5";
     $result = $xoopsDB->query($sql);
     $data   = [];
 
-    while ($row = $xoopsDB->fetchArray($result)) {
-        $user   = new xoopsUser($row['userid']);
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $user   = new \XoopsUser($row['userid']);
         $image  = '<img src="' . smallworld_getAvatarLink($row['userid'], $row['userimage']) . '" height="20">';
         $data[] = [
             'label' => $image . ' ' . '<span class="searchusername">' . $row['realname'] . ' (' . $row['username'] . ')</span>',
@@ -53,5 +51,4 @@ if ($_GET) {
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
     echo json_encode($data);
     flush();
-} else {
 }

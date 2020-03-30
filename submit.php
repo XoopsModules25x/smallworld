@@ -20,7 +20,6 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
@@ -29,8 +28,8 @@ require_once __DIR__ . '/header.php';
 require_once $helper->path('include/functions.php');
 
 $GLOBALS['xoopsLogger']->activated = false;
-$db   = new Smallworld\SwDatabase();
-$mail = new Smallworld\Mail();
+$db                                = new Smallworld\SwDatabase();
+$mail                              = new Smallworld\Mail();
 
 $db->handlePosts();
 

@@ -20,12 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
-require_once __DIR__ . '/../../mainfile.php';
 //require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger;
@@ -33,7 +31,7 @@ $xoopsLogger->activated = false;
 $db                     = new Smallworld\SwDatabase();
 $upd                    = new Smallworld\WallUpdates();
 $userID                 = $xoopsUser->getVar('uid');
-$user                   = new XoopsUser($userID);
+$user                   = new \XoopsUser($userID);
 $username               = $user->getVar('uname');
 $ri                     = smallworld_getRndImg($userID);
 if ('' != $ri) {
@@ -42,5 +40,5 @@ if ('' != $ri) {
 
 $update = 'UPLIMAGE' . ' ' . $riUrl;
 
-$upd->Insert_Update($userID, $update);
+$upd->insertUpdate($userID, $update);
 $db->handleImageEdit();

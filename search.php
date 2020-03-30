@@ -34,12 +34,12 @@ require_once $helper->path('include/arrays.php');
 
 $GLOBALS['xoopsLogger']->activated = false;
 if (isset($_GET) && !empty($_GET)) {
-    $q      = Smallworld_sanitize(Request::getString('term', '', 'GET'));
+    $q      = smallworld_sanitize(Request::getString('term', '', 'GET'));
     $sql    = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE realname LIKE '%" . $q . "%' OR username LIKE '%" . $q . "%' ORDER BY userid LIMIT 5";
     $result = $GLOBALS['xoopsDB']->query($sql);
     $data   = [];
 
-    while ($row = $GLOBALS['xoopsDB']->fetchArray($result)) {
+    while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
         $user  = new \XoopsUser($row['userid']);
         $image = '<img src="' . smallworld_getAvatarLink($row['userid'], $row['userimage']) . '" height="20" >';
 

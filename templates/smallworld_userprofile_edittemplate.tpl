@@ -1,7 +1,7 @@
 <div id="smallworld_regform1" class="smallworld_content" title='<{$smarty.const._SMALLWORLD_REGRISTATION_TITLE}>'>
     <{if $xoops_isuser}>
     <{if $check >= 1}>
-    <form id="smallworld_profileform" action="submit.php" method="post">
+    <form id="smallworld_profileform" action="../submit.php" method="post">
         <fieldset title="">
             <legend><{$smarty.const._SMALLWORLD_STEP1}></legend>
 

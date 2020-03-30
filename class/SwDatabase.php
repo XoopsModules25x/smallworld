@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -34,7 +36,7 @@ class SwDatabase
         $new    = [];
         $sql    = 'SELECT employer,position,jobstart,jobstop,description  FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
         $result = $xoopsDB->query($sql);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $employer    = unserialize($row['employer']);
             $position    = unserialize($row['position']);
             $jobstart    = unserialize($row['jobstart']);
@@ -51,6 +53,7 @@ class SwDatabase
             $msg[$start]['description'] = $description[$start];
             ++$start;
         }
+
         return $msg;
     }
 
@@ -65,7 +68,7 @@ class SwDatabase
         $msg    = [];
         $sql    = 'SELECT school_type,school,schoolstart,schoolstop FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
         $result = $xoopsDB->query($sql);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $school_type = unserialize($row['school_type']);
             $school      = unserialize($row['school']);
             $schoolstart = unserialize($row['schoolstart']);
@@ -80,6 +83,7 @@ class SwDatabase
             $msg[$start]['schoolstop']  = $schoolstop[$start];
             $start++;
         }
+
         return $msg;
     }
 
@@ -94,7 +98,7 @@ class SwDatabase
         $msg    = [];
         $sql    = 'SELECT screenname_type,screenname FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
         $result = $xoopsDB->query($sql);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $screenname_type = unserialize($row['screenname_type']);
             $screenname      = unserialize($row['screenname']);
         }
@@ -103,9 +107,10 @@ class SwDatabase
         while ($start <= $end) {
             $msg[$start]['screenname']      = $screenname_type[$start];
             $msg[$start]['screenname_type'] = $arr06[$screenname[$start]];
-            $msg[$start]['link']            = "<span class='smallworld_website'>" . Smallworld_sociallinks($screenname[$start], $msg[$start]['screenname']);
+            $msg[$start]['link']            = "<span class='smallworld_website'>" . smallworld_sociallinks($screenname[$start], $msg[$start]['screenname']);
             ++$start;
         }
+
         return $msg;
     }
 
@@ -121,11 +126,12 @@ class SwDatabase
         $sql    = 'SELECT ' . $var . ' FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
         $result = $xoopsDB->queryF($sql);
         if ($xoopsDB->getRowsNum($result) < 1) {
-            return 0;//_SMALLWORLD_REPLY_NOTSPECIFIED;
+            return 0; //_SMALLWORLD_REPLY_NOTSPECIFIED;
         }
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $msg[$var] = $row[$var];
         }
+
         return $msg[$var];
     }
 
@@ -135,7 +141,6 @@ class SwDatabase
      * @param int    $userid
      * @param string $field
      * @param int    $value
-     * @return void
      */
     public function updateSingleValue($table, $userid, $field, $value)
     {
@@ -148,7 +153,6 @@ class SwDatabase
     /**
      * saveImage function
      * @param $values
-     * @return void
      */
     public function saveImage($values)
     {
@@ -162,9 +166,8 @@ class SwDatabase
      * DeleteImage function
      * @param int    $userid
      * @param string $imagename
-     * @return void
      */
-    public function DeleteImage($userid, $imagename)
+    public function deleteImage($userid, $imagename)
     {
         global $xoopsUser, $xoopsDB;
         $myts   = \MyTextSanitizer::getInstance();
@@ -174,7 +177,6 @@ class SwDatabase
 
     /**
      * handlePosts function
-     * @return void
      */
     public function handlePosts()
     {
@@ -190,53 +192,53 @@ class SwDatabase
         }
 
         if ('2' != $_POST['relationship']) {
-            $partner = Smallworld_sanitize($_POST['partner']);
+            $partner = smallworld_sanitize($_POST['partner']);
         } else {
             $partner = '';
         }
 
         $regdate                = time();
         $username               = $user->uname();
-        $realname               = Smallworld_sanitize($_POST['realname']);
+        $realname               = smallworld_sanitize($_POST['realname']);
         $gender                 = isset($_POST['gender']) ? $_POST['gender'] : '';
-        $intingender            = isset($_POST['intingender']) ? Smallworld_sanitize(serialize($_POST['intingender'])) : Smallworld_sanitize(serialize([0 => '3']));
-        $relationship           = Smallworld_sanitize($_POST['relationship']);
-        $searchrelat            = isset($_POST['searchrelat']) ? Smallworld_sanitize(serialize($_POST['searchrelat'])) : Smallworld_sanitize(serialize([0 => '0']));
-        $birthday               = Smallworld_sanitize(Smallworld_euroToUsDate($_POST['birthday']));
-        $birthplace             = Smallworld_sanitize($_POST['birthplace']);
-        $birthplace_lat         = Smallworld_sanitize($_POST['birthplace_lat']);
-        $birthplace_lng         = Smallworld_sanitize($_POST['birthplace_lng']);
-        $birthplace_country     = Smallworld_sanitize($_POST['birthplace_country']);
-        $birthplace_country_img = isset($_POST['birthplace_country_img']) ? Smallworld_sanitize($_POST['birthplace_country_img']) : '';
-        $politic                = Smallworld_sanitize($_POST['politic']);
-        $religion               = Smallworld_sanitize($_POST['religion']);
-        $emailtype              = Smallworld_sanitize(serialize($_POST['emailtype']));
-        $screenname_type        = Smallworld_sanitize(serialize($_POST['screenname_type']));
-        $screenname             = Smallworld_sanitize(serialize($_POST['screenname']));
-        $mobile                 = Smallworld_sanitize($_POST['mobile']);
-        $phone                  = Smallworld_sanitize($_POST['phone']);
-        $adress                 = Smallworld_sanitize($_POST['adress']);
-        $present_city           = Smallworld_sanitize($_POST['present_city']);
-        $present_lat            = Smallworld_sanitize($_POST['present_lat']);
-        $present_lng            = Smallworld_sanitize($_POST['present_lng']);
-        $present_country        = Smallworld_sanitize($_POST['present_country']);
-        $present_country_img    = isset($_POST['present_country_img']) ? Smallworld_sanitize($_POST['present_country_img']) : '';
-        $website                = Smallworld_sanitize($_POST['website']);
-        $interests              = Smallworld_sanitize($_POST['interests']);
-        $music                  = Smallworld_sanitize($_POST['music']);
-        $tvshow                 = Smallworld_sanitize($_POST['tvshow']);
-        $movie                  = Smallworld_sanitize($_POST['movie']);
-        $books                  = Smallworld_sanitize($_POST['books']);
-        $aboutme                = Smallworld_sanitize($_POST['aboutme']);
-        $school_type            = Smallworld_sanitize(serialize($_POST['school_type']));
-        $school                 = Smallworld_sanitize(serialize($_POST['school']));
-        $schoolstart            = Smallworld_sanitize(serialize($_POST['schoolstart']));
-        $schoolstop             = Smallworld_sanitize(serialize($_POST['schoolstop']));
-        $jobemployer            = Smallworld_sanitize(serialize($_POST['employer']));
-        $jobposition            = Smallworld_sanitize(serialize($_POST['position']));
-        $jobstart               = Smallworld_sanitize(serialize(Smallworld_YearOfArray($_POST['jobstart'])));
-        $jobstop                = Smallworld_sanitize(serialize(Smallworld_YearOfArray($_POST['jobstop'])));
-        $jobdescription         = Smallworld_sanitize(serialize($_POST['description']));
+        $intingender            = isset($_POST['intingender']) ? smallworld_sanitize(serialize($_POST['intingender'])) : smallworld_sanitize(serialize([0 => '3']));
+        $relationship           = smallworld_sanitize($_POST['relationship']);
+        $searchrelat            = isset($_POST['searchrelat']) ? smallworld_sanitize(serialize($_POST['searchrelat'])) : smallworld_sanitize(serialize([0 => '0']));
+        $birthday               = smallworld_sanitize(smallworld_euroToUsDate($_POST['birthday']));
+        $birthplace             = smallworld_sanitize($_POST['birthplace']);
+        $birthplace_lat         = smallworld_sanitize($_POST['birthplace_lat']);
+        $birthplace_lng         = smallworld_sanitize($_POST['birthplace_lng']);
+        $birthplace_country     = smallworld_sanitize($_POST['birthplace_country']);
+        $birthplace_country_img = isset($_POST['birthplace_country_img']) ? smallworld_sanitize($_POST['birthplace_country_img']) : '';
+        $politic                = smallworld_sanitize($_POST['politic']);
+        $religion               = smallworld_sanitize($_POST['religion']);
+        $emailtype              = smallworld_sanitize(serialize($_POST['emailtype']));
+        $screenname_type        = smallworld_sanitize(serialize($_POST['screenname_type']));
+        $screenname             = smallworld_sanitize(serialize($_POST['screenname']));
+        $mobile                 = smallworld_sanitize($_POST['mobile']);
+        $phone                  = smallworld_sanitize($_POST['phone']);
+        $adress                 = smallworld_sanitize($_POST['adress']);
+        $present_city           = smallworld_sanitize($_POST['present_city']);
+        $present_lat            = smallworld_sanitize($_POST['present_lat']);
+        $present_lng            = smallworld_sanitize($_POST['present_lng']);
+        $present_country        = smallworld_sanitize($_POST['present_country']);
+        $present_country_img    = isset($_POST['present_country_img']) ? smallworld_sanitize($_POST['present_country_img']) : '';
+        $website                = smallworld_sanitize($_POST['website']);
+        $interests              = smallworld_sanitize($_POST['interests']);
+        $music                  = smallworld_sanitize($_POST['music']);
+        $tvshow                 = smallworld_sanitize($_POST['tvshow']);
+        $movie                  = smallworld_sanitize($_POST['movie']);
+        $books                  = smallworld_sanitize($_POST['books']);
+        $aboutme                = smallworld_sanitize($_POST['aboutme']);
+        $school_type            = smallworld_sanitize(serialize($_POST['school_type']));
+        $school                 = smallworld_sanitize(serialize($_POST['school']));
+        $schoolstart            = smallworld_sanitize(serialize($_POST['schoolstart']));
+        $schoolstop             = smallworld_sanitize(serialize($_POST['schoolstop']));
+        $jobemployer            = smallworld_sanitize(serialize($_POST['employer']));
+        $jobposition            = smallworld_sanitize(serialize($_POST['position']));
+        $jobstart               = smallworld_sanitize(serialize(smallworld_YearOfArray($_POST['jobstart'])));
+        $jobstop                = smallworld_sanitize(serialize(smallworld_YearOfArray($_POST['jobstop'])));
+        $jobdescription         = smallworld_sanitize(serialize($_POST['description']));
 
         $sql = '';
 
@@ -280,7 +282,7 @@ class SwDatabase
             if (false === $result) {
                 die('SQL error:' . $sql . '');
             }
-            $this->SetAdmins($uid, $username, $realname, $avatar);
+            $this->setAdmins($uid, $username, $realname, $avatar);
             $img->createAlbum($uid);
         }
     }
@@ -291,9 +293,8 @@ class SwDatabase
      * @param string $username
      * @param string $realname
      * @param mixed  $avatar
-     * @return void
      */
-    public function SetAdmins($userID, $username, $realname, $avatar)
+    public function setAdmins($userID, $username, $realname, $avatar)
     {
         global $xoopsDB, $xoopsUser;
         $ip     = $_SERVER['REMOTE_ADDR'];
@@ -306,7 +307,6 @@ class SwDatabase
      * @param int    $userID
      * @param string $realname
      * @param mixed  $avatar
-     * @return void
      */
     public function EditAdmins($userID, $realname, $avatar)
     {
@@ -332,15 +332,14 @@ class SwDatabase
         if ($i < 1) {
             $query  = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_complaints') . " (complaint_id,link,byuser_id,owner) VALUES ('', '" . addslashes($msg) . "', '" . (int)$by . "', '" . (int)$against . "')";
             $result = $xoopsDB->queryF($query);
-        } else {
         }
+
         return $i;
     }
 
     /**
      * updateComplaint function
      * @param int $userID
-     * @return void
      */
     public function updateComplaint($userID)
     {
@@ -351,10 +350,9 @@ class SwDatabase
 
     /**
      * updateInspection function
-     * @param int $userID
-     * @param int $start
-     * @param int stop
-     * @return void
+     * @param int   $userID
+     * @param int   $start
+     * @param mixed $stop
      */
     public function updateInspection($userID, $start, $stop)
     {
@@ -366,7 +364,6 @@ class SwDatabase
 
     /**
      * handleImageEdit function
-     * @return void
      */
     public function handleImageEdit()
     {
@@ -385,7 +382,6 @@ class SwDatabase
      * @param int $status
      * @param int $friendid
      * @param int $userid
-     * @return void
      */
     public function toogleFriendInvite($status, $friendid, $userid)
     {
@@ -411,7 +407,6 @@ class SwDatabase
      * @param int $following
      * @param int $myUid
      * @param int $friend
-     * @return void
      */
     public function toogleFollow($following, $myUid, $friend)
     {
@@ -434,9 +429,8 @@ class SwDatabase
      * @param int $stat
      * @param int $myUid
      * @param int $friend
-     * @return void
      */
-    public function SetFriendshitStat($stat, $myUid, $friend)
+    public function setFriendshitStat($stat, $myUid, $friend)
     {
         global $xoopsDB;
         if (1 == $stat) {
@@ -469,6 +463,7 @@ class SwDatabase
         //delete votes
         $query3  = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE msg_id = '" . $smallworld_msg_id . "'";
         $result3 = $xoopsDB->queryF($query3);
+
         return true;
     }
 
@@ -485,6 +480,7 @@ class SwDatabase
         $result  = $xoopsDB->queryF($query);
         $query2  = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE com_id = '" . $smallworld_com_id . "'";
         $result2 = $xoopsDB->queryF($query2);
+
         return true;
     }
 
@@ -495,17 +491,18 @@ class SwDatabase
      * @param string $val
      * @return int
      */
-    public function CountUsersRates($userid, $val)
+    public function countUsersRates($userid, $val)
     {
         global $xoopsUser, $xoopsDB;
         $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where owner = '" . $userid . "'";
         $result = $xoopsDB->queryF($query);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $sum = $row['sum'];
         }
         if ('' == $sum) {
             $sum = '0';
         }
+
         return $sum;
     }
 
@@ -562,7 +559,7 @@ class SwDatabase
         if (!$dir_handle) {
             return false;
         }
-        while ($file = readdir($dir_handle)) {
+        while (false !== ($file = readdir($dir_handle))) {
             if ('.' !== $file && '..' !== $file) {
                 if (!is_dir($dirname . '/' . $file)) {
                     unlink($dirname . '/' . $file);
@@ -573,6 +570,7 @@ class SwDatabase
         }
         closedir($dir_handle);
         rmdir($dirname);
+
         return true;
     }
 
@@ -582,47 +580,46 @@ class SwDatabase
      * @param int         $userid
      * @param string|bool $directory
      * @param bool|int    $empty
-     * @return true
+     * @return bool
      */
     public function smallworld_remDir($userid, $directory, $empty = false)
     {
         if ('' != $userid) {
-            if ('/' === substr($directory, -1)) {
-                $directory = substr($directory, 0, -1);
+            if ('/' === mb_substr($directory, -1)) {
+                $directory = mb_substr($directory, 0, -1);
             }
 
             if (!file_exists($directory) || !is_dir($directory)) {
                 return false;
             } elseif (!is_readable($directory)) {
                 return false;
-            } else {
-                $directoryHandle = opendir($directory);
-                while ($contents = readdir($directoryHandle)) {
-                    if ('.' !== $contents && '..' !== $contents) {
-                        $path = $directory . '/' . $contents;
-                        if (is_dir($path)) {
-                            $this->smallworld_remDir($userid, $path);
-                        } else {
-                            unlink($path);
-                        }
-                    }
-                }
-                closedir($directoryHandle);
-                if (false === $empty) {
-                    if (!rmdir($directory)) {
-                        return false;
-                    }
-                }
-                return true;
             }
+            $directoryHandle = opendir($directory);
+            while (false !== ($contents = readdir($directoryHandle))) {
+                if ('.' !== $contents && '..' !== $contents) {
+                    $path = $directory . '/' . $contents;
+                    if (is_dir($path)) {
+                        $this->smallworld_remDir($userid, $path);
+                    } else {
+                        unlink($path);
+                    }
+                }
+            }
+            closedir($directoryHandle);
+            if (false === $empty) {
+                if (!rmdir($directory)) {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 
     /**
      * Update private settings
-     * @param int id ($userid)
-     * @param string posts (serialized values)
-     * @return void
+     * @param mixed $id
+     * @param mixed $posts
      */
     public function saveSettings($id, $posts)
     {
@@ -636,15 +633,15 @@ class SwDatabase
             $sql = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_settings') . " (id,userid,value) VALUES ('', '" . $id . "', '" . $posts . "')";
         }
         $result = $xoopsDB->queryF($sql);
-        $this->GetSettings($id);
+        $this->getSettings($id);
     }
 
     /**
      * Retrieve private settings
-     * @param int userid
-     * @return serialized|string
+     * @param mixed $userid
+     * @return string serialized string
      */
-    public function GetSettings($userid)
+    public function getSettings($userid)
     {
         global $xoopsDB;
         $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . (int)$userid . '';
@@ -659,11 +656,12 @@ class SwDatabase
                 ]
             );
             $this->saveSettings($userid, $posts);
-            $this->GetSettings($userid);
+            $this->getSettings($userid);
         } else {
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $data = $row['value'];
             }
+
             return json_encode(unserialize(stripslashes($data)));
         }
     }

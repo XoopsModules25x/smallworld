@@ -20,7 +20,6 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
@@ -48,9 +47,9 @@ $username = '';
 $profile  = 0;
 
 if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
-	$id       = $GLOBALS['xoopsUser']->uid();
-	$username = $GLOBALS['xoopsUser']->uname();
-	$profile  = $check->checkIfProfile($id);
+    $id       = $GLOBALS['xoopsUser']->uid();
+    $username = $GLOBALS['xoopsUser']->uname();
+    $profile  = $check->checkIfProfile($id);
 }
 
 $moduleHandler = xoops_getHandler('module');
@@ -79,14 +78,16 @@ $menu_home     = "<a href='" . $helper->url('/') . "'><img id='menuimg' src='" .
 $menu_register = ($profile < 2) ? "<a href='" . $helper->url('register.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/join.jpg') . "'>" . _MB_SYSTEM_RNOW . '</a>' : '';
 
 $updatesarray = $wall->Updates(0, $pub);
-$wall->ParsePubArray($updatesarray, $id);
+$wall->parsePubArray($updatesarray, $id);
 
-$GLOBALS['xoopsTpl']->assign([
-	'menu_home'     => $menu_home,
-	'menu_register' => $menu_register,
-	'pagename'      => 'publicindex',
-	'check'         => $profile,
-	'access'        => $set['access']
-]);
+$GLOBALS['xoopsTpl']->assign(
+    [
+        'menu_home'     => $menu_home,
+        'menu_register' => $menu_register,
+        'pagename'      => 'publicindex',
+        'check'         => $profile,
+        'access'        => $set['access'],
+    ]
+);
 
 require_once XOOPS_ROOT_PATH . '/footer.php';

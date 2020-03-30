@@ -20,7 +20,6 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
@@ -37,9 +36,9 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
 
     $userid    = $GLOBALS['xoopsUser']->uid();
     $newusers  = smallworld_Stats_newest();
-    $m_a_users = Smallworld_mostactiveusers_allround();
-    $br_users  = Smallworld_topratedusers();
-    $wo_users  = Smallworld_worstratedusers();
+    $m_a_users = smallworld_mostactiveusers_allround();
+    $br_users  = smallworld_topratedusers();
+    $wo_users  = smallworld_worstratedusers();
     $birth     = smallworld_nextBirthdays();
     $sp        = smallworld_sp();
     $tpl->assign('newusers', $newusers);

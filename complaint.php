@@ -23,7 +23,6 @@
 use Xmf\Request;
 use XoopsModules\Smallworld;
 
-require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 require_once __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 require_once $helper->path('include/functions.php');
@@ -34,13 +33,13 @@ $GLOBALS['xoopsLogger']->activated = false;
 $db = new Smallworld\SwDatabase();
 
 if ($GLOBALS['xoopsUser']) {
-    if (Request::hasVar('byuser', 'POST') {
+    if (Request::hasVar('byuser', 'POST')) {
         $by_userid = $GLOBALS['xoopsUser']->getVar('uid');
         $a_user    = addslashes(Request::getString('a_user', '', 'POST'));
-        $auserid   = Request::getInt'auserid', 0, 'POST');
+        $auserid   = Request::getInt('auserid', 0, 'POST');
         $byuser    = Request::getInt('byuser', 0, 'POST');
-        $id        = Request::getInt('id', 0, 'POST);
-        $name      = addslashes(Request::getString('name', '','POST'));
+        $id        = Request::getInt('id', 0, 'POST');
+        $name      = addslashes(Request::getString('name', '', 'POST'));
         $time      = time();
         $data      = ['time' => $time, 'a_user' => $a_user, 'byuser' => $byuser, 'link' => $id, 'a_userid' => $auserid];
         $already   = $db->alreadycomplaint($id, $by_userid, $auserid);
@@ -57,3 +56,4 @@ if ($GLOBALS['xoopsUser']) {
         }
     }
 }
+

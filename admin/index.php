@@ -20,8 +20,8 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-//require_once dirname(dirname(dirname( __DIR__))) . '/include/cp_header.php';
 require_once __DIR__ . '/admin_header.php';
+
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 //require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
@@ -52,7 +52,7 @@ if (0 == $dfm) {
 $dateoffirstmessage = $dfm;
 
 // Get days number
-$totaldays = $admin->CountDays();
+$totaldays = $admin->countDays();
 // get average messages per day
 $avgperday = $admin->AvgMsgDay($totaldays);
 // Smallworld version number

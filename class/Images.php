@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -25,7 +27,6 @@ class Images
     /**
      * @Create folders
      * @param int $userID
-     * @return void
      */
     public function createAlbum($userID)
     {
@@ -42,9 +43,9 @@ class Images
                 if (!mkdir($concurrentDirectory = $dir . '/' . $userID . '/thumbnails', 0777) && !is_dir($concurrentDirectory)) {
                     throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
                 }
-                Smallworld_CreateIndexFiles($dir . '/');
-                Smallworld_CreateIndexFiles($dir . '/' . $userID . '/');
-                Smallworld_CreateIndexFiles($dir . '/' . $userID . '/thumbnails/');
+                smallworld_CreateIndexFiles($dir . '/');
+                smallworld_CreateIndexFiles($dir . '/' . $userID . '/');
+                smallworld_CreateIndexFiles($dir . '/' . $userID . '/thumbnails/');
             }
         }
     }
@@ -65,22 +66,21 @@ class Images
             $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $user . "'";
             $result = $xoopsDB->query($sql);
             $i      = 0;
-            while ($sqlfetch = $xoopsDB->fetchArray($result)) {
+            while (false !== ($sqlfetch = $xoopsDB->fetchArray($result))) {
                 $post[$i]['id']      = stripslashes($sqlfetch['id']);
                 $post[$i]['userid']  = stripslashes($sqlfetch['userid']);
                 $post[$i]['imgurl']  = stripslashes($sqlfetch['imgurl']);
-                $post[$i]['desc']    = Smallworld_cleanup_string($sqlfetch['desc']);
-                $post[$i]['alt']     = Smallworld_cleanup_string($sqlfetch['desc']);
+                $post[$i]['desc']    = smallworld_cleanup_string($sqlfetch['desc']);
+                $post[$i]['alt']     = smallworld_cleanup_string($sqlfetch['desc']);
                 $post[$i]['time']    = stripslashes($sqlfetch['time']);
                 $post[$i]['editimg'] = "<span class='smallworld_edit_imgdesc_holder'><img src='images/edit_icon.png'></span> <a class='smallworld_edit_imgdesc' href='editimages.php'>" . _SMALLWORLD_EDITDESCRIPTION . '</a>';
                 ++$i;
             }
 
             return $post;
-        } else {
-            //Not a friends album
-            return false;
         }
+        //Not a friends album
+        return false;
     }
 
     /**

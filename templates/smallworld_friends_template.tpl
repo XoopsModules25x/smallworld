@@ -54,11 +54,11 @@
                 <{if $username == $myusername}>
                 <br>
                 <p class="smallworld_useredits_menu">
-                    <img height="10px" width="10px" src="assets/images/editavatar.png">
+                    <img height="10px" width="10px" src="../assets/images/editavatar.png">
                     <a href="javascript:void(0);" id="smallworld_changeAvatar"><{$smarty.const._SMALLWORLD_CHANGEAVATAR}></a><br>
-                    <img height="10px" width="10px" src="assets/images/edituserprofile.png">
+                    <img height="10px" width="10px" src="../assets/images/edituserprofile.png">
                     <a href="editprofile.php" id="smallworld_changeEditProfile"><{$smarty.const._SMALLWORLD_EDITPROFILE}></a><br>
-                    <img height="10px" width="10px" src="assets/images/preferences.png">
+                    <img height="10px" width="10px" src="../assets/images/preferences.png">
                     <a href="javascript:void(0);" id="smallworld_changePersSettings"><{$smarty.const._SMALLWORLD_MENU_PRIVSET}></a>
                     <br>
                 </p>

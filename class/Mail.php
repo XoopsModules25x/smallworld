@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -20,7 +22,6 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-
 require_once XOOPS_ROOT_PATH . '/class/mail/xoopsmultimailer.php';
 //require_once XOOPS_ROOT_PATH . '/class/template.php';
 
@@ -48,7 +49,7 @@ class Mail
      * @param array       $data
      * @throws \phpmailerException
      */
-    public function sendMails($fromUserID, $toUserID, $event, $link = null, array $data)
+    public function sendMails($fromUserID, $toUserID, $event, $link, array $data)
     {
         global $xoopsConfig, $xoopsUser;
         $date    = date('m-d-Y H:i:s', time());
@@ -120,7 +121,7 @@ class Mail
                 $ownermessage = "<img width='300px' src='" . $ownmsg . "' style='margin: 5px 0px;' >";
             }
 
-            $owner            = Smallworld_getOwnerFromComment($data['msg_id_fk']);
+            $owner            = smallworld_getOwnerFromComment($data['msg_id_fk']);
             $OwnerUser        = new \XoopsUser($owner);
             $Owner_avatar     = $wall->Gravatar($owner);
             $Owner_avatarlink = "<img class='left' src='" . smallworld_getAvatarLink($owner, $Owner_avatar) . "' height='90px' width='90px'>";
@@ -184,13 +185,13 @@ class Mail
         $mail->Subject = $subject;
 
         if (!$mail->send()) {
-        } else {
         }
     }
 
     /*
      From msg_id_fk get userids in the thread and return unique array
     */
+
     /**
      * @param $msg_id_fk
      * @return array
@@ -201,9 +202,10 @@ class Mail
         $parts  = [];
         $sql    = 'SELECT uid_fk FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE msg_id_fk = '" . $msg_id_fk . "'";
         $result = $xoopsDB->queryF($sql);
-        while ($r = $xoopsDB->fetchArray($result)) {
+        while (false !== ($r = $xoopsDB->fetchArray($result))) {
             $parts[] = $r['uid_fk'];
         }
+
         return array_unique($parts);
     }
 
@@ -216,9 +218,10 @@ class Mail
         global $xoopsDB;
         $sql    = 'SELECT message FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE msg_id = '" . $msgid . "'";
         $result = $xoopsDB->queryF($sql);
-        while ($r = $xoopsDB->fetchArray($result)) {
+        while (false !== ($r = $xoopsDB->fetchArray($result))) {
             $message = $r['message'];
         }
+
         return $message;
     }
 }

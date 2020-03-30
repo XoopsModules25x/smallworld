@@ -47,19 +47,19 @@ $GLOBALS['xoopsTpl']->caching = 0;
 
 if ($perm <= 0) {
     // Things to do with wall
-    $Wall         = new Smallworld\WallUpdates();
-    $updatesarray = $Wall->UpdatesSharelink($updID, $ownerID);
+    $wall         = new Smallworld\WallUpdates();
+    $updatesarray = $wall->updatesSharelink($updID, $ownerID);
     //Srinivas Tamada http://9lessons.info
     //Loading Comments link with load_updates.php
     foreach ($updatesarray as $data) {
         $wm['msg_id']     = $data['msg_id'];
-        $wm['orimessage'] = str_replace(["\r", "\n"], '', Smallworld_stripWordsKeepUrl($data['message']));
-        $wm['message']    = Smallworld_cleanup($wm['message']);
+        $wm['orimessage'] = str_replace(["\r", "\n"], '', smallworld_stripWordsKeepUrl($data['message']));
+        $wm['message']    = smallworld_cleanup($wm['message']);
         $wm['created']    = smallworld_time_stamp($data['created']);
         $wm['username']   = $data['username'];
         $wm['uid_fk']     = $data['uid_fk'];
         $wm['priv']       = $data['priv'];
-        $wm['avatar']     = $Wall->Gravatar($data['uid_fk']);
+        $wm['avatar']     = $wall->Gravatar($data['uid_fk']);
         if (smallworld_GetModuleOption('smallworldbookmarkavatar', $repmodule = 'smallworld' !== 1)) {
             $wm['avatar_link'] = $helper->url('assets/images/smallworld.png');
         } else {

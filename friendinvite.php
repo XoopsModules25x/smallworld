@@ -20,13 +20,11 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
 global $xoopsUser;
-require_once __DIR__ . '/../../mainfile.php';
 //require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoopsLogger;
@@ -35,7 +33,7 @@ $xoopsLogger->activated = false;
 if ($xoopsUser) {
     $check  = new Smallworld\User();
     $db     = new Smallworld\SwDatabase();
-    $mail   = new Mail();
+    $mail   = new Smallworld\Mail();
     $friend = $_POST['friend'];
     if (isset($_POST['stat'])) {
         $stat = $_POST['stat'];
@@ -45,7 +43,7 @@ if ($xoopsUser) {
     $myUid         = $_POST['myUid'];
     $friendName    = $check->getName($friend);
     $yourName      = $check->getName($myUid);
-    $USC           = json_decode($db->GetSettings($friend), true);
+    $USC           = json_decode($db->getSettings($friend), true);
 
     if ('1' == $invitation) {
         if ($friendProfile >= 2) {
@@ -97,13 +95,13 @@ if ($xoopsUser) {
             // Used for accept/deny friendship requests
             if ($stat > 0) {
                 // Friendship is accepted (update status in mysql)
-                $db->SetFriendshitStat(1, $myUid, $friend);
+                $db->setFriendshitStat(1, $myUid, $friend);
                 $acceptMsg = _SMALLWORLD_JSON_DELETE_FRIEND_START . $friendName . _SMALLWORLD_JSON_DELETE_FRIEND_END;
                 echo json_encode(['error' => 'no', 'msg' => $acceptMsg, 'msgChange' => _SMALLWORLD_JSON_REMOVEFR_TEXT]);
             }
             if ($stat < 0) {
                 // friendship is denied (delete from mysql)
-                $db->SetFriendshitStat(-1, $myUid, $friend);
+                $db->setFriendshitStat(-1, $myUid, $friend);
                 $acceptMsg = _SMALLWORLD_JSON_ADDFRIEND . $friendName . _SMALLWORLD_JSON_REQUEST_PENDING;
                 echo json_encode(['error' => 'no', 'msg' => $acceptMsg, 'msgChange' => _SMALLWORLD_JSON_ADDFR_TEXT]);
             }

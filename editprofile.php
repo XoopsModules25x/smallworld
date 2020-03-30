@@ -20,12 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
-require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_userprofile_edittemplate.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -39,7 +37,7 @@ if ($xoopsUser) {
     $profile = $check->checkIfProfile($id);
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
-    $inspect = Smallworld_isInspected($id);
+    $inspect = smallworld_isInspected($id);
     if ('yes' === $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
@@ -52,7 +50,7 @@ if ($xoopsUser) {
         $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
         $result = $xoopsDB->queryF($cdb);
         $cnt    = $xoopsDB->getRowsNum($result);
-        while ($r = $xoopsDB->fetchArray($result)) {
+        while (false !== ($r = $xoopsDB->fetchArray($result))) {
             // ------------ PERSONAL INFO ------------ //
 
             // Real name
@@ -74,7 +72,7 @@ if ($xoopsUser) {
             // Selectbox for "interested in gender(s)"
             if (0 != smallworldGetValfromArray('interestedin', 'smallworldusethesefields')) {
                 $nr          = unserialize($r['intingender']);
-                $intInGender = $item->RetrieveRadio('intingender', $arr01, $nr, $selected = null);
+                $intInGender = $item->retrieveRadio('intingender', $arr01, $nr, $selected = null);
                 $xoopsTpl->append('intingender', $intInGender);
             } else {
                 $xoopsTpl->assign('show_interestedin', 'no');
@@ -94,7 +92,7 @@ if ($xoopsUser) {
 
             if (0 != smallworldGetValfromArray('lookingfor', 'smallworldusethesefields')) {
                 $nr1         = unserialize($r['searchrelat']);
-                $searchrelat = $item->RetrieveRadio('searchrelat', $arr03, $nr1, $selected = null);
+                $searchrelat = $item->retrieveRadio('searchrelat', $arr03, $nr1, $selected = null);
                 $xoopsTpl->append('searchrelat', $searchrelat);
             } else {
                 $xoopsTpl->assign('show_lookingfor', 'no');
@@ -102,7 +100,7 @@ if ($xoopsUser) {
 
             if (0 != smallworldGetValfromArray('birthday', 'smallworldusethesefields')) {
                 // Select Birthday dd-mm-Y
-                $birthday = $item->input('birthday', 'birthday', 'birthday', $size = '12', $preset = stripslashes(Smallworld_UsToEuroDate($r['birthday'])));
+                $birthday = $item->input('birthday', 'birthday', 'birthday', $size = '12', $preset = stripslashes(smallworld_UsToEuroDate($r['birthday'])));
                 $xoopsTpl->append('birthdaydate', $birthday);
             } else {
                 $xoopsTpl->assign('show_birthday', 'no');

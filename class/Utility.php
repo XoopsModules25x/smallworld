@@ -2,10 +2,6 @@
 
 namespace XoopsModules\Smallworld;
 
-use XoopsModules\Smallworld;
-use XoopsModules\Smallworld\Common;
-use XoopsModules\Smallworld\Constants;
-
 /**
  * Class Utility
  */
@@ -17,7 +13,6 @@ class Utility extends Common\SysUtility
      * Access the only instance of this class
      *
      * @return object
-     *
      */
     public static function getInstance()
     {
@@ -28,6 +23,4 @@ class Utility extends Common\SysUtility
 
         return $instance;
     }
-
 }
-

@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -22,13 +24,12 @@
  */
 class Friends
 {
-
     /**
      * @Show friends of ID
      * @param int $id
      * @return string
      */
-    public function Showfriends($id)
+    public function showFriends($id)
     {
         global $xoopsUser, $xoTheme, $xoopsTpl, $arr04, $arr05, $xoopsDB;
         if ($xoopsUser) {
@@ -36,7 +37,6 @@ class Friends
             $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
             $db     = new SwDatabase();
             $check  = new User();
-        } else {
         }
     }
 
@@ -65,12 +65,12 @@ class Friends
             $count  = $xoopsDB->getRowsNum($result);
             if ($count < 1) {
                 return false;
-            } else {
-                while ($row = $xoopsDB->fetchArray($result)) {
-                    $data[] = $row;
-                }
+            }
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
+                $data[] = $row;
             }
         }
+
         return $data;
     }
 }

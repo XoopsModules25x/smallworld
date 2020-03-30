@@ -257,7 +257,7 @@ define('_SMALLWORLD_MORE', '..more');
 /*-------------- Upload form --------------------*/
 define(
     '_SMALLWORLD_UPLOAD_HOWTO',
-    'All images from your album is shown here, and you can use this tool to upload or delete images<br><br>Press the green upload file(s), Select your pictures and upload either:<br>1) One by one using the <img src="images/icon_start.PNG" style="display: inline-block;height:13px;"> icon.<br>2) Select multible by browsing or Drag* files onto the green upload (* does currently not work in IE) and press start all<br><br>Note: If you choose other filetypes than image files the script wil break. Image size is maximum 5 MBytes<br>'
+    'All images from your album is shown here, and you can use this tool to upload or delete images<br><br>Press the green upload file(s), Select your pictures and upload either:<br>1) One by one using the <img src="assets/images/icon_start.PNG" style="display: inline-block;height:13px;"> icon.<br>2) Select multible by browsing or Drag* files onto the green upload (* does currently not work in IE) and press start all<br><br>Note: If you choose other filetypes than image files the script wil break. Image size is maximum 5 MBytes<br>'
 );
 define('_SMALLWORLD_UPLOADTITLE', 'Image title');
 define('_SMALLWORLD_UPLOADDESC', 'Image description');

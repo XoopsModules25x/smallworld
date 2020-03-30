@@ -20,12 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
-require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_galleryshow.html';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -49,7 +47,7 @@ if ($xoopsUser) {
     }
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
-    $inspect = Smallworld_isInspected($id);
+    $inspect = smallworld_isInspected($id);
     if ('yes' === $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1, _SMALLWORLD_INSPEC_usermsg);
     }
@@ -58,7 +56,7 @@ if ($xoopsUser) {
     if ($profile >= 2 || 2 == $userisfriend[0] || true === $admin) {
         $myusername = $xoopsUser->getVar('uname');
 
-        $user        = new XoopsUser($id);
+        $user        = new \XoopsUser($id);
         $countimages = $image->count($userID);
 
         //$gallery = $image->viewalbum ($id, $user=$xoopsUser->getVar('uid'));

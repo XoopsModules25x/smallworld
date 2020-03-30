@@ -230,7 +230,7 @@ xoops_smallworld(function () {
         changeYear: true,
         dateFormat: 'dd-mm-yy',
         showOn: "button",
-        buttonImage: "images/calendar.gif",
+        buttonImage: "assets/images/calendar.gif",
         buttonImageOnly: true,
         onClose: function () {
             this.focus();
@@ -819,7 +819,7 @@ xoops_smallworld(function () {
                 return Smallworld_oldurl;
             } else {
                 var Smallworld_tempArray = xoops_smallworld(this).attr("href").split("/");
-                var Smallworld_baseURL = Smallworld_tempArray[0];
+                var Smallworld_baseURL = smallworld_tempArray[0];
                 this.href = this.href.replace(Smallworld_oldurl, smallworld_url + "userprofile.php?username=" + Smallworld_uname);
             }
         });
@@ -973,13 +973,13 @@ function smallworldCheckNumDivs() {
 
 
 // Open custom boomark window
-function Smallworld_customBookmark(id, display, url) {
+function smallworld_customBookmark(id, display, url) {
     window.open(url, '_blank',
         'width=600,height=400,menubar=no,toolbar=no,scrollbars=yes');
 }
 
 // Init birthplace_map
-function Smallworld_initialize_birthplace(smallworld_birthlng, smallworld_birthlatt) {
+function smallworld_initialize_birthplace(smallworld_birthlng, smallworld_birthlatt) {
 
     var birth_myLatlng = new google.maps.LatLng(smallworld_birthlatt, smallworld_birthlng);
     var birth_myOptions = {
@@ -996,7 +996,7 @@ function Smallworld_initialize_birthplace(smallworld_birthlng, smallworld_birthl
 }
 
 // Init currentcity_map
-function Smallworld_initialize_currplace(smallworld_currlng, smallworld_currlatt) {
+function smallworld_initialize_currplace(smallworld_currlng, smallworld_currlatt) {
     var currplace_myLatlng = new google.maps.LatLng(smallworld_currlatt, smallworld_currlng);
     var currplace_myOptions = {
         zoom: 8,
@@ -1013,7 +1013,7 @@ function Smallworld_initialize_currplace(smallworld_currlng, smallworld_currlatt
 
 // Function to send invitation of friendship to userid
 //get friends email ids and message to send invitation
-function Smallworld_inviteFriends(friendID, myuid) {
+function smallworld_inviteFriends(friendID, myuid) {
     xoops_smallworld('#resultMsg').hide();
     var txtMsgModal = xoops_smallworld('#friendship').text().replace(/\t/g, '');
     var frNa = xoops_smallworld('#smallworld_capname').text();
@@ -1041,7 +1041,7 @@ function Smallworld_inviteFriends(friendID, myuid) {
 }
 
 // function to follow / unfollow friends
-function Smallworld_FollowFriend(friendID, myuid) {
+function smallworld_FollowFriend(friendID, myuid) {
     xoops_smallworld('#resultMsgFollow').hide();
     xoops_smallworld.ajax({
         type: 'POST',
@@ -1095,7 +1095,7 @@ function SmallworldGetMoreMsg() {
 }
 
 // function to Accept / deny friendships
-function Smallworld_AcceptDenyFriend(stat, friendID, myuid, targetID) {
+function smallworld_AcceptDenyFriend(stat, friendID, myuid, targetID) {
     xoops_smallworld.ajax({
         type: 'POST',
         url: smallworld_url + 'friendinvite.php?' + Math.random(),
@@ -1258,7 +1258,7 @@ function smallworld_DoValStart() {
     return false;
 }
 
-function Smallworld_attachAvatarOpen() {
+function smallworld_attachAvatarOpen() {
     // Open comment and update avatar imagen in new window on click
     xoops_smallworld(function () {
         xoops_smallworld('.smallworld_big_face, .smallworld_small_face, .smallworldAttImg').css('cursor', 'pointer');

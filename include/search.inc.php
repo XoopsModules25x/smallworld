@@ -54,8 +54,8 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
     if (is_object($xoopsUser)) {
         $groups    =& $xoopsUser->getGroups();
         $id        = $xoopsUser->getVar('uid');
-        $Wall      = new Smallworld\WallUpdates();
-        $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
+        $wall      = new Smallworld\WallUpdates();
+        $followers = smallworld_array_flatten($wall->getFollowers($id), 0);
     } else {
         $id        = 0;
         $groups    = XOOPS_GROUP_ANONYMOUS;
@@ -83,14 +83,14 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret    = [];
     $i      = 0;
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         if (in_array($myrow['uid_fk'], $followers) || $myrow['uid_fk'] == $id) {
             $ret[$i]['image'] = 'images/smallworld_icn.png';
             $ret[$i]['link']  = 'permalink.php?ownerid=' . $myrow['uid_fk'] . '&updid=' . $myrow['msg_id'];
             if (preg_match('/UPLIMAGE/', $myrow['message'])) {
                 $ownmsg           = str_replace('UPLIMAGE ', '', $myrow['message']);
                 $ret[$i]['title'] = $ownmsg;
-                $ret[$i]['title'] = Smallworld_getName($myrow['uid_fk']) . ' -> ' . _SMALLWORLD_GALLERY;
+                $ret[$i]['title'] = smallworld_getName($myrow['uid_fk']) . ' -> ' . _SMALLWORLD_GALLERY;
                 $ret[$i]['title'] = str_replace(['&lt;', '&gt;'], ['<', '>'], $ret[$i]['title']);
             } else {
                 $ret[$i]['title'] = smallworld_shortenText($myrow['message'], 60);

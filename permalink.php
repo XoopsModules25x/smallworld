@@ -20,12 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
-require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_permalink.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -53,7 +51,7 @@ if (isset($_GET['updid']) and isset($_GET['ownerid'])) {
 }
 
 $id   = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
-$user = $xoopsUser ? new XoopsUser($id) : 0;
+$user = $xoopsUser ? new \XoopsUser($id) : 0;
 
 if ($xoopsUser) {
     if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
@@ -73,13 +71,13 @@ $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php
 $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
 
 // Things to do with wall
-$Wall = new Smallworld\WallUpdates();
+$wall = new Smallworld\WallUpdates();
 
 // Follow array here
-$followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
+$followers = smallworld_array_flatten($wall->getFollowers($id), 0);
 
-$updatesarray = $Wall->UpdatesPermalink($updID, $id, $ownerID);
-$Wall->ParsePubArray($updatesarray, $id);
+$updatesarray = $wall->updatesPermalink($updID, $id, $ownerID);
+$wall->parsePubArray($updatesarray, $id);
 
 $xoopsTpl->assign('menu_startpage', $menu_startpage);
 $xoopsTpl->assign('menu_home', $menu_home);

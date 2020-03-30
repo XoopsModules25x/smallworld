@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -58,8 +60,10 @@ class SwUploadHandler
             $file->size      = filesize($file_path);
             $file->url       = $this->upload_url . rawurlencode($file->name);
             $file->thumbnail = is_file($this->thumbnails_dir . $file_name) ? $this->thumbnails_url . rawurlencode($file->name) : null;
+
             return $file;
         }
+
         return null;
     }
 
@@ -82,7 +86,7 @@ class SwUploadHandler
         $thumbnail_width  = $img_width * $scale;
         $thumbnail_height = $img_height * $scale;
         $thumbnail_img    = @imagecreatetruecolor($thumbnail_width, $thumbnail_height);
-        switch (strtolower(substr(strrchr($file_name, '.'), 1))) {
+        switch (mb_strtolower(mb_substr(mb_strrchr($file_name, '.'), 1))) {
             case 'jpg':
             case 'jpeg':
                 $src_img         = @imagecreatefromjpeg($file_path);
@@ -104,6 +108,7 @@ class SwUploadHandler
         // Free up memory (imagedestroy does not delete files):
         @imagedestroy($src_img);
         @imagedestroy($thumbnail_img);
+
         return $success;
     }
 
@@ -116,6 +121,7 @@ class SwUploadHandler
     public function getFileExtension($path)
     {
         $parts = pathinfo($path);
+
         return $parts['extension'];
     }
 
@@ -125,7 +131,7 @@ class SwUploadHandler
      * @param $size
      * @param $type
      * @param $error
-     * @return \XoopsModules\Smallworld|\stdClass
+     * @return \stdClass
      */
     private function handle_file_upload($uploaded_file, $name, $size, $type, $error)
     {
@@ -146,7 +152,7 @@ class SwUploadHandler
 
         if (!$error && $file->name) {
             if ('.' === $file->name[0]) {
-                $file->name = substr($file->name, 1);
+                $file->name = mb_substr($file->name, 1);
             }
             $file_path   = $this->upload_dir . $file->name;
             $append_file = is_file($file_path) && $file->size > filesize($file_path);
@@ -154,13 +160,13 @@ class SwUploadHandler
             if ($uploaded_file && is_uploaded_file($uploaded_file)) {
                 // multipart/formdata uploads (POST method uploads)
                 if ($append_file) {
-                    file_put_contents($file_path, fopen($uploaded_file, 'r'), FILE_APPEND);
+                    file_put_contents($file_path, fopen($uploaded_file, 'rb'), FILE_APPEND);
                 } else {
                     move_uploaded_file($uploaded_file, $file_path);
                 }
             } else {
                 // Non-multipart uploads (PUT method support)
-                file_put_contents($file_path, fopen('php://input', 'r'), $append_file ? FILE_APPEND : 0);
+                file_put_contents($file_path, fopen('php://input', 'rb'), $append_file ? FILE_APPEND : 0);
             }
             $file_size = filesize($file_path);
             if ($file_size === $file->size) {
@@ -171,6 +177,7 @@ class SwUploadHandler
         } else {
             $file->error = $error;
         }
+
         return $file;
     }
 
@@ -237,8 +244,8 @@ class SwUploadHandler
         $img       = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file_name;
 
         // Delete file based on user and filename
-        $db->DeleteImage($userid, $file_name);
-        $db->DeleteImage($userid, 'Thumbs.db');
+        $db->deleteImage($userid, $file_name);
+        $db->deleteImage($userid, 'Thumbs.db');
         $thumbnail_path = $this->thumbnails_dir . $file_name;
         $success        = is_file($file_path) && '.' !== $file_name[0] && unlink($file_path);
         if ($success && is_file($thumbnail_path)) {

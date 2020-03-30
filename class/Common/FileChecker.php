@@ -42,7 +42,7 @@ class FileChecker
      * @param string      $redirectFile
      * @return bool|string
      */
-    public static function getFileStatus($file_path, $original_file_path = null, $redirectFile)
+    public static function getFileStatus($file_path, $original_file_path, $redirectFile)
     {
         global $pathIcon16;
 

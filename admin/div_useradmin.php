@@ -20,14 +20,17 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/admin_header.php';
+
 global $xoopsDB, $xoTheme, $xoopsLogger;
 $xoopsLogger->activated = false;
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 //require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
-$Tpl   = new XoopsTpl();
-$admin = new Admin();
+$Tpl   = new \XoopsTpl();
+$admin = new Smallworld\Admin();
 
 $allusers_inspect = $admin->getAllUsers('yes');
 if (!empty($allusers_inspect)) {

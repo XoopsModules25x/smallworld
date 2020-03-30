@@ -20,7 +20,6 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
@@ -34,7 +33,6 @@ require_once $helper->path('include/arrays.php');
 
 //$GLOBALS['xoopsLogger']->activated = false;
 
-
 if (isset($GLOBALS['xoopsUser']) && $GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $id      = $GLOBALS['xoopsUser']->uid();
     $check   = new Smallworld\User();
@@ -42,7 +40,7 @@ if (isset($GLOBALS['xoopsUser']) && $GLOBALS['xoopsUser'] instanceof \XoopsUser)
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
 
-    $inspect = Smallworld_isInspected($id);
+    $inspect = smallworld_isInspected($id);
     if ('yes' === $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $GLOBALS['xoopsUser']->uname(), 1);
     }

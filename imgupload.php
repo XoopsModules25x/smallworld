@@ -10,13 +10,11 @@
  * http://creativecommons.org/licenses/MIT/
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
 global $xoopsUser, $xoopsLogger;
-require_once __DIR__ . '/../../mainfile.php';
 //require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 //require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/UploadHandler.php';
@@ -24,6 +22,6 @@ if ($xoopsUser) {
     $xoopsLogger->activated = false;
     $img                    = new Smallworld\Images();
     $userID                 = $xoopsUser->getVar('uid');
-    $user                   = new XoopsUser($userID);
-    $uploadHandler          = new UploadHandler();
+    $user                   = new \XoopsUser($userID);
+    $uploadHandler          = new Smallworld\UploadHandler();
 }

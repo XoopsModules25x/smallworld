@@ -9,9 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-define('CO_' . $moduleDirNameUpper . '_' . 'DC_AVAILABLE', "<span style='color: green;'>Available</span>");
-define('CO_' . $moduleDirNameUpper . '_' . 'DC_NOTAVAILABLE', "<span style='color: red;'>Not available</span>");
-define('CO_' . $moduleDirNameUpper . '_' . 'DC_NOTWRITABLE', "<span style='color: red;'>Should have permission ( %d ), but it has ( %d )</span>");
+define('CO_' . $moduleDirNameUpper . '_' . 'DC_AVAILABLE', "<span style='color: #008000;'>Available</span>");
+define('CO_' . $moduleDirNameUpper . '_' . 'DC_NOTAVAILABLE', "<span style='color: #ff0000;'>Not available</span>");
+define('CO_' . $moduleDirNameUpper . '_' . 'DC_NOTWRITABLE', "<span style='color: #ff0000;'>Should have permission ( %d ), but it has ( %d )</span>");
 define('CO_' . $moduleDirNameUpper . '_' . 'DC_CREATETHEDIR', 'Create it');
 define('CO_' . $moduleDirNameUpper . '_' . 'DC_SETMPERM', 'Set the permission');
 define('CO_' . $moduleDirNameUpper . '_' . 'DC_DIRCREATED', 'The directory has been created');
