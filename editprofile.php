@@ -38,7 +38,7 @@ if ($xoopsUser) {
     $profile = $check->checkIfProfile($id);
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
-    $inspect = Smallworld_isInspected($id);
+    $inspect = smallworld_isInspected($id);
     if ('yes' === $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
@@ -101,7 +101,7 @@ if ($xoopsUser) {
 
             if (0 != smallworldGetValfromArray('birthday', 'smallworldusethesefields')) {
                 // Select Birthday dd-mm-Y
-                $birthday = $item->input('birthday', 'birthday', 'birthday', $size = '12', $preset = stripslashes(Smallworld_UsToEuroDate($r['birthday'])));
+                $birthday = $item->input('birthday', 'birthday', 'birthday', $size = '12', $preset = stripslashes(smallworld_UsToEuroDate($r['birthday'])));
                 $xoopsTpl->append('birthdaydate', $birthday);
             } else {
                 $xoopsTpl->assign('show_birthday', 'no');

@@ -237,7 +237,7 @@ class User
                 $data[] = $r;
             }
             if (!empty($data)) {
-                return Smallworld_array_flatten($data, 0);
+                return smallworld_array_flatten($data, 0);
             }
         }
         //redirect_header(XOOPS_URL . "/modules/smallworld/register.php");

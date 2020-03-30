@@ -31,7 +31,7 @@ include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsDB;
 $xoopsLogger->activated = false;
 if ($_GET) {
-    $q = Smallworld_sanitize($_GET['term']);
+    $q = smallworld_sanitize($_GET['term']);
     //check $q, get results from your database and put them in $arr
     $arr[] = 'Afghanistan';
     $arr[] = 'Albania';

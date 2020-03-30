@@ -75,7 +75,7 @@ if ($id <= 0 && 1 == $set['access']) {
     //$pub = $check->allUsers();
     $followers = $pub;
 } else {
-    $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
+    $followers = smallworld_array_flatten($Wall->getFollowers($id), 0);
 }
 
 if ('index' === $page) {

@@ -42,7 +42,7 @@ if (1 == $set['access']) {
     $dBase = new Smallworld\SwDatabase();
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
-    $inspect = Smallworld_isInspected($id);
+    $inspect = smallworld_isInspected($id);
     if ('yes' === $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $GLOBALS['xoopsUser']->getVar('uname'), 1);
     }
@@ -76,7 +76,7 @@ if (1 == $set['access']) {
         $updatesarray = $Wall->Updates(0, $pub);
     } else {
         // Follow array here
-        $followers    = Smallworld_array_flatten($Wall->getFollowers($id), 0);
+        $followers    = smallworld_array_flatten($Wall->getFollowers($id), 0);
         $updatesarray = $Wall->Updates(0, $id, $followers);
     }
 

@@ -75,7 +75,7 @@ $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menu
 $Wall = new Smallworld\WallUpdates();
 
 // Follow array here
-$followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
+$followers = smallworld_array_flatten($Wall->getFollowers($id), 0);
 
 $updatesarray = $Wall->UpdatesPermalink($updID, $id, $ownerID);
 $Wall->ParsePubArray($updatesarray, $id);

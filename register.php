@@ -40,7 +40,7 @@ if (isset($GLOBALS['xoopsUser']) && $GLOBALS['xoopsUser'] instanceof \XoopsUser)
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
 
-    $inspect = Smallworld_isInspected($id);
+    $inspect = smallworld_isInspected($id);
     if ('yes' === $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $GLOBALS['xoopsUser']->uname(), 1);
     }

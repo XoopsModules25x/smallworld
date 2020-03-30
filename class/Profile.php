@@ -50,8 +50,8 @@ class Profile
                 $uname           = $r['username'];
                 $realname        = $r['realname'];
                 $membersince     = date('d-m-Y', $user->user_regdate());
-                $birthday        = Smallworld_UsToEuroDate($r['birthday']);
-                $cnt_bday        = smallworldNextBdaySecs($r['birthday']);
+                $birthday        = smallworld_UsToEuroDate($r['birthday']);
+                $cnt_bday        = smallworldNextBDaySecs($r['birthday']);
                 $birthcity       = $r['birthplace'];
                 $email           = $user->email();
                 $country         = $user->user_from();
@@ -190,7 +190,7 @@ class Profile
 
                 $adress  = $r['adress'];
                 $website = $r['website'];
-                $age     = Smallworld_Birthday($r['birthday']);
+                $age     = smallworld_Birthday($r['birthday']);
             }
 
             //SW_CheckIfUser ($userid);

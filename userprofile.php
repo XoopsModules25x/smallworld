@@ -53,7 +53,7 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
         $dBase = new Smallworld\SwDatabase();
         $user->ShowUser($id);
         $username  = $GLOBALS['xoopsUser']->getVar('uname'); //Myusername
-        $inspected = Smallworld_isInspected($id);
+        $inspected = smallworld_isInspected($id);
         $GLOBALS['xoopsTpl']->assign('inspect', $inspected['inspect']);
         if ('no' !== $inspected['inspect']) {
             $GLOBALS['xoopsTpl']->assign('inspecttime', $inspected['totaltime']);

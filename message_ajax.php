@@ -50,7 +50,7 @@ if ($profile >= 2) {
         }
 
         $priv      = (int)$_POST['priv'];
-        $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
+        $followers = smallworld_array_flatten($Wall->getFollowers($id), 0);
 
         $myavatar          = $Wall->Gravatar($id);
         $myavatarlink      = smallworld_getAvatarLink($id, $myavatar);
@@ -80,9 +80,9 @@ if ($profile >= 2) {
                 }
 
                 $wm['msg_id']          = $data['msg_id'];
-                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(["\r", "\n"], '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
+                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(["\r", "\n"], '', smallworld_stripWordsKeepUrl($data['message'])) : '';
                 $wm['message']         = (1 == $USW['posts'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETPOSTS;
-                $wm['message']         = Smallworld_cleanup($wm['message']);
+                $wm['message']         = smallworld_cleanup($wm['message']);
                 $wm['created']         = smallworld_time_stamp($data['created']);
                 $wm['username']        = $data['username'];
                 $wm['uid_fk']          = $data['uid_fk'];
@@ -142,7 +142,7 @@ if ($profile >= 2) {
                         $wc['msg_id_fk']       = $cdata['msg_id_fk'];
                         $wc['com_id']          = $cdata['com_id'];
                         $wc['comment']         = (1 == $USC['comments'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($cdata['comment']), $cdata['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
-                        $wc['comment']         = Smallworld_cleanup($wc['comment']);
+                        $wc['comment']         = smallworld_cleanup($wc['comment']);
                         $wc['time']            = smallworld_time_stamp($cdata['created']);
                         $wc['username']        = $cdata['username'];
                         $wc['uid']             = $cdata['uid_fk'];
@@ -152,7 +152,7 @@ if ($profile >= 2) {
                         $wc['avatar_highwide'] = smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);
                         $wc['cface']           = $Wall->Gravatar($cdata['uid_fk']);
                         $wc['avatar_link']     = smallworld_getAvatarLink($cdata['uid_fk'], $wc['cface']);
-                        $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . Smallworld_getOwnerFromComment($cdata['msg_id_fk']);
+                        $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . smallworld_getOwnerFromComment($cdata['msg_id_fk']);
                         $wc['compl_msg_lnk']   .= '&updid=' . $cdata['msg_id_fk'] . '#' . $cdata['com_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
                         $wc['vote_up']         = $Wall->countVotesCom('com', 'up', $cdata['msg_id_fk'], $cdata['com_id']);
                         $wc['vote_down']       = $Wall->countVotesCom('com', 'down', $cdata['msg_id_fk'], $cdata['com_id']);

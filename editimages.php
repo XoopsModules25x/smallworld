@@ -36,7 +36,7 @@ if ($xoopsUser) {
     $userID = $xoopsUser->getVar('uid');
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
-    $inspect = Smallworld_isInspected($userID);
+    $inspect = smallworld_isInspected($userID);
     if ('yes' === $inspect['inspect']) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }

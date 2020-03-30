@@ -107,7 +107,7 @@ class SwDatabase
         while ($start <= $end) {
             $msg[$start]['screenname']      = $screenname_type[$start];
             $msg[$start]['screenname_type'] = $arr06[$screenname[$start]];
-            $msg[$start]['link']            = "<span class='smallworld_website'>" . Smallworld_sociallinks($screenname[$start], $msg[$start]['screenname']);
+            $msg[$start]['link']            = "<span class='smallworld_website'>" . smallworld_sociallinks($screenname[$start], $msg[$start]['screenname']);
             ++$start;
         }
 
@@ -192,53 +192,53 @@ class SwDatabase
         }
 
         if ('2' != $_POST['relationship']) {
-            $partner = Smallworld_sanitize($_POST['partner']);
+            $partner = smallworld_sanitize($_POST['partner']);
         } else {
             $partner = '';
         }
 
         $regdate                = time();
         $username               = $user->uname();
-        $realname               = Smallworld_sanitize($_POST['realname']);
+        $realname               = smallworld_sanitize($_POST['realname']);
         $gender                 = isset($_POST['gender']) ? $_POST['gender'] : '';
-        $intingender            = isset($_POST['intingender']) ? Smallworld_sanitize(serialize($_POST['intingender'])) : Smallworld_sanitize(serialize([0 => '3']));
-        $relationship           = Smallworld_sanitize($_POST['relationship']);
-        $searchrelat            = isset($_POST['searchrelat']) ? Smallworld_sanitize(serialize($_POST['searchrelat'])) : Smallworld_sanitize(serialize([0 => '0']));
-        $birthday               = Smallworld_sanitize(Smallworld_euroToUsDate($_POST['birthday']));
-        $birthplace             = Smallworld_sanitize($_POST['birthplace']);
-        $birthplace_lat         = Smallworld_sanitize($_POST['birthplace_lat']);
-        $birthplace_lng         = Smallworld_sanitize($_POST['birthplace_lng']);
-        $birthplace_country     = Smallworld_sanitize($_POST['birthplace_country']);
-        $birthplace_country_img = isset($_POST['birthplace_country_img']) ? Smallworld_sanitize($_POST['birthplace_country_img']) : '';
-        $politic                = Smallworld_sanitize($_POST['politic']);
-        $religion               = Smallworld_sanitize($_POST['religion']);
-        $emailtype              = Smallworld_sanitize(serialize($_POST['emailtype']));
-        $screenname_type        = Smallworld_sanitize(serialize($_POST['screenname_type']));
-        $screenname             = Smallworld_sanitize(serialize($_POST['screenname']));
-        $mobile                 = Smallworld_sanitize($_POST['mobile']);
-        $phone                  = Smallworld_sanitize($_POST['phone']);
-        $adress                 = Smallworld_sanitize($_POST['adress']);
-        $present_city           = Smallworld_sanitize($_POST['present_city']);
-        $present_lat            = Smallworld_sanitize($_POST['present_lat']);
-        $present_lng            = Smallworld_sanitize($_POST['present_lng']);
-        $present_country        = Smallworld_sanitize($_POST['present_country']);
-        $present_country_img    = isset($_POST['present_country_img']) ? Smallworld_sanitize($_POST['present_country_img']) : '';
-        $website                = Smallworld_sanitize($_POST['website']);
-        $interests              = Smallworld_sanitize($_POST['interests']);
-        $music                  = Smallworld_sanitize($_POST['music']);
-        $tvshow                 = Smallworld_sanitize($_POST['tvshow']);
-        $movie                  = Smallworld_sanitize($_POST['movie']);
-        $books                  = Smallworld_sanitize($_POST['books']);
-        $aboutme                = Smallworld_sanitize($_POST['aboutme']);
-        $school_type            = Smallworld_sanitize(serialize($_POST['school_type']));
-        $school                 = Smallworld_sanitize(serialize($_POST['school']));
-        $schoolstart            = Smallworld_sanitize(serialize($_POST['schoolstart']));
-        $schoolstop             = Smallworld_sanitize(serialize($_POST['schoolstop']));
-        $jobemployer            = Smallworld_sanitize(serialize($_POST['employer']));
-        $jobposition            = Smallworld_sanitize(serialize($_POST['position']));
-        $jobstart               = Smallworld_sanitize(serialize(Smallworld_YearOfArray($_POST['jobstart'])));
-        $jobstop                = Smallworld_sanitize(serialize(Smallworld_YearOfArray($_POST['jobstop'])));
-        $jobdescription         = Smallworld_sanitize(serialize($_POST['description']));
+        $intingender            = isset($_POST['intingender']) ? smallworld_sanitize(serialize($_POST['intingender'])) : smallworld_sanitize(serialize([0 => '3']));
+        $relationship           = smallworld_sanitize($_POST['relationship']);
+        $searchrelat            = isset($_POST['searchrelat']) ? smallworld_sanitize(serialize($_POST['searchrelat'])) : smallworld_sanitize(serialize([0 => '0']));
+        $birthday               = smallworld_sanitize(smallworld_euroToUsDate($_POST['birthday']));
+        $birthplace             = smallworld_sanitize($_POST['birthplace']);
+        $birthplace_lat         = smallworld_sanitize($_POST['birthplace_lat']);
+        $birthplace_lng         = smallworld_sanitize($_POST['birthplace_lng']);
+        $birthplace_country     = smallworld_sanitize($_POST['birthplace_country']);
+        $birthplace_country_img = isset($_POST['birthplace_country_img']) ? smallworld_sanitize($_POST['birthplace_country_img']) : '';
+        $politic                = smallworld_sanitize($_POST['politic']);
+        $religion               = smallworld_sanitize($_POST['religion']);
+        $emailtype              = smallworld_sanitize(serialize($_POST['emailtype']));
+        $screenname_type        = smallworld_sanitize(serialize($_POST['screenname_type']));
+        $screenname             = smallworld_sanitize(serialize($_POST['screenname']));
+        $mobile                 = smallworld_sanitize($_POST['mobile']);
+        $phone                  = smallworld_sanitize($_POST['phone']);
+        $adress                 = smallworld_sanitize($_POST['adress']);
+        $present_city           = smallworld_sanitize($_POST['present_city']);
+        $present_lat            = smallworld_sanitize($_POST['present_lat']);
+        $present_lng            = smallworld_sanitize($_POST['present_lng']);
+        $present_country        = smallworld_sanitize($_POST['present_country']);
+        $present_country_img    = isset($_POST['present_country_img']) ? smallworld_sanitize($_POST['present_country_img']) : '';
+        $website                = smallworld_sanitize($_POST['website']);
+        $interests              = smallworld_sanitize($_POST['interests']);
+        $music                  = smallworld_sanitize($_POST['music']);
+        $tvshow                 = smallworld_sanitize($_POST['tvshow']);
+        $movie                  = smallworld_sanitize($_POST['movie']);
+        $books                  = smallworld_sanitize($_POST['books']);
+        $aboutme                = smallworld_sanitize($_POST['aboutme']);
+        $school_type            = smallworld_sanitize(serialize($_POST['school_type']));
+        $school                 = smallworld_sanitize(serialize($_POST['school']));
+        $schoolstart            = smallworld_sanitize(serialize($_POST['schoolstart']));
+        $schoolstop             = smallworld_sanitize(serialize($_POST['schoolstop']));
+        $jobemployer            = smallworld_sanitize(serialize($_POST['employer']));
+        $jobposition            = smallworld_sanitize(serialize($_POST['position']));
+        $jobstart               = smallworld_sanitize(serialize(smallworld_YearOfArray($_POST['jobstart'])));
+        $jobstop                = smallworld_sanitize(serialize(smallworld_YearOfArray($_POST['jobstop'])));
+        $jobdescription         = smallworld_sanitize(serialize($_POST['description']));
 
         $sql = '';
 

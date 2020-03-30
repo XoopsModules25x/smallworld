@@ -61,7 +61,7 @@ class WallUpdates
         $hm        = smallworld_GetModuleOption('msgtoshow');
         $set       = smallworld_checkPrivateOrPublic();
         $followers = is_array($followers) ? $followers : [$followers];
-        $followers = array_unique(Smallworld_array_flatten($followers, 0));
+        $followers = array_unique(smallworld_array_flatten($followers, 0));
 
         $i = 0;
         if (0 == $last) {
@@ -179,7 +179,7 @@ class WallUpdates
     public function Insert_Update($uid, $update, $priv)
     {
         global $xoopsUser, $xoopsDB;
-        $update = Smallworld_sanitize(htmlentities($update, ENT_QUOTES, 'UTF-8'));
+        $update = smallworld_sanitize(htmlentities($update, ENT_QUOTES, 'UTF-8'));
         $time   = time();
         if (!isset($priv)) {
             $priv = 0;
@@ -218,7 +218,7 @@ class WallUpdates
     public function Insert_Comment($uid, $msg_id, $comment)
     {
         global $xoopsUser, $xoopsDB;
-        $comment = Smallworld_sanitize(htmlentities($comment, ENT_QUOTES, 'UTF-8'));
+        $comment = smallworld_sanitize(htmlentities($comment, ENT_QUOTES, 'UTF-8'));
         $time    = time();
         $query   = 'SELECT com_id,comment FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk='" . $uid . "' AND msg_id_fk='" . $msg_id . "' ORDER BY com_id DESC LIMIT 1 ";
         $result  = $xoopsDB->fetchArray($query);
@@ -496,9 +496,9 @@ class WallUpdates
                 }
 
                 $wm['msg_id']          = $data['msg_id'];
-                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(["\r", "\n"], '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
+                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(["\r", "\n"], '', smallworld_stripWordsKeepUrl($data['message'])) : '';
                 $wm['message']         = (1 == $USW['posts'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETPOSTS;
-                $wm['message']         = Smallworld_cleanup($wm['message']);
+                $wm['message']         = smallworld_cleanup($wm['message']);
                 $wm['created']         = smallworld_time_stamp($data['created']);
                 $wm['username']        = $data['username'];
                 $wm['uid_fk']          = $data['uid_fk'];
@@ -557,7 +557,7 @@ class WallUpdates
                         $wc['msg_id_fk']       = $cdata['msg_id_fk'];
                         $wc['com_id']          = $cdata['com_id'];
                         $wc['comment']         = (1 == $USC['comments'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($cdata['comment']), $cdata['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
-                        $wc['comment']         = Smallworld_cleanup($wc['comment']);
+                        $wc['comment']         = smallworld_cleanup($wc['comment']);
                         $wc['time']            = smallworld_time_stamp($cdata['created']);
                         $wc['username']        = $cdata['username'];
                         $wc['uid']             = $cdata['uid_fk'];

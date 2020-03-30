@@ -53,8 +53,8 @@ if ($perm <= 0) {
     //Loading Comments link with load_updates.php
     foreach ($updatesarray as $data) {
         $wm['msg_id']     = $data['msg_id'];
-        $wm['orimessage'] = str_replace(["\r", "\n"], '', Smallworld_stripWordsKeepUrl($data['message']));
-        $wm['message']    = Smallworld_cleanup($wm['message']);
+        $wm['orimessage'] = str_replace(["\r", "\n"], '', smallworld_stripWordsKeepUrl($data['message']));
+        $wm['message']    = smallworld_cleanup($wm['message']);
         $wm['created']    = smallworld_time_stamp($data['created']);
         $wm['username']   = $data['username'];
         $wm['uid_fk']     = $data['uid_fk'];

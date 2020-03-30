@@ -67,7 +67,7 @@ foreach ($mids as $mid) {
                     $results[$i]['link'] = $helper->url($results[$i]['link']);
                 }
 
-                $results[$i]['title'] = $myts->htmlspecialchars($results[$i]['title']);
+                $results[$i]['title'] = $myts->htmlSpecialChars($results[$i]['title']);
                 $results[$i]['time']  = $results[$i]['time'] ? formatTimestamp($results[$i]['time']) : '';
             }
             if (5 == $count) {

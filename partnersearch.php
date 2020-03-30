@@ -32,7 +32,7 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoopsDB, $xoopsLogger;
 $xoopsLogger->activated = false;
 if ($_GET) {
-    $q      = Smallworld_sanitize($_GET['term']);
+    $q      = smallworld_sanitize($_GET['term']);
     $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE realname LIKE '%" . $q . "%' OR username LIKE '%" . $q . "%' ORDER BY userid LIMIT 5";
     $result = $xoopsDB->query($sql);
     $data   = [];

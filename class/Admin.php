@@ -451,7 +451,7 @@ class Admin
      * @return string|string[]
      * @return string|string[]
      */
-    public function Smallworld_sanitize($text)
+    public function smallworld_sanitize($text)
     {
         $text = htmlspecialchars($text, ENT_QUOTES);
         $myts = \MyTextSanitizer::getInstance();

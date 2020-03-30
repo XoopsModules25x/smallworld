@@ -55,7 +55,7 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
         $groups    =& $xoopsUser->getGroups();
         $id        = $xoopsUser->getVar('uid');
         $Wall      = new Smallworld\WallUpdates();
-        $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
+        $followers = smallworld_array_flatten($Wall->getFollowers($id), 0);
     } else {
         $id        = 0;
         $groups    = XOOPS_GROUP_ANONYMOUS;
@@ -90,7 +90,7 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
             if (preg_match('/UPLIMAGE/', $myrow['message'])) {
                 $ownmsg           = str_replace('UPLIMAGE ', '', $myrow['message']);
                 $ret[$i]['title'] = $ownmsg;
-                $ret[$i]['title'] = Smallworld_getName($myrow['uid_fk']) . ' -> ' . _SMALLWORLD_GALLERY;
+                $ret[$i]['title'] = smallworld_getName($myrow['uid_fk']) . ' -> ' . _SMALLWORLD_GALLERY;
                 $ret[$i]['title'] = str_replace(['&lt;', '&gt;'], ['<', '>'], $ret[$i]['title']);
             } else {
                 $ret[$i]['title'] = smallworld_shortenText($myrow['message'], 60);

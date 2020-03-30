@@ -49,7 +49,7 @@ if ($profile >= 2) {
             $tpl->assign('isadminuser', 'YES');
         }
 
-        $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);
+        $followers = smallworld_array_flatten($Wall->getFollowers($id), 0);
 
         $myavatar     = $Wall->Gravatar($id);
         $myavatarlink = smallworld_getAvatarLink($id, $myavatar);
@@ -85,7 +85,7 @@ if ($profile >= 2) {
             $wc['msg_id_fk']       = $data['msg_id_fk'];
             $wc['com_id']          = $data['com_id'];
             $wc['comment']         = (1 == $USC['comments'] || 2 == $frC[0]) ? smallworld_tolink(htmlspecialchars_decode($data['comment']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
-            $wc['comment']         = Smallworld_cleanup($wc['comment']);
+            $wc['comment']         = smallworld_cleanup($wc['comment']);
             $wc['time']            = smallworld_time_stamp($data['created']);
             $wc['username']        = $data['username'];
             $wc['uid']             = $data['uid_fk'];
@@ -95,7 +95,7 @@ if ($profile >= 2) {
             $wc['avatar_link']     = smallworld_getAvatarLink($data['uid_fk'], $wc['cface']);
             $wc['avatar_size']     = smallworld_getImageSize(80, 100, $wc['myavatar_link']);
             $wc['avatar_highwide'] = smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);
-            $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . Smallworld_getOwnerFromComment($data['msg_id_fk']);
+            $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . smallworld_getOwnerFromComment($data['msg_id_fk']);
             $wc['compl_msg_lnk']   .= '&updid=' . $data['msg_id_fk'] . '#' . $data['com_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
             $wc['vote_up']         = $Wall->countVotesCom('com', 'up', $data['msg_id_fk'], $data['com_id']);
             $wc['vote_down']       = $Wall->countVotesCom('com', 'down', $data['msg_id_fk'], $data['com_id']);
@@ -116,7 +116,7 @@ if ($profile >= 2) {
             $parts  = $mail->getPartsFromComment($data['msg_id_fk']);
             $emails = '';
             foreach ($parts as $k => $v) {
-                $owner = Smallworld_getOwnerFromComment($data['msg_id_fk']);
+                $owner = smallworld_getOwnerFromComment($data['msg_id_fk']);
                 // Get owner of posts settings in order to send mail or not!
                 $owner_privset = json_decode($dBase->GetSettings($v), true);
                 if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {

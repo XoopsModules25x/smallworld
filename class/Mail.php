@@ -120,7 +120,7 @@ class Mail
                 $ownermessage = "<img width='300px' src='" . $ownmsg . "' style='margin: 5px 0px;' >";
             }
 
-            $owner            = Smallworld_getOwnerFromComment($data['msg_id_fk']);
+            $owner            = smallworld_getOwnerFromComment($data['msg_id_fk']);
             $OwnerUser        = new \XoopsUser($owner);
             $Owner_avatar     = $wall->Gravatar($owner);
             $Owner_avatarlink = "<img class='left' src='" . smallworld_getAvatarLink($owner, $Owner_avatar) . "' height='90px' width='90px'>";

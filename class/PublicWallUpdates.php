@@ -52,7 +52,7 @@ class PublicWallUpdates
             $data[] = $row;
         }
         if (!empty($data)) {
-            $sub = implode(',', Smallworld_array_flatten(array_unique($data), 0));
+            $sub = implode(',', smallworld_array_flatten(array_unique($data), 0));
         } else {
             $sub = 0;
         }
@@ -72,7 +72,7 @@ class PublicWallUpdates
         $moderators = is_array($moderators) ? $moderators : [$moderators];
         $hm         = smallworld_GetModuleOption('msgtoshow');
         $set        = smallworld_checkPrivateOrPublic();
-        $mods       = implode(',', Smallworld_array_flatten(array_unique($moderators), 0));
+        $mods       = implode(',', smallworld_array_flatten(array_unique($moderators), 0));
         $inspected  = $this->inspected();
         $perm       = smallworld_GetModuleOption('smallworldshowPoPubPage');
         $i          = 0;
@@ -431,9 +431,9 @@ class PublicWallUpdates
                 }
 
                 $wm['msg_id']          = $data['msg_id'];
-                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(["\r", "\n"], '', Smallworld_stripWordsKeepUrl($data['message'])) : '';
+                $wm['orimessage']      = (1 == $USW['posts'] || $profile >= 2) ? str_replace(["\r", "\n"], '', smallworld_stripWordsKeepUrl($data['message'])) : '';
                 $wm['message']         = (1 == $USW['posts'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($data['message']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETPOSTS;
-                $wm['message']         = Smallworld_cleanup($wm['message']);
+                $wm['message']         = smallworld_cleanup($wm['message']);
                 $wm['created']         = smallworld_time_stamp($data['created']);
                 $wm['username']        = $data['username'];
                 $wm['uid_fk']          = $data['uid_fk'];
@@ -492,7 +492,7 @@ class PublicWallUpdates
                         $wc['msg_id_fk']       = $cdata['msg_id_fk'];
                         $wc['com_id']          = $cdata['com_id'];
                         $wc['comment']         = (1 == $USC['comments'] || $profile >= 2) ? smallworld_tolink(htmlspecialchars_decode($cdata['comment']), $cdata['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
-                        $wc['comment']         = Smallworld_cleanup($wc['comment']);
+                        $wc['comment']         = smallworld_cleanup($wc['comment']);
                         $wc['time']            = smallworld_time_stamp($cdata['created']);
                         $wc['username']        = $cdata['username'];
                         $wc['uid']             = $cdata['uid_fk'];

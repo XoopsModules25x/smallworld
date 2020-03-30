@@ -52,14 +52,14 @@ function SmallworldGetTimestampsToForm()
  * @param $text
  * @return array|mixed
  */
-function Smallworld_cleanup($text)
+function smallworld_cleanup($text)
 {
     if (is_array($text)) {
         foreach ($text as $key => $value) {
-            $text[$key] = Smallworld_cleanup_string($value);
+            $text[$key] = smallworld_cleanup_string($value);
         }
     } else {
-        $text = Smallworld_cleanup_string($text);
+        $text = smallworld_cleanup_string($text);
     }
 
     return $text;
@@ -70,7 +70,7 @@ function Smallworld_cleanup($text)
  * @param $text
  * @return mixed
  */
-function Smallworld_cleanup_string($text)
+function smallworld_cleanup_string($text)
 {
     $myts = MyTextSanitizer::getInstance();
     $text = $myts->displayTarea($text, $html = 1, $smiley = 1, $xcode = 1, $image = 1, $br = 1);
@@ -84,14 +84,14 @@ function Smallworld_cleanup_string($text)
  * @param $text
  * @return array|mixed
  */
-function Smallworld_sanitize($text)
+function smallworld_sanitize($text)
 {
     if (is_array($text)) {
         foreach ($text as $key => $value) {
-            $text[$key] = Smallworld_sanitize_string($value);
+            $text[$key] = smallworld_sanitize_string($value);
         }
     } else {
-        $text = Smallworld_sanitize_string($text);
+        $text = smallworld_sanitize_string($text);
     }
 
     return $text;
@@ -101,7 +101,7 @@ function Smallworld_sanitize($text)
  * @param $value
  * @return mixed
  */
-function Smallworld_sanitize_string($value)
+function smallworld_sanitize_string($value)
 {
     $myts = MyTextSanitizer::getInstance();
     if (get_magic_quotes_gpc()) {
@@ -117,7 +117,7 @@ function Smallworld_sanitize_string($value)
  * @param $array
  * @return array
  */
-function Smallworld_DateOfArray($array)
+function smallworld_DateOfArray($array)
 {
     $data = [];
     foreach ($array as $k => $v) {
@@ -131,7 +131,7 @@ function Smallworld_DateOfArray($array)
  * @param $array
  * @return array
  */
-function Smallworld_YearOfArray($array)
+function smallworld_YearOfArray($array)
 {
     $data = [];
     foreach ($array as $k => $v) {
@@ -144,7 +144,7 @@ function Smallworld_YearOfArray($array)
 /**
  * @param $folderUrl
  */
-function Smallworld_CreateIndexFiles($folderUrl)
+function smallworld_CreateIndexFiles($folderUrl)
 {
     $myts = MyTextSanitizer::getInstance();
     file_put_contents($folderUrl . 'index.html', '<script>history.go(-1);</script>');
@@ -168,11 +168,11 @@ function smallworld_ImplodeArray($glue, $pieces)
  * @param array $newArray
  * @return array
  */
-function Smallworld_array_flatten($array, $preserve_keys = 1, &$newArray = [])
+function smallworld_array_flatten($array, $preserve_keys = 1, &$newArray = [])
 {
     foreach ($array as $key => $child) {
         if (is_array($child)) {
-            $newArray = Smallworld_array_flatten($child, $preserve_keys, $newArray);
+            $newArray = smallworld_array_flatten($child, $preserve_keys, $newArray);
         } elseif ($preserve_keys + is_string($key) > 1) {
             $newArray[$key] = $child;
         } else {
@@ -192,7 +192,7 @@ function Smallworld_array_flatten($array, $preserve_keys = 1, &$newArray = [])
  * @param $birth
  * @return false|string
  */
-function Smallworld_Birthday($birth)
+function smallworld_Birthday($birth)
 {
     list($year, $month, $day) = explode('-', $birth);
     $yearDiff  = date('Y') - $year;
@@ -342,7 +342,7 @@ function smallworld_tolink($text, $uid)
  * @param $text
  * @return mixed
  */
-function Smallworld_stripWordsKeepUrl($text)
+function smallworld_stripWordsKeepUrl($text)
 {
     preg_replace('/(((f|ht){1}tps:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i', '<div class=".embed"><a href="\\1">\\1</a></div>', $text);
 
@@ -354,7 +354,7 @@ function Smallworld_stripWordsKeepUrl($text)
  * @param $name
  * @return string
  */
-function Smallworld_sociallinks($num, $name)
+function smallworld_sociallinks($num, $name)
 {
     if (0 == $num) {
         $image = '<img title="Msn" id="Smallworld_socialnetworkimg" src="' . XOOPS_URL . '/modules/smallworld/assets/images/socialnetworkicons/msn.png">';
@@ -524,7 +524,7 @@ function smallworld_XIMversion()
  * @param $msg_id_fk
  * @return mixed
  */
-function Smallworld_getOwnerFromComment($msg_id_fk)
+function smallworld_getOwnerFromComment($msg_id_fk)
 {
     global $xoopsDB;
     $sql    = 'SELECT uid_fk FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE msg_id = '" . $msg_id_fk . "'";
@@ -541,7 +541,7 @@ function Smallworld_getOwnerFromComment($msg_id_fk)
  * @param $userID
  * @return mixed
  */
-function Smallworld_getName($userID)
+function smallworld_getName($userID)
 {
     global $xoopsUser, $xoopsDB;
     $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
@@ -560,7 +560,7 @@ function Smallworld_getName($userID)
  * @param $userid
  * @return array
  */
-function Smallworld_isInspected($userid)
+function smallworld_isInspected($userid)
 {
     global $xoopsDB;
     $data   = [];
@@ -598,7 +598,7 @@ function smallworld_getCountFriendMessagesEtc()
     $user      = new \XoopsUser();
     $Wall      = new Smallworld\WallUpdates();
     $userid    = $xoopsUser->getVar('uid');
-    $followers = Smallworld_array_flatten($Wall->getFollowers($userid), 0);
+    $followers = smallworld_array_flatten($Wall->getFollowers($userid), 0);
     if (1 == smallworld_GetModuleOption('usersownpostscount', $repmodule = 'smallworld')) {
         $followers[] = $userid;
     }
@@ -662,7 +662,7 @@ function smallworld_Stats_newest()
             $nu[$i]['username_link']  = "<a href = '" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['username'] . "'>";
             $nu[$i]['username_link']  .= $r['username'] . ' (' . $r['realname'] . ') [' . $nu[$i]['regdate'] . '] </a>';
             $nu[$i]['userimage']      = $r['userimage'];
-            $nu[$i]['userimage_link'] = smallworld_getAvatarLink($r['userid'], Smallworld_Gravatar($r['userid']));
+            $nu[$i]['userimage_link'] = smallworld_getAvatarLink($r['userid'], smallworld_Gravatar($r['userid']));
             ++$i;
         }
     }
@@ -675,7 +675,7 @@ function smallworld_Stats_newest()
  * @param $uid
  * @return string
  */
-function Smallworld_Gravatar($uid)
+function smallworld_Gravatar($uid)
 {
     global $xoopsUser, $xoopsDB;
     $image  = '';
@@ -709,7 +709,7 @@ function Smallworld_Gravatar($uid)
 /**
  * @return array
  */
-function Smallworld_mostactiveusers_allround()
+function smallworld_mostactiveusers_allround()
 {
     global $xoopsDB, $xoopsUser;
     $msg     = [];
@@ -729,7 +729,7 @@ function Smallworld_mostactiveusers_allround()
         $counter = 1;
         while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $msg[$counter]['counter']       = $counter;
-            $msg[$counter]['img']           = smallworld_getAvatarLink($row['uid_fk'], Smallworld_Gravatar($row['uid_fk']));
+            $msg[$counter]['img']           = smallworld_getAvatarLink($row['uid_fk'], smallworld_Gravatar($row['uid_fk']));
             $msg[$counter]['msgs']          = _SMALLWORLD_TOTALPOSTS . ' : ' . $row['cnt'];
             $msg[$counter]['cnt']           = $row['cnt'];
             $msg[$counter]['username']      = $xoopsUser->getUnameFromId($row['uid_fk']);
@@ -746,7 +746,7 @@ function Smallworld_mostactiveusers_allround()
 /**
  * @return array
  */
-function Smallworld_worstratedusers()
+function smallworld_worstratedusers()
 {
     global $xoopsUser, $xoopsDB;
     $array   = [];
@@ -759,7 +759,7 @@ function Smallworld_worstratedusers()
     $result  = $xoopsDB->queryF($sql);
     while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $array[$counter]['counter']   = $counter;
-        $array[$counter]['img']       = smallworld_getAvatarLink($row['owner'], Smallworld_Gravatar($row['owner']));
+        $array[$counter]['img']       = smallworld_getAvatarLink($row['owner'], smallworld_Gravatar($row['owner']));
         $array[$counter]['user']      = $xoopsUser->getUnameFromId($row['owner']);
         $array[$counter]['rating']    = $row['total'];
         $array[$counter]['user_link'] = "<a href = '" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $array[$counter]['user'] . "'>";
@@ -774,7 +774,7 @@ function Smallworld_worstratedusers()
 /**
  * @return array
  */
-function Smallworld_topratedusers()
+function smallworld_topratedusers()
 {
     global $xoopsUser, $xoopsDB;
     $array   = [];
@@ -787,7 +787,7 @@ function Smallworld_topratedusers()
     $result  = $xoopsDB->queryF($sql);
     while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $array[$counter]['counter']   = $counter;
-        $array[$counter]['img']       = smallworld_getAvatarLink($row['owner'], Smallworld_Gravatar($row['owner']));
+        $array[$counter]['img']       = smallworld_getAvatarLink($row['owner'], smallworld_Gravatar($row['owner']));
         $array[$counter]['user']      = $xoopsUser->getUnameFromId($row['owner']);
         $array[$counter]['rating']    = $row['total'];
         $array[$counter]['user_link'] = "<a href = '" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $array[$counter]['user'] . "'>";
@@ -822,7 +822,7 @@ function smallworld_nextBirthdays()
     while (false !== ($r = $xoopsDB->fetchArray($result))) {
         $res[$i]['amount']        = $counter;
         $res[$i]['userid']        = $r['userid'];
-        $res[$i]['userimage']     = smallworld_getAvatarLink($r['userid'], Smallworld_Gravatar($r['userid']));
+        $res[$i]['userimage']     = smallworld_getAvatarLink($r['userid'], smallworld_Gravatar($r['userid']));
         $res[$i]['birthday']      = $r['daymon'];
         $res[$i]['agenow']        = $r['age_now'];
         $res[$i]['username']      = $xoopsUser->getUnameFromId($r['userid']);
@@ -844,7 +844,7 @@ function smallworld_nextBirthdays()
  * @param $stringDate
  * @return string
  */
-function Smallworld_euroToUsDate($stringDate)
+function smallworld_euroToUsDate($stringDate)
 {
     if (0 != $stringDate || '' != $stringDate) {
         $theData = explode('-', trim($stringDate));
@@ -865,7 +865,7 @@ function Smallworld_euroToUsDate($stringDate)
  * @param $stringDate
  * @return string
  */
-function Smallworld_UsToEuroDate($stringDate)
+function smallworld_UsToEuroDate($stringDate)
 {
     if (0 != $stringDate || '' != $stringDate) {
         $theData = explode('-', trim($stringDate));
