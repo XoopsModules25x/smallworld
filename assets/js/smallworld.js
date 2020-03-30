@@ -230,7 +230,7 @@ xoops_smallworld(function () {
         changeYear: true,
         dateFormat: 'dd-mm-yy',
         showOn: "button",
-        buttonImage: "images/calendar.gif",
+        buttonImage: "assets/images/calendar.gif",
         buttonImageOnly: true,
         onClose: function () {
             this.focus();
