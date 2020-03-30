@@ -28,7 +28,7 @@ require_once dirname(__DIR__) . '/include/common.php';
 $db = \XoopsDatabaseFactory::getDatabase();
 
 if (!$helper->isUserAdmin()) {
-    redirect_header((XOOPS_URL . '/', 3, _NOPERM);
+    redirect_header(XOOPS_URL . '/', 3, _NOPERM);
 }
 
 /** @var Xmf\Module\Admin $adminObject */
