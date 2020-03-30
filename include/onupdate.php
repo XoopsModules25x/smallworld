@@ -57,6 +57,7 @@ function xoops_module_pre_update_smallworld(\XoopsModule $module)
 /**
  * Update Smallworld module
  *
+ * @param \XoopsModule $module
  * @return bool true on succeess, false on failure
  */
 function xoops_module_update_smallworld(\XoopsModule $module)

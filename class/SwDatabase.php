@@ -352,7 +352,6 @@ class SwDatabase
      * updateInspection function
      * @param int   $userID
      * @param int   $start
-     * @param int stop
      * @param mixed $stop
      */
     public function updateInspection($userID, $start, $stop)
@@ -619,8 +618,6 @@ class SwDatabase
 
     /**
      * Update private settings
-     * @param int id ($userid)
-     * @param string posts (serialized values)
      * @param mixed $id
      * @param mixed $posts
      */
@@ -641,7 +638,6 @@ class SwDatabase
 
     /**
      * Retrieve private settings
-     * @param int userid
      * @param mixed $userid
      * @return string serialized string
      */

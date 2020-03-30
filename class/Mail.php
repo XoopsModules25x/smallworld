@@ -46,6 +46,7 @@ class Mail
      * @param             $toUserID
      * @param             $event
      * @param null|string $link
+     * @param array       $data
      * @throws \phpmailerException
      */
     public function sendMails($fromUserID, $toUserID, $event, $link, array $data)

@@ -27,6 +27,7 @@ class Form
     /**
      * @create a dropdown select
      * @param string $name
+     * @param array  $options
      * @param string $selected (optional)
      * @return string
      */
@@ -46,6 +47,7 @@ class Form
     /**
      * @create a radio select
      * @param string $name
+     * @param array  $options
      * @param string $selected (optional)
      * @return string
      */
@@ -128,6 +130,7 @@ class Form
      * @param string  $name
      * @param         $name2
      * @param string  $rel
+     * @param array   $options
      * @param string  $textmore
      * @param string  $selected (optional)
      * @param string  $preset   (optional)
@@ -187,13 +190,13 @@ class Form
      * @param string $name
      * @param string $name2
      * @param string $rel
+     * @param array  $options
      * @param string $textmore
      * @param string $selected      (optional)
      * @param string $preset        (optional)
      * @param string $selectedstart (optional)
      * @param string $selectedstop  (optional)
      * @return dynamic|string
-     * @return string
      */
     public function school_add(
         $class,

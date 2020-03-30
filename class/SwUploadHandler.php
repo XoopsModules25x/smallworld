@@ -131,7 +131,7 @@ class SwUploadHandler
      * @param $size
      * @param $type
      * @param $error
-     * @return stdClass
+     * @return \stdClass
      */
     private function handle_file_upload($uploaded_file, $name, $size, $type, $error)
     {
