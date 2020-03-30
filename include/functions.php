@@ -993,7 +993,7 @@ function smallworld_imageResize($width, $height, $target)
  * will attempt to use the getimagesiz method first, then curl
  * @param int $w
  * @param int $h
- * @param url $url
+ * @param string|\http\Url $url
  * @returns array
  * @return array|false|string[]
  * @return array|false|string[]
