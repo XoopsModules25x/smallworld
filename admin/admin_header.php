@@ -36,7 +36,7 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 
 if (!$GLOBALS['xoopsTpl'] instanceof \XoopsTpl) {
     require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new \XoopsTpl();
+    $GLOBALS['xoopsTpl'] = new \XoopsTpl();
 }
 
 // Load language files
