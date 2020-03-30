@@ -1068,7 +1068,7 @@ div#smallworldStatsDiv {
 #smallworld_Stats_title {
     bottom: 10px;
     color: #ff0000;
-    font-family: Helvetica;
+    font-family: Helvetica, sans-serif;
     font-size: 1.2em;
     font-weight: bolder;
     margin-left: 5px;
