@@ -75,7 +75,7 @@ function xoops_module_update_smallworld(\XoopsModule $module)
     if($successA = $tables->useTable($msgTable)) { // if this returns false, there is no table
 		$attributes = $tables->getColumnAttributes($msgTable, $column);
 		if (false === strpos($attributes, ' TEXT')) { // assumes it's already been updated if TEXT found
-			$successA = $tables->alterColumn($msgTable, $column, " TEXT ");
+			$successA = $tables->alterColumn($msgTable, $column, ' TEXT ');
 		}
 	}
 
@@ -84,7 +84,7 @@ function xoops_module_update_smallworld(\XoopsModule $module)
     if($successB = $tables->useTable($comTable)) { // if this returns false, there is no table
 		$attributes = $tables->getColumnAttributes($comTable, $column);
 		if (false === strpos($attributes, ' TEXT')) { // assumes it's already been updated if 'TEXT' not found
-			$successB =  $tables->alterColumn($comTable, $column, " TEXT ");
+			$successB =  $tables->alterColumn($comTable, $column, ' TEXT ');
 		}
 	}
 	
@@ -93,7 +93,7 @@ function xoops_module_update_smallworld(\XoopsModule $module)
     if(false === ($successC = $tables->useTable($sTable))) { // if this returns true then the table exists already
         // Table does not exist -> create
 		$successC = $tables->addTable($sTable);
-		$successC = $successC && ($tables->setTableOptions($sTable, "ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1"));
+		$successC = $successC && ($tables->setTableOptions($sTable, 'ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1'));
 		$successC = $successC && ($tables->addColumn($sTable, 'id', 'INT(11) NOT NULL AUTO_INCREMENT'));
 		$successC = $successC && ($tables->addColumn($sTable, 'userid', 'INT(11) NOT NULL'));
 		$successC = $successC && ($tables->addColumn($sTable, 'value', 'TEXT'));
