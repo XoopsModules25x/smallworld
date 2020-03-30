@@ -25,7 +25,6 @@ use XoopsModules\Smallworld;
 require_once __DIR__ . '/header.php';
 
 global $xoopsUser, $xoopsLogger;
-require_once __DIR__ . '/../../mainfile.php';
 //require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 if ($xoopsUser) {
