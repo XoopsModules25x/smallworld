@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -20,7 +22,6 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-
 require_once XOOPS_ROOT_PATH . '/class/mail/xoopsmultimailer.php';
 //require_once XOOPS_ROOT_PATH . '/class/template.php';
 
@@ -45,10 +46,9 @@ class Mail
      * @param             $toUserID
      * @param             $event
      * @param null|string $link
-     * @param array       $data
      * @throws \phpmailerException
      */
-    public function sendMails($fromUserID, $toUserID, $event, $link = null, array $data)
+    public function sendMails($fromUserID, $toUserID, $event, $link, array $data)
     {
         global $xoopsConfig, $xoopsUser;
         $date    = date('m-d-Y H:i:s', time());
@@ -184,13 +184,13 @@ class Mail
         $mail->Subject = $subject;
 
         if (!$mail->send()) {
-        } else {
         }
     }
 
     /*
      From msg_id_fk get userids in the thread and return unique array
     */
+
     /**
      * @param $msg_id_fk
      * @return array
@@ -204,6 +204,7 @@ class Mail
         while (false !== ($r = $xoopsDB->fetchArray($result))) {
             $parts[] = $r['uid_fk'];
         }
+
         return array_unique($parts);
     }
 
@@ -219,6 +220,7 @@ class Mail
         while (false !== ($r = $xoopsDB->fetchArray($result))) {
             $message = $r['message'];
         }
+
         return $message;
     }
 }

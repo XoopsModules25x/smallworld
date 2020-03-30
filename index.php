@@ -20,7 +20,6 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
@@ -86,21 +85,25 @@ if (1 == $set['access']) {
     $Wall->ParsePubArray($updatesarray, $id);
 
     if ($profile >= 2) {
-        $GLOBALS['xoopsTpl']->assign([
-            'menu_startpage' => $menu_startpage,
-            'menu_home'      => $menu_home,
-            'menu_profile'   => $menu_profile,
-            'menu_friends'   => $menu_friends,
-            'menu_gallery'   => $menu_gallery
-        ]);
+        $GLOBALS['xoopsTpl']->assign(
+            [
+                'menu_startpage' => $menu_startpage,
+                'menu_home'      => $menu_home,
+                'menu_profile'   => $menu_profile,
+                'menu_friends'   => $menu_friends,
+                'menu_gallery'   => $menu_gallery,
+            ]
+        );
     }
-    $GLOBALS['xoopsTpl']->assign([
-        'myusername'        => $username,
-        'pagename'          => 'index',
-        'check'             => $profile,
-        'friendinvitations' => $getInvitations,
-        'access'            => $set['access']
-    ]);
+    $GLOBALS['xoopsTpl']->assign(
+        [
+            'myusername'        => $username,
+            'pagename'          => 'index',
+            'check'             => $profile,
+            'friendinvitations' => $getInvitations,
+            'access'            => $set['access'],
+        ]
+    );
 }
 if (1 == $profile && 0 == $set['access']) {
     $helper->redirect('register.php');

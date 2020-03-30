@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -39,10 +41,7 @@ class PublicWallUpdates
 
     /**
      * Get arry of users being inspected
-     *
-     *
      */
-
     public function inspected()
     {
         global $xoopsDB;
@@ -57,6 +56,7 @@ class PublicWallUpdates
         } else {
             $sub = 0;
         }
+
         return $sub;
     }
 
@@ -123,14 +123,13 @@ class PublicWallUpdates
         $count  = $xoopsDB->getRowsNum($result);
         if (0 == $count) {
             return false;
-        } else {
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
-                $data[] = $row;
-            }
+        }
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            $data[] = $row;
+        }
 
-            if (!empty($data)) {
-                return $data;
-            }
+        if (!empty($data)) {
+            return $data;
         }
     }
 
@@ -192,11 +191,12 @@ class PublicWallUpdates
 
         $ext = explode('.', $image);
 
-        if (@!in_array(strtolower($ext[1]), $type) || '' == $image) {
+        if (@!in_array(mb_strtolower($ext[1]), $type) || '' == $image) {
             $avatar = '';
         } else {
             $avatar = $image;
         }
+
         return $avatar;
     }
 
@@ -219,6 +219,7 @@ class PublicWallUpdates
         if ('' == $sum) {
             $sum = 0;
         }
+
         return $sum;
     }
 
@@ -244,6 +245,7 @@ class PublicWallUpdates
         if ('' == $sum) {
             $sum = 0;
         }
+
         return $sum;
     }
 
@@ -267,6 +269,7 @@ class PublicWallUpdates
             $result = $xoopsDB->queryF($sql);
             $i      = $xoopsDB->getRowsNum($result);
         }
+
         return $i;
     }
 
@@ -281,6 +284,7 @@ class PublicWallUpdates
         $sql    = 'SELECT (SELECT COUNT(*) FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "') + (SELECT COUNT(*) FROM " . $xoopsDB->prefix('smallworld_messages') . " WHERE uid_fk = '" . $userid . "')";
         $result = $xoopsDB->queryF($sql);
         $sum    = $xoopsDB->fetchRow($result);
+
         return $sum[0];
     }
 
@@ -301,13 +305,12 @@ class PublicWallUpdates
         $count  = $xoopsDB->getRowsNum($result);
         if ($count < 1) {
             return false;
-        } else {
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
-                $data[] = $row;
-            }
-            if (!empty($data)) {
-                return $data;
-            }
+        }
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            $data[] = $row;
+        }
+        if (!empty($data)) {
+            return $data;
         }
     }
 
@@ -327,13 +330,12 @@ class PublicWallUpdates
         $count  = $xoopsDB->getRowsNum($result);
         if ($count < 1) {
             return false;
-        } else {
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
-                $data[] = $row;
-            }
-            if (!empty($data)) {
-                return $data;
-            }
+        }
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            $data[] = $row;
+        }
+        if (!empty($data)) {
+            return $data;
         }
     }
 
@@ -351,6 +353,7 @@ class PublicWallUpdates
         } else {
             $text = '';
         }
+
         return $text;
     }
 
@@ -372,6 +375,7 @@ class PublicWallUpdates
         } else {
             $text = '';
         }
+
         return $text;
     }
 
@@ -379,7 +383,6 @@ class PublicWallUpdates
      * @Parse update and comments array to template for public updates
      * @param array $updatesarray
      * @param int   $id
-     * @return void
      */
     public function ParsePubArray($updatesarray, $id)
     {

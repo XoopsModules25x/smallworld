@@ -12,7 +12,7 @@ namespace XoopsModules\Smallworld\Common;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use \XoopsModules\Smallworld\Common;
+use XoopsModules\Smallworld\Common;
 
 /**
  * Class Migrate synchronize existing tables with target schema

@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -33,7 +35,6 @@ class DoSync
 {
     /**
      * check for orphans (xoops_users <-> smallworld_users) and remove from smallworld
-     * @return void
      */
     public function checkOrphans()
     {
@@ -95,35 +96,34 @@ class DoSync
     public function smallworld_remDir($userid, $directory, $empty = false)
     {
         if ('' != $userid) {
-            if ('/' === substr($directory, -1)) {
-                $directory = substr($directory, 0, -1);
+            if ('/' === mb_substr($directory, -1)) {
+                $directory = mb_substr($directory, 0, -1);
             }
 
             if (!file_exists($directory) || !is_dir($directory)) {
                 return false;
             } elseif (!is_readable($directory)) {
                 return false;
-            } else {
-                $directoryHandle = opendir($directory);
-                while (false !== ($contents = readdir($directoryHandle))) {
-                    if ('.' !== $contents && '..' !== $contents) {
-                        $path = $directory . '/' . $contents;
-                        if (is_dir($path)) {
-                            $this->smallworld_remDir($userid, $path);
-                        } else {
-                            unlink($path);
-                        }
-                    }
-                }
-                closedir($directoryHandle);
-                if (false === $empty) {
-                    if (!rmdir($directory)) {
-                        return false;
-                    }
-                }
-
-                return true;
             }
+            $directoryHandle = opendir($directory);
+            while (false !== ($contents = readdir($directoryHandle))) {
+                if ('.' !== $contents && '..' !== $contents) {
+                    $path = $directory . '/' . $contents;
+                    if (is_dir($path)) {
+                        $this->smallworld_remDir($userid, $path);
+                    } else {
+                        unlink($path);
+                    }
+                }
+            }
+            closedir($directoryHandle);
+            if (false === $empty) {
+                if (!rmdir($directory)) {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 

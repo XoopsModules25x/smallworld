@@ -35,7 +35,7 @@ $tpl = new \XoopsTpl();
 $id   = smallworld_isset_or(Request::getInt('username', 0, 'GET')); // Id of user which profile you want to see
 $id   = (int)$id; // smallworld_isset_or doesn't always return an integer
 $user = new \XoopsUser($id);
-$uid = $user->uid();
+$uid  = $user->uid();
 
 $helper->loadLanguage('user');
 
@@ -43,8 +43,8 @@ $moduleHandler = xoops_getHandler('module');
 $configHandler = xoops_getHandler('config');
 $thisUser      = $memberHandler->getUser($id);
 
-$gpermHandler  = xoops_getHandler('groupperm');
-$groups        = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : 0;
+$gpermHandler = xoops_getHandler('groupperm');
+$groups       = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : 0;
 
 $criteria = new \CriteriaCompo(new \Criteria('hassearch', 1));
 $criteria->add(new \Criteria('isactive', 1));

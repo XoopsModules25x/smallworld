@@ -20,7 +20,6 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
@@ -53,5 +52,4 @@ if ($_GET) {
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
     echo json_encode($data);
     flush();
-} else {
 }

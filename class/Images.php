@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -25,7 +27,6 @@ class Images
     /**
      * @Create folders
      * @param int $userID
-     * @return void
      */
     public function createAlbum($userID)
     {
@@ -77,10 +78,9 @@ class Images
             }
 
             return $post;
-        } else {
-            //Not a friends album
-            return false;
         }
+        //Not a friends album
+        return false;
     }
 
     /**

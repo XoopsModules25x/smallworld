@@ -20,7 +20,6 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
@@ -33,7 +32,6 @@ require_once $helper->path('include/functions.php');
 require_once $helper->path('include/arrays.php');
 
 //$GLOBALS['xoopsLogger']->activated = false;
-
 
 if (isset($GLOBALS['xoopsUser']) && $GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $id      = $GLOBALS['xoopsUser']->uid();

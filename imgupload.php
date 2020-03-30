@@ -10,7 +10,6 @@
  * http://creativecommons.org/licenses/MIT/
  */
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';

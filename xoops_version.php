@@ -19,7 +19,6 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
-
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
 $moduleDirName = basename(__DIR__);
@@ -45,7 +44,7 @@ $modversion = [
     // ------------------- Folders & Files -------------------
     'release_info'        => 'Changelog',
     'release_file'        => XOOPS_URL . "/modules/$moduleDirName/docs/changelog.txt",
-    //
+
     'manual'              => 'link to manual file',
     'manual_file'         => XOOPS_URL . "/modules/$moduleDirName/docs/install.txt",
     // images
@@ -154,7 +153,6 @@ $modversion['config'][] = [
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 5,
-
 ];
 
 $modversion['config'][] = [
@@ -164,7 +162,6 @@ $modversion['config'][] = [
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
     'default'     => 1,
-
 ];
 
 $modversion['config'][] = [
@@ -174,7 +171,6 @@ $modversion['config'][] = [
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
     'default'     => 1,
-
 ];
 
 $modversion['config'][] = [
@@ -333,7 +329,6 @@ $modversion['config'][] = [
 /**
  * Authorized groups to upload
  */
-
 $obj                    = smallworld_xv_getGroupd();
 $modversion['config'][] = [
     'name'        => 'smallworldshowPoPubPage',
@@ -343,7 +338,6 @@ $modversion['config'][] = [
     'valuetype'   => 'array',
     'default'     => 0,
     'options'     => array_flip($obj),
-
 ];
 
 $modversion['config'][] = [

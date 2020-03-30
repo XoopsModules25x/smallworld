@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -42,6 +44,7 @@ class WallUpdates
         while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $data[] = $row;
         }
+
         return $data;
     }
 
@@ -103,13 +106,12 @@ class WallUpdates
         $count  = $xoopsDB->getRowsNum($result);
         if (0 == $count) {
             return false;
-        } else {
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
-                $data[] = $row;
-            }
-            if (!empty($data)) {
-                return $data;
-            }
+        }
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            $data[] = $row;
+        }
+        if (!empty($data)) {
+            return $data;
         }
     }
 
@@ -158,11 +160,12 @@ class WallUpdates
 
         $ext = explode('.', $image);
 
-        if (@!in_array(strtolower($ext[1]), $type) || '' == $image) {
+        if (@!in_array(mb_strtolower($ext[1]), $type) || '' == $image) {
             $avatar = '';
         } else {
             $avatar = $image;
         }
+
         return $avatar;
     }
 
@@ -195,13 +198,12 @@ class WallUpdates
             $count = $xoopsDB->getRowsNum($result2);
             if ($count < 1) {
                 return false;
-            } else {
-                while (false !== ($row = $xoopsDB->fetchArray($result2))) {
-                    $data[] = $row;
-                }
-                if (!empty($data)) {
-                    return $data;
-                }
+            }
+            while (false !== ($row = $xoopsDB->fetchArray($result2))) {
+                $data[] = $row;
+            }
+            if (!empty($data)) {
+                return $data;
             }
         }
     }
@@ -236,10 +238,11 @@ class WallUpdates
             while (false !== ($row = $xoopsDB->fetchArray($result2))) {
                 $data[0] = $row;
             }
+
             return $data[0];
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -282,6 +285,7 @@ class WallUpdates
         if ('' == $sum) {
             $sum = '0';
         }
+
         return $sum;
     }
 
@@ -306,6 +310,7 @@ class WallUpdates
         if ('' == $sum) {
             $sum = '0';
         }
+
         return $sum;
     }
 
@@ -329,6 +334,7 @@ class WallUpdates
             $result = $xoopsDB->queryF($sql);
             $i      = $xoopsDB->getRowsNum($result);
         }
+
         return $i;
     }
 
@@ -343,6 +349,7 @@ class WallUpdates
         $sql    = 'SELECT (SELECT COUNT(*) FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "') + (SELECT COUNT(*) FROM " . $xoopsDB->prefix('smallworld_messages') . " WHERE uid_fk = '" . $userid . "')";
         $result = $xoopsDB->queryF($sql);
         $sum    = $xoopsDB->fetchRow($result);
+
         return $sum[0];
     }
 
@@ -363,13 +370,12 @@ class WallUpdates
         $count  = $xoopsDB->getRowsNum($result);
         if ($count < 1) {
             return false;
-        } else {
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
-                $data[] = $row;
-            }
-            if (!empty($data)) {
-                return $data;
-            }
+        }
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            $data[] = $row;
+        }
+        if (!empty($data)) {
+            return $data;
         }
     }
 
@@ -391,13 +397,12 @@ class WallUpdates
         $count  = $xoopsDB->getRowsNum($result);
         if ($count < 1) {
             return false;
-        } else {
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
-                $data[] = $row;
-            }
-            if (!empty($data)) {
-                return $data;
-            }
+        }
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            $data[] = $row;
+        }
+        if (!empty($data)) {
+            return $data;
         }
     }
 
@@ -415,6 +420,7 @@ class WallUpdates
         } else {
             $text = '';
         }
+
         return $text;
     }
 
@@ -436,6 +442,7 @@ class WallUpdates
         } else {
             $text = '';
         }
+
         return $text;
     }
 
@@ -443,7 +450,6 @@ class WallUpdates
      * @Parse update and comments array to template for public updates
      * @param array $updatesarray
      * @param int   $id
-     * @return void
      */
     public function ParsePubArray($updatesarray, $id)
     {

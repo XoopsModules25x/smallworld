@@ -22,9 +22,8 @@ trait VersionChecks
     /**
      * Verifies XOOPS version meets minimum requirements for this module
      * @static
-     * @param \XoopsModule|null $module
      *
-     * @param null|string       $requiredVer
+     * @param null|string $requiredVer
      * @return bool true if meets requirements, false if not
      */
     public static function checkVerXoops(\XoopsModule $module = null, $requiredVer = null)
@@ -55,7 +54,6 @@ trait VersionChecks
     /**
      * Verifies PHP version meets minimum requirements for this module
      * @static
-     * @param \XoopsModule|null $module
      *
      * @return bool true if meets requirements, false if not
      */
@@ -86,7 +84,6 @@ trait VersionChecks
     }
 
     /**
-     *
      * compares current module version with latest GitHub release
      * @static
      * @param \Xmf\Module\Helper $helper
@@ -95,7 +92,6 @@ trait VersionChecks
      *
      * @return string|array info about the latest module version, if newer
      */
-
     public static function checkVerModule($helper, $source = 'github', $default = 'master')
     {
         $moduleDirName      = basename(dirname(dirname(__DIR__)));
@@ -114,7 +110,7 @@ trait VersionChecks
                 $curlReturn = curl_exec($curlHandle);
                 if (false === $curlReturn) {
                     trigger_error(curl_error($curlHandle));
-                } elseif (false !== strpos($curlReturn, 'Not Found')) {
+                } elseif (false !== mb_strpos($curlReturn, 'Not Found')) {
                     trigger_error('Repository Not Found: ' . $infoReleasesUrl);
                 } else {
                     $file              = json_decode($curlReturn, false);
@@ -144,6 +140,7 @@ trait VersionChecks
                 curl_close($curlHandle);
             }
         }
+
         return $ret;
     }
 }

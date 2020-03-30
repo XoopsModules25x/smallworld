@@ -35,9 +35,9 @@ $GLOBALS['xoopsLogger']->activated = false;
 
 if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     SmallworldDeleteOldInspects();
-    $id         = smallworld_isset_or(addslashes(Request::getString('username', '', 'GET')); // Id of user which profile you want to see
-    $id         = (int)$id;
-    $yourid     = $GLOBALS['xoopsUser']->uid{); // your uid
+    $id     = smallworld_isset_or(addslashes(Request::getString('username', '', 'GET')); // Id of user which profile you want to see
+    $id     = (int)$id;
+    $yourid = $GLOBALS['xoopsUser']->uid{); // your uid
     $Xuser      = new \XoopsUser($id);
     $Xusername  = $Xuser->getVar('uname');
     $check      = new Smallworld\User();
@@ -133,8 +133,8 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
         // Check for folder xim to add messenger user to menu items
         $hasxim = $helper->getHelper('xim');  // checks for existance and if module is active
         if (false !== $hasxim) {
-        //$hasxim = smallworld_checkForXim();
-        //
+            //$hasxim = smallworld_checkForXim();
+            //
             $GLOBALS['xoopsTpl']->assign('sendxim', 'YES');
             if (2 == $fr[0]) {
                 if ($yourid != $id) {
@@ -143,32 +143,32 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
             }
         }
 
-        $birthday_today_text = "<img width='20px' height='20px' src='" . $helper->url('images/bdayballoons_l.png') . "'>"
-                             . ' ' . _SMALLWORLD_BDAY_TODAY . ' '
-                             . "<img width='20px' height='20px' src='" . $helper->url('images/bdayballoons_r.png') . "'>";
+        $birthday_today_text = "<img width='20px' height='20px' src='" . $helper->url('images/bdayballoons_l.png') . "'>" . ' ' . _SMALLWORLD_BDAY_TODAY . ' ' . "<img width='20px' height='20px' src='" . $helper->url('images/bdayballoons_r.png') . "'>";
 
-        $GLOBALS['xoopsTpl']->assign([
-            'menu_startpage'         => $menu_startpage,
-            'menu_home'              => $menu_home,
-            'menu_profile'           => $menu_profile,
-            'menu_friends'           => $menu_friends,
-            'menu_gallery'           => $menu_gallery,
-            'check'                  => $profile,
-            'friendID'               => $id,
-            'myUid'                  => $yourid,
-            'friendship_text'        => $friendship_text,
-            'followfriend_text'      => $following_text,
-            'friendinvitations'      => $getInvitations,
-            'visitoravatar'          => $visitorAvatar,
-            'visitoravatarlink'      => $visitorAvatarlink,
-            'visitoravatar_highwide' => $visitorAvatar_highwide,
-            'myusername'             => $username,
-            'username'               => $Xusername,
-            'bdaynow'                => $birthday_today_text,
-            'isfollowing'            => $fl[0],
-            'flds'                   => smallworld_GetModuleOption('smallworldusethesefields', $repmodule = 'smallworld'),
-            'userNumMsg'             => $userNumMsg
-        ]);
+        $GLOBALS['xoopsTpl']->assign(
+            [
+                'menu_startpage'         => $menu_startpage,
+                'menu_home'              => $menu_home,
+                'menu_profile'           => $menu_profile,
+                'menu_friends'           => $menu_friends,
+                'menu_gallery'           => $menu_gallery,
+                'check'                  => $profile,
+                'friendID'               => $id,
+                'myUid'                  => $yourid,
+                'friendship_text'        => $friendship_text,
+                'followfriend_text'      => $following_text,
+                'friendinvitations'      => $getInvitations,
+                'visitoravatar'          => $visitorAvatar,
+                'visitoravatarlink'      => $visitorAvatarlink,
+                'visitoravatar_highwide' => $visitorAvatar_highwide,
+                'myusername'             => $username,
+                'username'               => $Xusername,
+                'bdaynow'                => $birthday_today_text,
+                'isfollowing'            => $fl[0],
+                'flds'                   => smallworld_GetModuleOption('smallworldusethesefields', $repmodule = 'smallworld'),
+                'userNumMsg'             => $userNumMsg,
+            ]
+        );
     }
 
     if ($profile < 2) {
@@ -184,7 +184,7 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
         $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/english/js/jquery.countdown.js');
     }
 } else {
-    //redirect_header(XOOPS_URL . '/user.php', 3, _NOPERM);
-}
+        //redirect_header(XOOPS_URL . '/user.php', 3, _NOPERM);
+    }
 
 require_once XOOPS_ROOT_PATH . '/footer.php';

@@ -16,17 +16,12 @@ namespace XoopsModules\Smallworld\Common;
  */
 
 /**
- *
  * @license      https://www.fsf.org/copyleft/gpl.html GNU public license
  * @copyright    https://xoops.org 2000-2020 &copy; XOOPS Project
  * @author       ZySpec <owners@zyspec.com>
  * @author       Mamba <mambax7@gmail.com>
  */
 
-use MyTextSanitizer;
-use XoopsFormDhtmlTextArea;
-use XoopsFormTextArea;
-use XoopsModules\Smallworld;
 use XoopsModules\Smallworld\Helper;
 
 /**

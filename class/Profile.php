@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -25,7 +27,6 @@ class Profile
     /**
      * @Show user
      * @param int $id
-     * @return void
      */
     public function ShowUser($id)
     {

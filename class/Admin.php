@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -380,7 +382,7 @@ class Admin
                     break;
                 case 'socket':
                     //make sure the url contains a protocol, otherwise $parts['host'] won't be set
-                    if (0 !== strpos($url, 'http://') && 0 !== strpos($url, 'https://')) {
+                    if (0 !== mb_strpos($url, 'http://') && 0 !== mb_strpos($url, 'https://')) {
                         $url = 'http://' . $url;
                     }
                     $parts = parse_url($url);
@@ -407,7 +409,7 @@ class Admin
                                 $resp .= $curr;
                             }
                             if (isset($curr) && false !== $curr) {
-                                return substr(strstr($resp, "\r\n\r\n"), 3);
+                                return mb_substr(mb_strstr($resp, "\r\n\r\n"), 3);
                             }
                         }
                         fclose($fp);

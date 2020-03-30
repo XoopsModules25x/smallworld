@@ -20,7 +20,6 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Smallworld\Common;
 
 include __DIR__ . '/admin_header.php';
 
@@ -46,7 +45,6 @@ switch ($op) {
         $form            = $feedback->getFormFeedback();
         $form->display();
         break;
-
     case 'send':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {

@@ -19,7 +19,6 @@
  * @ID         :                    $Id: search.php 12175 2013-10-15 17:41:43Z djculex $
  **/
 
-use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
@@ -337,7 +336,6 @@ function array_to_json($array)
         // Then we collapse the staging array into the JSON form:
         $result = '{ ' . implode(', ', $construct) . ' }';
     } else { // If the array is a vector (not associative):
-
         $construct = [];
         foreach ($array as $value) {
             // Format the value:
@@ -360,7 +358,7 @@ function array_to_json($array)
 
 $result = [];
 foreach ($arr as $key => $value) {
-    if (false !== stripos($key, $q)) {
+    if (false !== mb_stripos($key, $q)) {
         $result[] = ['id' => $value, 'label' => $key, 'value' => strip_tags($key)];
     }
     if (count($result) > 11) {

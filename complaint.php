@@ -34,12 +34,15 @@ $GLOBALS['xoopsLogger']->activated = false;
 $db = new Smallworld\SwDatabase();
 
 if ($GLOBALS['xoopsUser']) {
-    if (Request::hasVar('byuser', 'POST') {
-        $by_userid = $GLOBALS['xoopsUser']->getVar('uid');
-        $a_user    = addslashes(Request::getString('a_user', '', 'POST'));
-        $auserid   = Request::getInt'auserid', 0, 'POST');
-        $byuser    = Request::getInt('byuser', 0, 'POST');
-        $id        = Request::getInt('id', 0, 'POST);
+    if (Request::hasVar('byuser', 'POST'){$by_userid = $GLOBALS['xoopsUser']->getVar('uid'){;
+}
+    $a_user  = addslashes(Request::getString('a_user', '', 'POST'));
+    $auserid = Request::getInt'auserid', 0, 'POST') {
+        {
+        }
+        $byuser = Request::getInt('byuser', 0, 'POST');
+    }
+        $id = Request::getInt('id', 0, 'POST);
         $name      = addslashes(Request::getString('name', '','POST'));
         $time      = time();
         $data      = ['time' => $time, 'a_user' => $a_user, 'byuser' => $byuser, 'link' => $id, 'a_userid' => $auserid];

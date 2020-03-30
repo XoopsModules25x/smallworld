@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -25,7 +27,6 @@ class Form
     /**
      * @create a dropdown select
      * @param string $name
-     * @param array  $options
      * @param string $selected (optional)
      * @return string
      */
@@ -38,13 +39,13 @@ class Form
             $dropdown .= '<option value="' . $key . '"' . $select . '>' . $option . '</option>' . '<br>';
         }
         $dropdown .= '</select>' . '<br>';
+
         return $dropdown;
     }
 
     /**
      * @create a radio select
      * @param string $name
-     * @param array  $options
      * @param string $selected (optional)
      * @return string
      */
@@ -56,6 +57,7 @@ class Form
             $select = $selected == $value ? ' checked' : ' checked="unchecked"';
             $form   .= '<input type="checkbox" name="' . $name . '[]" id="' . $name . '" value="' . $value . '" ' . $select . '> ' . $option . '<br>';
         }
+
         return $form;
     }
 
@@ -77,6 +79,7 @@ class Form
                 $form .= '<input type="checkbox" id="' . $name . '-' . $i . '" name="' . $name . '[]" value="' . $i . '" >' . $options[$i] . '<br>';
             }
         }
+
         return $form;
     }
 
@@ -92,6 +95,7 @@ class Form
     {
         $s    = $size ?: '50px';
         $data = "<input type='text' size='" . $s . "' name='" . $name . "' id='" . $id . "' class='" . $class . "' value='" . $preset . "' >";
+
         return $data;
     }
 
@@ -104,6 +108,7 @@ class Form
     public function hidden($name, $id, $preset = null)
     {
         $data = "<input type='hidden' name='" . $name . "' value='" . $preset . "' >";
+
         return $data;
     }
 
@@ -114,16 +119,15 @@ class Form
     public function simpleText($value)
     {
         $data = $value;
+
         return $data;
     }
 
     /**
-     *
      * @param string  $class
      * @param string  $name
      * @param         $name2
      * @param string  $rel
-     * @param array   $options
      * @param string  $textmore
      * @param string  $selected (optional)
      * @param string  $preset   (optional)
@@ -138,11 +142,11 @@ class Form
             $dropdown .= '<option value="' . $key . '"' . $select . '>' . $option . '</option>' . '<br>';
         }
         $dropdown .= '</select></span>';
+
         return $dropdown;
     }
 
     /**
-     *
      * @param string  $class
      * @param string  $name
      * @param         $name2
@@ -158,6 +162,7 @@ class Form
         $s    = $size ?: '50px';
         $i    = $id ?: '';
         $data = "<span id='" . $name . "'><input type='text' size='" . $s . "' name='" . $name2 . "[]' value='" . $preset . "' id='" . $i . "'></span>";
+
         return $data;
     }
 
@@ -182,7 +187,6 @@ class Form
      * @param string $name
      * @param string $name2
      * @param string $rel
-     * @param array  $options
      * @param string $textmore
      * @param string $selected      (optional)
      * @param string $preset        (optional)
@@ -226,11 +230,11 @@ class Form
             $dropdown   .= '<option value="' . $key . '"' . $selectstop . '>' . $option . '</option>' . '<br>';
         }
         $dropdown .= '</select><br></p></div>';
+
         return $dropdown;
     }
 
     /**
-     *
      * @param string  $class
      * @param string  $name
      * @param         $name2
@@ -261,6 +265,7 @@ class Form
         $text .= '<br><br>' . _SMALLWORLD_JOBSTOP . '<input class="jobstop" value="' . $selectedstop . '" type="text" name="jobstop[]">';
         $text .= '<br><br><span class="jobdescText">' . _SMALLWORLD_DESCRIPTION . '</span><textarea class="jobdesc" name="description[]" rows="20" cols="20">' . $description . '</textarea><br></p></div>';
         $text .= '' . '<br>';
+
         return $text;
     }
 
@@ -276,6 +281,7 @@ class Form
         $text .= '<button type="submit">' . _SMALLWORLD_UPLOADTEXT . '</button>';
         $text .= '<span class="file_upload_label">' . _SMALLWORLD_UPLOADFILESTEXT . '</span>';
         $text .= '</form>';
+
         return $text;
     }
 
@@ -297,6 +303,7 @@ class Form
         $text .= '<td><span class="smallworld_editTextSpan">' . _SMALLWORLD_UPLOADDESC . '</span><br><br><textarea class="smallworld_edit_desc" name="imgdesc[]" rows="1" cols="1">' . stripslashes($imgdesc) . '</textarea><br><br></td>';
         $text .= '<input value="' . $id . '" type="hidden" name="id[]"></p>';
         $text .= '</tr></table>';
+
         return $text;
     }
 
@@ -335,6 +342,7 @@ class Form
         }
         $form .= "<br><input type='submit' id='smallworld_privsave' value='" . _SMALLWORLD_SUBMIT . "' class='smallworld_finish'>";
         $form .= '</form></fieldset></div></div>';
+
         return $form;
     }
 }

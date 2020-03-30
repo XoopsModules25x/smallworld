@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Smallworld;
+<?php
+
+namespace XoopsModules\Smallworld;
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -51,6 +53,7 @@ class SwDatabase
             $msg[$start]['description'] = $description[$start];
             ++$start;
         }
+
         return $msg;
     }
 
@@ -80,6 +83,7 @@ class SwDatabase
             $msg[$start]['schoolstop']  = $schoolstop[$start];
             $start++;
         }
+
         return $msg;
     }
 
@@ -106,6 +110,7 @@ class SwDatabase
             $msg[$start]['link']            = "<span class='smallworld_website'>" . Smallworld_sociallinks($screenname[$start], $msg[$start]['screenname']);
             ++$start;
         }
+
         return $msg;
     }
 
@@ -121,11 +126,12 @@ class SwDatabase
         $sql    = 'SELECT ' . $var . ' FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
         $result = $xoopsDB->queryF($sql);
         if ($xoopsDB->getRowsNum($result) < 1) {
-            return 0;//_SMALLWORLD_REPLY_NOTSPECIFIED;
+            return 0; //_SMALLWORLD_REPLY_NOTSPECIFIED;
         }
         while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $msg[$var] = $row[$var];
         }
+
         return $msg[$var];
     }
 
@@ -135,7 +141,6 @@ class SwDatabase
      * @param int    $userid
      * @param string $field
      * @param int    $value
-     * @return void
      */
     public function updateSingleValue($table, $userid, $field, $value)
     {
@@ -148,7 +153,6 @@ class SwDatabase
     /**
      * saveImage function
      * @param $values
-     * @return void
      */
     public function saveImage($values)
     {
@@ -162,7 +166,6 @@ class SwDatabase
      * DeleteImage function
      * @param int    $userid
      * @param string $imagename
-     * @return void
      */
     public function DeleteImage($userid, $imagename)
     {
@@ -174,7 +177,6 @@ class SwDatabase
 
     /**
      * handlePosts function
-     * @return void
      */
     public function handlePosts()
     {
@@ -291,7 +293,6 @@ class SwDatabase
      * @param string $username
      * @param string $realname
      * @param mixed  $avatar
-     * @return void
      */
     public function SetAdmins($userID, $username, $realname, $avatar)
     {
@@ -306,7 +307,6 @@ class SwDatabase
      * @param int    $userID
      * @param string $realname
      * @param mixed  $avatar
-     * @return void
      */
     public function EditAdmins($userID, $realname, $avatar)
     {
@@ -332,15 +332,14 @@ class SwDatabase
         if ($i < 1) {
             $query  = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_complaints') . " (complaint_id,link,byuser_id,owner) VALUES ('', '" . addslashes($msg) . "', '" . (int)$by . "', '" . (int)$against . "')";
             $result = $xoopsDB->queryF($query);
-        } else {
         }
+
         return $i;
     }
 
     /**
      * updateComplaint function
      * @param int $userID
-     * @return void
      */
     public function updateComplaint($userID)
     {
@@ -351,10 +350,10 @@ class SwDatabase
 
     /**
      * updateInspection function
-     * @param int $userID
-     * @param int $start
+     * @param int   $userID
+     * @param int   $start
      * @param int stop
-     * @return void
+     * @param mixed $stop
      */
     public function updateInspection($userID, $start, $stop)
     {
@@ -366,7 +365,6 @@ class SwDatabase
 
     /**
      * handleImageEdit function
-     * @return void
      */
     public function handleImageEdit()
     {
@@ -385,7 +383,6 @@ class SwDatabase
      * @param int $status
      * @param int $friendid
      * @param int $userid
-     * @return void
      */
     public function toogleFriendInvite($status, $friendid, $userid)
     {
@@ -411,7 +408,6 @@ class SwDatabase
      * @param int $following
      * @param int $myUid
      * @param int $friend
-     * @return void
      */
     public function toogleFollow($following, $myUid, $friend)
     {
@@ -434,7 +430,6 @@ class SwDatabase
      * @param int $stat
      * @param int $myUid
      * @param int $friend
-     * @return void
      */
     public function SetFriendshitStat($stat, $myUid, $friend)
     {
@@ -469,6 +464,7 @@ class SwDatabase
         //delete votes
         $query3  = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE msg_id = '" . $smallworld_msg_id . "'";
         $result3 = $xoopsDB->queryF($query3);
+
         return true;
     }
 
@@ -485,6 +481,7 @@ class SwDatabase
         $result  = $xoopsDB->queryF($query);
         $query2  = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE com_id = '" . $smallworld_com_id . "'";
         $result2 = $xoopsDB->queryF($query2);
+
         return true;
     }
 
@@ -506,6 +503,7 @@ class SwDatabase
         if ('' == $sum) {
             $sum = '0';
         }
+
         return $sum;
     }
 
@@ -573,6 +571,7 @@ class SwDatabase
         }
         closedir($dir_handle);
         rmdir($dirname);
+
         return true;
     }
 
@@ -587,34 +586,34 @@ class SwDatabase
     public function smallworld_remDir($userid, $directory, $empty = false)
     {
         if ('' != $userid) {
-            if ('/' === substr($directory, -1)) {
-                $directory = substr($directory, 0, -1);
+            if ('/' === mb_substr($directory, -1)) {
+                $directory = mb_substr($directory, 0, -1);
             }
 
             if (!file_exists($directory) || !is_dir($directory)) {
                 return false;
             } elseif (!is_readable($directory)) {
                 return false;
-            } else {
-                $directoryHandle = opendir($directory);
-                while (false !== ($contents = readdir($directoryHandle))) {
-                    if ('.' !== $contents && '..' !== $contents) {
-                        $path = $directory . '/' . $contents;
-                        if (is_dir($path)) {
-                            $this->smallworld_remDir($userid, $path);
-                        } else {
-                            unlink($path);
-                        }
-                    }
-                }
-                closedir($directoryHandle);
-                if (false === $empty) {
-                    if (!rmdir($directory)) {
-                        return false;
-                    }
-                }
-                return true;
             }
+            $directoryHandle = opendir($directory);
+            while (false !== ($contents = readdir($directoryHandle))) {
+                if ('.' !== $contents && '..' !== $contents) {
+                    $path = $directory . '/' . $contents;
+                    if (is_dir($path)) {
+                        $this->smallworld_remDir($userid, $path);
+                    } else {
+                        unlink($path);
+                    }
+                }
+            }
+            closedir($directoryHandle);
+            if (false === $empty) {
+                if (!rmdir($directory)) {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 
@@ -622,7 +621,8 @@ class SwDatabase
      * Update private settings
      * @param int id ($userid)
      * @param string posts (serialized values)
-     * @return void
+     * @param mixed $id
+     * @param mixed $posts
      */
     public function saveSettings($id, $posts)
     {
@@ -642,6 +642,7 @@ class SwDatabase
     /**
      * Retrieve private settings
      * @param int userid
+     * @param mixed $userid
      * @return string serialized string
      */
     public function GetSettings($userid)
@@ -664,6 +665,7 @@ class SwDatabase
             while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $data = $row['value'];
             }
+
             return json_encode(unserialize(stripslashes($data)));
         }
     }
