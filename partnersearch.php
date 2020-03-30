@@ -38,7 +38,7 @@ if ($_GET) {
     $result = $xoopsDB->query($sql);
     $data   = [];
 
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $user   = new \XoopsUser($row['userid']);
         $image  = '<img src="' . smallworld_getAvatarLink($row['userid'], $row['userimage']) . '" height="20">';
         $data[] = [

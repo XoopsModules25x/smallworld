@@ -318,7 +318,7 @@ class Form
             $i      = $xoopsDB->getRowsNum($result);
             $v      = [];
             if ($i >= 1) {
-                while ($row = $xoopsDB->fetchArray($result)) {
+                while (false !== ($row = $xoopsDB->fetchArray($result))) {
                     $v    = unserialize(stripslashes($row['value']));
                     $pv   = ('1' == $v['posts']) ? ' checked' : '';
                     $cv   = ('1' == $v['comments']) ? ' checked' : '';

@@ -83,7 +83,7 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret    = [];
     $i      = 0;
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         if (in_array($myrow['uid_fk'], $followers) || $myrow['uid_fk'] == $id) {
             $ret[$i]['image'] = 'images/smallworld_icn.png';
             $ret[$i]['link']  = 'permalink.php?ownerid=' . $myrow['uid_fk'] . '&updid=' . $myrow['msg_id'];

@@ -52,7 +52,7 @@ if ($xoopsUser) {
         $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
         $result = $xoopsDB->queryF($cdb);
         $cnt    = $xoopsDB->getRowsNum($result);
-        while ($r = $xoopsDB->fetchArray($result)) {
+        while (false !== ($r = $xoopsDB->fetchArray($result))) {
             // ------------ PERSONAL INFO ------------ //
 
             // Real name

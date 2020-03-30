@@ -32,7 +32,7 @@ class PublicWallUpdates
                 LEFT JOIN ' . $xoopsDB->prefix('groups_users_link') . ' xu ON su.userid = xu.uid
                 WHERE xu.uid IN (1)';
         $result = $xoopsDB->queryF($sql);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $data[] = $row;
         }
     }
@@ -49,7 +49,7 @@ class PublicWallUpdates
         $sql    = 'SELECT userid FROM ' . $xoopsDB->prefix('smallworld_admin') . ' WHERE (inspect_start+inspect_stop) > ' . time() . '';
         $result = $xoopsDB->queryF($sql);
         $data   = [];
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $data[] = $row;
         }
         if (!empty($data)) {
@@ -124,7 +124,7 @@ class PublicWallUpdates
         if (0 == $count) {
             return false;
         } else {
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $data[] = $row;
             }
 
@@ -154,7 +154,7 @@ class PublicWallUpdates
                      . ') ORDER BY C.com_id ASC ';
         $result    = $xoopsDB->queryF($query);
         $i         = $xoopsDB->getRowsNum($result);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $data[] = $row;
         }
         if (!empty($data)) {
@@ -173,7 +173,7 @@ class PublicWallUpdates
         $image  = '';
         $sql    = 'SELECT userimage FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $uid . "'";
         $result = $xoopsDB->queryF($sql);
-        while ($r = $xoopsDB->fetchArray($result)) {
+        while (false !== ($r = $xoopsDB->fetchArray($result))) {
             $image = $r['userimage'];
         }
 
@@ -213,7 +213,7 @@ class PublicWallUpdates
         $sum    = 0;
         $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where msg_id = '" . $msgid . "' and com_id = '0'";
         $result = $xoopsDB->queryF($query);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $sum = $row['sum'];
         }
         if ('' == $sum) {
@@ -238,7 +238,7 @@ class PublicWallUpdates
         $sum    = 0;
         $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where com_id = '" . $comid . "' AND msg_id = '" . $msgid . "'";
         $result = $xoopsDB->queryF($query);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $sum = $row['sum'];
         }
         if ('' == $sum) {
@@ -302,7 +302,7 @@ class PublicWallUpdates
         if ($count < 1) {
             return false;
         } else {
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $data[] = $row;
             }
             if (!empty($data)) {
@@ -328,7 +328,7 @@ class PublicWallUpdates
         if ($count < 1) {
             return false;
         } else {
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $data[] = $row;
             }
             if (!empty($data)) {

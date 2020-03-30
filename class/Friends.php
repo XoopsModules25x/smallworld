@@ -66,7 +66,7 @@ class Friends
             if ($count < 1) {
                 return false;
             } else {
-                while ($row = $xoopsDB->fetchArray($result)) {
+                while (false !== ($row = $xoopsDB->fetchArray($result))) {
                     $data[] = $row;
                 }
             }

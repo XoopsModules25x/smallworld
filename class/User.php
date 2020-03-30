@@ -109,7 +109,7 @@ class User
             $result = $xoopsDB->query($sql);
             $i      = $xoopsDB->getRowsNum($result);
         }
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             if (0 == $i && '' == $i) {
                 $respons[0] = 0;
             }
@@ -135,7 +135,7 @@ class User
         $name   = '';
         $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
         $result = $xoopsDB->queryF($sql);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $name = $row['username'];
         }
         return $name;
@@ -155,7 +155,7 @@ class User
             $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . (int)$userid . "' AND you = '" . (int)$friendid . "'";
             $result = $xoopsDB->query($sql);
             $i      = $xoopsDB->getRowsNum($result);
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 if (0 == $i) {
                     $respons[0] = 0;
                 }
@@ -188,7 +188,7 @@ class User
         $Wall     = new  \XoopsModules\Smallworld\WallUpdates();
         $myavatar = $Wall->Gravatar($userid);
         $start    = 0;
-        while ($row = $xoopsDB->fetchArray($result) && $start <= count($row)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result)) && $start <= count($row)) {
             $msg[$start]['friendname']  = $this->getName($row['me']);
             $msg[$start]['img']         = $Wall->Gravatar($row['me']);
             $msg[$start]['friendimage'] = "<img src='" . XOOPS_UPLOAD_URL . '/' . $msg[$start]['img'] . "' height='40px'>";
@@ -228,7 +228,7 @@ class User
         $result = $xoopsDB->queryF($sql);
         $i      = $xoopsDB->getRowsNum($result);
         if (0 != $i) {
-            while ($r = $xoopsDB->fetchArray($result)) {
+            while (false !== ($r = $xoopsDB->fetchArray($result))) {
                 $data[] = $r;
             }
             if (!empty($data)) {

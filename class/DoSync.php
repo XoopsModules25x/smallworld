@@ -41,7 +41,7 @@ class DoSync
         $sql    = 'SELECT userid FROM ' . $xoopsDB->prefix('smallworld_user') . ' WHERE userid NOT IN ( SELECT uid FROM ' . $xoopsDB->prefix('users') . ')';
         $result = $xoopsDB->queryF($sql);
         if ($result) {
-            while ($r = $xoopsDB->fetchArray($result)) {
+            while (false !== ($r = $xoopsDB->fetchArray($result))) {
                 $this->deleteAccount($r['userid']);
             }
         }
@@ -105,7 +105,7 @@ class DoSync
                 return false;
             } else {
                 $directoryHandle = opendir($directory);
-                while ($contents = readdir($directoryHandle)) {
+                while (false !== ($contents = readdir($directoryHandle))) {
                     if ('.' !== $contents && '..' !== $contents) {
                         $path = $directory . '/' . $contents;
                         if (is_dir($path)) {

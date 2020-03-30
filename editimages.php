@@ -53,7 +53,7 @@ if ($xoopsUser) {
         $sql        = 'SELECT *FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userID . "'";
         $result     = $xoopsDB->query($sql);
         $i          = 0;
-        while ($sqlfetch = $xoopsDB->fetchArray($result)) {
+        while (false !== ($sqlfetch = $xoopsDB->fetchArray($result))) {
             $editimages .= $item->edit_images($userID, $sqlfetch['imgurl'], $sqlfetch['desc'], $sqlfetch['id']);
             ++$i;
         }

@@ -34,7 +34,7 @@ class Admin
         $result  = $xoopsDB->queryF($sql);
         $counter = $xoopsDB->getRowsNum($result);
         if ($counter >= 1) {
-            while ($sqlfetch = $xoopsDB->fetchArray($result)) {
+            while (false !== ($sqlfetch = $xoopsDB->fetchArray($result))) {
                 $date = $sqlfetch['created'];
             }
         }
@@ -52,7 +52,7 @@ class Admin
         global $xoopsDB;
         $sql    = 'SELECT count( * ) / ' . $totaldays . ' AS averg FROM ' . $xoopsDB->prefix('smallworld_messages') . '';
         $result = $xoopsDB->queryF($sql);
-        while ($sqlfetch = $xoopsDB->fetchArray($result)) {
+        while (false !== ($sqlfetch = $xoopsDB->fetchArray($result))) {
             $avg = number_format($sqlfetch['averg'], 2, '.', ',');
         }
 
@@ -73,7 +73,7 @@ class Admin
             $sum = 0;
         } else {
             $i = 0;
-            while ($myrow = $xoopsDB->fetchArray($result)) {
+            while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
                 $user[$i]['username'] = $myrow['username'];
                 ++$i;
             }
@@ -147,7 +147,7 @@ class Admin
         } else {
             $msg = [];
             $i   = 1;
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $msg['counter'][$i] = $i;
                 $msg['img'][$i]     = "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>";
                 if ($msg['counter'][$i] > 3) {
@@ -186,7 +186,7 @@ class Admin
 
         if (0 != $xoopsDB->getRowsNum($result)) {
             $i = 1;
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $msgtoday['counter'][$i] = $i;
                 $msgtoday['img'][$i]     = "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>";
                 if ($msgtoday['counter'][$i] > 3) {
@@ -221,7 +221,7 @@ class Admin
             $count  = $xoopsDB->getRowsNum($result);
             $i      = 1;
             if ($count >= $i) {
-                while ($row = $xoopsDB->fetchArray($result)) {
+                while (false !== ($row = $xoopsDB->fetchArray($result))) {
                     $array['counter'][$i] = $i;
                     $array['img'][$i]     = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../assets/images/like.png'>";
                     if ($array['counter'][$i] > 3) {
@@ -240,7 +240,7 @@ class Admin
             $count  = $xoopsDB->getRowsNum($result);
             $i      = 1;
             if (0 != $count) {
-                while ($row = $xoopsDB->fetchArray($result)) {
+                while (false !== ($row = $xoopsDB->fetchArray($result))) {
                     $array['counter'][$i] = $i;
                     $array['img'][$i]     = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../assets/images/dislike.png'>";
                     if ($array['counter'][$i] > 3) {
@@ -277,7 +277,7 @@ class Admin
         $result = $xoopsDB->queryF($sql);
         $count  = $xoopsDB->getRowsNum($result);
         if (0 != $count) {
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $data[] = $row;
             }
         }

@@ -201,7 +201,7 @@ class Mail
         $parts  = [];
         $sql    = 'SELECT uid_fk FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE msg_id_fk = '" . $msg_id_fk . "'";
         $result = $xoopsDB->queryF($sql);
-        while ($r = $xoopsDB->fetchArray($result)) {
+        while (false !== ($r = $xoopsDB->fetchArray($result))) {
             $parts[] = $r['uid_fk'];
         }
         return array_unique($parts);
@@ -216,7 +216,7 @@ class Mail
         global $xoopsDB;
         $sql    = 'SELECT message FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE msg_id = '" . $msgid . "'";
         $result = $xoopsDB->queryF($sql);
-        while ($r = $xoopsDB->fetchArray($result)) {
+        while (false !== ($r = $xoopsDB->fetchArray($result))) {
             $message = $r['message'];
         }
         return $message;

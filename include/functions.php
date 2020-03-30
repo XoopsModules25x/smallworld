@@ -210,7 +210,7 @@ function smallworld_isset_or($check)
     global $xoopsDB, $xoopsUser;
     $query  = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE username = '" . $check . "'";
     $result = $xoopsDB->queryF($query);
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         if ('' == $row['userid']) {
             return false;
         } else {
@@ -438,7 +438,7 @@ function smallworld_getAvatarLink($userid, $image)
     if (0 == $counter) {
         $gender = '';
     } else {
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $gender = $row['gender'];
         }
     }
@@ -491,7 +491,7 @@ function smallworld_XIMversion()
     $sql    = 'SELECT version FROM ' . $xoopsDB->prefix('modules') . " WHERE dirname = 'xim'";
     $result = $xoopsDB->queryF($sql);
     if ($xoopsDB->getRowsNum($result) > 0) {
-        while ($r = $xoopsDB->fetchArray($result)) {
+        while (false !== ($r = $xoopsDB->fetchArray($result))) {
             $version = $r['version'];
         }
     } else {
@@ -514,7 +514,7 @@ function Smallworld_getOwnerFromComment($msg_id_fk)
     global $xoopsDB;
     $sql    = 'SELECT uid_fk FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE msg_id = '" . $msg_id_fk . "'";
     $result = $xoopsDB->queryF($sql);
-    while ($r = $xoopsDB->fetchArray($result)) {
+    while (false !== ($r = $xoopsDB->fetchArray($result))) {
         $owner = $r['uid_fk'];
     }
     return $owner;
@@ -530,7 +530,7 @@ function Smallworld_getName($userID)
     global $xoopsUser, $xoopsDB;
     $sql    = 'SELECT username FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
     $result = $xoopsDB->queryF($sql);
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $name = $row['username'];
     }
     return $name;
@@ -550,7 +550,7 @@ function Smallworld_isInspected($userid)
     $sql    = 'SELECT inspect_start, inspect_stop FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "' AND (inspect_start+inspect_stop) > " . time() . '';
     $result = $xoopsDB->queryF($sql);
     if ($xoopsDB->getRowsNum($result) > 0) {
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $data['inspect']   = 'yes';
             $data['totaltime'] = ($row['inspect_start'] + $row['inspect_stop']) - time();
         }
@@ -596,7 +596,7 @@ function smallworld_getCountFriendMessagesEtc()
               . " WHERE uid_fk IN ($ids) group by msg_id "
               . ' ) as d';
     $result = $xoopsDB->queryF($sql);
-    while ($r = $xoopsDB->fetchArray($result)) {
+    while (false !== ($r = $xoopsDB->fetchArray($result))) {
         $total = $r['total'];
     }
     return $total;
@@ -617,7 +617,7 @@ function smallworld_countUsersMessages($id)
             'smallworld_messages'
         ) . ' WHERE uid_fk = ' . (int)$id . 'group BY msg_id ' . ' ) AS d';
     $result = $xoopsDB->queryF($sql);
-    while ($r = $xoopsDB->fetchArray($result)) {
+    while (false !== ($r = $xoopsDB->fetchArray($result))) {
         $total = $r['total'];
     }
     return $total;
@@ -635,7 +635,7 @@ function smallworld_Stats_newest()
     $result = $xoopsDB->queryF($sql);
     if ($xoopsDB->getRowsNum($result) > 0) {
         $i = 0;
-        while ($r = $xoopsDB->fetchArray($result)) {
+        while (false !== ($r = $xoopsDB->fetchArray($result))) {
             $nu[$i]['userid']         = $r['userid'];
             $nu[$i]['username']       = $r['username'];
             $nu[$i]['regdate']        = date('d-m-Y', $r['regdate']);
@@ -660,7 +660,7 @@ function Smallworld_Gravatar($uid)
     $image  = '';
     $sql    = 'SELECT userimage FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $uid . "'";
     $result = $xoopsDB->queryF($sql);
-    while ($r = $xoopsDB->fetchArray($result)) {
+    while (false !== ($r = $xoopsDB->fetchArray($result))) {
         $image = $r['userimage'];
     }
 
@@ -705,7 +705,7 @@ function Smallworld_mostactiveusers_allround()
     if ($counter < 1) {
     } else {
         $counter = 1;
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $msg[$counter]['counter']       = $counter;
             $msg[$counter]['img']           = smallworld_getAvatarLink($row['uid_fk'], Smallworld_Gravatar($row['uid_fk']));
             $msg[$counter]['msgs']          = _SMALLWORLD_TOTALPOSTS . ' : ' . $row['cnt'];
@@ -734,7 +734,7 @@ function Smallworld_worstratedusers()
     $sql     .= ' FROM ' . $xoopsDB->prefix('smallworld_vote') . '';
     $sql     .= ' GROUP BY owner ORDER by total ASC LIMIT 5';
     $result  = $xoopsDB->queryF($sql);
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $array[$counter]['counter']   = $counter;
         $array[$counter]['img']       = smallworld_getAvatarLink($row['owner'], Smallworld_Gravatar($row['owner']));
         $array[$counter]['user']      = $xoopsUser->getUnameFromId($row['owner']);
@@ -761,7 +761,7 @@ function Smallworld_topratedusers()
     $sql     .= ' FROM ' . $xoopsDB->prefix('smallworld_vote') . '';
     $sql     .= ' GROUP BY owner ORDER by total DESC LIMIT 5';
     $result  = $xoopsDB->queryF($sql);
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $array[$counter]['counter']   = $counter;
         $array[$counter]['img']       = smallworld_getAvatarLink($row['owner'], Smallworld_Gravatar($row['owner']));
         $array[$counter]['user']      = $xoopsUser->getUnameFromId($row['owner']);
@@ -794,7 +794,7 @@ function smallworld_nextBirthdays()
     $result  = $xoopsDB->queryF($sql);
     $counter = $xoopsDB->getRowsNum($result);
     $i       = 0;
-    while ($r = $xoopsDB->fetchArray($result)) {
+    while (false !== ($r = $xoopsDB->fetchArray($result))) {
         $res[$i]['amount']        = $counter;
         $res[$i]['userid']        = $r['userid'];
         $res[$i]['userimage']     = smallworld_getAvatarLink($r['userid'], Smallworld_Gravatar($r['userid']));
@@ -869,7 +869,7 @@ function smallworldCheckPriv($id)
     global $xoopsDB;
     $public = 'SELECT priv FROM ' . $xoopsDB->prefix('smallworld_messages') . ' WHERE msg_id = ' . $id . '';
     $result = $xoopsDB->queryF($public);
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $priv = $row['priv'];
     }
     return $priv;
@@ -1030,7 +1030,7 @@ function smallworld_getRndImg($userid)
     global $xoopsDB;
     $sql    = 'SELECT imgname FROM ' . $xoopsDB->prefix('smallworld_images') . ' WHERE userid = ' . $userid . ' AND time BETWEEN UNIX_TIMESTAMP( ) - 3000 AND UNIX_TIMESTAMP() ORDER BY rand() LIMIT 1';
     $result = $xoopsDB->queryF($sql);
-    while ($r = $xoopsDB->fetchArray($result)) {
+    while (false !== ($r = $xoopsDB->fetchArray($result))) {
         $img = $r['imgname'];
     }
     if (!empty($img)) {
@@ -1149,7 +1149,7 @@ function smallworld_xv_getGroupd()
     if (0 == $num) {
         $ndata = [0 => _MI_SMALLWORLD_ALL];
     } else {
-        while ($r = $db->fetchArray($result)) {
+        while (false !== ($r = $db->fetchArray($result))) {
             $data[$r['userid']] = $r['username'];
         }
         $ndata = array_merge([0 => _MI_SMALLWORLD_ALL], $data);
@@ -1424,7 +1424,7 @@ function smallworld_getUidFromName($name)
     global $xoopsDB;
     $sql    = 'SELECT userid FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE username = '" . $name . "'";
     $result = $xoopsDB->queryF($sql);
-    while ($r = $xoopsDB->fetchArray($result)) {
+    while (false !== ($r = $xoopsDB->fetchArray($result))) {
         $id = $r['userid'];
     }
     return $id;

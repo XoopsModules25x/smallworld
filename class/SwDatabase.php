@@ -34,7 +34,7 @@ class SwDatabase
         $new    = [];
         $sql    = 'SELECT employer,position,jobstart,jobstop,description  FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
         $result = $xoopsDB->query($sql);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $employer    = unserialize($row['employer']);
             $position    = unserialize($row['position']);
             $jobstart    = unserialize($row['jobstart']);
@@ -65,7 +65,7 @@ class SwDatabase
         $msg    = [];
         $sql    = 'SELECT school_type,school,schoolstart,schoolstop FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
         $result = $xoopsDB->query($sql);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $school_type = unserialize($row['school_type']);
             $school      = unserialize($row['school']);
             $schoolstart = unserialize($row['schoolstart']);
@@ -94,7 +94,7 @@ class SwDatabase
         $msg    = [];
         $sql    = 'SELECT screenname_type,screenname FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
         $result = $xoopsDB->query($sql);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $screenname_type = unserialize($row['screenname_type']);
             $screenname      = unserialize($row['screenname']);
         }
@@ -123,7 +123,7 @@ class SwDatabase
         if ($xoopsDB->getRowsNum($result) < 1) {
             return 0;//_SMALLWORLD_REPLY_NOTSPECIFIED;
         }
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $msg[$var] = $row[$var];
         }
         return $msg[$var];
@@ -500,7 +500,7 @@ class SwDatabase
         global $xoopsUser, $xoopsDB;
         $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where owner = '" . $userid . "'";
         $result = $xoopsDB->queryF($query);
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $sum = $row['sum'];
         }
         if ('' == $sum) {
@@ -562,7 +562,7 @@ class SwDatabase
         if (!$dir_handle) {
             return false;
         }
-        while ($file = readdir($dir_handle)) {
+        while (false !== ($file = readdir($dir_handle))) {
             if ('.' !== $file && '..' !== $file) {
                 if (!is_dir($dirname . '/' . $file)) {
                     unlink($dirname . '/' . $file);
@@ -597,7 +597,7 @@ class SwDatabase
                 return false;
             } else {
                 $directoryHandle = opendir($directory);
-                while ($contents = readdir($directoryHandle)) {
+                while (false !== ($contents = readdir($directoryHandle))) {
                     if ('.' !== $contents && '..' !== $contents) {
                         $path = $directory . '/' . $contents;
                         if (is_dir($path)) {
@@ -661,7 +661,7 @@ class SwDatabase
             $this->saveSettings($userid, $posts);
             $this->GetSettings($userid);
         } else {
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $data = $row['value'];
             }
             return json_encode(unserialize(stripslashes($data)));

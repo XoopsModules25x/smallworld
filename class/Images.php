@@ -65,7 +65,7 @@ class Images
             $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $user . "'";
             $result = $xoopsDB->query($sql);
             $i      = 0;
-            while ($sqlfetch = $xoopsDB->fetchArray($result)) {
+            while (false !== ($sqlfetch = $xoopsDB->fetchArray($result))) {
                 $post[$i]['id']      = stripslashes($sqlfetch['id']);
                 $post[$i]['userid']  = stripslashes($sqlfetch['userid']);
                 $post[$i]['imgurl']  = stripslashes($sqlfetch['imgurl']);

@@ -45,7 +45,7 @@ class Profile
             $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
             $result = $xoopsDB->queryF($cdb);
             $cnt    = $xoopsDB->getRowsNum($result);
-            while ($r = $xoopsDB->fetchArray($result)) {
+            while (false !== ($r = $xoopsDB->fetchArray($result))) {
                 $uname           = $r['username'];
                 $realname        = $r['realname'];
                 $membersince     = date('d-m-Y', $user->user_regdate());

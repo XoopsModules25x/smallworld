@@ -39,7 +39,7 @@ if (isset($_GET) && !empty($_GET)) {
     $result = $GLOBALS['xoopsDB']->query($sql);
     $data   = [];
 
-    while ($row = $GLOBALS['xoopsDB']->fetchArray($result)) {
+    while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
         $user  = new \XoopsUser($row['userid']);
         $image = '<img src="' . smallworld_getAvatarLink($row['userid'], $row['userimage']) . '" height="20" >';
 
