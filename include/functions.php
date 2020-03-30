@@ -1444,8 +1444,8 @@ function smallworld_getTagUsers($txt, $sender, $permalink = '')
     $mail  = new Smallworld\Mail();
     preg_match_all("/@([a-zA-Z0-9]+|\\[[a-zA-Z0-9]+\\])/", $txt, $matches);
     $users = array_unique($matches[1]);
-    foreach ($users as $users) {
-        $uid    = smallworld_getUidFromName($users);
+    foreach ($users as $user) {
+        $uid    = smallworld_getUidFromName($user);
         $notify = json_decode($dBase->GetSettings($uid), true);
         if (isset($notify['notify'])) {
             if (0 != $notify['notify']) {
