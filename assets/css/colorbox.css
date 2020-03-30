@@ -240,7 +240,7 @@
 .cboxIE #cboxBottomRight,
 .cboxIE #cboxMiddleLeft,
 .cboxIE #cboxMiddleRight {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=rgb(0, 255, 255), endColorstr=rgb(0, 255, 255));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00ffff, endColorstr=#00ffff);
 }
 
 /*

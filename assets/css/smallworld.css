@@ -684,7 +684,7 @@ input.jobstart, input.jobstop {
 /*-------- JqueryUI items ---------*/
 
 .ui-autocomplete-loading {
-    background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
+    background: #ffffff url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
 }
 
 .ui-widget .ui-widget {
@@ -811,7 +811,7 @@ textarea {
 }
 
 #smallworld_update_button {
-    border: 1px solid rgb(204, 204, 204);
+    border: 1px solid #cccccc;
     cursor: pointer;
     font-size: 0.9em;
     font-weight: 700;
