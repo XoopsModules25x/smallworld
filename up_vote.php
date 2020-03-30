@@ -67,6 +67,6 @@ if ($xoopsUser) {
 
     $link = '<span id ="smallworld_votenum">' . $newvote . '</span> <a href="javascript:void(0)" name="up" class="smallworld_stcomment_vote"';
     $link .= ' id="' . $id . '" type="' . $type . '" owner="' . $owner . '" type2="' . $type2 . '">';
-    $link .= '<img class="smallworld_voteimg" src = "images/like.png" ></a>';
+    $link .= '<img class="smallworld_voteimg" src = "assets/images/like.png" ></a>';
     echo $link;
 }

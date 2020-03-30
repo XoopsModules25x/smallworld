@@ -34,11 +34,11 @@
                 <{if $isadminuser == 'YES' || $username == $myusername}>
                 <br>
                 <p class="smallworld_useredits_menu">
-                    <img height="10px" width="10px" src="assets/images/editavatar.png">
+                    <img height="10px" width="10px" src="../assets/images/editavatar.png">
                     <a href="javascript:void(0);" id="smallworld_changeAvatar"><{$smarty.const._SMALLWORLD_CHANGEAVATAR}></a><br>
-                    <img height="10px" width="10px" src="assets/images/edituserprofile.png">
+                    <img height="10px" width="10px" src="../assets/images/edituserprofile.png">
                     <a href="editprofile.php" id="smallworld_changeEditProfile"><{$smarty.const._SMALLWORLD_EDITPROFILE}></a><br>
-                    <img height="10px" width="10px" src="assets/images/preferences.png">
+                    <img height="10px" width="10px" src="../assets/images/preferences.png">
                     <a href="javascript:void(0);" id="smallworld_changePersSettings"><{$smarty.const._SMALLWORLD_MENU_PRIVSET}></a>
                     <br>
                 </p>
@@ -118,21 +118,21 @@
                                     <{if $post.username == $myusername}>
                                         <div class="smallworld_stcommentvote">											
                                             <span id="smallworld_votenum"><{$post.vote_up}></span>
-                                                <img class="smallworld_voteimg" src="assets/images/like.png">
+                                                <img class="smallworld_voteimg" src="../assets/images/like.png">
                                             
                                             <span id="smallworld_votenum"><{$post.vote_down}></span>
-                                                <img class="smallworld_voteimg" src="assets/images/dislike.png">
+                                                <img class="smallworld_voteimg" src="../assets/images/dislike.png">
                                         </div>	
                                     <{else}>
                                     <div class="smallworld_stcommentvote">											
                                             <span id="smallworld_votenum"><{$post.vote_up}></span> <a href="javascript:void(0)" name="up" class="smallworld_stcomment_vote" id="<{$post.msg_id}>" type="msg" owner="<{$post.uid_fk}>">
-                                                <img class="smallworld_voteimg" src="assets/images/like.png">
+                                                <img class="smallworld_voteimg" src="../assets/images/like.png">
                                             </a>
                                             <span id="smallworld_votenum"><{$post.vote_down}></span> <a href="javascript:void(0)" name="down" class="smallworld_stcomment_vote" id="<{$post.msg_id}>" type="msg" owner="<{$post.uid_fk}>">
-                                                <img class="smallworld_voteimg" src="assets/images/dislike.png">
+                                                <img class="smallworld_voteimg" src="../assets/images/dislike.png">
                                             </a>
                                             <a href="javascript:void(0)" auserid="<{$post.uid_fk}>" by_user="<{$myusername}>" a_user="<{$post.username}>" name="complaint" class="smallworld_comment_complaint" id="<{$post.compl_msg_lnk}>">
-                                                <img class="smallworld_voteimg" src="assets/images/complaint.png">
+                                                <img class="smallworld_voteimg" src="../assets/images/complaint.png">
                                             </a>												
                                     </div>
                                     <{/if}>
@@ -160,23 +160,23 @@
                                                          <{if $comm[i].username == $myusername}>	
                                                             <div class="smallworld_stcommentvote">
                                                                 <span id="smallworld_votenum"><{$comm[i].vote_up}></span>
-                                                                    <img class="smallworld_voteimg" src="assets/images/like.png">
+                                                                    <img class="smallworld_voteimg" src="../assets/images/like.png">
                                                                 
                                                                 
                                                                 <span id="smallworld_votenum"><{$comm[i].vote_down}></span>
-                                                                    <img class="smallworld_voteimg" src="assets/images/dislike.png">
+                                                                    <img class="smallworld_voteimg" src="../assets/images/dislike.png">
                                                             </div>
                                                          <{else}>
                                                           <div class="smallworld_stcommentvote">
                                                                 <span id="smallworld_votenum"><{$comm[i].vote_up}></span> <a href="javascript:void(0)" name="up" class="smallworld_stcomment_vote" id="<{$comm[i].com_id}>" owner="<{$comm[i].uid}>" type="com" type2="<{$comm[i].msg_id_fk}>">
-                                                                    <img class="smallworld_voteimg" src="assets/images/like.png">
+                                                                    <img class="smallworld_voteimg" src="../assets/images/like.png">
                                                                 </a>
                                                                 
                                                                 <span id="smallworld_votenum"><{$comm[i].vote_down}></span> <a href="javascript:void(0)" name="down" class="smallworld_stcomment_vote" id="<{$comm[i].com_id}>" owner="<{$comm[i].uid}>" type="com" type2="<{$comm[i].msg_id_fk}>">
-                                                                    <img class="smallworld_voteimg" src="assets/images/dislike.png">
+                                                                    <img class="smallworld_voteimg" src="../assets/images/dislike.png">
                                                                 </a>
                                                                 <a href="javascript:void(0)" auserid="<{$comm[i].uid}>" by_user="<{$myusername}>" a_user="<{$comm[i].username}>" name="complaint" class="smallworld_comment_complaint" id="<{$comm[i].compl_msg_lnk}>">
-                                                                    <img class="smallworld_voteimg" src="assets/images/complaint.png">
+                                                                    <img class="smallworld_voteimg" src="../assets/images/complaint.png">
                                                                 </a>															 
                                                           </div>
                                                          <{/if}>
@@ -205,7 +205,7 @@
                                 
                                  <{/foreach}>
                                 <div id="smallworld_moremsg_ajax" style="display:none">
-                                    <img src="assets/images/loader.gif">
+                                    <img src="../assets/images/loader.gif">
                                 </div>
                                 <a href="javascript:void(0)" class="smallworld_msg_counter" rel2="" rel="<{$pagename}>" id="<{$post.msg_id}>"><{$smarty.const._SMALLWORLD_MOREBUTTONLINK}></a>
                                     </div>

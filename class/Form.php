@@ -271,7 +271,7 @@ class Form
      */
     public function uploadform($userID)
     {
-        $text = '<form action="imgupload.php" method="POST" enctype="multipart/form-data">';
+        $text = '<form action="../imgupload.php" method="POST" enctype="multipart/form-data">';
         $text .= '<input type="file" name="file[]" multiple>';
         $text .= '<button type="submit">' . _SMALLWORLD_UPLOADTEXT . '</button>';
         $text .= '<span class="file_upload_label">' . _SMALLWORLD_UPLOADFILESTEXT . '</span>';

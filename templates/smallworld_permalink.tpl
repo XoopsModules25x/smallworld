@@ -39,19 +39,19 @@
                                         <{if $post.username == $myusername}>
                                             <div class="smallworld_stcommentvote">
                                                 <span id="smallworld_votenum"><{$post.vote_up}></span>
-                                                    <img class="smallworld_voteimg" src="assets/images/like.png">
+                                                    <img class="smallworld_voteimg" src="../assets/images/like.png">
 
                                                 <span id="smallworld_votenum"><{$post.vote_down}></span>
-                                                    <img class="smallworld_voteimg" src="assets/images/dislike.png">
+                                                    <img class="smallworld_voteimg" src="../assets/images/dislike.png">
 
                                             </div>
                                         <{else}>
                                         <div class="smallworld_stcommentvote">
                                                 <span id="smallworld_votenum"><{$post.vote_up}></span> <a href="javascript:void(0)" name="up" class="smallworld_stcomment_vote" id="<{$post.msg_id}>" type="msg" owner="<{$post.uid_fk}>">
-                                                    <img class="smallworld_voteimg" src="assets/images/like.png">
+                                                    <img class="smallworld_voteimg" src="../assets/images/like.png">
                                                 </a>
                                                 <span id="smallworld_votenum"><{$post.vote_down}></span> <a href="javascript:void(0)" name="down" class="smallworld_stcomment_vote" id="<{$post.msg_id}>" type="msg" owner="<{$post.uid_fk}>">
-                                                    <img class="smallworld_voteimg" src="assets/images/dislike.png">
+                                                    <img class="smallworld_voteimg" src="../assets/images/dislike.png">
                                                 </a>
                                         </div>
                                         <{/if}>
@@ -79,23 +79,23 @@
                                                              <{if $comm[i].username == $myusername}>
                                                                 <div class="smallworld_stcommentvote">
                                                                     <span id="smallworld_votenum"><{$comm[i].vote_up}></span>
-                                                                        <img class="smallworld_voteimg" src="assets/images/like.png">
+                                                                        <img class="smallworld_voteimg" src="../assets/images/like.png">
 
 
                                                                     <span id="smallworld_votenum"><{$comm[i].vote_down}></span>
-                                                                        <img class="smallworld_voteimg" src="assets/images/dislike.png">
+                                                                        <img class="smallworld_voteimg" src="../assets/images/dislike.png">
                                                                 </div>
                                                              <{else}>
                                                               <div class="smallworld_stcommentvote">
                                                                     <span id="smallworld_votenum"><{$comm[i].vote_up}></span> <a href="javascript:void(0)" name="up" class="smallworld_stcomment_vote" id="<{$comm[i].com_id}>" owner="<{$comm[i].uid}>" type="com" type2="<{$comm[i].msg_id_fk}>">
-                                                                        <img class="smallworld_voteimg" src="assets/images/like.png">
+                                                                        <img class="smallworld_voteimg" src="../assets/images/like.png">
                                                                     </a>
 
                                                                     <span id="smallworld_votenum"><{$comm[i].vote_down}></span> <a href="javascript:void(0)" name="down" class="smallworld_stcomment_vote" id="<{$comm[i].com_id}>" owner="<{$comm[i].uid}>" type="com" type2="<{$comm[i].msg_id_fk}>">
-                                                                        <img class="smallworld_voteimg" src="assets/images/dislike.png">
+                                                                        <img class="smallworld_voteimg" src="../assets/images/dislike.png">
                                                                     </a>
                                                                     <a href="javascript:void(0)" name="complaint" class="smallworld_stcomment_vote" id="<{$comm[i].com_id}>" owner="<{$comm[i].uid}>" type="complaint" type2="<{$comm[i].msg_id_fk}>">
-                                                                        <img class="smallworld_voteimg" src="assets/images/complaint.png">
+                                                                        <img class="smallworld_voteimg" src="../assets/images/complaint.png">
                                                                     </a>
 
                                                              </div>
