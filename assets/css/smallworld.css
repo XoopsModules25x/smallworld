@@ -175,8 +175,8 @@
 }
 
 #smallworld_messagecounter_id {
-    background-color: Crimson;
-    color: Thistle;
+    background-color: #dc143c;
+    color: #d8bfd8;
     display: none;
     font-family: fantasy;
     margin: 2px 35% 10px;
@@ -776,7 +776,7 @@ input.jobstart, input.jobstop {
 }
 
 #smallworld_update {
-    border-color: Thistle;
+    border-color: #d8bfd8;
     border-style: solid;
     border-width: thin;
     font-size: 12px;
@@ -802,8 +802,8 @@ input.jobstart, input.jobstop {
 }
 
 textarea {
-    background-color: Cornsilk;
-    border-color: Thistle;
+    background-color: #fff8dc;
+    border-color: #d8bfd8;
     border-style: solid;
     border-width: thin;
     font-size: 12px;
@@ -815,7 +815,7 @@ textarea {
     cursor: pointer;
     font-size: 0.9em;
     font-weight: 700;
-    color: rgb(64, 90, 128);
+    color: #405a80;
     clear: both;
     margin: 5px 0pt;
 }
@@ -1067,7 +1067,7 @@ div#smallworldStatsDiv {
 
 #smallworld_Stats_title {
     bottom: 10px;
-    color: red;
+    color: #ff0000;
     font-family: Helvetica;
     font-size: 1.2em;
     font-weight: bolder;
@@ -1076,13 +1076,13 @@ div#smallworldStatsDiv {
 }
 
 #smallworld_stats_img {
-    background-color: LightGrey;
+    background-color: #d3d3d3;
     margin: 5px 5px 0;
     padding: 2px 10px;
 }
 
 #smallworld_stats_img img {
-    border-color: grey;
+    border-color: #808080;
     border-style: solid;
     border-width: thin;
 }
@@ -1113,11 +1113,11 @@ div#smallworldStatsDiv {
     font-size: 8px;
     margin: 0 5px;
     position: relative;
-    color: black;
+    color: #000000;
 }
 
 #smallworld_stats_text_nobdays {
-    color: crimson;
+    color: #dc143c;
     font-size: 12px;
     font-weight: bold;
     left: 175px;
@@ -1142,7 +1142,7 @@ div#smallworldStatsDiv {
 .hasCountdown {
     font-weight: bold;
     font-family: Verdana;
-    color: Red;
+    color: #ff0000;
     left: 13%;
     margin: 15px 0 30px;
     position: relative;

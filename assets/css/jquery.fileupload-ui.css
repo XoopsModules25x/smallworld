@@ -22,8 +22,8 @@ form.file_upload {
     width: 15em;
     height: 2.5em;
     line-height: 2.5em;
-    background: palegreen;
-    border: 1px solid limegreen;
+    background: #98fb98;
+    border: 1px solid #32cd32;
 }
 
 form.file_upload_small {
@@ -31,8 +31,8 @@ form.file_upload_small {
     height: 2.5em;
     line-height: 2.5em;
     font-size: 0.8em;
-    background: palegreen;
-    border: 1px solid limegreen;
+    background: #98fb98;
+    border: 1px solid #32cd32;
 }
 
 form.file_upload_large {
@@ -40,13 +40,13 @@ form.file_upload_large {
     height: 7em;
     line-height: 7em;
     font-size: 0.8em;
-    background: palegreen;
-    border: 1px solid limegreen;
+    background: #98fb98;
+    border: 1px solid #32cd32;
 }
 
 form.file_upload_highlight,
 form.file_upload:hover {
-    background: lawngreen;
+    background: #7cfc00;
 }
 
 form.file_upload input {

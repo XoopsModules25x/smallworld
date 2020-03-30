@@ -208,12 +208,12 @@ smallworldFrm, smallworld_admin_button {
 
 .smallworld_admin_error {
     font-weight: bold;
-    color: red;
+    color: #ff0000;
 }
 
 .success {
     font-weight: bold;
-    color: green;
+    color: #008000;
 }
 
 .smallworld_admin_button-link a {
@@ -228,7 +228,7 @@ smallworldFrm, smallworld_admin_button {
 
 .smallworld_error_start {
     border-bottom: 1px solid #B7DDF2;
-    color: black;
+    color: #000000;
     font-size: 11px;
     margin-bottom: 20px;
     padding-bottom: 10px;
@@ -250,7 +250,7 @@ smallworldFrm, smallworld_admin_button {
 }
 
 .smallworld_update {
-    color: black;
+    color: #000000;
     font-weight: bold;
     font-size: 11px;
     padding: 0;
@@ -258,7 +258,7 @@ smallworldFrm, smallworld_admin_button {
 }
 
 .smallworld_update a, .smallworld_update a:hover, .smallworld_update a:visited {
-    color: blue;
+    color: #0000ff;
     text-decoration: underline;
     font-size: 11px;
 }
@@ -312,7 +312,7 @@ li.help a:hover {
 }
 
 #smallworld_admin_allusers {
-    background-color: Lavender;
+    background-color: #e6e6fa;
     border: thin double activeborder;
     font-size: 12px;
     margin: 10px 20px;
