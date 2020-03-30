@@ -52,7 +52,7 @@ if (0 == $dfm) {
 $dateoffirstmessage = $dfm;
 
 // Get days number
-$totaldays = $admin->CountDays();
+$totaldays = $admin->countDays();
 // get average messages per day
 $avgperday = $admin->AvgMsgDay($totaldays);
 // Smallworld version number

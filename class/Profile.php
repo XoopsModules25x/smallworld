@@ -28,7 +28,7 @@ class Profile
      * @Show user
      * @param int $id
      */
-    public function ShowUser($id)
+    public function showUser($id)
     {
         global $xoopsUser, $xoTheme, $xoopsTpl, $arr04, $arr05, $xoopsDB;
         if ($xoopsUser) {
@@ -41,7 +41,7 @@ class Profile
             $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
             $db     = new SwDatabase();
             $check  = new User();
-            $Wall   = new WallUpdates();
+            $wall   = new WallUpdates();
 
             $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
             $result = $xoopsDB->queryF($cdb);
@@ -57,10 +57,10 @@ class Profile
                 $country         = $user->user_from();
                 $signature       = $user->user_sig();
                 $messenger       = $user->user_msnm();
-                $totalposts      = $Wall->CountMsges($id);
+                $totalposts      = $wall->countMsges($id);
                 $membersince     = date('m-d-Y', $user->user_regdate());
-                $usersratedplus  = $db->CountUsersRates($id, 'up');
-                $usersratedminus = $db->CountUsersRates($id, 'down');
+                $usersratedplus  = $db->countUsersRates($id, 'up');
+                $usersratedminus = $db->countUsersRates($id, 'down');
                 $workfull        = $db->getJobsToDiv($id);
                 $workArray       = unserialize($r['employer']);
                 $work            = "<a href='javascript:void(0)' id='_smallworld_workmore'>" . $workArray[0] . ' (' . _SMALLWORLD_MORE . ')</a>';
@@ -94,7 +94,7 @@ class Profile
                     $heorshe  = _SMALLWORLD_HEORSHE;
                     $hisorher = _SMALLWORLD_HISHER;
                 }
-                $avatar          = $Wall->Gravatar($id);
+                $avatar          = $wall->Gravatar($id);
                 $avatar_size     = smallworld_getImageSize(80, 100, smallworld_getAvatarLink($id, $avatar));
                 $avatar_highwide = smallworld_imageResize($avatar_size[0], $avatar_size[1], 100);
                 $user_img        = "<img src='" . smallworld_getAvatarLink($id, $avatar) . "' id='smallworld_user_img' " . $avatar_highwide . '>';

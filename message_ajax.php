@@ -38,7 +38,7 @@ $profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
 if ($profile >= 2) {
     $Xuser    = new \XoopsUser($id);
     $username = $Xuser->getVar('uname');
-    $Wall     = new Smallworld\WallUpdates();
+    $wall     = new Smallworld\WallUpdates();
     $tpl      = new \XoopsTpl();
     $dBase    = new Smallworld\SwDatabase();
     $mail     = new Smallworld\Mail();
@@ -49,17 +49,17 @@ if ($profile >= 2) {
         }
 
         $priv      = (int)$_POST['priv'];
-        $followers = smallworld_array_flatten($Wall->getFollowers($id), 0);
+        $followers = smallworld_array_flatten($wall->getFollowers($id), 0);
 
-        $myavatar          = $Wall->Gravatar($id);
+        $myavatar          = $wall->Gravatar($id);
         $myavatarlink      = smallworld_getAvatarLink($id, $myavatar);
         $myavatar_size     = smallworld_getImageSize(80, 100, $myavatarlink);
         $myavatar_highwide = smallworld_imageResize($myavatar_size[0], $myavatar_size[1], 35);
 
         $update  = $_POST['update'];
-        $insdata = $Wall->Insert_Update($id, $update, $priv);
+        $insdata = $wall->insertUpdate($id, $update, $priv);
         if ($insdata) {
-            //$updatesarray=$Wall->Updates('a', $id, $followers,$page);
+            //$updatesarray=$wall->Updates('a', $id, $followers,$page);
             foreach ($insdata as $data) {
                 $USW             = [];
                 $USW['posts']    = 0;
@@ -70,12 +70,12 @@ if ($profile >= 2) {
                         $USW['posts']    = 1;
                         $USW['comments'] = 1;
                     } else {
-                        $USW = json_decode($dBase->GetSettings($data['uid_fk']), true);
+                        $USW = json_decode($dBase->getSettings($data['uid_fk']), true);
                     }
                 }
 
                 if (!$xoopsUser) {
-                    $USW = json_decode($dBase->GetSettings($data['uid_fk']), true);
+                    $USW = json_decode($dBase->getSettings($data['uid_fk']), true);
                 }
 
                 $wm['msg_id']          = $data['msg_id'];
@@ -86,14 +86,14 @@ if ($profile >= 2) {
                 $wm['username']        = $data['username'];
                 $wm['uid_fk']          = $data['uid_fk'];
                 $wm['priv']            = $data['priv'];
-                $wm['avatar']          = $Wall->Gravatar($data['uid_fk']);
+                $wm['avatar']          = $wall->Gravatar($data['uid_fk']);
                 $wm['avatar_link']     = smallworld_getAvatarLink($data['uid_fk'], $wm['avatar']);
                 $wm['avatar_size']     = smallworld_getImageSize(80, 100, $wm['avatar_link']);
                 $wm['avatar_highwide'] = smallworld_imageResize($wm['avatar_size'][0], $wm['avatar_size'][1], 50);
                 $wm['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'];
                 $wm['compl_msg_lnk']   .= '&updid=' . $data['msg_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
-                $wm['vote_up']         = $Wall->countVotes('msg', 'up', $data['msg_id']);
-                $wm['vote_down']       = $Wall->countVotes('msg', 'down', $data['msg_id']);
+                $wm['vote_up']         = $wall->countVotes('msg', 'up', $data['msg_id']);
+                $wm['vote_down']       = $wall->countVotes('msg', 'down', $data['msg_id']);
                 $wm['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'];
                 $wm['compl_msg_lnk']   .= '&updid=' . $data['msg_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
                 $wm['sharelinkurl']    = XOOPS_URL . '/modules/smallworld/smallworldshare.php?ownerid=' . $data['uid_fk'];
@@ -102,17 +102,17 @@ if ($profile >= 2) {
                 $wm['linkimage']       = XOOPS_URL . '/modules/smallworld/assets/images/link.png';
                 $wm['permalink']       = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id'];
                 if (1 == $USW['posts'] || $profile >= 2) {
-                    $wm['sharelink'] = $Wall->GetSharing($wm['msg_id'], $wm['priv']);
+                    $wm['sharelink'] = $wall->getSharing($wm['msg_id'], $wm['priv']);
                 } else {
-                    $wm['sharelink'] = $Wall->GetSharing($wm['msg_id'], 1);
+                    $wm['sharelink'] = $wall->getSharing($wm['msg_id'], 1);
                 }
 
                 if (1 == $USW['posts'] || $profile >= 2) {
-                    $wm['sharediv'] = $Wall->GetSharingDiv($wm['msg_id'], $wm['priv'], $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
+                    $wm['sharediv'] = $wall->getSharingDiv($wm['msg_id'], $wm['priv'], $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
                 } else {
-                    $wm['sharediv'] = $Wall->GetSharingDiv($wm['msg_id'], 1, $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
+                    $wm['sharediv'] = $wall->getSharingDiv($wm['msg_id'], 1, $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
                 }
-                $wm['commentsarray'] = $Wall->Comments($data['msg_id']);
+                $wm['commentsarray'] = $wall->Comments($data['msg_id']);
 
                 //Send mail if tagged
                 smallworld_getTagUsers($wm['message'], $wm['uid_fk'], $wm['permalink']);
@@ -130,12 +130,12 @@ if ($profile >= 2) {
                                 $USC['posts']    = 1;
                                 $USC['comments'] = 1;
                             } else {
-                                $USC = json_decode($dBase->GetSettings($cdata['uid_fk']), true);
+                                $USC = json_decode($dBase->getSettings($cdata['uid_fk']), true);
                             }
                         }
 
                         if (!$xoopsUser) {
-                            $USC = json_decode($dBase->GetSettings($cdata['uid_fk']), true);
+                            $USC = json_decode($dBase->getSettings($cdata['uid_fk']), true);
                         }
 
                         $wc['msg_id_fk']       = $cdata['msg_id_fk'];
@@ -149,12 +149,12 @@ if ($profile >= 2) {
                         $wc['myavatar_link']   = $myavatarlink;
                         $wc['avatar_size']     = smallworld_getImageSize(80, 100, $wc['myavatar_link']);
                         $wc['avatar_highwide'] = smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);
-                        $wc['cface']           = $Wall->Gravatar($cdata['uid_fk']);
+                        $wc['cface']           = $wall->Gravatar($cdata['uid_fk']);
                         $wc['avatar_link']     = smallworld_getAvatarLink($cdata['uid_fk'], $wc['cface']);
                         $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . smallworld_getOwnerFromComment($cdata['msg_id_fk']);
                         $wc['compl_msg_lnk']   .= '&updid=' . $cdata['msg_id_fk'] . '#' . $cdata['com_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
-                        $wc['vote_up']         = $Wall->countVotesCom('com', 'up', $cdata['msg_id_fk'], $cdata['com_id']);
-                        $wc['vote_down']       = $Wall->countVotesCom('com', 'down', $cdata['msg_id_fk'], $cdata['com_id']);
+                        $wc['vote_up']         = $wall->countVotesCom('com', 'up', $cdata['msg_id_fk'], $cdata['com_id']);
+                        $wc['vote_down']       = $wall->countVotesCom('com', 'down', $cdata['msg_id_fk'], $cdata['com_id']);
                         $tpl->append('comm', $wc);
                     }
                 }

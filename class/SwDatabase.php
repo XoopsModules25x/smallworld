@@ -167,7 +167,7 @@ class SwDatabase
      * @param int    $userid
      * @param string $imagename
      */
-    public function DeleteImage($userid, $imagename)
+    public function deleteImage($userid, $imagename)
     {
         global $xoopsUser, $xoopsDB;
         $myts   = \MyTextSanitizer::getInstance();
@@ -282,7 +282,7 @@ class SwDatabase
             if (false === $result) {
                 die('SQL error:' . $sql . '');
             }
-            $this->SetAdmins($uid, $username, $realname, $avatar);
+            $this->setAdmins($uid, $username, $realname, $avatar);
             $img->createAlbum($uid);
         }
     }
@@ -294,7 +294,7 @@ class SwDatabase
      * @param string $realname
      * @param mixed  $avatar
      */
-    public function SetAdmins($userID, $username, $realname, $avatar)
+    public function setAdmins($userID, $username, $realname, $avatar)
     {
         global $xoopsDB, $xoopsUser;
         $ip     = $_SERVER['REMOTE_ADDR'];
@@ -430,7 +430,7 @@ class SwDatabase
      * @param int $myUid
      * @param int $friend
      */
-    public function SetFriendshitStat($stat, $myUid, $friend)
+    public function setFriendshitStat($stat, $myUid, $friend)
     {
         global $xoopsDB;
         if (1 == $stat) {
@@ -491,7 +491,7 @@ class SwDatabase
      * @param string $val
      * @return int
      */
-    public function CountUsersRates($userid, $val)
+    public function countUsersRates($userid, $val)
     {
         global $xoopsUser, $xoopsDB;
         $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where owner = '" . $userid . "'";
@@ -633,7 +633,7 @@ class SwDatabase
             $sql = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_settings') . " (id,userid,value) VALUES ('', '" . $id . "', '" . $posts . "')";
         }
         $result = $xoopsDB->queryF($sql);
-        $this->GetSettings($id);
+        $this->getSettings($id);
     }
 
     /**
@@ -641,7 +641,7 @@ class SwDatabase
      * @param mixed $userid
      * @return string serialized string
      */
-    public function GetSettings($userid)
+    public function getSettings($userid)
     {
         global $xoopsDB;
         $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . (int)$userid . '';
@@ -656,7 +656,7 @@ class SwDatabase
                 ]
             );
             $this->saveSettings($userid, $posts);
-            $this->GetSettings($userid);
+            $this->getSettings($userid);
         } else {
             while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $data = $row['value'];

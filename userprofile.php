@@ -51,7 +51,7 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     if ($profile >= 2) {
         $user  = new Smallworld\Profile();
         $dBase = new Smallworld\SwDatabase();
-        $user->ShowUser($id);
+        $user->showUser($id);
         $username  = $GLOBALS['xoopsUser']->getVar('uname'); //Myusername
         $inspected = smallworld_isInspected($id);
         $GLOBALS['xoopsTpl']->assign('inspect', $inspected['inspect']);
@@ -98,17 +98,17 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
         $getInvitations = $check->getRequests($yourid);
 
         // Things to do with wall
-        $Wall = new Smallworld\WallUpdates();
+        $wall = new Smallworld\WallUpdates();
 
-        $visitorAvatar          = $Wall->Gravatar($yourid);
+        $visitorAvatar          = $wall->Gravatar($yourid);
         $visitorAvatarlink      = smallworld_getAvatarLink($yourid, $visitorAvatar);
         $visitorAvatar_size     = smallworld_getImageSize(80, 100, $visitorAvatarlink);
         $visitorAvatar_highwide = smallworld_imageResize($visitorAvatar_size[0], $visitorAvatar_size[1], 35);
 
         // Follow array here
-        $followers    = $Wall->getFollowers($id);
-        $updatesarray = $Wall->Updates(0, $id, $id);
-        $Wall->ParsePubArray($updatesarray, $id);
+        $followers    = $wall->getFollowers($id);
+        $updatesarray = $wall->Updates(0, $id, $id);
+        $wall->parsePubArray($updatesarray, $id);
 
         // Create form for private settings
         $form         = new Smallworld\Form();

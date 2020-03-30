@@ -48,7 +48,7 @@ if ($xoopsUser) {
 
     if ($profile >= 2) {
         $user = new Smallworld\Profile();
-        $user->ShowUser($id);
+        $user->showUser($id);
         $username = $xoopsUser->getVar('uname'); //Myusername
         if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
             $xoopsTpl->assign('isadminuser', 'YES');
@@ -96,12 +96,12 @@ if ($xoopsUser) {
         $getInvitations = $check->getRequests($yourid);
 
         // Things to do with wall
-        $Wall         = new Smallworld\WallUpdates();
-        $myavatar     = $Wall->Gravatar($id);
+        $wall         = new Smallworld\WallUpdates();
+        $myavatar     = $wall->Gravatar($id);
         $myavatarlink = smallworld_getAvatarLink($id, $myavatar);
 
         // Get your followers array
-        $followers = $Wall->getFollowers($id);
+        $followers = $wall->getFollowers($id);
 
         // Pendings array here
         $pending_array = $friends->getFriends($id, 'pending');
@@ -121,7 +121,7 @@ if ($xoopsUser) {
             foreach ($pending_array as $data) {
                 $fp['friend_id']       = $data['you'];
                 $fp['friendname']      = smallworld_getName($data['you']);
-                $fp['avatar']          = $Wall->Gravatar($data['you']);
+                $fp['avatar']          = $wall->Gravatar($data['you']);
                 $fp['avatar_link']     = smallworld_getAvatarLink($data['you'], $fp['avatar']);
                 $fp['avatar_size']     = smallworld_getImageSize(80, 100, $fp['avatar_link']);
                 $fp['avatar_highwide'] = smallworld_imageResize($fp['avatar_size'][0], $fp['avatar_size'][1], 50);
@@ -135,7 +135,7 @@ if ($xoopsUser) {
             foreach ($friends_array as $data) {
                 $ff['friend_id']       = $data['you'];
                 $ff['friendname']      = smallworld_getName($data['you']);
-                $ff['avatar']          = $Wall->Gravatar($data['you']);
+                $ff['avatar']          = $wall->Gravatar($data['you']);
                 $ff['avatar_link']     = smallworld_getAvatarLink($data['you'], $ff['avatar']);
                 $ff['avatar_size']     = smallworld_getImageSize(80, 100, $ff['avatar_link']);
                 $ff['avatar_highwide'] = smallworld_imageResize($ff['avatar_size'][0], $ff['avatar_size'][1], 50);
@@ -149,7 +149,7 @@ if ($xoopsUser) {
             foreach ($following_array as $data) {
                 $fy['friend_id']       = $data['you'];
                 $fy['friendname']      = smallworld_getName($data['you']);
-                $fy['avatar']          = $Wall->Gravatar($data['you']);
+                $fy['avatar']          = $wall->Gravatar($data['you']);
                 $fy['avatar_link']     = smallworld_getAvatarLink($data['you'], $fy['avatar']);
                 $fy['avatar_size']     = smallworld_getImageSize(80, 100, $fy['avatar_link']);
                 $fy['avatar_highwide'] = smallworld_imageResize($fy['avatar_size'][0], $fy['avatar_size'][1], 50);
@@ -163,7 +163,7 @@ if ($xoopsUser) {
             foreach ($followingme_array as $data) {
                 $fm['friend_id']       = $data['me'];
                 $fm['friendname']      = smallworld_getName($data['me']);
-                $fm['avatar']          = $Wall->Gravatar($data['me']);
+                $fm['avatar']          = $wall->Gravatar($data['me']);
                 $fm['avatar_link']     = smallworld_getAvatarLink($data['me'], $fm['avatar']);
                 $fm['avatar_size']     = smallworld_getImageSize(80, 100, $fm['avatar_link']);
                 $fm['avatar_highwide'] = smallworld_imageResize($fm['avatar_size'][0], $fm['avatar_size'][1], 50);

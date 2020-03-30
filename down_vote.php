@@ -31,7 +31,7 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 
 global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger, $xoopsDB;
 $xoopsLogger->activated = false;
-$Wall                   = new Smallworld\WallUpdates();
+$wall                   = new Smallworld\WallUpdates();
 if ($xoopsUser) {
     if ($_POST['id']) {
         $id       = (int)$_POST['id'];
@@ -39,7 +39,7 @@ if ($xoopsUser) {
         $type2    = $GLOBALS['xoopsDB']->escape($_POST['type2']);
         $owner    = $GLOBALS['xoopsDB']->escape($_POST['owner']);
         $userid   = $xoopsUser->getVar('uid');
-        $hasvoted = $Wall->HasVoted($userid, $type, $type2, $id);
+        $hasvoted = $wall->hasVoted($userid, $type, $type2, $id);
         if ('msg' === $type) {
             if ($hasvoted > 0) {
                 echo "<script type='text/javascript'>";
@@ -49,7 +49,7 @@ if ($xoopsUser) {
                 $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '0', '" . $userid . "', '" . $owner . "', '0', '1')";
                 $result = $xoopsDB->queryF($sql);
             }
-            $newvote = $Wall->countVotes($type, 'down', $id);
+            $newvote = $wall->countVotes($type, 'down', $id);
         }
 
         if ('com' === $type) {
@@ -59,7 +59,7 @@ if ($xoopsUser) {
                 $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '" . $type2 . "', '" . $userid . "', '" . $owner . "', '0', '1')";
                 $result = $xoopsDB->queryF($sql);
             }
-            $newvote = $Wall->countVotesCom($type, 'down', $type2, $id);
+            $newvote = $wall->countVotesCom($type, 'down', $type2, $id);
         }
     }
     $link = '<span id ="smallworld_votenum">' . $newvote . '</span> <a href="javascript:void(0)" name="down" class="smallworld_stcomment_vote"';

@@ -596,9 +596,9 @@ function smallworld_getCountFriendMessagesEtc()
 {
     global $xoopsUser, $xoopsDB;
     $user      = new \XoopsUser();
-    $Wall      = new Smallworld\WallUpdates();
+    $wall      = new Smallworld\WallUpdates();
     $userid    = $xoopsUser->getVar('uid');
-    $followers = smallworld_array_flatten($Wall->getFollowers($userid), 0);
+    $followers = smallworld_array_flatten($wall->getFollowers($userid), 0);
     if (1 == smallworld_GetModuleOption('usersownpostscount', $repmodule = 'smallworld')) {
         $followers[] = $userid;
     }
@@ -631,7 +631,7 @@ function smallworld_countUsersMessages($id)
 {
     global $xoopsUser, $xoopsDB;
     $user   = new \XoopsUser();
-    $Wall   = new Smallworld\WallUpdates();
+    $wall   = new Smallworld\WallUpdates();
     $sql    = 'SELECT COUNT(*) AS total ' . ' FROM ( ' . ' SELECT com_id , count( * ) AS comments FROM ' . $xoopsDB->prefix('smallworld_comments') . ' WHERE uid_fk = ' . (int)$id . ' GROUP BY com_id ' . ' UNION ALL ' . ' SELECT msg_id , count( * ) AS messages FROM ' . $xoopsDB->prefix(
             'smallworld_messages'
         ) . ' WHERE uid_fk = ' . (int)$id . 'group BY msg_id ' . ' ) AS d';
@@ -1470,7 +1470,7 @@ function smallworld_getTagUsers($txt, $sender, $permalink = '')
     $users = array_unique($matches[1]);
     foreach ($users as $user) {
         $uid    = smallworld_getUidFromName($user);
-        $notify = json_decode($dBase->GetSettings($uid), true);
+        $notify = json_decode($dBase->getSettings($uid), true);
         if (isset($notify['notify'])) {
             if (0 != $notify['notify']) {
                 $mail->sendMails($sender, $uid, 'tag', $link = $permalink, [$txt]);

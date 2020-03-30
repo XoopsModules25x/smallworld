@@ -176,7 +176,7 @@ class WallUpdates
      * @param int          $priv
      * @return array|bool
      */
-    public function Insert_Update($uid, $update, $priv)
+    public function insertUpdate($uid, $update, $priv)
     {
         global $xoopsUser, $xoopsDB;
         $update = smallworld_sanitize(htmlentities($update, ENT_QUOTES, 'UTF-8'));
@@ -215,7 +215,7 @@ class WallUpdates
      * @param string|array $comment
      * @return string|bool
      */
-    public function Insert_Comment($uid, $msg_id, $comment)
+    public function insertComment($uid, $msg_id, $comment)
     {
         global $xoopsUser, $xoopsDB;
         $comment = smallworld_sanitize(htmlentities($comment, ENT_QUOTES, 'UTF-8'));
@@ -322,7 +322,7 @@ class WallUpdates
      * @param int    $msgid
      * @return int
      */
-    public function HasVoted($userid, $type, $comid, $msgid)
+    public function hasVoted($userid, $type, $comid, $msgid)
     {
         global $xoopsUser, $xoopsDB;
         if ('msg' === $type) {
@@ -343,7 +343,7 @@ class WallUpdates
      * @param int $userid
      * @return int
      */
-    public function CountMsges($userid)
+    public function countMsges($userid)
     {
         global $xoopsDB;
         $sql    = 'SELECT (SELECT COUNT(*) FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "') + (SELECT COUNT(*) FROM " . $xoopsDB->prefix('smallworld_messages') . " WHERE uid_fk = '" . $userid . "')";
@@ -360,7 +360,7 @@ class WallUpdates
      * @param int $ownerID
      * @return array|bool
      */
-    public function UpdatesPermalink($updid, $uid, $ownerID)
+    public function updatesPermalink($updid, $uid, $ownerID)
     {
         global $xoopsUser, $xoopsDB, $moduleConfig;
         $query  = 'SELECT M.msg_id, M.uid_fk, M.message, M.created, M.priv, U.username FROM ' . $xoopsDB->prefix('smallworld_messages') . ' M, ' . $xoopsDB->prefix('smallworld_user') . " U  WHERE M.uid_fk=U.userid AND M.uid_fk='" . $ownerID . "'";
@@ -385,7 +385,7 @@ class WallUpdates
      * @param int $ownerID
      * @return array|bool
      */
-    public function UpdatesSharelink($updid, $ownerID)
+    public function updatesSharelink($updid, $ownerID)
     {
         global $xoopsUser, $xoopsDB, $moduleConfig, $xoopsLogger;
         $xoopsLogger->activated = false;
@@ -412,7 +412,7 @@ class WallUpdates
      * @param int $priv
      * @return string
      */
-    public function GetSharing($id, $priv)
+    public function getSharing($id, $priv)
     {
         if (1 != $priv) {
             $text = " | <span class='smallworld_share' id='smallworld_share'>";
@@ -433,7 +433,7 @@ class WallUpdates
      * @param string $username
      * @return string
      */
-    public function GetSharingDiv($id, $priv, $permalink, $desc, $username)
+    public function getSharingDiv($id, $priv, $permalink, $desc, $username)
     {
         if (1 != $priv) {
             $text = "<div style='display: none;' class='smallworld_bookmarks' id='share-page' name='share-page" . $id . "'>";
@@ -451,7 +451,7 @@ class WallUpdates
      * @param array $updatesarray
      * @param int   $id
      */
-    public function ParsePubArray($updatesarray, $id)
+    public function parsePubArray($updatesarray, $id)
     {
         global $xoopsUser, $xoopsTpl, $tpl, $xoopsModule, $xoopsConfig;
 
@@ -487,12 +487,12 @@ class WallUpdates
                         $USW['comments'] = 1;
                         $frU[0]          = 2;
                     } else {
-                        $USW = json_decode($dBase->GetSettings($data['uid_fk']), true);
+                        $USW = json_decode($dBase->getSettings($data['uid_fk']), true);
                     }
                 }
 
                 if (!$xoopsUser) {
-                    $USW = json_decode($dBase->GetSettings($data['uid_fk']), true);
+                    $USW = json_decode($dBase->getSettings($data['uid_fk']), true);
                 }
 
                 $wm['msg_id']          = $data['msg_id'];
@@ -513,15 +513,15 @@ class WallUpdates
                 $wm['sharelinkurl']    .= '&updid=' . $data['msg_id'] . '';
                 $wm['usernameTitle']   = $wm['username'] . _SMALLWORLD_UPDATEONSITEMETA . $xoopsConfig['sitename'];
                 if (1 == $USW['posts'] || $profile >= 2) {
-                    $wm['sharelink'] = $this->GetSharing($wm['msg_id'], $wm['priv']);
+                    $wm['sharelink'] = $this->getSharing($wm['msg_id'], $wm['priv']);
                 } else {
-                    $wm['sharelink'] = $this->GetSharing($wm['msg_id'], 1);
+                    $wm['sharelink'] = $this->getSharing($wm['msg_id'], 1);
                 }
 
                 if (1 == $USW['posts'] || $profile >= 2) {
-                    $wm['sharediv'] = $this->GetSharingDiv($wm['msg_id'], $wm['priv'], $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
+                    $wm['sharediv'] = $this->getSharingDiv($wm['msg_id'], $wm['priv'], $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
                 } else {
-                    $wm['sharediv'] = $this->GetSharingDiv($wm['msg_id'], 1, $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
+                    $wm['sharediv'] = $this->getSharingDiv($wm['msg_id'], 1, $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
                 }
                 $wm['linkimage']     = XOOPS_URL . '/modules/smallworld/assets/images/link.png';
                 $wm['permalink']     = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id'];
@@ -546,12 +546,12 @@ class WallUpdates
                                 $USC['comments'] = 1;
                                 $frC[0]          = 2;
                             } else {
-                                $USC = json_decode($dBase->GetSettings($cdata['uid_fk']), true);
+                                $USC = json_decode($dBase->getSettings($cdata['uid_fk']), true);
                             }
                         }
 
                         if (!$xoopsUser) {
-                            $USC = json_decode($dBase->GetSettings($cdata['uid_fk']), true);
+                            $USC = json_decode($dBase->getSettings($cdata['uid_fk']), true);
                         }
 
                         $wc['msg_id_fk']       = $cdata['msg_id_fk'];

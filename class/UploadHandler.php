@@ -954,8 +954,8 @@ class UploadHandler
         $success   = is_file($file_path) && '.' !== $file_name[0] && unlink($file_path);
 
         // Delete file based on user and filename
-        $db->DeleteImage($userid, $file_name);
-        $db->DeleteImage($userid, 'Thumbs.db');
+        $db->deleteImage($userid, $file_name);
+        $db->deleteImage($userid, 'Thumbs.db');
 
         if ($success) {
             foreach ($this->options['image_versions'] as $version => $options) {

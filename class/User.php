@@ -189,12 +189,12 @@ class User
         $result   = $xoopsDB->queryF($sql);
         $i        = $xoopsDB->getRowsNum($result);
         $db       = new \XoopsModules\Smallworld\SwDatabase();
-        $Wall     = new \XoopsModules\Smallworld\WallUpdates();
-        $myavatar = $Wall->Gravatar($userid);
+        $wall     = new \XoopsModules\Smallworld\WallUpdates();
+        $myavatar = $wall->Gravatar($userid);
         $start    = 0;
         while (false !== ($row = $xoopsDB->fetchArray($result)) && $start <= count($row)) {
             $msg[$start]['friendname']  = $this->getName($row['me']);
-            $msg[$start]['img']         = $Wall->Gravatar($row['me']);
+            $msg[$start]['img']         = $wall->Gravatar($row['me']);
             $msg[$start]['friendimage'] = "<img src='" . XOOPS_UPLOAD_URL . '/' . $msg[$start]['img'] . "' height='40px'>";
             $msg[$start]['frienddate']  = date('d-m-Y', $row['date']);
             $msg[$start]['accept']      = '<a class="smallworldrequestlink" id = "smallworldfriendrequest_' . $msg[$start]['friendname'] . '" href = "javascript:Smallworld_AcceptDenyFriend(1,' . $row['me'] . ',' . $row['you'] . ',' . $start . ');">' . _SMALLWORLD_ACCEPT . '</a>';

@@ -49,7 +49,7 @@ $ani = [];
 // Find oldest message and apply to template
 $dateoffirstmessage = date('d-m-Y H:i:s', $admin->oldestMsg());
 // Get days number
-$totaldays = $admin->CountDays();
+$totaldays = $admin->countDays();
 // get average messages per day
 $avgperday = $admin->AvgMsgDay($totaldays);
 // XIM version number

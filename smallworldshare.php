@@ -47,8 +47,8 @@ $GLOBALS['xoopsTpl']->caching = 0;
 
 if ($perm <= 0) {
     // Things to do with wall
-    $Wall         = new Smallworld\WallUpdates();
-    $updatesarray = $Wall->UpdatesSharelink($updID, $ownerID);
+    $wall         = new Smallworld\WallUpdates();
+    $updatesarray = $wall->updatesSharelink($updID, $ownerID);
     //Srinivas Tamada http://9lessons.info
     //Loading Comments link with load_updates.php
     foreach ($updatesarray as $data) {
@@ -59,7 +59,7 @@ if ($perm <= 0) {
         $wm['username']   = $data['username'];
         $wm['uid_fk']     = $data['uid_fk'];
         $wm['priv']       = $data['priv'];
-        $wm['avatar']     = $Wall->Gravatar($data['uid_fk']);
+        $wm['avatar']     = $wall->Gravatar($data['uid_fk']);
         if (smallworld_GetModuleOption('smallworldbookmarkavatar', $repmodule = 'smallworld' !== 1)) {
             $wm['avatar_link'] = $helper->url('assets/images/smallworld.png');
         } else {

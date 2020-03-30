@@ -49,7 +49,7 @@ if ($xoopsUser) {
         }
         echo json_encode($post);
     } else {
-        $posts = stripslashes($db->GetSettings($id));
+        $posts = stripslashes($db->getSettings($id));
         echo json_encode($posts);
     }
 } else {

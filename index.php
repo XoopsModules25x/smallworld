@@ -61,7 +61,7 @@ if (1 == $set['access']) {
 
     if ($profile >= 2) {
         $xuser = new Smallworld\Profile();
-        $xuser->ShowUser($id);
+        $xuser->showUser($id);
         $menu_startpage = "<a href='" . $helper->url('publicindex.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/highrise.png') . "'>" . _SMALLWORLD_STARTPAGE . '</a>';
         $menu_home      = "<a href='" . $helper->url('index.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/house.png') . "'>" . _SMALLWORLD_HOME . '</a>';
         $menu_profile   = "<a href='" . $helper->url('userprofile.php?username=' . $username) . "'><img id='menuimg' src='" . $helper->url('assets/images/user_silhouette.png') . "'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
@@ -70,19 +70,19 @@ if (1 == $set['access']) {
     }
 
     // Things to do with wall
-    $Wall = ($profile >= 2) ? new  Smallworld\WallUpdates() : new Smallworld\PublicWallUpdates();
+    $wall = ($profile >= 2) ? new  Smallworld\WallUpdates() : new Smallworld\PublicWallUpdates();
     if ($profile < 2 && 1 == $set['access']) {
         $pub          = smallworld_checkUserPubPostPerm();
-        $updatesarray = $Wall->Updates(0, $pub);
+        $updatesarray = $wall->Updates(0, $pub);
     } else {
         // Follow array here
-        $followers    = smallworld_array_flatten($Wall->getFollowers($id), 0);
-        $updatesarray = $Wall->Updates(0, $id, $followers);
+        $followers    = smallworld_array_flatten($wall->getFollowers($id), 0);
+        $updatesarray = $wall->Updates(0, $id, $followers);
     }
 
     //Get friends invitations
     $getInvitations = $GLOBALS['xoopsUser'] ? $check->getRequests($id) : 0;
-    $Wall->ParsePubArray($updatesarray, $id);
+    $wall->parsePubArray($updatesarray, $id);
 
     if ($profile >= 2) {
         $GLOBALS['xoopsTpl']->assign(

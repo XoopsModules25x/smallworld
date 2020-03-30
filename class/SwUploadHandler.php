@@ -244,8 +244,8 @@ class SwUploadHandler
         $img       = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file_name;
 
         // Delete file based on user and filename
-        $db->DeleteImage($userid, $file_name);
-        $db->DeleteImage($userid, 'Thumbs.db');
+        $db->deleteImage($userid, $file_name);
+        $db->deleteImage($userid, 'Thumbs.db');
         $thumbnail_path = $this->thumbnails_dir . $file_name;
         $success        = is_file($file_path) && '.' !== $file_name[0] && unlink($file_path);
         if ($success && is_file($thumbnail_path)) {

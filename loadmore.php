@@ -42,9 +42,9 @@ $xoopsLogger->activated = false;
 $xoopsTpl = new \XoopsTpl();
 $id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 if ($id <= 0 || 'publicindex' === $page && $set['access'] = 1) {
-    $Wall = new Smallworld\PublicWallUpdates();
+    $wall = new Smallworld\PublicWallUpdates();
 } else {
-    $Wall = new Smallworld\WallUpdates();
+    $wall = new Smallworld\WallUpdates();
 }
 if (isset($_POST['userid'])) {
     $userid = (int)$_POST['userid'];
@@ -74,18 +74,18 @@ if ($id <= 0 && 1 == $set['access']) {
     //$pub = $check->allUsers();
     $followers = $pub;
 } else {
-    $followers = smallworld_array_flatten($Wall->getFollowers($id), 0);
+    $followers = smallworld_array_flatten($wall->getFollowers($id), 0);
 }
 
 if ('index' === $page) {
-    $updatesarray = ($id > 0) ? $Wall->Updates($_POST['last'], $id, $followers) : $Wall->Updates($_POST['last'], $followers);
+    $updatesarray = ($id > 0) ? $wall->Updates($_POST['last'], $id, $followers) : $wall->Updates($_POST['last'], $followers);
 } elseif ('profile' === $page) {
-    $updatesarray = ($id > 0) ? $Wall->Updates($_POST['last'], $userid, $userid) : $Wall->Updates($_POST['last'], $userid);
+    $updatesarray = ($id > 0) ? $wall->Updates($_POST['last'], $userid, $userid) : $wall->Updates($_POST['last'], $userid);
 } elseif ('publicindex' === $page) {
-    $updatesarray = $Wall->Updates($_POST['last'], $followers);
+    $updatesarray = $wall->Updates($_POST['last'], $followers);
 }
 
-$Wall->ParsePubArray($updatesarray, $id);
+$wall->parsePubArray($updatesarray, $id);
 
 $xoopsTpl->assign('sCountResp', count($updatesarray));
 $xoopsTpl->assign('msgtoshow', $hm);

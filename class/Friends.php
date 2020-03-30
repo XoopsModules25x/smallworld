@@ -29,7 +29,7 @@ class Friends
      * @param int $id
      * @return string
      */
-    public function Showfriends($id)
+    public function showFriends($id)
     {
         global $xoopsUser, $xoTheme, $xoopsTpl, $arr04, $arr05, $xoopsDB;
         if ($xoopsUser) {

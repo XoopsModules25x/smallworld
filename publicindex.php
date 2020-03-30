@@ -78,7 +78,7 @@ $menu_home     = "<a href='" . $helper->url('/') . "'><img id='menuimg' src='" .
 $menu_register = ($profile < 2) ? "<a href='" . $helper->url('register.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/join.jpg') . "'>" . _MB_SYSTEM_RNOW . '</a>' : '';
 
 $updatesarray = $wall->Updates(0, $pub);
-$wall->ParsePubArray($updatesarray, $id);
+$wall->parsePubArray($updatesarray, $id);
 
 $GLOBALS['xoopsTpl']->assign(
     [

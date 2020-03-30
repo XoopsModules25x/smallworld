@@ -70,7 +70,7 @@ class Form
      * @param string $selected (optional)
      * @return string
      */
-    public function RetrieveRadio($name, $options, $valuearray, $selected = null)
+    public function retrieveRadio($name, $options, $valuearray, $selected = null)
     {
         $form = '';
         $a    = count($options) - 1;

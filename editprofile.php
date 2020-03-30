@@ -72,7 +72,7 @@ if ($xoopsUser) {
             // Selectbox for "interested in gender(s)"
             if (0 != smallworldGetValfromArray('interestedin', 'smallworldusethesefields')) {
                 $nr          = unserialize($r['intingender']);
-                $intInGender = $item->RetrieveRadio('intingender', $arr01, $nr, $selected = null);
+                $intInGender = $item->retrieveRadio('intingender', $arr01, $nr, $selected = null);
                 $xoopsTpl->append('intingender', $intInGender);
             } else {
                 $xoopsTpl->assign('show_interestedin', 'no');
@@ -92,7 +92,7 @@ if ($xoopsUser) {
 
             if (0 != smallworldGetValfromArray('lookingfor', 'smallworldusethesefields')) {
                 $nr1         = unserialize($r['searchrelat']);
-                $searchrelat = $item->RetrieveRadio('searchrelat', $arr03, $nr1, $selected = null);
+                $searchrelat = $item->retrieveRadio('searchrelat', $arr03, $nr1, $selected = null);
                 $xoopsTpl->append('searchrelat', $searchrelat);
             } else {
                 $xoopsTpl->assign('show_lookingfor', 'no');

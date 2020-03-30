@@ -115,7 +115,7 @@ class Admin
      * Count total days represented in db
      * @return float|int|time
      */
-    public function CountDays()
+    public function countDays()
     {
         global $xoopsDB, $xoopsModule;
         $date = $this->oldestMsg();

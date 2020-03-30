@@ -38,7 +38,7 @@ $profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
 if ($profile >= 2) {
     $Xuser    = new \XoopsUser($id);
     $username = $Xuser->getVar('uname');
-    $Wall     = new Smallworld\WallUpdates();
+    $wall     = new Smallworld\WallUpdates();
     $tpl      = new \XoopsTpl();
     $mail     = new Smallworld\Mail();
     $dBase    = new Smallworld\SwDatabase();
@@ -48,16 +48,16 @@ if ($profile >= 2) {
             $tpl->assign('isadminuser', 'YES');
         }
 
-        $followers = smallworld_array_flatten($Wall->getFollowers($id), 0);
+        $followers = smallworld_array_flatten($wall->getFollowers($id), 0);
 
-        $myavatar     = $Wall->Gravatar($id);
+        $myavatar     = $wall->Gravatar($id);
         $myavatarlink = smallworld_getAvatarLink($id, $myavatar);
 
         // Get posted items
         $comment = $_POST['comment'];
         $msg_id  = $_POST['msg_id'];
 
-        $data = $Wall->Insert_Comment($id, $msg_id, $comment);
+        $data = $wall->insertComment($id, $msg_id, $comment);
         if ($data) {
             // Is comments's user a friend ?
             $frC = $check->friendcheck($id, $data['uid_fk']);
@@ -73,12 +73,12 @@ if ($profile >= 2) {
                     $USC['comments'] = 1;
                     $frC[0]          = 2;
                 } else {
-                    $USC = json_decode($dBase->GetSettings($data['uid_fk']), true);
+                    $USC = json_decode($dBase->getSettings($data['uid_fk']), true);
                 }
             }
 
             if (!$xoopsUser) {
-                $USC = json_decode($dBase->GetSettings($data['uid_fk']), true);
+                $USC = json_decode($dBase->getSettings($data['uid_fk']), true);
             }
 
             $wc['msg_id_fk']       = $data['msg_id_fk'];
@@ -90,14 +90,14 @@ if ($profile >= 2) {
             $wc['uid']             = $data['uid_fk'];
             $wc['myavatar']        = $myavatar;
             $wc['myavatar_link']   = $myavatarlink;
-            $wc['cface']           = $Wall->Gravatar($data['uid_fk']);
+            $wc['cface']           = $wall->Gravatar($data['uid_fk']);
             $wc['avatar_link']     = smallworld_getAvatarLink($data['uid_fk'], $wc['cface']);
             $wc['avatar_size']     = smallworld_getImageSize(80, 100, $wc['myavatar_link']);
             $wc['avatar_highwide'] = smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);
             $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . smallworld_getOwnerFromComment($data['msg_id_fk']);
             $wc['compl_msg_lnk']   .= '&updid=' . $data['msg_id_fk'] . '#' . $data['com_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
-            $wc['vote_up']         = $Wall->countVotesCom('com', 'up', $data['msg_id_fk'], $data['com_id']);
-            $wc['vote_down']       = $Wall->countVotesCom('com', 'down', $data['msg_id_fk'], $data['com_id']);
+            $wc['vote_up']         = $wall->countVotesCom('com', 'up', $data['msg_id_fk'], $data['com_id']);
+            $wc['vote_down']       = $wall->countVotesCom('com', 'down', $data['msg_id_fk'], $data['com_id']);
 
             //Send mail if tagged
             $permalink = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id_fk'];
@@ -117,7 +117,7 @@ if ($profile >= 2) {
             foreach ($parts as $k => $v) {
                 $owner = smallworld_getOwnerFromComment($data['msg_id_fk']);
                 // Get owner of posts settings in order to send mail or not!
-                $owner_privset = json_decode($dBase->GetSettings($v), true);
+                $owner_privset = json_decode($dBase->getSettings($v), true);
                 if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {
                     if (1 == $owner_privset['notify']) {
                         $mail->sendMails($data['uid_fk'], $v, 'commentToWM', $link = null, $wc);

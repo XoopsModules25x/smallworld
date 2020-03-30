@@ -40,5 +40,5 @@ if ('' != $ri) {
 
 $update = 'UPLIMAGE' . ' ' . $riUrl;
 
-$upd->Insert_Update($userID, $update);
+$upd->insertUpdate($userID, $update);
 $db->handleImageEdit();

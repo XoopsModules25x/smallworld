@@ -60,7 +60,7 @@ $admin = new \XoopsModules\Smallworld\Admin();
 $d     = new \XoopsModules\Smallworld\DoSync();
 $check = new \XoopsModules\Smallworld\User();
 $db    = new \XoopsModules\Smallworld\SwDatabase();
-$Wall  = new \XoopsModules\Smallworld\WallUpdates();
+$wall  = new \XoopsModules\Smallworld\WallUpdates();
 
 $pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
 $pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);

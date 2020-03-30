@@ -71,13 +71,13 @@ $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php
 $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
 
 // Things to do with wall
-$Wall = new Smallworld\WallUpdates();
+$wall = new Smallworld\WallUpdates();
 
 // Follow array here
-$followers = smallworld_array_flatten($Wall->getFollowers($id), 0);
+$followers = smallworld_array_flatten($wall->getFollowers($id), 0);
 
-$updatesarray = $Wall->UpdatesPermalink($updID, $id, $ownerID);
-$Wall->ParsePubArray($updatesarray, $id);
+$updatesarray = $wall->updatesPermalink($updID, $id, $ownerID);
+$wall->parsePubArray($updatesarray, $id);
 
 $xoopsTpl->assign('menu_startpage', $menu_startpage);
 $xoopsTpl->assign('menu_home', $menu_home);
