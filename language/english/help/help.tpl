@@ -1,76 +1,55 @@
 <div id="help-template" class="outer">
-    <h1 class="head">Help:
-        <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/smallworld/admin/index.php"
-           title="Back to the administration of SmallWorld"> SmallWorld
-            <img src="<{xoAdminIcons home.png}>"
-                 alt="Back to the Administration of SmallWorld">
-        </a></h1>
+    <{include file=$smarty.const._MI_SMALLWORLD_HELP_HEADER}>
 
-    <h4 class="odd">Description</h4>
+    <h4 class="odd">DESCRIPTION</h4> <br>
 
-    <p class="even">Smallworld is a Social Network system. Inspired by the Srinivas Tamada tutorials on Facebook
-        scripting. The base system has been re-written, adapted, and heavily expanded for XOOPS by Culex
-        The module is featuring like/dislike, bookmarking, wall system, image gallery, and is using XIM if installed.
-        The admin side is featuring deleting users, banning users based on time. A countdown is shown on user side to
-        when it's back.. And many more features. It is fully supported by XOOPS version 2.5.0 and higher.<br> <br>
-        Smallworld is released under the terms of the GNU General Public License (GPL) and is free to use and modify. It
-        is free to redistribute as long as you abide by the distribution terms of the GPL.</p>
+    <p class="even">This module is ....<br> <br>
+    </p>
 
-    <h4 class="odd">Install/uninstall</h4> <br>
+    <h4 class="odd">INSTALL/UNINSTALL</h4>
 
-    No special measures necessary, follow the standard installation process – extract the /smallworld folder into the
-    ../modules directory. Install the
-    module through Admin -> System Module -> Modules.<br> <br>
-
-    Check to see if the downloaded Smallworld version is the latest released version.
-    Turn cookie and JavaScript of your browser on.<br> <br>
-    <b>Installing on a hosted platform</b>
-    <ul>
-        <li>Upload the unzipped folder Smallworld to your module directory.</li>
-        <li>Install using XOOPS module install as any other module installation.</li>
-        <li>Make the block visible for the user groups you want to see the block (admin/moderators etc etc).</li>
-    </ul>
-
-    <b>Upgrading from a previous version</b>
-    <ul>
-        <li>Make sure you are using newest version</li>
-        <li>Read the readme.txt in archieve</li>
-        <li>Maybe do a backup of your tables</li>
-    </ul>
-    Detailed instructions on installing modules are available in the
-    <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">XOOPS Operations Manual</a> <br> <br>
+    <p class="even">
+        No special measures necessary, follow the standard installation process –
+        extract the module folder into the ../modules directory. Install the
+        module through Admin -> System Module -> Modules.<br> <br>
+        Detailed instructions on installing modules are available in the
+        <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">Chapter 2.12 of our XOOPS Operations Manual</a></p>
 
 
-    <h4 class="odd">Operations</h4> <br>
+    <h4 class="odd">OPERATING INSTRUCTIONS</h4><br>
+    <p class="even">
+        This module and its operations are very simple.<br> <br>
+        Detailed instructions on configuring the access rights for user groups are available in the
+        <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">Chapter 2.8 of our XOOPS Operations Manual</a><br> <br></p>
 
-    Detailed instructions on configuring the access rights for user groups are available in the
-    <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">Chapter 2.8 of our XOOPS Operations Manual</a><br> <br>
+    <h4 class="odd">TUTORIAL</h4> <br>
 
-    <h4 class="odd">Problem solving</h4> <br>
+    <p class="even">
+        Tutorial has been started, but we might need your help! Please check out the status of the tutorial <a href="https://www.gitbook.com/book/xoops/ZZZZZZZZ-tutorial/" target="_blank">here </a>.
+        <br><br>To contribute to this Tutorial, <a href="https://github.com/XoopsDocs/ZZZZZZZZ-tutorial/" target="_blank">please fork it on GitHub</a>.
+        <br> This document describes our <a href="https://www.gitbook.com/book/xoops/xoops-documentation-process/details/" target="_blank">Documentation Process</a> and it will help you to understand how to contribute.
+        <br><br>
+        There are more XOOPS Tutorials, so check them out in our <a href="https://www.gitbook.com/@xoops/" target="_blank">XOOPS Tutorial Repository on GitBook</a>.
+    </p>
 
-    <b>I get blank page, can't click username, the block is not visible.......</b><br> <br>
-    <ul>
-        <li> Make sure your Xoops version is > 2.5.0. Older versions of Xoops don't have preloads, which are required.
-        </li>
-        <li>Turn on debug and check to see if any errors emerge.</li>
-        <li>Using FireFox, right click on the screen, choose inspect element, choose console in the tabs and check to
-            see if any errors
-        </li>
-        <li>If no errors, use Firebug (Right click->inspect element->console) and see if there are any jQuery errors.
-        </li>
-        <li>If there are no jQuery errors. Clean caches-> module update Smallworld, system modules.</li>
-        <li>If the page is still blank, Go to your protector module -> settings and write smallworld in the form
-            "Modules out of Dos / Crawler checker".
-        </li>
-    </ul>
-    <br>
 
-    <h4 class="odd">Tutorial</h4>
+    <h4 class="odd">TRANSLATIONS</h4> <br>
+    <p class="even">
+        Translations are on <a href="https://www.transifex.com/xoops/" target="_blank">Transifex</a> and in our <a href="https://github.com/XoopsLanguages/" target="_blank">XOOPS Languages Repository on GitHub</a>.</p>
 
-    <p class="even">There is no tutorial available at this time</p>
+    <h4 class="odd">SUPPORT</h4> <br>
+    <p class="even">
+        If you have questions about this module and need help, you can visit our <a href="https://xoops.org/modules/newbb/viewforum.php?forum=28/" target="_blank">Support Forums on XOOPS Website</a></p>
 
-    <h4 class="odd">Ask Questions</h4>
+    <h4 class="odd">DEVELOPMENT</h4> <br>
+    <p class="even">
+        This module is Open Source and we would love your help in making it better! You can fork this module on <a href="https://github.com/XoopsModules25x/ZZZZZZZZ" target="_blank">GitHub</a><br><br>
+        But there is more happening on GitHub:<br><br>
+        - <a href="https://github.com/xoops" target="_blank">XOOPS Core</a> <br>
+        - <a href="https://github.com/XoopsModules25x" target="_blank">XOOPS Modules</a><br>
+        - <a href="https://github.com/XoopsThemes" target="_blank">XOOPS Themes</a><br><br>
+        Go check it out, and <strong>GET INVOLVED</strong>
 
-    <p class="even">If still questions or errors please post at the <a href="https://xoops.org/modules/newbb">Xoops support Forum</a></p>
+    </p>
 
 </div>
