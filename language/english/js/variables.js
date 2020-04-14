@@ -65,3 +65,7 @@ var SmallworldPhotoPrevLink = '&lsaquo; Prev';
 
 // error messages
 var SmallworldDialogNotUser = 'You must be registered to do this!!';
+
+// Requests
+var SmallworldFriendRequestAdd = "Add as friend";
+var SmallworldFriendRequestCancel = "Cancel friend request";
