@@ -80,7 +80,7 @@ xoops_smallworld(function () {
                 width: 1150,
                 modal: true,
                 closeOnEscape: true,
-                position: 'center',
+                position: { my: "top", at: "center", of: window },
                 open: function (event, ui) {
                     smallworld_DoValStart();
                     xoops_smallworld("input#realname").val();
@@ -88,6 +88,9 @@ xoops_smallworld(function () {
                         background: 'none repeat scroll 0 0 #222222',
                         opacity: 0.89
                     });
+					xoops_smallworld('.ui-dialog').css({
+						zIndex: '9999'
+					});
                 },
                 beforeClose: function (event, ui) {
                     xoops_smallworld('#smallworld_regform1').hide();
@@ -275,14 +278,16 @@ xoops_smallworld(function () {
         xoops_smallworld(document).ready(function () {
             if (xoops_smallworld("#birthplace").length > 0) {
                 if (typeof xoops_smallworld('#birthplace').val() != "undefined") {
-                    xoops_smallworld('#birthplace').geo_autocomplete();
+                    xoops_smallworld('#birthplace').OsmLiveSearchBirth();
                 }
             }
-            if (xoops_smallworld("#present_city").length > 0) {
+            
+			if (xoops_smallworld("#present_city").length > 0) {
                 if (typeof xoops_smallworld('#present_city').val() != "undefined") {
-                    xoops_smallworld('#present_city').geo_autocomplete_now();
+                    xoops_smallworld('#present_city').OsmLiveSearchNow();
                 }
             }
+			
         });
     }
 
@@ -765,8 +770,10 @@ xoops_smallworld(function () {
                         xoops_smallworld('#_smallworld_birthplace_map').hide();
                     },
                     onComplete: function () {
-                        Smallworld_initialize_birthplace(smallworld_birthlng, smallworld_birthlatt);
+                        //Smallworld_initialize_birthplace(smallworld_birthlng, smallworld_birthlatt);
+						
                         xoops_smallworld('#_smallworld_birthplace_map').show();
+						doMapBirth(smallworld_birthlatt, smallworld_birthlng);
                     },
                     title: function () {
                         var title = xoops_smallworld("#_smallworld_birthplace_map").attr('title');
@@ -777,6 +784,24 @@ xoops_smallworld(function () {
             }
         }
     });
+
+	function doMapBirth(lat, lon) {
+        var map = L.map('_smallworld_birthplace_map').setView([lat, lon], 13);
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+        var marker = L.marker([lat, lon]).addTo(map);
+        var popup = marker.bindPopup(cityname);
+    }
+	
+	function doMapNow(lat, lon) {
+        var map = L.map('_smallworld_present_map').setView([lat, lon], 13);
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+        var marker = L.marker([lat, lon]).addTo(map);
+        var popup = marker.bindPopup(cityname);
+    }
 
     //Function to show images in present location input
     xoops_smallworld('#_smallworld_present_maplink').on('click', function (event) {
@@ -792,8 +817,10 @@ xoops_smallworld(function () {
                         xoops_smallworld('#_smallworld_present_map').hide();
                     },
                     onComplete: function () {
-                        Smallworld_initialize_currplace(smallworld_currlng, smallworld_currlatt);
+                        //Smallworld_initialize_currplace(smallworld_currlng, smallworld_currlatt);
+						
                         xoops_smallworld('#_smallworld_present_map').show();
+						doMapNow(smallworld_currlatt, smallworld_currlng);
                     },
                     title: function () {
                         var title = xoops_smallworld("#_smallworld_present_map").attr('title');
@@ -976,39 +1003,6 @@ function smallworldCheckNumDivs() {
 function Smallworld_customBookmark(id, display, url) {
     window.open(url, '_blank',
         'width=600,height=400,menubar=no,toolbar=no,scrollbars=yes');
-}
-
-// Init birthplace_map
-function Smallworld_initialize_birthplace(smallworld_birthlng, smallworld_birthlatt) {
-
-    var birth_myLatlng = new google.maps.LatLng(smallworld_birthlatt, smallworld_birthlng);
-    var birth_myOptions = {
-        zoom: 8,
-        center: birth_myLatlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var birth_map = new google.maps.Map(document.getElementById("_smallworld_birthplace_map"), birth_myOptions);
-    var birth_marker = new google.maps.Marker({
-        position: birth_myLatlng,
-        map: birth_map,
-        title: "Culex.dk"
-    });
-}
-
-// Init currentcity_map
-function Smallworld_initialize_currplace(smallworld_currlng, smallworld_currlatt) {
-    var currplace_myLatlng = new google.maps.LatLng(smallworld_currlatt, smallworld_currlng);
-    var currplace_myOptions = {
-        zoom: 8,
-        center: currplace_myLatlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var currplace_map = new google.maps.Map(document.getElementById("_smallworld_present_map"), currplace_myOptions);
-    var currplace_marker = new google.maps.Marker({
-        position: currplace_myLatlng,
-        map: currplace_map,
-        title: "Culex.dk"
-    });
 }
 
 // Function to send invitation of friendship to userid
