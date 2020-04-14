@@ -19,6 +19,11 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
+
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 global $xoopsUser, $xoopsLogger;
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
@@ -27,15 +32,15 @@ if ($xoopsUser) {
     $xoopsLogger->activated = false;
     $userID                 = $xoopsUser->getVar('uid');
     $user                   = new XoopsUser($userID);
-    $db                     = new SmallWorldDB;
+    $db                     = new smallworld\SmallWorldDB;
 
     $uploaddir = XOOPS_ROOT_PATH . '/uploads/avatars/';
     $file      = $uploaddir . basename($_FILES['smallworld_uploadfile']['name']);
-    $newname   = time() . rand(0, 99999);
+    $newname   = time() . mt_rand(0, 99999);
 
     // Generate new name for file
     $f       = explode('.', basename(stripslashes($_FILES['smallworld_uploadfile']['name'])));
-    $newname = time() . rand(0000, 9999) . '.' . $f[1];
+    $newname = time() . mt_rand(0000, 9999) . '.' . $f[1];
     $newfile = $uploaddir . basename($newname);
     // Save new name to users profile in DB
     $dbuserimage = 'avatars/' . basename(stripslashes($newfile));
