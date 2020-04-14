@@ -20,9 +20,16 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+//require_once __DIR__ . '/common.php';
+
 /*
 Get array of timestamps based on the timetype configured in preferences
 */
+/**
+ * @return array
+ */
 function SmallworldGetTimestampsToForm()
 {
     $timearray = [];
@@ -282,11 +289,11 @@ function smallworld_tolink($text, $uid)
     global $xoopsUser;
     $ext       = substr($text, -4, 4);
     $ext2      = substr($text, -5, 5);
-    $xoopsUser = new XoopsUser($uid);
+    $xoopsUser = new \XoopsUser($uid);
     $usr       = new $xoopsUser($uid);
 
     $userID   = $xoopsUser->getVar('uid');
-    $user     = new XoopsUser($userID);
+    $user     = new \XoopsUser($userID);
     $username = $user->getVar('uname');
     $gallery  = XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $usr->getVar('uname');
 
@@ -567,8 +574,8 @@ function SmallworldDeleteOldInspects()
 function smallworld_getCountFriendMessagesEtc()
 {
     global $xoopsUser, $xoopsDB;
-    $user      = new xoopsUser;
-    $Wall      = new Wall_Updates();
+    $user      = new \XoopsUser;
+    $Wall      = new smallworld\WallUpdates();
     $userid    = $xoopsUser->getVar('uid');
     $followers = Smallworld_array_flatten($Wall->getFollowers($userid), 0);
     if (1 == smallworld_GetModuleOption('usersownpostscount', $repmodule = 'smallworld')) {
@@ -601,8 +608,8 @@ function smallworld_getCountFriendMessagesEtc()
 function smallworld_countUsersMessages($id)
 {
     global $xoopsUser, $xoopsDB;
-    $user   = new xoopsUser;
-    $Wall   = new Wall_Updates();
+    $user   = new XoopsUser;
+    $Wall   = new smallworld\WallUpdates();
     $sql    = 'SELECT COUNT(*) AS total '
               . ' FROM ( '
               . ' SELECT com_id , count( * ) AS comments FROM '
@@ -1111,9 +1118,9 @@ function smallworld_checkPrivateOrPublic()
     }
     if ($xoopsUser) {
         $id               = $xoopsUser->getVar('uid');
-        $user             = new XoopsUser($id);
-        $check            = new SmallWorldUser;
-        $profile          = $check->checkIfProfile($id);
+        $user             = new \XoopsUser($id);
+        $check            = new smallworld\SmallWorldUser;
+        $profile          = $check->CheckIfProfile($id);
         $opt['xoopsuser'] = 1;
         if (0 != $profile) {
             $opt['smallworlduser'] = 1;
@@ -1180,7 +1187,7 @@ function smallworld_SetCoreScript()
     }
 
     // Check if USER is smallworld-registered user
-    $chkUser = new SmallWorldUser;
+    $chkUser = new smallworld\SmallWorldUser;
     $ChkProf = $xoopsUser ? $chkUser->CheckIfProfile($myid) : 0;
 
     // Check if there are requests pending
@@ -1230,13 +1237,6 @@ function smallworld_SetCoreScript()
     $script .= '}' . "\n";
     $xoTheme->addScript('', '', $script);
 
-    // Include geolocate styling
-    if (1 == $googlemaps) {
-        $xoTheme->addScript('https://maps.googleapis.com/maps/api/js?sensor=false&language=' . _LANGCODE);
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/ui.geo_autocomplete.js');
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/ui.geo_autocomplete_now.js');
-    }
-
     smallworld_includeScripts();
 }
 
@@ -1256,6 +1256,10 @@ function smallworld_includeScripts()
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.validation.functions.js');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.stepy.js');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.elastic.source.js');
+			$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/leaflet.js');
+			$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/osm_birth.js');
+			$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/osm_now.js');
+			$xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/leaflet.css');
             $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
             break;
 
@@ -1344,6 +1348,10 @@ function smallworld_includeScripts()
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.validation.functions.js');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.stepy.js');
             $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.elastic.source.js');
+			$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/leaflet.js');
+			$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/osm_birth.js');
+			$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/osm_now.js');
+			$xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/leaflet.css');
             $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
             break;
 
@@ -1358,18 +1366,21 @@ function smallworld_includeScripts()
             break;
 
         case 'userprofile':
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/apprise-1.5.full.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/apprise-1.5.full.js');
             $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/jquery.fileupload-ui.css');
             $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/oembed.css');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.oembed.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/wall.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/ajaxupload.3.5.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.avatar_helper.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.bookmark.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.colorbox.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.elastic.source.js');
-            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/jquery.countdown.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.oembed.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/wall.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/ajaxupload.3.5.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.avatar_helper.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.bookmark.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.elastic.source.js');
+            $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.countdown.js');
+			$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/leaflet.js');
+			$xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/leaflet.css');
             $xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
+            //$xoTheme->addStylesheet(XOOPS_URL . '/modules/smallworld/assets/css/smallworld.css');
             break;
     }
 }
@@ -1382,7 +1393,7 @@ function smallworld_includeScripts()
 function smallworld_checkUserPubPostPerm()
 {
     global $xoopsUser, $xoopsModule;
-    $check      = new SmallWorldUser;
+    $check      = new smallworld\SmallWorldUser;
     $UserPerPub = smallworld_GetModuleOption('smallworldshowPoPubPage');
     $allUsers   = $check->allUsers();
     if (0 != $UserPerPub[0]) {
@@ -1395,7 +1406,7 @@ function smallworld_checkUserPubPostPerm()
 
 /**
  * Change @username to urls
- * @param  string $status_text
+ * @param  string|null $status_text
  * @return string $status_text
  */
 function linkify_twitter_status($status_text)
@@ -1429,11 +1440,12 @@ function smallworld_getUidFromName($name)
  * @param        $sender
  * @param string $permalink
  * @return void @users
+ * @throws \phpmailerException
  */
 function smallworld_getTagUsers($txt, $sender, $permalink = '')
 {
-    $dBase = new SmallWorldDB;
-    $mail  = new smallworld_mail;
+    $dBase = new smallworld\SmallWorldDB;
+    $mail  = new smallworld\SmallWorldMail;
     preg_match_all("/@([a-zA-Z0-9]+|\\[[a-zA-Z0-9]+\\])/", $txt, $matches);
     $users = array_unique($matches[1]);
     foreach ($users as $users) {
