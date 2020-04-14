@@ -65,7 +65,7 @@ class SmallWorldImages
                 $post[$i]['desc']    = Smallworld_cleanup_string($sqlfetch['desc']);
                 $post[$i]['alt']     = Smallworld_cleanup_string($sqlfetch['desc']);
                 $post[$i]['time']    = stripslashes($sqlfetch['time']);
-                $post[$i]['editimg'] = "<span class='smallworld_edit_imgdesc_holder'><img src='images/edit_icon.png'></span> <a class='smallworld_edit_imgdesc' href='editimages.php'>" . _SMALLWORLD_EDITDESCRIPTION . '</a>';
+                $post[$i]['editimg'] = "<span class='smallworld_edit_imgdesc_holder'><img src='assets/images/edit_icon.png'></span> <a class='smallworld_edit_imgdesc' href='editimages.php'>" . _SMALLWORLD_EDITDESCRIPTION . '</a>';
                 ++$i;
             }
 
