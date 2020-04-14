@@ -20,49 +20,43 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xoopsmodules\smallworld;
+
+$moduleDirName = basename(dirname(__DIR__));
 require_once __DIR__ . '/../../../include/cp_header.php';
+require_once __DIR__ . '/../include/common.php';
+
 require_once __DIR__ . '/upgrade.php';
-
-global $xoopsModule;
-
-$pathModuleAdmin =& $xoopsModule->getInfo('dirmoduleadmin');
-$pathIcon16 = '../' . $xoopsModule->getInfo('icons16');
-$pathIcon32 = '../' . $xoopsModule->getInfo('icons32');
 
 // Check upgrade files
 smallworld_doUpgrade();
 
-if ($xoopsUser) {
-    $xoopsModule = XoopsModule::getByDirname('smallworld');
-    if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
-        redirect_header(XOOPS_URL . '/', 2, _NOPERM);
-        exit();
+$myts = \MyTextSanitizer::getInstance();
+$db   = \XoopsDatabaseFactory::getDatabase();
+
+//if (($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
+if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
+    if (!$helper->isUserAdmin()) {
+        $helper->redirect(XOOPS_URL . '/', 3, _NOPERM);
     }
 } else {
-    redirect_header(XOOPS_URL . '/', 2, _NOPERM);
-    exit();
+    $helper->redirect(XOOPS_URL . '/user.php', 1, _NOPERM);
 }
 
-$moduleDirName = basename(dirname(__DIR__));
-
-if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-} else {
-    $moduleHelper = Xmf\Module\Helper::getHelper('system');
-}
+/** @var Xmf\Module\Admin $adminObject */
 $adminObject = \Xmf\Module\Admin::getInstance();
 
-$pathIcon16      = \Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32      = \Xmf\Module\Admin::iconUrl('', 32);
-$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)) {
+    require_once $GLOBALS['xoops']->path('class/template.php');
+    $xoopsTpl = new \XoopsTpl();
+}
+
+$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
+$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+
 
 // Load language files
-$moduleHelper->loadLanguage('admin');
-$moduleHelper->loadLanguage('modinfo');
-$moduleHelper->loadLanguage('main');
-
-$myts = MyTextSanitizer::getInstance();
-
-if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
-    require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
-}
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('main');

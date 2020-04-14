@@ -33,7 +33,7 @@ $xoopsTpl->caching = 0;
 
 xoops_cp_header();
 
-$admin = new SmallworldAdmin();
+//$admin = new SmallworldAdmin();
 $tpl = new XoopsTpl();
 
 $ai = [];
@@ -85,7 +85,7 @@ $xoopsTpl->assign('allusersnoinspectcounter', count($ani));
 $xoopsTpl->assign('lang_useradmin', _AM_SMALLWORLD_USERADMIN_TITLE);
 
 // help file from admin
-$xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/admin_useradmin.html');
+$xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/admin_useradmin.tpl');
 
 global $xoTheme;
 //Check Language
