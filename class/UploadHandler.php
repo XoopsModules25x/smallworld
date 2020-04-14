@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\smallworld;
 /*
  * jQuery File Upload Plugin PHP Class 6.1.2
  * https://github.com/blueimp/jQuery-File-Upload
@@ -185,7 +185,7 @@ class UploadHandler
     }
 
     /**
-     * @param null $file_name
+     * @param null|string $file_name
      * @param null $version
      * @return string
      */
@@ -272,10 +272,7 @@ class UploadHandler
     protected function is_valid_file_object($file_name)
     {
         $file_path = $this->get_upload_path($file_name);
-        if (is_file($file_path) && '.' !== $file_name[0]) {
-            return true;
-        }
-        return false;
+        return is_file($file_path) && '.' !== $file_name[0];
     }
 
     /**
@@ -285,7 +282,7 @@ class UploadHandler
     protected function get_file_object($file_name)
     {
         if ($this->is_valid_file_object($file_name)) {
-            $file       = new stdClass();
+            $file       = new \stdClass();
             $file->name = $file_name;
             $file->size = $this->get_file_size($this->get_upload_path($file_name));
             $file->url  = $this->get_download_url($file->name);
@@ -611,7 +608,7 @@ class UploadHandler
      * @param      $error
      * @param null $index
      * @param null $content_range
-     * @return \stdClass
+     * @return \Xoopsmodules\smallworld|\stdClass
      */
     protected function handle_file_upload(
         $uploaded_file,
@@ -622,8 +619,9 @@ class UploadHandler
         $index = null,
         $content_range = null
     ) {
-        global $xoopsUser, $SmallWorldDB;
-        $file = new stdClass();
+        global $xoopsUser, $SmallWorldDB,$xoopsLogger;
+		$xoopsLogger->activated = false;
+        $file = new \stdClass();
 
         $file->name = $this->get_file_name($name, $type, $index, $content_range);
         $file->size = $this->fix_integer_overflow((int)$size);
@@ -635,9 +633,9 @@ class UploadHandler
 
         // Generate new name for file
         $file->name = basename(stripslashes($name));
-        $file->name = time() . rand(0, 99999) . '.' . $this->getFileExtension($name);
+        $file->name = time() . mt_rand(0, 99999) . '.' . $this->getFileExtension($name);
         $img        = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file->name;
-        $db->saveImage("'', '" . $userid . "', '" . $file->name . "', '" . addslashes($img) . "', '" . time() . "', ''");
+        $db->saveImage("null, '" . $userid . "', '" . $file->name . "', '" . addslashes($img) . "', '" . time() . "', null");
 
         if ($this->validate($uploaded_file, $file, $error, $index)) {
             $this->handle_form_data($file, $index);
@@ -848,7 +846,7 @@ class UploadHandler
             return $this->download();
         }
         $file_name = $this->get_file_name_param();
-        if ($file_name) {
+        if (null !== $file_name) {
             $response = [
                 substr($this->options['param_name'], 0, -1) => $this->get_file_object($file_name)
             ];
