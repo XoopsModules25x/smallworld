@@ -20,6 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_userprofile_edittemplate.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -30,7 +34,7 @@ global $xoopsUser, $xoopsTpl, $xoopsDB, $xoTheme;
 
 if ($xoopsUser) {
     $id      = $xoopsUser->getVar('uid');
-    $check   = new SmallWorldUser;
+    $check   = new smallworld\SmallWorldUser;
     $profile = $check->CheckIfProfile($id);
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
@@ -41,8 +45,8 @@ if ($xoopsUser) {
 
     if (2 == $profile) {
         $xoopsTpl->assign('check', $profile);
-        $item = new SmallWorldForm;
-        $db   = new SmallWorldDB;
+        $item = new smallworld\SmallWorldForm;
+        $db   = new smallworld\SmallWorldDB;
 
         $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
         $result = $xoopsDB->queryF($cdb);

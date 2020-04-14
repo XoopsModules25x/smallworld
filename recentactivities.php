@@ -20,6 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
@@ -37,7 +41,7 @@ $uid = $user->getVar('uid');
 $myts = MyTextSanitizer::getInstance();
 
 xoops_loadLanguage('user');
-
+$memberHandler = xoops_getHandler('member'); 
 $moduleHandler = xoops_getHandler('module');
 $configHandler = xoops_getHandler('config');
 $thisUser      = $memberHandler->getUser($id);

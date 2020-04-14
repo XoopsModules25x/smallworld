@@ -19,6 +19,11 @@
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
+
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_images_edittemplate.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -36,15 +41,15 @@ if ($xoopsUser) {
         redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
     }
 
-    $check   = new SmallWorldUser;
+    $check   = new smallworld\SmallWorldUser;
     $profile = $check->CheckIfProfile($userID);
     if ($profile > 0) {
         $xoopsTpl->assign('check', $profile);
-        $item = new SmallWorldForm;
-        $db   = new SmallWorldDB;
+        $item = new smallworld\SmallWorldForm;
+        $db   = new smallworld\SmallWorldDB;
 
         $editimages = '';
-        $sql        = 'SELECT *FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userID . "'";
+        $sql        = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userID . "'";
         $result     = $xoopsDB->query($sql);
         $i          = 0;
         while ($sqlfetch = $xoopsDB->fetchArray($result)) {

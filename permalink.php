@@ -20,6 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_permalink.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -36,9 +40,9 @@ $configHandler = xoops_getHandler('config');
 $moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 
 $set   = smallworld_checkPrivateOrPublic();
-$check = new SmallWorldUser;
+$check = new smallworld\SmallWorldUser;
 $pub   = smallworld_checkUserPubPostPerm();
-$dBase = new SmallWorldDB;
+$dBase = new smallworld\SmallWorldDB;
 
 if (isset($_GET['updid']) and isset($_GET['ownerid'])) {
     $updID   = $_GET['updid'];
@@ -63,12 +67,12 @@ $username = $xoopsUser ? $user->getVar('uname') : '';
 
 $friend = $check->friendcheck($id, $ownerID);
 
-$profile        = $check->checkIfProfile($id);
+$profile        = $check->CheckIfProfile($id);
 $menu_startpage = "<a href='" . XOOPS_URL . "/modules/smallworld/publicindex.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/highrise.png'>" . _SMALLWORLD_STARTPAGE . '</a>';
 $menu_home      = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
 
 // Things to do with wall
-$Wall = new Wall_Updates();
+$Wall = new smallworld\WallUpdates();
 
 // Follow array here
 $followers = Smallworld_array_flatten($Wall->getFollowers($id), 0);

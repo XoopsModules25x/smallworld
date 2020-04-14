@@ -112,6 +112,14 @@ $modversion = [
     ],
 ];
 
+// ------------------- Help files ------------------- //
+$modversion['helpsection'] = [
+    ['name' => _MI_SMALLWORLD_OVERVIEW, 'link' => 'page=help'],
+    ['name' => _MI_SMALLWORLD_DISCLAIMER, 'link' => 'page=disclaimer'],
+    ['name' => _MI_SMALLWORLD_LICENSE, 'link' => 'page=license'],
+    ['name' => _MI_SMALLWORLD_SUPPORT, 'link' => 'page=support'],
+];
+
 
 // Templates
 

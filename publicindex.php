@@ -20,6 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 $page = basename($_SERVER['PHP_SELF'], '.php');
 
@@ -30,27 +34,27 @@ if ($xoopsUser && 'publicindex' !== $page) {
 }
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/publicWall.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/PublicWallUpdates.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 global $xoopsUser, $xoTheme, $xoopsConfig, $xoopsLogger;
 //$xoopsLogger->activated = true;
 //error_reporting(E_ALL);
 
 $set   = smallworld_checkPrivateOrPublic();
-$dBase = new SmallWorldDB;
-$check = new SmallWorldUser;
+$dBase = new smallworld\SmallWorldDB;
+$check = new smallworld\SmallWorldUser;
 
 $id       = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
 $username = $xoopsUser ? $xoopsUser->getVar('uname') : '';
-$profile  = $xoopsUser ? $check->checkIfProfile($id) : 0;
+$profile  = $xoopsUser ? $check->CheckIfProfile($id) : 0;
 
 $moduleHandler = xoops_getHandler('module');
 $module        = $moduleHandler->getByDirname('smallworld');
 $configHandler = xoops_getHandler('config');
 $moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 $pub            = smallworld_checkUserPubPostPerm();
-$wall           = new Public_Wall_Updates;
-$updates        = $wall->updates(0, $pub);
+$wall           = new smallworld\PublicWallUpdates;
+$updates        = $wall->Updates(0, $pub);
 
 if ($id > 0) {
     $xoopsTpl->assign('ownerofpage', $id);
@@ -67,16 +71,16 @@ if ($xoopsUser) {
 }
 
 // Create form for private settings
-$form         = new SmallWorldForm;
+$form         = new smallworld\SmallWorldForm;
 $usersettings = $form->usersettings($id, $selected = null);
 $xoopsTpl->assign('usersetting', $usersettings);
 
-$xuser = new SmallWorldProfile;
+$xuser = new smallworld\SmallWorldProfile;
 
 $menu_home     = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
 $menu_register = ($profile < 2) ? "<a href='" . XOOPS_URL . "/modules/smallworld/register.php'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/join.jpg'>" . _MB_SYSTEM_RNOW . '</a>' : '';
 
-$updatesarray = $wall->updates(0, $pub);
+$updatesarray = $wall->Updates(0, $pub);
 $wall->ParsePubArray($updatesarray, $id);
 
 $xoopsTpl->assign('menu_home', $menu_home);

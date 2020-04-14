@@ -20,7 +20,11 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-require_once __DIR__ . '/../../mainfile.php';
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
+//require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_userprofile_template.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -36,7 +40,7 @@ if ($xoopsUser) {
     $yourid     = $xoopsUser->getVar('uid'); // your uid
     $Xuser      = new XoopsUser($id);
     $Xusername  = $Xuser->getVar('uname');
-    $check      = new SmallWorldUser;
+    $check      = new smallworld\SmallWorldUser;
     $profile    = $check->CheckIfProfile($yourid);
     $userNumMsg = smallworld_countUserWallMsges($id);
     $fr[0]      = '';
@@ -48,8 +52,8 @@ if ($xoopsUser) {
     }
 
     if ($profile >= 2) {
-        $user  = new SmallWorldProfile;
-        $dBase = new SmallWorldDB;
+        $user  = new smallworld\SmallWorldProfile;
+        $dBase = new smallworld\SmallWorldDB;
         $user->ShowUser($id);
         $username  = $xoopsUser->getVar('uname'); //Myusername
         $inspected = Smallworld_isInspected($id);
@@ -99,7 +103,7 @@ if ($xoopsUser) {
         $getInvitations = $check->getRequests($yourid);
 
         // Things to do with wall
-        $Wall = new Wall_Updates();
+        $Wall = new smallworld\WallUpdates();
 
         $visitorAvatar          = $Wall->Gravatar($yourid);
         $visitorAvatarlink      = smallworld_getAvatarLink($yourid, $visitorAvatar);
@@ -112,7 +116,7 @@ if ($xoopsUser) {
         $Wall->ParsePubArray($updatesarray, $id);
 
         // Create form for private settings
-        $form         = new SmallWorldForm;
+        $form         = new smallworld\SmallWorldForm;
         $usersettings = $form->usersettings($yourid, $selected = null);
         $xoopsTpl->assign('usersetting', $usersettings);
 

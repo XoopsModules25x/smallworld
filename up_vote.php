@@ -20,6 +20,11 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
@@ -28,7 +33,7 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 
 global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger, $xoopsDB;
 $xoopsLogger->activated = false;
-$Wall                   = new Wall_Updates();
+$Wall                   = new smallworld\WallUpdates();
 if ($xoopsUser) {
     if ($_POST['id']) {
         $id       = (int)$_POST['id'];
@@ -43,7 +48,7 @@ if ($xoopsUser) {
                 echo "alert('" . _SMALLWORLD_JS_ALREADYVOTED . "');";
                 echo '</script>';
             } else {
-                $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '0', '" . $userid . "', '" . $owner . "', '1', '0')";
+                $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES (null, '" . $id . "', '0', '" . $userid . "', '" . $owner . "', '1', '0')";
                 $result = $xoopsDB->queryF($sql);
             }
             $newvote = $Wall->countVotes($type, 'up', $id);
@@ -53,7 +58,7 @@ if ($xoopsUser) {
             if ($hasvoted > 0) {
                 echo "<script type='text/javascript'>alert('" . _SMALLWORLD_JS_ALREADYVOTED . "');</script>";
             } else {
-                $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '" . $type2 . "', '" . $userid . "', '" . $owner . "', '1', '0')";
+                $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES (null, '" . $id . "', '" . $type2 . "', '" . $userid . "', '" . $owner . "', '1', '0')";
                 $result = $xoopsDB->queryF($sql);
             }
             $newvote = $Wall->countVotesCom($type, 'up', $type2, $id);
@@ -62,6 +67,6 @@ if ($xoopsUser) {
 
     $link = '<span id ="smallworld_votenum">' . $newvote . '</span> <a href="javascript:void(0)" name="up" class="smallworld_stcomment_vote"';
     $link .= ' id="' . $id . '" type="' . $type . '" owner="' . $owner . '" type2="' . $type2 . '">';
-    $link .= '<img class="smallworld_voteimg" src = "images/like.png" ></a>';
+    $link .= '<img class="smallworld_voteimg" src = "assets/images/like.png" ></a>';
     echo $link;
 }

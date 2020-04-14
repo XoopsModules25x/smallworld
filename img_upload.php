@@ -20,6 +20,10 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
+use Xoopsmodules\smallworld;
+require_once __DIR__ . '/header.php';
+
 require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_userprofile_imgupload.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -32,12 +36,12 @@ if ($xoopsUser) {
     $xoopsLogger->activated = false;
 
     $id      = $xoopsUser->getVar('uid');
-    $check   = new SmallWorldUser;
+    $check   = new smallworld\SmallWorldUser;
     $profile = $check->CheckIfProfile($id);
     if ($profile >= 2) {
         $xoopsTpl->assign('check', $profile);
-        $item = new SmallWorldForm;
-        $db   = new SmallWorldDB;
+        $item = new smallworld\SmallWorldForm;
+        $db   = new smallworld\SmallWorldDB;
 
         // ------------ DISPLAY IMAGES ------------ //
         // ------------ IMAGE UPLOADER ------------ //
