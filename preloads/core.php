@@ -29,6 +29,15 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
  */
 class SmallworldCorePreload extends XoopsPreloadItem
 {
+    // to add PSR-4 autoloader
+    /**
+     * @param $args
+     */
+    public static function eventCoreIncludeCommonEnd($args)
+    {
+        include __DIR__ . '/autoloader.php';
+    }
+
     public static function eventCoreHeaderAddmeta()
     {
         global $xoTheme, $xoopsUser, $xoopsConfig;
@@ -44,6 +53,8 @@ class SmallworldCorePreload extends XoopsPreloadItem
 
         //Get variables
         smallworld_SetCoreScript();
+		$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/apprise-1.5.full.js');
+		$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.oembed.js');
         $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.colorbox.js');
         $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.validate.js');
         $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.validation.functions.js');
