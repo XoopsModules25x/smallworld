@@ -101,3 +101,17 @@ define('_MI_SHOWPUBLICPAGE_DESC', 'Default is "All users" wich means that all us
     show the latest users.
         ');
 define('_MI_SMALLWORLD_ALL', 'All users');
+
+//1.16
+//Help
+define('_MI_SMALLWORLD_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_SMALLWORLD_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
+define('_MI_SMALLWORLD_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_SMALLWORLD_OVERVIEW', 'Overview');
+
+//define('_MI_SMALLWORLD_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_SMALLWORLD_DISCLAIMER', 'Disclaimer');
+define('_MI_SMALLWORLD_LICENSE', 'License');
+define('_MI_SMALLWORLD_SUPPORT', 'Support');
