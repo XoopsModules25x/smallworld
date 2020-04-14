@@ -177,6 +177,7 @@ class SmallWorldDB
      */
     public function handlePosts()
     {
+		
         global $xoopsUser, $xoopsDB;
         $myts = MyTextSanitizer::getInstance();
         $uid  = $xoopsUser->getVar('uid');
@@ -264,12 +265,12 @@ class SmallWorldDB
             $this->EditAdmins($uid, $realname, $avatar);
             $img->createAlbum($uid);
         }
-
+		
         if ('save' === $_POST['function']) {
             $sql    = 'INSERT INTO '
                       . $xoopsDB->prefix('smallworld_user')
-                      . ' (id, userid, regdate, username, userimage, realname, gender, intingender, relationship, partner, searchrelat, birthday, birthplace, birthplace_lat, birthplace_lng, birthplace_country, politic, religion, emailtype, screenname_type, screenname, mobile, phone, adress, present_city, present_lat, present_lng, present_country, website, interests, music, tvshow, movie, books, aboutme, school_type, school, schoolstart, schoolstop, employer, position, jobstart, jobstop, description, friends, followers, admin_flag) ';
-            $sql    .= "VALUES ('','" . (int)$uid . "', '" . $regdate . "', '" . $username . "', '" . $avatar . "', '" . $realname . "', '" . $gender . "', '" . $intingender . "', '" . $relationship . "', '" . $partner . "', '" . $searchrelat . "','";
+                      . ' (userid, regdate, username, userimage, realname, gender, intingender, relationship, partner, searchrelat, birthday, birthplace, birthplace_lat, birthplace_lng, birthplace_country, politic, religion, emailtype, screenname_type, screenname, mobile, phone, adress, present_city, present_lat, present_lng, present_country, website, interests, music, tvshow, movie, books, aboutme, school_type, school, schoolstart, schoolstop, employer, position, jobstart, jobstop, description, friends, followers, admin_flag) ';
+            $sql    .= "VALUES ('" . (int)$uid . "', '" . $regdate . "', '" . $username . "', '" . $avatar . "', '" . $realname . "', '" . $gender . "', '" . $intingender . "', '" . $relationship . "', '" . $partner . "', '" . $searchrelat . "','";
             $sql    .= $birthday . "', '" . $birthplace . "', '" . (float)$birthplace_lat . "', '" . (float)$birthplace_lng . "', '" . $birthplace_country . "', '" . $politic . "', '" . $religion . "','";
             $sql    .= $emailtype . "', '" . $screenname_type . "', '" . $screenname . "', '" . (float)$mobile . "', '" . (float)$phone . "', '" . $adress . "', '" . $present_city . "', '" . (float)$present_lat . "','";
             $sql    .= (float)$present_lng . "', '" . $present_country . "', '" . $website . "', '" . $interests . "', '" . $music . "', '" . $tvshow . "', '" . $movie . "', '" . $books . "', '" . $aboutme . "', '";
