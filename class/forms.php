@@ -90,7 +90,7 @@ class SmallWorldForm
     public function input($name, $id, $class, $size = null, $preset = null)
     {
         $s    = $size ?: '50px';
-        $data = "<input type='text' size='" . $s . "' name='" . $name . "' id='" . $id . "' class='" . $class . "' value='" . $preset . "' >";
+        $data = "<input type='text' size='" . $s . "' name='" . $name . "' id='" . $id . "' class='" . $class . "' value='" . $preset . "' autocomplete='off'>";
         return $data;
     }
 
