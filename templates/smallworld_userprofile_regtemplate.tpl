@@ -373,3 +373,9 @@
     </form>
     <{/if}>
 </div>
+<script type="text/javascript">
+xoops_smallworld(document).ready(function(){
+//	doMapBirth(smallworld_birthlatt, smallworld_birthlng);
+//	doMapNow(smallworld_currlatt, smallworld_currlng);
+)};
+</script>

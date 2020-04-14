@@ -12,7 +12,7 @@
         <{if $userisfriend == '2' || $isadminuser == 'YES' or $username == $myusername}>
         <{if $countimages == 0}>
         <h1>
-            <center><{$username}><{$smarty.const._SMALLWORLD_NOIMAGES}></center>
+            <div style="text-align: center;"><{$username}><{$smarty.const._SMALLWORLD_NOIMAGES}></div>
         </h1>
         <{else}>
         <h1><{$username}> - <{$gallerytitleheader}></h1>
@@ -61,6 +61,6 @@
 <{/if}>
 <{else}>
 <h1>
-    <center><{$smarty.const._SMALLWORLD_NOTFRIENDNOIMAGES}></center>
+    <div style="text-align: center;"><{$smarty.const._SMALLWORLD_NOTFRIENDNOIMAGES}></div>
 </h1>
 <{/if}>

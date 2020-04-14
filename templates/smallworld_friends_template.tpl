@@ -40,11 +40,11 @@
                 <{/if}>
                 <div class="smallworld_userstat_menu">
                     <h1><{$username}></h1>
-                    <center><{$rankimage}></center>
+                    <div style="text-align: center;"><{$rankimage}></div>
                     <br>
-                    <center><{$smarty.const._SMALLWORLD_TOTALPOSTS}>
+                    <div style="text-align: center;"><{$smarty.const._SMALLWORLD_TOTALPOSTS}>
                         <{$totalposts}>
-                    </center>
+                    </div>
                     <br><br>
                     <h1><{$smarty.const._SMALLWORLD_TOTALUSERRATINGS}></h1>
                     <p class="smallworld_rating_menu"><{$usersratinf}></p>
