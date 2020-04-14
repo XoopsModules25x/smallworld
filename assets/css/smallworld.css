@@ -702,6 +702,10 @@ input.jobstart, input.jobstop {
     font-size: 1.3em;
 }
 
+.ui-dialog { 
+	z-index: 1000 !important ;
+}
+
 /*-------- Partner search box -------*/
 .searchusername {
     font-size: 10px;
@@ -1065,7 +1069,7 @@ textarea {
 
 /* ---------- Stats ----------- */
 ul#smallworld_stats_scroller {
-    height: 50px;
+    height: 35px;
     padding: 10px;
     width: 100%;
 }
@@ -1444,6 +1448,42 @@ html:first-child .bookmark_list { /* Opera */
 .countdown_descr {
     display: block;
 }
+
+/* ------------ Auto search osm ---------- */
+
+.osm-location-picker-present, .osm-location-picker-birth {
+  width: 100%;
+  border-radius: 0px;
+}
+
+.osm-location-picker-result-present, .osm-location-picker-result-birth {
+  background: #fff;
+  max-height: 250px;
+  overflow: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 2px;
+}
+
+.map-list-item-present, .map-list-item-birth {
+  padding: 5px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+.map-list-item-present:hover, .map-list-item-birth:hover {
+  background: #eee;
+}
+.map-list-present, .map-list-birth {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.result-text-present, .result-text-birth {
+  text-transform: capitalize;
+}
+
+#mapid { height: 180px; }
+
 
 /* ------------ Aprice ---------- */
 .appriseOverlay {
