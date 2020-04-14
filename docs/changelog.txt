@@ -1,3 +1,11 @@
+<h5>1.17 Beta 1  [NOT RELEASED]</h5>
+<hr>
+- upgrade script from admin / side. Alter some tables to fix mysql errors with reserved names
+- multible changes, some to namespaces and some to calls to classes now renamed
+- upload avatar minor changes
+- updated mysql to default no value instead of "not null". Database is automaticly altered by log in as admin
+- Removing html and adding tpl templates
+
 <h5>1.16 Beta 1  [NOT RELEASED]</h5>
 <hr>
 - XOOPS 2.5.9, PHP 7 (mamba)
@@ -21,6 +29,7 @@
 - php-cs-fixer updates (mamba)
 - short array syntax (mamba)
 - Yoda notation (mamba)
+- namespaces (mamba)
 - started conversion to XMF (mamba)
     &nbsp;&nbsp;- updated addInfoBoxLine entries (mamba)
     &nbsp;&nbsp;- displayNavigation(basename(__FILE__))  (mamba)
@@ -143,7 +152,7 @@ Changelog v.1.15 RC 11
 
 NEW: Added upgraded image upload
 NEW: Added upgraded mail class
-NEW: class/publicWall.php, publicindex.php, templates for public postings
+NEW: class/PublicWallUpdates.php, publicindex.php, templates for public postings
 
 Bugfix: Missing image
 Bugfix: Making new jquery work with existing code
@@ -407,7 +416,7 @@ Changelog v.1.10 RC 2
 
 24. januar 2012
 - Trolls stole code changes... bringing back verification php array to javascript array (djculex)
-- fixing cURL problem in adminclass.php (beckmi)
+- fixing cURL problem in SmallworldAdmin.php (beckmi)
 - code clean-up (beckmi)
 
 23. januar 2012
