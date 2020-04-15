@@ -131,15 +131,17 @@ class SwUploadHandler
      * @param $size
      * @param $type
      * @param $error
-     * @return \stdClass
+     * @return \stdClass|bool  false if not XOOPS user
      */
     private function handle_file_upload($uploaded_file, $name, $size, $type, $error)
     {
-        global $xoopsUser;
         $file   = new \stdClass();
-        $db     = new SwDatabase();
-        $userid = $xoopsUser->getVar('uid');
+        $swDB   = new SwDatabase();
+        $userid = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? $GLOBALS['xoopsUser']->uid() : 0;
 
+        if (0 == $userid) {
+            return false;
+        }
         // Generate new name for file
         //$file->name = basename(stripslashes($name));
         $file->name = time() . mt_rand(0, 99999) . '.' . $this->getFileExtension($name);
@@ -148,7 +150,7 @@ class SwUploadHandler
         $img        = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file->name;
 
         // Save to database for later use
-        $db->saveImage("'', '" . $userid . "', '" . $file->name . "', '" . addslashes($img) . "', '" . time() . "', ''");
+        $swDB->saveImage("'', '" . $userid . "', '" . $file->name . "', '" . addslashes($img) . "', '" . time() . "', ''");
 
         if (!$error && $file->name) {
             if ('.' === $file->name[0]) {
@@ -236,16 +238,19 @@ class SwUploadHandler
 
     public function delete()
     {
-        global $xoopsUser;
-        $userid    = $xoopsUser->getVar('uid');
-        $db        = new SwDatabase();
+        $userid = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? $GLOBALS['xoopsUser']->uid() : 0;
+
+        if (0 == $userid) {
+            return false;
+        }
+        $swDB      = new SwDatabase();
         $file_name = isset($_REQUEST['file']) ? basename(stripslashes($_REQUEST['file'])) : null;
         $file_path = $this->upload_dir . $file_name;
-        $img       = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file_name;
+        //$img       = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file_name;
 
         // Delete file based on user and filename
-        $db->deleteImage($userid, $file_name);
-        $db->deleteImage($userid, 'Thumbs.db');
+        $swDB->deleteImage($userid, $file_name);
+        $swDB->deleteImage($userid, 'Thumbs.db');
         $thumbnail_path = $this->thumbnails_dir . $file_name;
         $success        = is_file($file_path) && '.' !== $file_name[0] && unlink($file_path);
         if ($success && is_file($thumbnail_path)) {

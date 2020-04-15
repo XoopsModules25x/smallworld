@@ -41,8 +41,8 @@ define('_MI_SMALLWORLD_MSGTOSHOW', 'Messages à afficher&thinsp;?');
 define('_MI_SMALLWORLD_MSGTOSHOW_DESC', "Nombres de messages (mis à jour) à afficher au début du profil et de la page d'accueil.");
 
 // Use validation
-define('_MI_SMALLWORLD_VALIDATIONSTRENGHT', 'Validation par étapes');
-define('_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC', "Demander la validation pour l'enregistrement et les modifications du profil.<br><br>Les options sont&thinsp;:<br><br>Non&thinsp;:&thinsp;Pas besoin de validation<br>Oui&thinsp;:&thinsp;Les champs les plus * importants * doivent être validés.");
+define('_MI_SMALLWORLD_VALIDATIONSTRENGTH', 'Validation par étapes');
+define('_MI_SMALLWORLD_VALIDATIONSTRENGTH_DESC', "Demander la validation pour l'enregistrement et les modifications du profil.<br><br>Les options sont&thinsp;:<br><br>Non&thinsp;:&thinsp;Pas besoin de validation<br>Oui&thinsp;:&thinsp;Les champs les plus * importants * doivent être validés.");
 
 // Smallworld take-over user name links ?
 define('_MI_SMALLWORLD_TAKEOVERLINKS', "Convertir les liens des noms d'utilisateurs pour Smallworld");

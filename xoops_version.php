@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,12 +12,13 @@
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
- * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
@@ -27,15 +28,15 @@ $moduleDirName = basename(__DIR__);
 $modversion = [
     'version'             => 1.16,
     'module_status'       => 'Beta 2',
-    'release_date'        => '2020/03/27',
+    'release_date'        => '2020/04/15',
     'name'                => _MI_SMALLWORLD_MODULE_NAME,
     'description'         => _MI_SMALLWORLD_MODULE_DESC,
     'official'            => 0,
     //1 indicates official XOOPS module supported by XOOPS Dev Team, 0 means 3rd party supported
     'author'              => 'Michael Albertsen',
     'nickname'            => 'Culex',
-    'credits'             => 'XOOPS Development Team, Mariane, Mrsculex, Mamba, Rune, Zth, Cesag, Flipse, Dante',
-    'author_mail'         => 'author-email',
+    'credits'             => 'XOOPS Development Team, Mariane, Mrsculex, Mamba, Rune, Zth, Cesag, Flipse, Dante, ZySpec',
+    'author_mail'         => 'culex@culex.dk',
     'author_website_url'  => 'www.culex.dk',
     'author_website_name' => 'www.culex.dk',
     'license'             => 'GPL 2.0 or later',
@@ -64,8 +65,8 @@ $modversion = [
     'module_website_url'  => 'www.xoops.org',
     'module_website_name' => 'XOOPS Project',
     // ------------------- Min Requirements -------------------
-    'min_php'             => '5.5',
-    'min_xoops'           => '2.5.9',
+    'min_php'             => '5.6',
+    'min_xoops'           => '2.5.10',
     'min_admin'           => '1.2',
     'min_db'              => ['mysql' => '5.5'],
     // ------------------- Admin Menu -------------------
@@ -156,9 +157,9 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
-    'name'        => 'validationstrenght',
-    'title'       => '_MI_SMALLWORLD_VALIDATIONSTRENGHT',
-    'description' => '_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC',
+    'name'        => 'validationstrength',
+    'title'       => '_MI_SMALLWORLD_VALIDATIONSTRENGTH',
+    'description' => '_MI_SMALLWORLD_VALIDATIONSTRENGTH_DESC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
     'default'     => 1,
@@ -170,7 +171,7 @@ $modversion['config'][] = [
     'description' => '_MI_SMALLWORLD_TAKEOVERLINKS_DESC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1,
+    'default'     => 0,
 ];
 
 $modversion['config'][] = [

@@ -10,57 +10,38 @@
  */
 
 /**
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
  * @author       XOOPS Development Team
+ * @link         https://github.com/XoopsModules25x/smallworld
  */
 
 use XoopsModules\Smallworld;
 
 include dirname(__DIR__) . '/preloads/autoloader.php';
 
-//require_once  __DIR__ . '/../../../mainfile.php';
-
-//require_once __DIR__ . '/../class/Helper.php';
-//require_once __DIR__ . '/../class/Utility.php';
-//
-//require_once __DIR__ . '/../class/Admin.php';
-//require_once __DIR__ . '/../class/SwDatabase.php';
-//require_once __DIR__ . '/../class/User.php';
-//require_once __DIR__ . '/../class/Images.php';
-//require_once __DIR__ . '/../class/Profile.php';
-//require_once __DIR__ . '/../class/WallUpdates.php';
-//require_once __DIR__ . '/../class/Form.php';
-//require_once __DIR__ . '/../class/SwUploadHandler.php';
-//require_once __DIR__ . '/../class/Friends.php';
-//require_once __DIR__ . '/../class/Mail.php';
+$debug   = false;
 
 $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 
-/** @var \XoopsDatabase $db */
-/** @var \XoopsModules\Smallworld\Helper $helper */
-/** @var \XoopsModules\Smallworld\Utility $utility */
+/**
+ * @var \XoopsDatabase $db
+ * @var \XoopsModules\Smallworld\Helper $helper
+ */
 $db      = \XoopsDatabaseFactory::getDatabaseConnection();
-$debug   = false;
 $helper  = \XoopsModules\Smallworld\Helper::getInstance($debug);
-$utility = new \XoopsModules\Smallworld\Utility();
 
 $helper->loadLanguage('common');
 
-///** @var \XoopsModules\Smallworld\InstructionHandler $instructionHandler */
-//$instructionHandler = new Smallworld\InstructionHandler($db);
-///** @var \XoopsModules\Smallworld\CategoryHandler $categoryHandler */
-//$categoryHandler = new Smallworld\CategoryHandler($db);
-///** @var \XoopsModules\Smallworld\PageHandler $pageHandler */
-//$pageHandler = new Smallworld\PageHandler($db);
-$admin = new \XoopsModules\Smallworld\Admin();
-$d     = new \XoopsModules\Smallworld\DoSync();
-$check = new \XoopsModules\Smallworld\User();
-$db    = new \XoopsModules\Smallworld\SwDatabase();
-$wall  = new \XoopsModules\Smallworld\WallUpdates();
+$utility       = new \XoopsModules\Smallworld\Utility();
+$admin         = new \XoopsModules\Smallworld\Admin();
+$d             = new \XoopsModules\Smallworld\DoSync();
+$check         = new \XoopsModules\Smallworld\User();
+$swDB          = new \XoopsModules\Smallworld\SwDatabase();
+$wall          = new \XoopsModules\Smallworld\WallUpdates();
+$swUserHandler = $helper->getHandler('SwUser');
 
 $pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
 $pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);

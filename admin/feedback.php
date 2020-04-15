@@ -20,18 +20,27 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Smallworld\Constants;
 
 include __DIR__ . '/admin_header.php';
+/**
+ * Vars defined by inclusion of ./admin_header.php
+ *
+ * @var \XoopsModules\Smallworld\Admin $admin
+ * @var \XoopsModules\Smallworld\DoSync $d
+ * @var \XoopsModules\Smallworld\User $check
+ * @var \XoopsModules\Smallworld\SwDatabase $swDB
+ * @var \XoopsModules\Smallworld\WallUpdates $wall
+ * @var \Xmf\Module\Admin $adminObject
+ * @var \XoopsModules\Smallworld\Helper $helper
+ * @var string $moduleDirName
+ * @var string $moduleDirNameUpper
+ */
 
-$adminObject = \Xmf\Module\Admin::getInstance();
+$helper->loadLanguage('feedback');
 
 $feedback = new \XoopsModules\Smallworld\Common\ModuleFeedback();
-
-// It recovered the value of argument op in URL$
-$op                 = Request::getString('op', 'list');
-$moduleDirName      = $GLOBALS['xoopsModule']->getVar('dirname');
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
-xoops_loadLanguage('feedback', $moduleDirName);
+$op       = Request::getCmd('op', 'list');
 
 xoops_cp_header();
 
@@ -48,7 +57,7 @@ switch ($op) {
     case 'send':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('index.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            $helper->redirect('admin/index.php', Constants::REDIRECT_DELAY_MEDIUM, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
 
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('feedback.php'));
@@ -77,7 +86,7 @@ switch ($op) {
         $xoopsMailer->setBody($body);
         $ret = $xoopsMailer->send();
         if ($ret) {
-            redirect_header('index.php', 3, constant('CO_' . $moduleDirNameUpper . '_' . 'FB_SEND_SUCCESS'));
+            redirect_header('index.php', Constants::REDIRECT_DELAY_MEDIUM, constant('CO_' . $moduleDirNameUpper . '_' . 'FB_SEND_SUCCESS'));
         }
 
         // show form with content again
@@ -91,7 +100,6 @@ switch ($op) {
             </div>';
         $form = $feedback->getFormFeedback();
         $form->display();
-
         break;
 }
 require __DIR__ . '/admin_footer.php';

@@ -1,24 +1,43 @@
 <?php
-
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
  *
- * PHP version 5
- *
- * @category        Module
- * @author          XOOPS Development Team
- * @copyright       XOOPS Project
- * @link            https://www.xoops.org
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright    XOOPS Project https://xoops.org/
+ * @author       XOOPS Development Team
+ * @link         https://github.com/XoopsModules25x/smallworld
  */
 
 require_once __DIR__ . '/admin_header.php';
-require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+/**
+ * Vars defined by inclusion of ./admin_header.php
+ *
+ * @var \XoopsModules\Smallworld\Admin $admin
+ * @var \XoopsModules\Smallworld\DoSync $d
+ * @var \XoopsModules\Smallworld\User $check
+ * @var \XoopsModules\Smallworld\SwDatabase $swDB
+ * @var \XoopsModules\Smallworld\WallUpdates $wall
+ * @var \Xmf\Module\Admin $adminObject
+ * @var \XoopsModules\Smallworld\Helper $helper
+ * @var string $moduleDirName
+ * @var string $moduleDirNameUpper
+ */
 
-$moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
+/**
+ * defined in calling script
+ * @var array $block
+ */
+
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $form = new \XoopsThemeForm($block['form_title'], 'blockform', 'blocksadmin.php', 'post', true);
 if (isset($block['name'])) {

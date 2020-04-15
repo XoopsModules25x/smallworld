@@ -79,6 +79,6 @@ define('_AM_SMALLWORLD_STATS_IMG', 'Ikon');
 
 define(
     '_AM_SMALLWORLD_SP',
-    '<img style="margin: 0pt 5px 0pt 0pt; vertical-align: middle;" src="../../assets/images/sp.png" height="30px" width="30px"> <a style="position: relative; margin: 0px;vertical-align: middle;" href="javascript:void(0);" id="smallworldDonate">Hvis du kan lide dette modul og det arbejde jeg lagt i det, kan du holde mig vågen ved at købe mig kaffe</a>'
+    '<img style="margin: 0pt 5px 0pt 0pt; vertical-align: middle;" src="../assets/images/sp.png" height="30px" width="30px"> <a style="position: relative; margin: 0px;vertical-align: middle;" href="javascript:void(0);" id="smallworldDonate">Hvis du kan lide dette modul og det arbejde jeg lagt i det, kan du holde mig vågen ved at købe mig kaffe</a>'
 );
 define('_AM_SMALLWORLD_FOOTER', "<div class='center smallsmall italic pad5'>Modulet SmallWorld opretholdes af <a class='tooltip' rel='external' href='http://culex.dk/' title='Besøg min side'>Culex</a></div>");

@@ -46,7 +46,7 @@ define('_SMALLWORLD_EMAILS', 'Emails');
 /*--------------- contact info -----------------*/
 define('_SMALLWORLD_MOBILEPHONE', 'Mobile phone (numbers only)');
 define('_SMALLWORLD_LANDPHONE', 'Land phone (numbers only)');
-define('_SMALLWORLD_ADRESS', 'Street Adress');
+define('_SMALLWORLD_ADRESS', 'Street Address');
 define('_SMALLWORLD_CITY', 'City');
 
 /*-------------- interests ---------------------*/
@@ -257,7 +257,7 @@ define('_SMALLWORLD_MORE', '..more');
 /*-------------- Upload form --------------------*/
 define(
     '_SMALLWORLD_UPLOAD_HOWTO',
-    'All images from your album is shown here, and you can use this tool to upload or delete images<br><br>Press the green upload file(s), Select your pictures and upload either:<br>1) One by one using the <img src="assets/images/icon_start.PNG" style="display: inline-block;height:13px;"> icon.<br>2) Select multible by browsing or Drag* files onto the green upload (* does currently not work in IE) and press start all<br><br>Note: If you choose other filetypes than image files the script wil break. Image size is maximum 5 MBytes<br>'
+    'All images from your album are shown here, and you can use this tool to upload or delete images<br><br>Press the green upload file(s), Select your pictures and upload either:<br>1) One by one using the <img src="assets/images/icon_start.PNG" style="display: inline-block;height:13px;"> icon.<br>2) Select multiple by browsing or Drag* files onto the green upload (* does currently not work in IE) and press start all<br><br>Note: If you choose other filetypes than image files the script wil break. Image size is maximum 5 MBytes<br>'
 );
 define('_SMALLWORLD_UPLOADTITLE', 'Image title');
 define('_SMALLWORLD_UPLOADDESC', 'Image description');
@@ -365,7 +365,7 @@ define('_SMALLWORLD_MOREBUTTONLINK', 'More');
 define('_SMALLWORLD_FRIENDPAGE', 'Friends');
 define('_SMALLWORLD_PENDINGUSERS', ' is waiting accepts from these users');
 define('_SMALLWORLD_ALREADYFRIENDS', "'s friends");
-define('_SMALLWORLD_YOUFOLLOW', ' are following these users');
+define('_SMALLWORLD_YOUFOLLOW', ' is following these users');
 define('_SMALLWORLD_FOLLOWINGYOU', 'These users are following ');
 define('_SMALLWORLD_NOUSERS', 'No users in this category');
 

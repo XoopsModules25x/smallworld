@@ -22,6 +22,7 @@ namespace XoopsModules\Smallworld\Common;
 
 use Xmf\Request;
 use XoopsModules\Smallworld;
+use XoopsModules\Smallworld\Constants;
 
 //defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 
@@ -143,7 +144,7 @@ switch ($op) {
             $redirect = $_POST['redirect'];
         }
         $msg = DirectoryChecker::createDirectory($path) ? constant('CO_' . $moduleDirNameUpper . '_' . 'DC_DIRCREATED') : constant('CO_' . $moduleDirNameUpper . '_' . 'DC_DIRNOTCREATED');
-        redirect_header($redirect, 2, $msg . ': ' . $path);
+        redirect_header($redirect, Constants::REDIRECT_DELAY_MEDIUM, $msg . ': ' . $path);
         break;
     case 'setdirperm':
         if (\Xmf\Request::hasVar('path', 'POST')) {
@@ -156,6 +157,6 @@ switch ($op) {
             $mode = $_POST['mode'];
         }
         $msg = DirectoryChecker::setDirectoryPermissions($path, $mode) ? constant('CO_' . $moduleDirNameUpper . '_' . 'DC_PERMSET') : constant('CO_' . $moduleDirNameUpper . '_' . 'DC_PERMNOTSET');
-        redirect_header($redirect, 2, $msg . ': ' . $path);
+        redirect_header($redirect, Constants::REDIRECT_DELAY_MEDIUM, $msg . ': ' . $path);
         break;
 }

@@ -22,6 +22,7 @@ namespace XoopsModules\Smallworld\Common;
 
 use Xmf\Request;
 use XoopsModules\Smallworld;
+use XoopsModules\Smallworld\Constants;
 
 //defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 
@@ -156,6 +157,6 @@ switch ($op) {
             $redirect = $_POST['redirect'];
         }
         $msg = FileChecker::copyFile($original_file_path, $file_path) ? constant('CO_' . $moduleDirNameUpper . '_' . 'FC_FILECOPIED') : constant('CO_' . $moduleDirNameUpper . '_' . 'FC_FILENOTCOPIED');
-        redirect_header($redirect, 2, $msg . ': ' . $file_path);
+        redirect_header($redirect, Constants::REDIRECT_DELAY_MEDIUM, $msg . ': ' . $file_path);
         break;
 }

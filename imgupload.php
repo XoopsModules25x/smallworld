@@ -14,14 +14,12 @@ use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
-global $xoopsUser, $xoopsLogger;
-//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/UploadHandler.php';
-if ($xoopsUser) {
-    $xoopsLogger->activated = false;
+/** @var \XoopsModules\Smallworld\Helper $helper */
+require_once $helper->path('include/functions.php');
+if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
+    $GLOBALS['xoopsLogger']->activated = false;
     $img                    = new Smallworld\Images();
-    $userID                 = $xoopsUser->getVar('uid');
+    $userID                 = $GLOBALS['xoopsUser']->getVar('uid');
     $user                   = new \XoopsUser($userID);
     $uploadHandler          = new Smallworld\UploadHandler();
 }

@@ -12,6 +12,8 @@ namespace XoopsModules\Smallworld;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use XoopsModules\Smallworld\Constants;
+
 /**
  * SmallWorld
  *
@@ -25,48 +27,58 @@ namespace XoopsModules\Smallworld;
 class Friends
 {
     /**
-     * @Show friends of ID
+     * Show friends of ID
+     *
+     * @deprecated - DO NOT USE
+     * @todo unfinished - needs completion
+     *
      * @param int $id
      * @return string
      */
     public function showFriends($id)
     {
-        global $xoopsUser, $xoTheme, $xoopsTpl, $arr04, $arr05, $xoopsDB;
-        if ($xoopsUser) {
+        if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
             $user   = new \XoopsUser($id);
-            $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
-            $db     = new SwDatabase();
+            $myName = $user->getUnameFromId((int)$id); // My name
+            $swDB   = new SwDatabase();
             $check  = new User();
         }
+
+        return [(int)$id => $myName];
     }
 
     /**
-     * @Get friends array of ID
+     * Get friends array of ID
+     *
+     * must be registered user to call this function
+     *
      * @param int    $id
      * @param string $action
-     * @return array|bool
+     * @return array - empty if nothing found or not authorized
      */
     public function getFriends($id, $action)
     {
-        global $xoopsUser, $xoopsDB;
-        $meuser = $xoopsUser->getVar('uid');
+        $id = (int)$id;
         $data   = [];
-        if ($xoopsUser) {
-            if ('pending' === $action) {
-                $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $id . "' AND status = 1";
-            } elseif ('friends' === $action) {
-                $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $id . "' AND status = 2";
-            } elseif ('following' === $action) {
-                $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . $id . "'";
-            } elseif ('followingme' === $action) {
-                $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE you = '" . $id . "'";
+        if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
+            switch ($action) {
+                case 'pending':
+                    $sql = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " WHERE me = '" . $id . "' AND status = " . Constants::FRIEND_STATUS_PENDING;
+                    break;
+                case 'friends':
+                    $sql = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " WHERE me = '" . $id . "' AND status = " . Constants::FRIEND_STATUS_APPROVED;
+                    break;
+                case 'following':
+                    $sql = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_followers') . " WHERE me = '" . $id . "'";
+                    break;
+                case 'followingme':
+                    $sql = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_followers') . " WHERE you = '" . $id . "'";
+                    break;
+                default:
+                    return $data;
             }
-            $result = $xoopsDB->queryF($sql);
-            $count  = $xoopsDB->getRowsNum($result);
-            if ($count < 1) {
-                return false;
-            }
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
+            while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
                 $data[] = $row;
             }
         }

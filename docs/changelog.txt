@@ -1,7 +1,23 @@
 <h5>1.16 Beta 2  [WORK IN PROGRESS - NOT RELEASED]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.4
+<!--
+TODO:
+- Update all js and css libraries
+- Reorganize upload folders
+-- move from /uploads/albums_smallworld to /uploads/smallworld/albums
+- Change smallworld_user table column types:
+-- relationship TEXT -> TINYINT (UNSIGNED)
+-- gender TEXT -> TINYINT (UNSIGNED)
+-- politic TEXT -> TINYINT (UNSIGNED)
+-- religion TEXT -> TINYINT (UNSIGNED)
+-- userid TEXT -> INT (UNSIGNED)
+- delete ./include/getSelects.php on update, it's been renamed to ./include/get_selects.php
+- delete ./Get_Count.php on update, it's been renamed to ./include/get_count.php
+-->
 <hr>
-- XOOPS 2.5.9, PHP 7 (mamba)
+- XOOPS 2.5.10, PHP 7 (mamba / zyspec)
+- Added SwUser/SwUserHandler classes (zyspec)
 - removed @version (mamba)
+- phpDoc cleanup (zyspec)
 - PSR-2 code cosmetics (mamba)
 - addNavigation(basename(__FILE__))  (mamba)
 - dirname(__FILE__) to __DIR__ (mamba)
@@ -22,10 +38,12 @@
 - short array syntax (mamba)
 - Yoda notation (mamba)
 - namespaces (mamba)
+    &nbsp;&nbsp;- removed ./class/class_collector.php usage (mamba / zyspec)
 - started conversion to XMF (mamba)
     &nbsp;&nbsp;- updated addInfoBoxLine entries (mamba)
     &nbsp;&nbsp;- displayNavigation(basename(__FILE__))  (mamba)
     &nbsp;&nbsp;- changed to ->displayButton('left') (mamba)
+    &nbsp;&nbsp;- changed to use Xmf\Request to sanitize vars (zyspec)
 
 ------------------------------
 Changelog v.1.15 RC 20
@@ -33,7 +51,7 @@ Changelog v.1.15 RC 20
 Date 01. October 2013 19:11 Rev: 12114
 
 NEW : When entering admin automaticly rename user avatars set as blank.gif to void.
-NEW : Parsing array from walls in respective classes clearing multible lines of code
+NEW : Parsing array from walls in respective classes clearing multiple lines of code
 NEW : smallworld_referer to return after various pages
 NEW : Count all msg in wall
 
@@ -293,7 +311,7 @@ Changelog v.1.12 RC 4
 
 07 Marts 2012
 - Bugfix: Crossdomain problem in ajax. Fixed by assigning var to function replaced Xoops_IRl based on request url.
-- Bugfix: preloads are multible loaded.
+- Bugfix: preloads are multiple loaded.
 - Bugfix: Merging a few css files into smallworld.css
 - Bugfix: Correction language/danish/js/bookmark.js
 - Bugfix: Calculating age in profile was (-1 year) when month == this month. Now only if day < this day
@@ -334,7 +352,7 @@ Changelog v.1.11 RC 3
 - land_diff: see docs/lang_diff.txt for 2 changes in lang/js/variables.js (djculex)
 
 14. February
-- Bugfix: Aply function to only run getSelects.php on register and editprofile.php. (djculex)
+- Bugfix: Apply function to only run getSelects.php on register and editprofile.php. (djculex)
 - Bugfix: removed anoying pop up [object, object] error (djculex)
 - Change: adjusted jSon returned from checks (djculex)
 
@@ -361,7 +379,7 @@ Changelog v.1.11 RC 3
 - Bugfix: Discovered jquery was 1.5.1 -> Updated to 1.7.1
 - Bugfix: Jquery 1.7.1 revealed bugs in show more/less on updates (djculex)
 - Bugfix: changed selector name .finish to .smallworld_finish
-- Bugfix: Changed multible return false to e.preventDefault()
+- Bugfix: Changed multiple return false to e.preventDefault()
 - Changed: css, jquery for new addions
 - Changed: claning up code etc
 

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,33 +12,34 @@
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
- * @since        1.0
+ * @link         https://github.com/XoopsModules25x/smallworld
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
 
 require_once XOOPS_ROOT_PATH . '/class/template.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 
-global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger, $xoopsDB;
-$xoopsLogger->activated = false;
+/** @var \XoopsModules\Smallworld\Helper $helper */
+require_once $helper->path('include/functions.php');
+require_once $helper->path('include/arrays.php');
+
+$GLOBALS['xoopsLogger']->activated = false;
 $wall                   = new Smallworld\WallUpdates();
-if ($xoopsUser) {
-    if ($_POST['id']) {
-        $id       = (int)$_POST['id'];
+if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
+    if (Request::hasVar('id', 'POST')) {
+        $id       = Request::getInt('id', 0, 'POST');
         $type     = $GLOBALS['xoopsDB']->escape($_POST['type']);
         $type2    = $GLOBALS['xoopsDB']->escape($_POST['type2']);
         $owner    = $GLOBALS['xoopsDB']->escape($_POST['owner']);
-        $userid   = $xoopsUser->getVar('uid');
+        $userid   = $GLOBALS['xoopsUser']->getVar('uid');
         $hasvoted = $wall->hasVoted($userid, $type, $type2, $id);
         if ('msg' === $type) {
             if ($hasvoted > 0) {
@@ -46,8 +47,8 @@ if ($xoopsUser) {
                 echo "alert('" . _SMALLWORLD_JS_ALREADYVOTED . "');";
                 echo '</script>';
             } else {
-                $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '0', '" . $userid . "', '" . $owner . "', '0', '1')";
-                $result = $xoopsDB->queryF($sql);
+                $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '0', '" . $userid . "', '" . $owner . "', '0', '1')";
+                $result = $GLOBALS['xoopsDB']->queryF($sql);
             }
             $newvote = $wall->countVotes($type, 'down', $id);
         }
@@ -56,8 +57,8 @@ if ($xoopsUser) {
             if ($hasvoted > 0) {
                 echo "<script type='text/javascript'>alert('" . _SMALLWORLD_JS_ALREADYVOTED . "');</script>";
             } else {
-                $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '" . $type2 . "', '" . $userid . "', '" . $owner . "', '0', '1')";
-                $result = $xoopsDB->queryF($sql);
+                $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '" . $type2 . "', '" . $userid . "', '" . $owner . "', '0', '1')";
+                $result = $GLOBALS['xoopsDB']->queryF($sql);
             }
             $newvote = $wall->countVotesCom($type, 'down', $type2, $id);
         }

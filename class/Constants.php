@@ -13,26 +13,28 @@ namespace XoopsModules\Smallworld;
  */
 
 /**
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
  * @author       XOOPS Development Team
+ * @link         https://github.com/XoopsModules25x/smallworld
  */
 
 //defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * class Constants
+ * Constants Interface
  */
-class Constants
+interface Constants
 {
     /**#@+
      * Constant definition
      */
 
+    /**
+     * Do not allow
+     */
     const DISALLOW = 0;
-
     /**
      * no delay XOOPS redirect delay (in seconds)
      */
@@ -49,6 +51,94 @@ class Constants
      * long XOOPS redirect delay (in seconds)
      */
     const REDIRECT_DELAY_LONG = 7;
+    /**
+     * default user Id
+     */
+    const DEFAULT_UID = 0;
+    /**
+     * default message Id
+     */
+    const DEFAULT_MESSAGEID = 0;
+    /**
+     * no date found
+     */
+    const NO_DATE = false;
+    /**
+     * female gender
+     */
+    const FEMALE = 1;
+    /**
+     * male gender
+     */
+    const MALE = 2;
+    /**
+     * gender unknown
+     */
+    const GENDER_UNKNOWN = 0;
+    /**
+     * User status not XOOPS user, has no SW profile
+     */
+    const PROFILE_NONE = 0;
+    /**
+     * User status is XOOPS user, has no SW profile
+     */
+    const PROFILE_XOOPS_ONLY = 1;
+    /**
+     * User status is XOOPS user, has SW profile
+     */
+    const PROFILE_HAS_BOTH = 2;
+    /**
+    * Relationship - Married
+    */
+    const RELATIONSHIP_MARRIED = 0;
+    /**
+     * Relationship - Engaged
+     */
+    const RELATIONSHIP_ENGAGED = 1;
+    /**
+     * Relationship - Single
+     */
+    const RELATIONSHIP_SINGLE = 2;
+    /**
+     * Relationship - In a
+     */
+    const RELATIONSHIP_ISIN = 3;
+    /**
+     * Relationship - Open
+     */
+    const RELATIONSHIP_OPEN = 4;
+    /**
+     * Relationship - Complicated
+     */
+    const RELATIONSHIP_COMPLICATED = 5;
+    /**
+     * is not User - used for both SW and XOOPS
+     */
+    const IS_NOT_USER = 0;
+    /**
+     * is user - used for both SW and XOOPS
+     */
+    const IS_USER = 1;
+    /**
+     * No access
+     */
+    const NO_ACCESS = 0;
+    /**
+     * Has access
+     */
+    const HAS_ACCESS = 1;
+    /**
+     * friend status approved
+     */
+    const FRIEND_STATUS_APPROVED = 2;
+    /**
+     * friend status pending
+     */
+    const FRIEND_STATUS_PENDING = 1;
+    /**
+     * active user limit (for dB search)
+     */
+    const USER_LIMIT = 20;
 
     /**#@-*/
 }

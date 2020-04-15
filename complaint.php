@@ -24,13 +24,15 @@ use Xmf\Request;
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/header.php';
+
+/** @var \XoopsModules\Smallworld\Helper $helper */
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 require_once $helper->path('include/functions.php');
 require_once $helper->path('include/arrays.php');
 
 $GLOBALS['xoopsLogger']->activated = false;
 
-$db = new Smallworld\SwDatabase();
+$swDB = new Smallworld\SwDatabase();
 
 if ($GLOBALS['xoopsUser']) {
     if (Request::hasVar('byuser', 'POST')) {
@@ -42,14 +44,14 @@ if ($GLOBALS['xoopsUser']) {
         $name      = addslashes(Request::getString('name', '', 'POST'));
         $time      = time();
         $data      = ['time' => $time, 'a_user' => $a_user, 'byuser' => $byuser, 'link' => $id, 'a_userid' => $auserid];
-        $already   = $db->alreadycomplaint($id, $by_userid, $auserid);
+        $already   = $swDB->alreadycomplaint($id, $by_userid, $auserid);
 
         if (1 != $already) {
             $mail = new Smallworld\Mail();
             if (0 !== $helper->getConfig('smallworldusemailnotis')) {
                 $mail->sendMails($by_userid, '', 'complaint', $link = null, $data);
             }
-            $db->updateComplaint($auserid);
+            $swDB->updateComplaint($auserid);
             echo _SMALLWORLD_JS_COMPLAINTSENT;
         } else {
             echo _SMALLWORLD_JS_COMPLAINT_ALREADY_SENT;

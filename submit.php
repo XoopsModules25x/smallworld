@@ -28,13 +28,13 @@ require_once __DIR__ . '/header.php';
 require_once $helper->path('include/functions.php');
 
 $GLOBALS['xoopsLogger']->activated = false;
-$db                                = new Smallworld\SwDatabase();
-$mail                              = new Smallworld\Mail();
+$swDB = new Smallworld\SwDatabase();
+$mail = new Smallworld\Mail();
 
-$db->handlePosts();
+$swDB->handlePosts();
 
 // Create user albums etc
-if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
+if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $img    = new Smallworld\Images();
     $userID = $GLOBALS['xoopsUser']->uid();
     if ('edit' !== $_POST['function']) {

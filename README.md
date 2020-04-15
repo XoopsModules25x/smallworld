@@ -1,5 +1,5 @@
 ![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
-## Smallworld module for  [XOOPS CMS 2.5.9+](https://xoops.org)
+## Smallworld module for  [XOOPS CMS 2.5.10+](https://xoops.org)
 [![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -11,6 +11,24 @@
 [![Latest Version](https://img.shields.io/github/release/XoopsModules25x/smallworld.svg?style=flat)](https://github.com/XoopsModules25x/smallworld/releases/)
 
 **Smallworld** module for [XOOPS CMS](https://xoops.org) to simulate a social network system on a XOOPS website. Add your friends and follow them to keep track of updates.
+
+### User-side Key Features:
+* Add friends and follow them to display their updates on your index page.
+* Private or public updates. (private for friends to see only)
+* Like / dislike comments / updates
+* Share on other social networks
+* Upload your pictures to your own image gallery
+* Settings allow you to filter updates / comments to anonymous users.
+* Extended profiling
+* See latest users registered / most active / most likes or dislikes
+
+### Admin-side Key Features:
+* Admin has access to all profiles.
+* Choose wich user's updates to display on public index
+* Edit all comments / updates on every page.
+* Take down users for inspections (i.e. if users get complaints).
+  * Choose time for inspection and regular users will see a countdown until this time is up.
+* See extended statistics for system
 
 [![Tutorial Available](https://xoops.org/images/tutorial-available-blue.svg)](https://www.gitbook.com/book/xoops/smallworld-tutorial/) Tutorial: see [GitBook](https://www.gitbook.com/book/xoops/smallworld-tutorial/).
 To contribute to the Tutorial, [fork it on GitHub](https://github.com/XoopsDocs/smallworld-tutorial)

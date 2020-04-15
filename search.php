@@ -23,12 +23,12 @@
 use Xmf\Request;
 use XoopsModules\Smallworld;
 
-require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 require_once __DIR__ . '/header.php';
 
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
+/** @var \XoopsModules\Smallworld\Helper $helper */
 require_once $helper->path('include/functions.php');
 require_once $helper->path('include/arrays.php');
 
@@ -43,6 +43,7 @@ if (isset($_GET) && !empty($_GET)) {
         $user  = new \XoopsUser($row['userid']);
         $image = '<img src="' . smallworld_getAvatarLink($row['userid'], $row['userimage']) . '" height="20" >';
 
+        //@todo figure out where the $imageSize[] array comes from
         $imageHw = smallworld_imageResize($imageSize[0], $imageSize[1], 30);
         $data[]  = [
             'label' => $image . ' ' . '<span class="searchusername">' . $row['realname'] . ' (' . $row['username'] . ')</span>',

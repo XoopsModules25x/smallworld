@@ -18,7 +18,6 @@ namespace XoopsModules\Smallworld;
  */
 class UploadHandler
 {
-    public    $xoopsUser;
     protected $options;
 
     // PHP File Upload error message codes:
@@ -49,8 +48,7 @@ class UploadHandler
      */
     public function __construct($options = null, $initialize = true)
     {
-        global $xoopsUser;
-        $userID        = $xoopsUser->getVar('uid');
+        $userID = $GLOBALS['xoopsUser']->getVar('uid');
         $this->options = [
             'script_url'                       => $this->get_full_url() . '/imgupload.php',
             'upload_dir'                       => XOOPS_ROOT_PATH . '/uploads/albums_smallworld/' . $userID . '/',
@@ -655,8 +653,8 @@ class UploadHandler
         $error,
         $index = null,
         $content_range = null
-    ) {
-        global $xoopsUser, $SwDatabase;
+    )
+    {
         $file = new \stdClass();
 
         $file->name = $this->get_file_name($name, $type, $index, $content_range);
@@ -664,14 +662,14 @@ class UploadHandler
         $file->type = $type;
 
         // Save to database for later use
-        $db     = new SwDatabase();
-        $userid = $xoopsUser->getVar('uid');
+        $swDB   = new SwDatabase();
+        $userid = $GLOBALS['xoopsUser']->getVar('uid');
 
         // Generate new name for file
         $file->name = basename(stripslashes($name));
         $file->name = time() . mt_rand(0, 99999) . '.' . $this->getFileExtension($name);
         $img        = XOOPS_URL . '/uploads/albums_smallworld/' . $userid . '/' . $file->name;
-        $db->saveImage("'', '" . $userid . "', '" . $file->name . "', '" . addslashes($img) . "', '" . time() . "', ''");
+        $swDB->saveImage("'', '" . $userid . "', '" . $file->name . "', '" . addslashes($img) . "', '" . time() . "', ''");
 
         if ($this->validate($uploaded_file, $file, $error, $index)) {
             $this->handle_form_data($file, $index);
@@ -946,16 +944,15 @@ class UploadHandler
      */
     public function delete($print_response = true)
     {
-        global $xoopsUser;
-        $userid    = $xoopsUser->getVar('uid');
-        $db        = new SwDatabase();
+        $userid    = $GLOBALS['xoopsUser']->getVar('uid');
+        $swDB      = new SwDatabase();
         $file_name = $this->get_file_name_param();
         $file_path = $this->get_upload_path($file_name);
         $success   = is_file($file_path) && '.' !== $file_name[0] && unlink($file_path);
 
         // Delete file based on user and filename
-        $db->deleteImage($userid, $file_name);
-        $db->deleteImage($userid, 'Thumbs.db');
+        $swDB->deleteImage($userid, $file_name);
+        $swDB->deleteImage($userid, 'Thumbs.db');
 
         if ($success) {
             foreach ($this->options['image_versions'] as $version => $options) {
