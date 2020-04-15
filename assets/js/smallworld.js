@@ -13,7 +13,7 @@
  */
 xoops_smallworld(function () {
     //Attach function for avatar
-    Smallworld_attachAvatarOpen();
+    smallworld_attachAvatarOpen();
 
     // Get page url and page title (index.php)
     var smallworld_pageUrl = window.location.pathname;
@@ -483,7 +483,7 @@ xoops_smallworld(function () {
         if (smallworld_PageName == 'register.php' || smallworld_PageName == 'editprofile.php') {
             var sw_data;
             xoops_smallworld.ajax({
-                url: smallworld_url + "include/getSelects.php?" + Math.random(),
+                url: smallworld_url + "include/get_selects.php?" + Math.random(),
                 cache: false,
                 dataType: "json",
                 success: function (sw_data) {
@@ -1120,7 +1120,7 @@ function smallworldRefresh() {
 
 function smallworld_getCountFriendMessagesEtcJS() {
     xoops_smallworld.ajax({
-        url: smallworld_url + "Get_Count.php?SmallworldGetUserMsgCount=1" + "&rndnum=" + Math.floor(Math.random() * 101),
+        url: smallworld_url + "include/get_count.php?SmallworldGetUserMsgCount=1" + "&rndnum=" + Math.floor(Math.random() * 101),
         cache: false,
         dataType: "json",
         success: function (data) {
@@ -1155,7 +1155,7 @@ function smallworld_getCountFriendMessagesEtcJS() {
 function smallworld_DoValStart() {
     xoops_smallworld(document).ready(function () {
         // Attact validation to registeration parts in register form
-        if (smallworldvalidationstrenght != 0) {
+        if (smallworldvalidationstrength != 0) {
             xoops_smallworld("#smallworld_profileform-next-0").hide();
             xoops_smallworld("#smallworld_profileform-next-1").hide();
 

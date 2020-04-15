@@ -128,8 +128,8 @@ function codeLatLngNow(lat, lng, txt) {
                     //push values to hidden input fields based on input name (country, lat, lng) (culex)
                     xoops_smallworld("input[name=present_country]").val(addr.long_name.toLowerCase());
                     // based on short name show image flag in <div#flag> (Culex)
-                    xoops_smallworld("#cityflag").html("<img src='" + smallworld_url + "images/flags/" + addr.short_name.toLowerCase() + ".gif'");
-                    xoops_smallworld("input[name=present_country_img]").val(smallworld_url + "images/flags/" + addr.short_name.toLowerCase() + ".gif");
+                    xoops_smallworld("#cityflag").html("<img src='" + smallworld_url + "assets/images/flags/" + addr.short_name.toLowerCase() + ".gif'");
+                    xoops_smallworld("input[name=present_country_img]").val(smallworld_url + "assets/images/flags/" + addr.short_name.toLowerCase() + ".gif");
 
                 } else {
                 }
