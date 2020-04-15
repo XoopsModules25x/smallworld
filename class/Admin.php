@@ -12,15 +12,18 @@ namespace XoopsModules\Smallworld;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use \XoopsModules\Smallworld\Constants;
+
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
- * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
 class Admin
 {
@@ -30,15 +33,12 @@ class Admin
      */
     public function oldestMsg()
     {
-        global $xoopsDB;
-        $date    = 0;
-        $sql     = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_messages') . ' ORDER BY created LIMIT 1';
-        $result  = $xoopsDB->queryF($sql);
-        $counter = $xoopsDB->getRowsNum($result);
-        if ($counter >= 1) {
-            while (false !== ($sqlfetch = $xoopsDB->fetchArray($result))) {
-                $date = $sqlfetch['created'];
-            }
+        $date    = Constants::NO_DATE;
+        $sql     = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_messages') . ' ORDER BY created';
+        $result  = $GLOBALS['xoopsDB']->queryF($sql);
+        $counter = $GLOBALS['xoopsDB']->getRowsNum($result);
+        while (false !== ($sqlfetch = $GLOBALS['xoopsDB']->fetchArray($result))) {
+            $date = $sqlfetch['created'];
         }
 
         return $date;
@@ -51,75 +51,83 @@ class Admin
      */
     public function AvgMsgDay($totaldays)
     {
-        global $xoopsDB;
-        $sql    = 'SELECT count( * ) / ' . $totaldays . ' AS averg FROM ' . $xoopsDB->prefix('smallworld_messages') . '';
-        $result = $xoopsDB->queryF($sql);
-        while (false !== ($sqlfetch = $xoopsDB->fetchArray($result))) {
-            $avg = number_format($sqlfetch['averg'], 2, '.', ',');
+        $avg =  '0.00';
+        $totaldays = (int)$totaldays;
+        if (0 < $totaldays) {
+            $sql    = 'SELECT COUNT( * ) / ' . $totaldays . ' AS averg FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_messages') . '';
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
+            while (false !== ($sqlfetch = $GLOBALS['xoopsDB']->fetchArray($result))) {
+                $avg = number_format($sqlfetch['averg'], 2, '.', ',');
+            }
         }
-
         return $avg;
     }
 
     /**
+     * @deprecated - replaced with \XoopsModules\Smallworld\SwUser
      * total users using smallworld
      * @return int
      */
     public function TotalUsers()
     {
-        global $xoopsDB;
-        $sql     = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . '';
-        $result  = $xoopsDB->queryF($sql);
-        $counter = $xoopsDB->getRowsNum($result);
-        if ($counter < 1) {
-            $sum = 0;
-        } else {
-            $i = 0;
-            while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
-                $user[$i]['username'] = $myrow['username'];
-                ++$i;
-            }
-            $all    = $this->flatten($user);
-            $sum    = count(array_unique($all));
-            $unique = array_unique($all);
+        $sql     = 'SELECT COUNT(DISTINCT userid) FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . '';
+        $result  = $GLOBALS['xoopsDB']->queryF($sql);
+        list($counter) = $GLOBALS['xoopsDB']->fetchRow($result);
+
+        return $counter;
+        /*
+        $sql     = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . '';
+        $result  = $GLOBALS['xoopsDB']->queryF($sql);
+        $counter = $GLOBALS['xoopsDB']->getRowsNum($result);
+        $i = 0;
+        $user = [];
+        while (false !== ($myrow = $GLOBALS['xoopsDB']->fetchArray($result))) {
+            $user[$i]['username'] = $myrow['username'];
+            ++$i;
         }
+        $all    = $this->flatten($user);
+        $sum    = count(array_unique($all));
+        //$unique = array_unique($all);
 
         return $sum;
+        */
     }
 
     /**
-     * Get version of module
+     * Get version of this module
+     *
      * @returns string
      */
     public function ModuleInstallVersion()
     {
-        global $xoopsModule;
-        $version = round($xoopsModule->getVar('version') / 100, 2);
+        $version = \XoopsModules\Smallworld\Helper::getInstance()->getModule()->version();
+        $version = round($version / 100, 2);
+        //$version = round($GLOBALS['xoopsModule']->getVar('version') / 100, 2);
 
         return $version;
     }
 
     /**
      * Get date when Module was installed
-     * @return string|time
+     * @return string|int
      */
     public function ModuleInstallDate()
     {
-        global $xoopsModule;
-        $date = formatTimestamp($xoopsModule->getVar('last_update'), 'm');
+        $date = formatTimestamp(\XoopsModules\Smallworld\Helper::getInstance()->getModule()->getVar('last_update'), 'm');
+        //$date = formatTimestamp($GLOBALS['xoopsModule']->getVar('last_update'), 'm');
 
         return $date;
     }
 
     /**
      * Count total days represented in db
-     * @return float|int|time
+     * @return float|int
      */
     public function countDays()
     {
-        global $xoopsDB, $xoopsModule;
-        $date = $this->oldestMsg();
         $now  = time();
+        $oldMsgDate = $this->oldestMsg();
+        $date = (false === $oldMsgDate) ? $now : $oldMsgDate; // there aren't any msgs in dB
         $diff = ($now - $date) / (60 * 60 * 24);
 
         return $diff;
@@ -131,34 +139,26 @@ class Admin
      */
     public function mostactiveusers_allround()
     {
-        global $xoopsDB, $xoopsUser;
-        $sql     = 'SELECT uid_fk, COUNT( * ) as cnt ';
+        $sql     = 'SELECT uid_fk, COUNT( * ) AS cnt ';
         $sql     .= 'FROM ( ';
         $sql     .= 'SELECT uid_fk ';
-        $sql     .= 'FROM ' . $xoopsDB->prefix('smallworld_messages') . ' ';
+        $sql     .= 'FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_messages') . ' ';
         $sql     .= 'UNION ALL SELECT uid_fk ';
-        $sql     .= 'FROM ' . $xoopsDB->prefix('smallworld_comments') . ' ';
+        $sql     .= 'FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_comments') . ' ';
         $sql     .= ') AS u ';
         $sql     .= 'GROUP BY uid_fk ';
-        $sql     .= 'ORDER BY count( * ) DESC limit 20';
-        $result  = $xoopsDB->queryF($sql);
-        $counter = $xoopsDB->getRowsNum($result);
+        $sql     .= 'ORDER BY COUNT( * ) DESC LIMIT ' . Constants::USER_LIMIT;
+        $result  = $GLOBALS['xoopsDB']->queryF($sql);
+        $counter = $GLOBALS['xoopsDB']->getRowsNum($result);
 
-        if ($counter < 1) {
-            $msg = [];
-        } else {
-            $msg = [];
-            $i   = 1;
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
-                $msg['counter'][$i] = $i;
-                $msg['img'][$i]     = "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>";
-                if ($msg['counter'][$i] > 3) {
-                    $msg['img'][$i] = '';
-                }
-                $msg['cnt'][$i]  = $row['cnt'];
-                $msg['from'][$i] = $xoopsUser->getUnameFromId($row['uid_fk']);
-                ++$i;
-            }
+        $msg = [];
+        $i   = 1;
+        while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
+            $msg['counter'][$i] = $i;
+            $msg['img'][$i]     = (3 < $i) ? "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>" : '';
+            $msg['cnt'][$i]     = $row['cnt'];
+            $msg['from'][$i]    = $GLOBALS['xoopsUser']->getUnameFromId($row['uid_fk']);
+            ++$i;
         }
 
         return $msg;
@@ -170,32 +170,31 @@ class Admin
      */
     public function mostactiveusers_today()
     {
-        global $xoopsDB, $xoopsUser;
         $sql = 'SELECT uid_fk, COUNT( * ) as cnt ';
         $sql .= 'FROM ( ';
         $sql .= 'SELECT uid_fk ';
-        $sql .= 'FROM ' . $xoopsDB->prefix('smallworld_messages') . ' ';
+        $sql .= 'FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_messages') . ' ';
         $sql .= 'WHERE `created` > UNIX_TIMESTAMP(DATE_SUB( NOW( ) , INTERVAL 1 DAY )) ';
         $sql .= 'UNION ALL SELECT uid_fk ';
-        $sql .= 'FROM ' . $xoopsDB->prefix('smallworld_comments') . ' ';
+        $sql .= 'FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_comments') . ' ';
         $sql .= 'WHERE `created` > UNIX_TIMESTAMP(DATE_SUB( NOW( ) , INTERVAL 1 DAY )) ';
         $sql .= ') AS u ';
         $sql .= 'GROUP BY uid_fk ';
-        $sql .= 'ORDER BY count( * ) DESC limit 20';
+        $sql .= 'ORDER BY count( * ) DESC LIMIT ' . Constants::USER_LIMIT;
 
-        $result   = $xoopsDB->queryF($sql);
+        $result   = $GLOBALS['xoopsDB']->queryF($sql);
         $msgtoday = [];
 
-        if (0 != $xoopsDB->getRowsNum($result)) {
+        if (0 != $GLOBALS['xoopsDB']->getRowsNum($result)) {
             $i = 1;
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
                 $msgtoday['counter'][$i] = $i;
                 $msgtoday['img'][$i]     = "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>";
                 if ($msgtoday['counter'][$i] > 3) {
                     $msgtoday['img'][$i] = '';
                 }
                 $msgtoday['cnt'][$i]  = $row['cnt'];
-                $msgtoday['from'][$i] = $xoopsUser->getUnameFromId($row['uid_fk']);
+                $msgtoday['from'][$i] = $GLOBALS['xoopsUser']->getUnameFromId($row['uid_fk']);
                 ++$i;
             }
         } else {
@@ -214,42 +213,41 @@ class Admin
      */
     public function topratedusers($direction)
     {
-        global $xoopsUser, $xoopsDB, $xoopsTpl;
         $array = [];
 
         if ('up' === $direction) {
-            $sql    = 'SELECT owner, count(*) AS cnt FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE up='1' GROUP BY owner ORDER BY cnt DESC LIMIT 20";
-            $result = $xoopsDB->queryF($sql);
-            $count  = $xoopsDB->getRowsNum($result);
+            $sql    = 'SELECT owner, COUNT(*) AS cnt FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " WHERE up='1' GROUP BY owner ORDER BY cnt DESC LIMIT " . Constants::USER_LIMIT;
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
+            $count  = $GLOBALS['xoopsDB']->getRowsNum($result);
             $i      = 1;
             if ($count >= $i) {
-                while (false !== ($row = $xoopsDB->fetchArray($result))) {
+                while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
                     $array['counter'][$i] = $i;
                     $array['img'][$i]     = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../assets/images/like.png'>";
                     if ($array['counter'][$i] > 3) {
                         $array['img'][$i] = '';
                     }
                     $array['cnt'][$i]  = $row['cnt'];
-                    $array['user'][$i] = $xoopsUser->getUnameFromId($row['owner']);
+                    $array['user'][$i] = $GLOBALS['xoopsUser']->getUnameFromId($row['owner']);
                     ++$i;
                 }
             } else {
                 $array = [];
             }
         } else {
-            $sql    = 'SELECT owner, count(*) AS cnt FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE down='1' GROUP BY owner ORDER BY cnt DESC LIMIT 20";
-            $result = $xoopsDB->queryF($sql);
-            $count  = $xoopsDB->getRowsNum($result);
+            $sql    = 'SELECT owner, COUNT(*) AS cnt FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " WHERE down='1' GROUP BY owner ORDER BY cnt DESC LIMIT " . Constants::USER_LIMIT;
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
+            $count  = $GLOBALS['xoopsDB']->getRowsNum($result);
             $i      = 1;
             if (0 != $count) {
-                while (false !== ($row = $xoopsDB->fetchArray($result))) {
+                while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
                     $array['counter'][$i] = $i;
                     $array['img'][$i]     = "<img height='10px' width='10px' " . "style='margin:0px 5px;' src = '../assets/images/dislike.png'>";
                     if ($array['counter'][$i] > 3) {
                         $array['img'][$i] = '';
                     }
                     $array['cnt'][$i]  = $row['cnt'];
-                    $array['user'][$i] = $xoopsUser->getUnameFromId($row['owner']);
+                    $array['user'][$i] = $GLOBALS['xoopsUser']->getUnameFromId($row['owner']);
                     ++$i;
                 }
             } else {
@@ -262,30 +260,27 @@ class Admin
 
     /**
      * Get all users to loop in admin for administration
+     *
      * @param string $inspect
-     * @returns array
-     * @return array
      * @return array
      */
     public function getAllUsers($inspect)
     {
-        global $xoopsDB, $xoopsUser, $xoopsTpl;
         $data = [];
-        if ('yes' === $inspect) {
-            $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_admin') . ' WHERE (inspect_start  + inspect_stop) >= ' . time() . ' ORDER BY username';
+        if ('yes' === mb_strtolower($inspect)) {
+            $sql = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . ' WHERE (inspect_start  + inspect_stop) >= ' . time() . ' ORDER BY username';
         } else {
-            $sql = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_admin') . ' WHERE (inspect_start  + inspect_stop) < ' . time() . ' ORDER BY username';
+            $sql = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . ' WHERE (inspect_start  + inspect_stop) < ' . time() . ' ORDER BY username';
         }
-        $result = $xoopsDB->queryF($sql);
-        $count  = $xoopsDB->getRowsNum($result);
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+        $count  = $GLOBALS['xoopsDB']->getRowsNum($result);
         if (0 != $count) {
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
                 $data[] = $row;
             }
         }
-        if (!empty($data)) {
-            return $data;
-        }
+
+        return $data;
     }
 
     /**
