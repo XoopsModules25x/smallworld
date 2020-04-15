@@ -12,22 +12,24 @@
 /**
  * SmallWorld
  *
- * @copyright    The XOOPS Project (https://xoops.org)
- * @copyright    2011 Culex
- * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @package      \XoopsModules\SmallWorld
- * @since        1.0
+ * @copyright    The XOOPS Project (https://xoops.org)
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
+ * @copyright    2011 Culex
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
 
 use XoopsModules\Smallworld;
+use XoopsModules\Smallworld\Constants;
 
 require_once __DIR__ . '/header.php';
 
-require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 $page = basename(__FILE__, '.php');
 
-if ($GLOBALS['xoopsUser'] && 'publicindex' !== $page) {
+// @ todo - figure out why the test for $page is here... $page will always equal 'publicindex'
+if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser) && 'publicindex' !== $page) {
     $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
 } else {
     $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.tpl';
@@ -40,11 +42,11 @@ require_once $helper->path('include/functions.php');
 //error_reporting(E_ALL);
 
 $set      = smallworld_checkPrivateOrPublic();
-$dBase    = new Smallworld\SwDatabase();
+$swDB     = new Smallworld\SwDatabase();
 $check    = new Smallworld\User();
-$id       = 0;
+$id       = Constants::DEFAULT_UID;
 $username = '';
-$profile  = 0;
+$profile  = Constants::PROFILE_NONE;
 
 if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $id       = $GLOBALS['xoopsUser']->uid();
@@ -52,10 +54,6 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $profile  = $check->checkIfProfile($id);
 }
 
-$moduleHandler = xoops_getHandler('module');
-$module        = $moduleHandler->getByDirname('smallworld');
-$configHandler = xoops_getHandler('config');
-$moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 $pub           = smallworld_checkUserPubPostPerm();
 $wall          = new Smallworld\PublicWallUpdates();
 $updates       = $wall->Updates(0, $pub);
@@ -65,17 +63,17 @@ if ($id > 0) {
     $GLOBALS['xoopsTpl']->assign('myusername', $username);
 }
 
-$GLOBALS['xoopsTpl']->assign('isadminuser', $helper->isUserAdmin() ? 'YES' : 'NO');
+$tplAdmin = $helper->isUserAdmin() ? 'YES' : 'NO';
 
 // Create form for private settings
 $form         = new Smallworld\Form();
 $usersettings = $form->usersettings($id, $selected = null);
 $GLOBALS['xoopsTpl']->assign('usersetting', $usersettings);
 
-$xuser = new Smallworld\Profile();
+//$xuser = new Smallworld\Profile();
 
 $menu_home     = "<a href='" . $helper->url('/') . "'><img id='menuimg' src='" . $helper->url('assets/images/house.png') . "'>" . _SMALLWORLD_HOME . '</a>';
-$menu_register = ($profile < 2) ? "<a href='" . $helper->url('register.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/join.jpg') . "'>" . _MB_SYSTEM_RNOW . '</a>' : '';
+$menu_register = ($profile < Constants::PROFILE_HAS_BOTH) ? "<a href='" . $helper->url('register.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/join.jpg') . "'>" . _MB_SYSTEM_RNOW . '</a>' : '';
 
 $updatesarray = $wall->Updates(0, $pub);
 $wall->parsePubArray($updatesarray, $id);
@@ -87,6 +85,7 @@ $GLOBALS['xoopsTpl']->assign(
         'pagename'      => 'publicindex',
         'check'         => $profile,
         'access'        => $set['access'],
+        'isadminuser'   => $tplAdmin
     ]
 );
 
