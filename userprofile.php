@@ -12,21 +12,25 @@
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\SmallWorld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      \XoopsModules\SmallWorld
- * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
 
 use Xmf\Request;
 use XoopsModules\Smallworld;
+use XoopsModules\Smallworld\Constants;
 
 require_once __DIR__ . '/header.php';
 
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_userprofile_template.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+
+/** @var \XoopsModules\Smallworld\Helper $helper */
 require_once $helper->path('include/functions.php');
 require_once $helper->path('include/arrays.php');
 
@@ -35,22 +39,22 @@ $GLOBALS['xoopsLogger']->activated = false;
 
 if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     SmallworldDeleteOldInspects();
-    $id     = smallworld_isset_or(addslashes(Request::getString('username', '', 'GET')); // Id of user which profile you want to see
+    $id     = smallworld_isset_or(addslashes(Request::getString('username', '', 'GET'))); // Id of user which profile you want to see
     $id     = (int)$id;
-    $yourid = $GLOBALS['xoopsUser']->uid{); // your uid
+    $yourid = $GLOBALS['xoopsUser']->uid(); // this user's uid
     $Xuser      = new \XoopsUser($id);
-    $Xusername  = $Xuser->getVar('uname');
+    $Xusername  = (($Xuser instanceof \XoopsUser) && !$Xuser->isNew() && !$Xuser->isGuest()) ? $Xuser->getVar('uname') : '';
     $check      = new Smallworld\User();
     $profile    = $check->checkIfProfile($yourid);
     $userNumMsg = smallworld_countUserWallMsges($id);
     $fr[0]      = '';
     $fl[0]      = '';
 
-    $GLOBALS['xoopsTpl']->assign('isadminuser', $helper->isUserAdmin() ? 'YES' : 'NO'));
+    $GLOBALS['xoopsTpl']->assign('isadminuser', $helper->isUserAdmin() ? 'YES' : 'NO');
 
-    if ($profile >= 2) {
+    if ($profile >= Constants::PROFILE_HAS_BOTH) {
         $user  = new Smallworld\Profile();
-        $dBase = new Smallworld\SwDatabase();
+        //$swDB = new Smallworld\SwDatabase();
         $user->showUser($id);
         $username  = $GLOBALS['xoopsUser']->getVar('uname'); //Myusername
         $inspected = smallworld_isInspected($id);
@@ -65,32 +69,27 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
         switch ($fr[0]) {
             case 0:
                 $friendship_text = _SMALLWORLD_JSON_ADDFR_TEXT;
-                $GLOBALS['xoopsTpl']->assign('isuserafriend', $helper->isUserAdmin() ? 'yes' : 'no'));
+                $GLOBALS['xoopsTpl']->assign('isuserafriend', $helper->isUserAdmin() ? 'yes' : 'no');
                 break;
             case 1:
                 $friendship_text = _SMALLWORLD_JSON_CANCELFR_TEXT;
-                $GLOBALS['xoopsTpl']->assign('isuserafriend', $helper->isUserAdmin() ? 'yes' : 'no'));
+                $GLOBALS['xoopsTpl']->assign('isuserafriend', $helper->isUserAdmin() ? 'yes' : 'no');
                 break;
             case 2:
                 $friendship_text = _SMALLWORLD_JSON_REMOVEFR_TEXT;
-                $xoopsTpl->assign('isuserafriend', 'yes');
+                $GLOBALS['xoopsTpl']->assign('isuserafriend', 'yes');
                 break;
             default:
                 $friendship_text = '';
-                $xoopsTpl->assign('isuserafriend', 'no');
+                $GLOBALS['xoopsTpl']->assign('isuserafriend', 'no');
                 break;
         }
 
         // Check status for follow
         $fl = $check->following_or($yourid, $id);
-        if ($yourid == $id) {
+        if ($yourid == $id || (0 == $fl[0])) {
             $following_text = _SMALLWORLD_JSON_FLYES_TEXT;
-            0 == $fl[0];
-        }
-        if (0 == $fl[0]) {
-            $following_text = _SMALLWORLD_JSON_FLYES_TEXT;
-        }
-        if (1 == $fl[0]) {
+        } elseif (1 == $fl[0]) {
             $following_text = _SMALLWORLD_JSON_FLNO_TEXT;
         }
 
@@ -107,7 +106,7 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
 
         // Follow array here
         $followers    = $wall->getFollowers($id);
-        $updatesarray = $wall->Updates(0, $id, $id);
+        $updatesarray = $wall->Updates(0, $id, $followers);
         $wall->parsePubArray($updatesarray, $id);
 
         // Create form for private settings
@@ -119,31 +118,26 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
         $menu_startpage = "<a href='" . $helper->url('publicindex.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/highrise.png') . "'>" . _SMALLWORLD_STARTPAGE . '</a>';
         $menu_home      = "<a href='" . $helper->url('/') . "'><img id='menuimg' src='" . $helper->url('assets/images/house.png') . "'>" . _SMALLWORLD_HOME . '</a>';
         $menu_profile   = "<a href='" . $helper->url('userprofile.php?username=' . $Xusername) . "'><img id='menuimg' src='" . $helper->url('assets/images/user_silhouette.png') . "'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
-        $menu_gallery   = "<a href='" . $heleper->url('galleryshow.php?username=' . $Xusername) . "'><img id='menuimg' src='" . $helper->url('assets/images/picture.png') . "'>" . _SMALLWORLD_GALLERY . '</a>';
+        $menu_gallery   = "<a href='" . $helper->url('galleryshow.php?username=' . $Xusername) . "'><img id='menuimg' src='" . $helper->url('assets/images/picture.png') . "'>" . _SMALLWORLD_GALLERY . '</a>';
         $menu_friends   = "<a href='" . $helper->url('friends.php?username=' . $Xusername) . "'><img id='menuimg' src='" . $helper->url('assets/images/group.png') . "'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
 
-        if (smallworld_XIMversion() > 102) {
-            $menu_xim_js = "javascript:xim_chatWith('" . $id . "','" . $Xusername . "')";
-        } else {
-            $menu_xim_js = "javascript:chatWith('" . $id . "','" . $Xusername . "')";
-        }
+        // Xim Module Inclusion
+        if ($xim_helper = $helper->getHelper('xim')) { // checks for existance and if module is active
+            if ($xim_helper->getModule()->version() > 102) { //load appropriate js based on XIM version
+                $menu_xim_js = "javascript:xim_chatWith('" . $id . "','" . $Xusername . "')";
+            } else {
+                $menu_xim_js = "javascript:chatWith('" . $id . "','" . $Xusername . "')";
+            }
 
-        $menu_ximme = "<a href='javascript:void(0);' onClick=" . $menu_xim_js . "><img height='10px' width='10px' src='" . $helper->url('assets/images/messenger.png') . "'>" . _SMALLWORLD_XIMUSER . $Xusername . '</a>';
+            $menu_ximme = "<a href='javascript:void(0);' onClick=" . $menu_xim_js . "><img height='10px' width='10px' src='" . $helper->url('assets/images/messenger.png') . "'>" . _SMALLWORLD_XIMUSER . $Xusername . '</a>';
 
-        // Check for folder xim to add messenger user to menu items
-        $hasxim = $helper->getHelper('xim');  // checks for existance and if module is active
-        if (false !== $hasxim) {
-            //$hasxim = smallworld_checkForXim();
-            //
             $GLOBALS['xoopsTpl']->assign('sendxim', 'YES');
-            if (2 == $fr[0]) {
-                if ($yourid != $id) {
-                    $GLOBALS['xoopsTpl']->assign('menu_xim', $menu_ximme);
-                }
+            if (2 == $fr[0] && ($yourid !== $id)) {
+                $GLOBALS['xoopsTpl']->assign('menu_xim', $menu_ximme);
             }
         }
 
-        $birthday_today_text = "<img width='20px' height='20px' src='" . $helper->url('images/bdayballoons_l.png') . "'>" . ' ' . _SMALLWORLD_BDAY_TODAY . ' ' . "<img width='20px' height='20px' src='" . $helper->url('images/bdayballoons_r.png') . "'>";
+        $birthday_today_text = "<img width='20px' height='20px' src='" . $helper->url('assets/images/bdayballoons_l.png') . "'>" . ' ' . _SMALLWORLD_BDAY_TODAY . ' ' . "<img width='20px' height='20px' src='" . $helper->url('assets/images/bdayballoons_r.png') . "'>";
 
         $GLOBALS['xoopsTpl']->assign(
             [
@@ -165,26 +159,26 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
                 'username'               => $Xusername,
                 'bdaynow'                => $birthday_today_text,
                 'isfollowing'            => $fl[0],
-                'flds'                   => smallworld_GetModuleOption('smallworldusethesefields', $repmodule = 'smallworld'),
+                'flds'                   => $helper->getConfig('smallworldusethesefields'),
                 'userNumMsg'             => $userNumMsg,
             ]
         );
     }
 
-    if ($profile < 2) {
-        $helper->url('index.php');
+    if ($profile < Constants::PROFILE_HAS_BOTH) {
+        $helper->redirect('index.php');
     }
     //Check Language
-    $lang = $xoopsConfig['language'];
+    $lang = $GLOBALS['xoopsConfig']['language'];
 
     // GET various variables from language folder
-    if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $lang . '/js/jquery.countdown.js')) {
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/' . $lang . '/js/jquery.countdown.js');
+    if (file_exists($helper->path("language/{$lang}/js/jquery.countdown.js"))) {
+        $GLOBALS['xoTheme']->addScript($helper->url("language/{$lang}/js/jquery.countdown.js"));
     } else {
-        $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/english/js/jquery.countdown.js');
+        $GLOBALS['xoTheme']->addScript($helper->url('language/english/js/jquery.countdown.js'));
     }
 } else {
-        //redirect_header(XOOPS_URL . '/user.php', 3, _NOPERM);
-    }
+    //redirect_header(XOOPS_URL . '/user.php', Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
+}
 
 require_once XOOPS_ROOT_PATH . '/footer.php';
