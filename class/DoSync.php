@@ -38,11 +38,10 @@ class DoSync
      */
     public function checkOrphans()
     {
-        global $xoopsDB;
-        $sql    = 'SELECT userid FROM ' . $xoopsDB->prefix('smallworld_user') . ' WHERE userid NOT IN ( SELECT uid FROM ' . $xoopsDB->prefix('users') . ')';
-        $result = $xoopsDB->queryF($sql);
+        $sql    = 'SELECT userid FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . ' WHERE userid NOT IN ( SELECT uid FROM ' . $GLOBALS['xoopsDB']->prefix('users') . ')';
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
         if ($result) {
-            while (false !== ($r = $xoopsDB->fetchArray($result))) {
+            while (false !== ($r = $GLOBALS['xoopsDB']->fetchArray($result))) {
                 $this->deleteAccount($r['userid']);
             }
         }
@@ -51,38 +50,40 @@ class DoSync
     /**
      * deleteAccount function
      * - Delete user account and associate rows across tables
+     *
      * @param int $userid
-     * @return string
+     * @return bool true on success, false on failure
      */
     public function deleteAccount($userid)
     {
-        global $xoopsDB, $xoopsUser;
         $user     = new \XoopsUser($userid);
-        $username = $user->uname();
-        $sql01    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "'";
-        $sql02    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "'";
-        $sql03    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . $userid . "' OR you = '" . $userid . "'";
-        $sql04    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $userid . "' OR you = '" . $userid . "'";
-        $sql05    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userid . "'";
-        $sql06    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE uid_fk = '" . $userid . "'";
-        $sql07    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $userid . "'";
-        $sql08    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE user_id = '" . $userid . "'";
-        $sql09    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_complaints') . " WHERE owner = '" . $userid . "' OR byuser_id = '" . $userid . "'";
-        $sql10    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_settings') . " WHERE userid = '" . $userid . "'";
+        //$username = $user->uname();
+        $sql01    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "'";
+        $sql02    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "'";
+        $sql03    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_followers') . " WHERE me = '" . $userid . "' OR you = '" . $userid . "'";
+        $sql04    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " WHERE me = '" . $userid . "' OR you = '" . $userid . "'";
+        $sql05    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_images') . " WHERE userid = '" . $userid . "'";
+        $sql06    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_messages') . " WHERE uid_fk = '" . $userid . "'";
+        $sql07    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . $userid . "'";
+        $sql08    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " WHERE user_id = '" . $userid . "'";
+        $sql09    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_complaints') . " WHERE owner = '" . $userid . "' OR byuser_id = '" . $userid . "'";
+        $sql10    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_settings') . " WHERE userid = '" . $userid . "'";
 
-        $result01 = $xoopsDB->queryF($sql01);
-        $result02 = $xoopsDB->queryF($sql02);
-        $result03 = $xoopsDB->queryF($sql03);
-        $result04 = $xoopsDB->queryF($sql04);
-        $result05 = $xoopsDB->queryF($sql05);
-        $result06 = $xoopsDB->queryF($sql06);
-        $result07 = $xoopsDB->queryF($sql07);
-        $result08 = $xoopsDB->queryF($sql08);
-        $result09 = $xoopsDB->queryF($sql09);
-        $result10 = $xoopsDB->queryF($sql10);
+        $result01 = $GLOBALS['xoopsDB']->queryF($sql01);
+        $result02 = $GLOBALS['xoopsDB']->queryF($sql02);
+        $result03 = $GLOBALS['xoopsDB']->queryF($sql03);
+        $result04 = $GLOBALS['xoopsDB']->queryF($sql04);
+        $result05 = $GLOBALS['xoopsDB']->queryF($sql05);
+        $result06 = $GLOBALS['xoopsDB']->queryF($sql06);
+        $result07 = $GLOBALS['xoopsDB']->queryF($sql07);
+        $result08 = $GLOBALS['xoopsDB']->queryF($sql08);
+        $result09 = $GLOBALS['xoopsDB']->queryF($sql09);
+        $result10 = $GLOBALS['xoopsDB']->queryF($sql10);
         // Remove picture dir
         $dirname = XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . '/' . $userid . '/';
-        $this->smallworld_remDir($userid, $dirname, $empty = false);
+        $result11 = $this->smallworld_remDir($userid, $dirname, $empty = false);
+
+        return $result01 && $result02 && $result03 && $result04 && $result05 && $result06 && $result07 && $result08 && $result09 && $result10 && $result11;
     }
 
     /**
