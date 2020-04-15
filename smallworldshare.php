@@ -12,20 +12,22 @@
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      \XoopsModules\SmallWorld
- * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
 
 use Xmf\Request;
 use XoopsModules\Smallworld;
+use XoopsModules\Smallworld\Constants;
 
 require_once __DIR__ . '/header.php';
 
-$GLOBALS['xoopsOption']['template_main'] = 'smallworld_share.html';
+$GLOBALS['xoopsOption']['template_main'] = 'smallworld_share.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 /** @var \XoopsModules\Smallworld\Helper $helper */
@@ -39,7 +41,7 @@ if (Request::hasVar('updid', 'GET') && Request::hasVar('ownerid', 'GET')) {
     $ownerID = Request::getInt('ownerid', 0, 'GET');
     $wm      = [];
 } else {
-    $helper->redirect('index.php', 3, _SMALLWORLD_UPDATEID_NOT_EXIST);
+    $helper->redirect('index.php', Constants::REDIRECT_DELAY_MEDIUM, _SMALLWORLD_UPDATEID_NOT_EXIST);
 }
 
 $perm                         = smallworldCheckPriv($updID);
@@ -60,7 +62,7 @@ if ($perm <= 0) {
         $wm['uid_fk']     = $data['uid_fk'];
         $wm['priv']       = $data['priv'];
         $wm['avatar']     = $wall->Gravatar($data['uid_fk']);
-        if (smallworld_GetModuleOption('smallworldbookmarkavatar', $repmodule = 'smallworld' !== 1)) {
+        if (1 !== $helper->getConfig('smallworldbookmarkavatar')) {
             $wm['avatar_link'] = $helper->url('assets/images/smallworld.png');
         } else {
             $wm['avatar_link'] = smallworld_getAvatarLink($data['uid_fk'], $wm['avatar']);
@@ -76,7 +78,7 @@ if ($perm <= 0) {
             $GLOBALS['xoTheme']->addMeta('meta', 'author', $wm['username']);
             $GLOBALS['xoTheme']->addMeta('meta', 'og:title', $wm['usernameTitle']);
             $GLOBALS['xoTheme']->addMeta('meta', 'og:url', $helper->url('index.php'));
-            $GLOBALS['xoTheme']->addMeta('meta', 'og:site_name', $xoopsConfig['sitename']);
+            $GLOBALS['xoTheme']->addMeta('meta', 'og:site_name', $GLOBALS['xoopsConfig']['sitename']);
             $GLOBALS['xoTheme']->addMeta('meta', 'og:description', $desc);
             $GLOBALS['xoTheme']->addMeta('meta', 'og:image', $wm['avatar_link']);
             $GLOBALS['xoTheme']->addMeta('meta', 'og:updated_time', $data['created']);
