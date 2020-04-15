@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,78 +12,68 @@
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
- * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
 
+use Xmf\Request;
 use XoopsModules\Smallworld;
+use XoopsModules\Smallworld\Constants;
 
 require_once __DIR__ . '/header.php';
 
-//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+/** @var \XoopsModules\Smallworld\Helper $helper */
+require_once $helper->path('include/functions.php');
 require_once XOOPS_ROOT_PATH . '/class/template.php';
-global $xoopsUser, $xoopsModule, $xoopsLogger, $xoopsTpl;
-$xoopsLogger->activated = false;
+
+$GLOBALS['xoopsLogger']->activated = false;
 //error_reporting(E_ALL);
+
 $page    = 'index';
 $check   = new Smallworld\User();
-$id      = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
-$profile = $xoopsUser ? $check->checkIfProfile($id) : 0;
+$id      = $GLOBALS['xoopsUserl'] ? $GLOBALS['xoopsUserl']->getVar('uid') : Constants::DEFAULT_UID;
+$profile = $GLOBALS['xoopsUserl'] ? $check->checkIfProfile($id) : Constants::PROFILE_NONE;
 
-if ($profile >= 2) {
+if ($profile >= Constants::PROFILE_HAS_BOTH) {
     $Xuser    = new \XoopsUser($id);
     $username = $Xuser->getVar('uname');
     $wall     = new Smallworld\WallUpdates();
     $tpl      = new \XoopsTpl();
     $mail     = new Smallworld\Mail();
-    $dBase    = new Smallworld\SwDatabase();
+    $swDB     = new Smallworld\SwDatabase();
 
     if (isset($_POST['comment'])) {
-        if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
-            $tpl->assign('isadminuser', 'YES');
-        }
+        $tpl->assign('isadminuser', $helper->isUserAdmin() ? 'YES' : 'NO');
 
         $followers = smallworld_array_flatten($wall->getFollowers($id), 0);
-
-        $myavatar     = $wall->Gravatar($id);
+        $myavatar  = $wall->Gravatar($id);
         $myavatarlink = smallworld_getAvatarLink($id, $myavatar);
 
         // Get posted items
-        $comment = $_POST['comment'];
-        $msg_id  = $_POST['msg_id'];
-
-        $data = $wall->insertComment($id, $msg_id, $comment);
+        $comment = Request::getString('comment', '', 'POST');
+        $msg_id  = Request::getInt('msg_id', Constants::DEFAULT_MESSAGEID, 'POST');
+        $data    = $wall->insertComment($id, $msg_id, $comment);
         if ($data) {
-            // Is comments's user a friend ?
+            // Is comments' user a friend ?
             $frC = $check->friendcheck($id, $data['uid_fk']);
+            $USC = ['posts' => 0, 'comments' => 0];
 
-            $USC             = [];
-            $USC['posts']    = 0;
-            $USC['comments'] = 0;
-            //$USC['notify'] = 0;
-
-            if ($xoopsUser) {
-                if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) || $data['uid_fk'] == $id) {
+            if ($helper->isUserAdmin() || $data['uid_fk'] == $id) {
                     $USC['posts']    = 1;
                     $USC['comments'] = 1;
-                    $frC[0]          = 2;
-                } else {
-                    $USC = json_decode($dBase->getSettings($data['uid_fk']), true);
-                }
-            }
-
-            if (!$xoopsUser) {
-                $USC = json_decode($dBase->getSettings($data['uid_fk']), true);
+                    $frC[0]          = Constants::PROFILE_HAS_BOTH;
+            } else {
+                $USC = json_decode($swDB->getSettings($data['uid_fk']), true);
             }
 
             $wc['msg_id_fk']       = $data['msg_id_fk'];
             $wc['com_id']          = $data['com_id'];
-            $wc['comment']         = (1 == $USC['comments'] || 2 == $frC[0]) ? smallworld_tolink(htmlspecialchars_decode($data['comment']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
+            $wc['comment']         = (1 == $USC['comments'] || Constants::PROFILE_HAS_BOTH == $frC[0]) ? smallworld_tolink(htmlspecialchars_decode($data['comment']), $data['uid_fk']) : _SMALLWORLD_MESSAGE_PRIVSETCOMMENTS;
             $wc['comment']         = smallworld_cleanup($wc['comment']);
             $wc['time']            = smallworld_time_stamp($data['created']);
             $wc['username']        = $data['username'];
@@ -100,27 +90,28 @@ if ($profile >= 2) {
             $wc['vote_down']       = $wall->countVotesCom('com', 'down', $data['msg_id_fk'], $data['com_id']);
 
             //Send mail if tagged
-            $permalink = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id_fk'];
+            $permalink = $helper->url('permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id_fk']);
             smallworld_getTagUsers($wc['comment'], $wc['uid'], $permalink);
 
             $tpl->append('comments', $wc);
 
-            $tpl->assign('myusername', $username);
-            $tpl->assign('pagename', $page);
-            $tpl->assign('myavatar', $myavatar);
-            $tpl->assign('myavatarlink', $myavatarlink);
-            $tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/getlastcom.tpl');
+            $tpl->assign([
+                'myusername'   => $username,
+                'pagename'     => $page,
+                'myavatar'     => $myavatar,
+                'myavatarlink' => $myavatarlink
+            ]);
+            $tpl->display($helper->path('templates/getlastcom.tpl'));
 
             // send mail to user owning update + participans in the thread that a comment has been posted
             $parts  = $mail->getPartsFromComment($data['msg_id_fk']);
-            $emails = '';
-            foreach ($parts as $k => $v) {
+            foreach ($parts as $v) {
                 $owner = smallworld_getOwnerFromComment($data['msg_id_fk']);
                 // Get owner of posts settings in order to send mail or not!
-                $owner_privset = json_decode($dBase->getSettings($v), true);
-                if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {
+                $owner_privset = json_decode($swDB->getSettings($v), true);
+                if (0 !== $helper->getConfig('smallworldusemailnotis')) {
                     if (1 == $owner_privset['notify']) {
-                        $mail->sendMails($data['uid_fk'], $v, 'commentToWM', $link = null, $wc);
+                        $mail->sendMails($data['uid_fk'], $v, 'commentToWM', null, $wc);
                     }
                 }
             }
