@@ -12,39 +12,39 @@
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\SmallWorld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      \XoopsModules\SmallWorld
- * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
 
 use Xmf\Request;
 use XoopsModules\Smallworld;
+use XoopsModules\Smallworld\Constants;
 
 require_once __DIR__ . '/header.php';
 
-/** @var \XoopsModules\Smallworld\Helper $helper */
+/** @var \XoopsModules\Smallworld\Helper $helper
+ * @var \MyTextSanitizer $myts
+ */
 require_once $helper->path('include/functions.php');
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 $GLOBALS['xoopsLogger']->activated = false;
 
 $tpl = new \XoopsTpl();
 
-$id   = smallworld_isset_or(Request::getInt('username', 0, 'GET')); // Id of user which profile you want to see
+$id   = smallworld_isset_or(Request::getInt('username', Constants::DEFAULT_UID, 'GET')); // Id of user which profile you want to see
 $id   = (int)$id; // smallworld_isset_or doesn't always return an integer
-$user = new \XoopsUser($id);
-$uid  = $user->uid();
 
 $helper->loadLanguage('user');
+$thisUser = new \XoopsUser($id);
 
 $moduleHandler = xoops_getHandler('module');
-$configHandler = xoops_getHandler('config');
-$thisUser      = $memberHandler->getUser($id);
-
-$gpermHandler = xoops_getHandler('groupperm');
-$groups       = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : 0;
+$gpermHandler  = xoops_getHandler('groupperm');
+$groups        = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : 0;
 
 $criteria = new \CriteriaCompo(new \Criteria('hassearch', 1));
 $criteria->add(new \Criteria('isactive', 1));
@@ -53,11 +53,11 @@ $mids = array_keys($moduleHandler->getList($criteria));
 foreach ($mids as $mid) {
     if ($gpermHandler->checkRight('module_read', $mid, $groups)) {
         $module  = $moduleHandler->get($mid);
-        $results = $module->search('', '', 5, 0, $thisUser->getVar('uid'));
+        $results = $module->search('', '', 5, 0, $id);
         $count   = count($results);
         if (is_array($results) && $count > 0) {
             for ($i = 0; $i < $count; ++$i) {
-                if (isset($results[$i]['image']) && '' != $results[$i]['image']) {
+                if (isset($results[$i]['image']) && '' !== $results[$i]['image']) {
                     $results[$i]['image'] = $helper->url($results[$i]['image']);
                 } else {
                     $results[$i]['image'] = XOOPS_URL . '/images/icons/posticon2.gif';
@@ -71,7 +71,7 @@ foreach ($mids as $mid) {
                 $results[$i]['time']  = $results[$i]['time'] ? formatTimestamp($results[$i]['time']) : '';
             }
             if (5 == $count) {
-                $showall_link = '<a href="' . XOOPS_URL . '/search.php?action=showallbyuser&amp;mid=' . $mid . '&amp;uid=' . $thisUser->getVar('uid') . '">' . _US_SHOWALL . '</a>';
+                $showall_link = '<a href="' . XOOPS_URL . '/search.php?action=showallbyuser&amp;mid=' . $mid . '&amp;uid=' . $id . '">' . _US_SHOWALL . '</a>';
             } else {
                 $showall_link = '';
             }
@@ -88,4 +88,4 @@ foreach ($mids as $mid) {
         unset($module);
     }
 }
-$tpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/smallworld_userinfo.tpl');
+$tpl->display($helper->path('templates/smallworld_userinfo.tpl'));
