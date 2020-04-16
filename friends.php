@@ -35,12 +35,14 @@ require_once $helper->path('include/functions.php');
 require_once $helper->path('include/arrays.php');
 
 if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
-    $id        = smallworld_isset_or(Request::getString('username', '', 'GET')); // Id of user which profile you want to see
-    $yourid    = $GLOBALS['xoopsUser']->uid(); // your uid
-    $Xuser     = new \XoopsUser($id);
-    $Xusername = $Xuser->getVar('uname');
-    $check     = new Smallworld\User();
-    $profile   = $check->checkIfProfile($id);
+    $id            = smallworld_isset_or(Request::getString('username', '', 'GET')); // Id of user which profile you want to see
+    $yourid        = $GLOBALS['xoopsUser']->uid(); // your uid
+    $Xuser         = new \XoopsUser($id);
+    $Xusername     = $Xuser->getVar('uname');
+    $check         = new Smallworld\User();
+    //$profile       = $check->checkIfProfile($id);
+    $swUserHandler = $helper->getHandler('SwUser');
+    $profile       = $swUserHandler->checkIfProfile($id);
     $friends   = new Smallworld\Friends();
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
