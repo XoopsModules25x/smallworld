@@ -67,5 +67,23 @@ class SwUserHandler extends \XoopsPersistableObjectHandler
         }
         return $type;
     }
+    /**
+     * Get SwUser name from userid
+     *
+     * @param int $userId
+     * @return string
+     */
+    public function getName($userId)
+    {
+        $name  = '';
+        $criteria = new \Criteria('userid', (int)$userId);
+        $criteria->setLimit(1);
+        $swUserArray = $this->getAll($criteria, ['username'], false);
+        if (0 < count($swUserArray)) {
+            $swUser = array_pop($swUserArray);
+            $name = $swUser['username'];
+        }
 
+        return $name;
+    }
 }

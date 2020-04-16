@@ -43,7 +43,7 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     //$profile       = $check->checkIfProfile($id);
     $swUserHandler = $helper->getHandler('SwUser');
     $profile       = $swUserHandler->checkIfProfile($id);
-    $friends   = new Smallworld\Friends();
+    $friends       = new Smallworld\Friends();
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = smallworld_isInspected($yourid);
@@ -117,7 +117,7 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
         //Loading Comments link with load_updates.php
         foreach ($pending_array as $data) {
             $fp['friend_id']       = $data['you'];
-            $fp['friendname']      = smallworld_getName($data['you']);
+            $fp['friendname']      = $swUserHandler->getName($data['you']);
             $fp['avatar']          = $wall->Gravatar($data['you']);
             $fp['avatar_link']     = smallworld_getAvatarLink($data['you'], $fp['avatar']);
             $fp['avatar_size']     = smallworld_getImageSize(80, 100, $fp['avatar_link']);
@@ -127,7 +127,7 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
 
         foreach ($friends_array as $data) {
             $ff['friend_id']       = $data['you'];
-            $ff['friendname']      = smallworld_getName($data['you']);
+            $ff['friendname']      = $swUserHandler->getName($data['you']);
             $ff['avatar']          = $wall->Gravatar($data['you']);
             $ff['avatar_link']     = smallworld_getAvatarLink($data['you'], $ff['avatar']);
             $ff['avatar_size']     = smallworld_getImageSize(80, 100, $ff['avatar_link']);
@@ -137,7 +137,7 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
 
         foreach ($following_array as $data) {
             $fy['friend_id']       = $data['you'];
-            $fy['friendname']      = smallworld_getName($data['you']);
+            $fy['friendname']      = $swUserHandler->getName($data['you']);
             $fy['avatar']          = $wall->Gravatar($data['you']);
             $fy['avatar_link']     = smallworld_getAvatarLink($data['you'], $fy['avatar']);
             $fy['avatar_size']     = smallworld_getImageSize(80, 100, $fy['avatar_link']);
@@ -147,7 +147,7 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
 
         foreach ($followingme_array as $data) {
             $fm['friend_id']       = $data['me'];
-            $fm['friendname']      = smallworld_getName($data['me']);
+            $fm['friendname']      = $swUserHandler->getName($data['me']);
             $fm['avatar']          = $wall->Gravatar($data['me']);
             $fm['avatar_link']     = smallworld_getAvatarLink($data['me'], $fm['avatar']);
             $fm['avatar_size']     = smallworld_getImageSize(80, 100, $fm['avatar_link']);

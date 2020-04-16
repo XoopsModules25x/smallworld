@@ -583,6 +583,7 @@ function smallworld_getOwnerFromComment($msg_id_fk)
 /**
  * Get username from userID
  *
+ * @deprecated - moved to SwUserHandler::getName() method
  * @param $userID
  * @return array
  */

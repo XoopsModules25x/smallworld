@@ -212,7 +212,8 @@ class User
         $myavatar = $wall->Gravatar($userId);
         $start    = 0;
         while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result)) && $start <= count($row)) {
-            $msg[$start]['friendname']  = $this->getName($row['me']);
+            //$msg[$start]['friendname']  = $this->getName($row['me']);
+            $msg[$start]['friendname']  = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser')->getName($row['me']);
             $msg[$start]['img']         = $wall->Gravatar($row['me']);
             $msg[$start]['friendimage'] = "<img src='" . XOOPS_UPLOAD_URL . '/' . $msg[$start]['img'] . "' height='40px'>";
             $msg[$start]['frienddate']  = date('d-m-Y', $row['date']);

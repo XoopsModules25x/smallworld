@@ -37,6 +37,8 @@ require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
  */
 function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortby = 'created DESC')
 {
+    $moduleDirName = basename(dirname(__DIR__));
+
     if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $GLOBALS['xoopsConfig']['language'] . '/main.php')) {
         require_once XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $GLOBALS['xoopsConfig']['language'] . '/main.php';
     } else {
@@ -86,12 +88,14 @@ function smallworld_search($queryarray, $andor, $limit, $offset, $userid, $sortb
     $i      = 0;
     while (false !== ($myrow = $GLOBALS['xoopsDB']->fetchArray($result))) {
         if (in_array($myrow['uid_fk'], $followers) || $myrow['uid_fk'] == $id) {
-            $ret[$i]['image'] = 'images/smallworld_icn.png';
+            $ret[$i]['image'] = 'assets/images/smallworld_icn.png';
             $ret[$i]['link']  = 'permalink.php?ownerid=' . $myrow['uid_fk'] . '&updid=' . $myrow['msg_id'];
             if (preg_match('/UPLIMAGE/', $myrow['message'])) {
+                // @todo - figure this out, doesn't look right - title value is overwrittern so 'message' never gets displayed
                 $ownmsg           = str_replace('UPLIMAGE ', '', $myrow['message']);
                 $ret[$i]['title'] = $ownmsg;
-                $ret[$i]['title'] = smallworld_getName($myrow['uid_fk']) . ' -> ' . _SMALLWORLD_GALLERY;
+                $ret[$i]['title'] = Smallworld\Helper::getInstance()->getHandler('SwUser')->getName($myrow['uid_fk']) . ' -> ' . _SMALLWORLD_GALLERY;
+                //$ret[$i]['title'] = smallworld_getName($myrow['uid_fk']) . ' -> ' . _SMALLWORLD_GALLERY;
                 $ret[$i]['title'] = str_replace(['&lt;', '&gt;'], ['<', '>'], $ret[$i]['title']);
             } else {
                 $ret[$i]['title'] = smallworld_shortenText($myrow['message'], 60);

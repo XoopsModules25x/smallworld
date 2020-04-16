@@ -47,8 +47,8 @@ $mail       = new Smallworld\Mail();
 $stat       = Request::getInt('stat', 0, 'POST');
 $invitation = Request::getInt('invitation', 0, 'POST');
 $myUid      = Request::getInt('myUid', 0, 'POST');
-$friendName = $check->getName($friend);
-$yourName   = $check->getName($myUid);
+$friendName = $swUserHandler->getName($friend);
+$yourName   = $swUserHandler->getName($myUid);
 $USC        = json_decode($swDB->getSettings($friend), true);
 
 switch ($invitation) {
