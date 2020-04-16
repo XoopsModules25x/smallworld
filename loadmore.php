@@ -44,19 +44,24 @@ $GLOBALS['xoopsLogger']->activated = false;
 /* error_reporting(E_ALL); */
 
 //$GLOBALS['xoopsTpl'] = new \XoopsTpl();
-$check    = new Smallworld\User();
+//$check    = new Smallworld\User();
 $id       = Constants::DEFAULT_UID;
 $username = '';
 $profile  = Constants::PROFILE_NONE;
 $isAdmin  = $helper->isUserAdmin();
 $tplAdmin= $isAdmin ? 'YES' : 'NO';
 
+/**@var \XoopsModules\Smallworld\SwUserHandler $swUserHandler */
+$swUserHandler = $helper->getHandler('SwUser');
+
 if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     $id       = $GLOBALS['xoopsUser']->uid();
     $username = $GLOBALS['xoopsUser']->uname();
-    $profile  = $check->checkIfProfile($id);
+    //$profile  = $check->checkIfProfile($id);
+    $profile  = $sWUserHandler->checkIfProfile($id);
     if ($isAdmin) {
-        $pub = $check->allUsers();
+        $check = new Smallworld\User();
+        $pub   = $check->allUsers();
     }
 }
 
@@ -66,7 +71,8 @@ if (Constants::DEFAULT_UID < $userid && $userid !== $id) {
     if ($xUser && ($xUser instanceof \XoopsUser)) {
         $id       = $userid;
         $username = $xUser->uname();
-        $profile  = $check->checkIfProfile($id);
+        //$profile  = $check->checkIfProfile($id);
+        $profile  = $swUserHandler->checkIfProfile($id);
     }
 }
 

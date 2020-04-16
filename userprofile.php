@@ -45,7 +45,7 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $Xuser      = new \XoopsUser($id);
     $Xusername  = (($Xuser instanceof \XoopsUser) && !$Xuser->isNew() && !$Xuser->isGuest()) ? $Xuser->getVar('uname') : '';
     $check      = new Smallworld\User();
-    $profile    = $check->checkIfProfile($yourid);
+    $profile    = $helper->getHandler('SwUser')->checkIfProfile($yourid);
     $userNumMsg = smallworld_countUserWallMsges($id);
     $fr[0]      = '';
     $fl[0]      = '';

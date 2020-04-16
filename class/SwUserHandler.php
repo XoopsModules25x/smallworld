@@ -40,4 +40,32 @@ class SwUserHandler extends \XoopsPersistableObjectHandler
     {
         parent::__construct($db, 'smallworld_user', SwUser::class, 'id', 'username');
     }
+    /**
+     * Check if user has profile
+     *
+     * Returns profile type:
+     *  Constants::PROFILE_NONE - no profile (XOOPS or SW),
+     *  || Constants::PROFILE_XOOPS_ONLY - XOOPS user but no SW profile,
+     *  || Constants::PROFILE_HAS_BOTH - has both
+     *
+     * @param int $userId  XOOPS user id
+     * @return int
+     */
+    public function checkIfProfile($userId)
+    {
+        $userId = (int)$userId;
+        $type   = Constants::PROFILE_NONE; // init profile type
+        if (Constants::DEFAULT_UID < $userId) {
+            // now check to see if it's a real XOOPS user
+            $xUser = new \XoopsUser($userId);
+            if ($xUser instanceof \XoopsUser) {
+                // valid XOOPS user, see if there's a SW profile for them
+                $userCount = $this->getCount(new \Criteria('userid', $userId));
+                // If \XoopsUser but no smallworld profile set to XOOPS only, otherwise they have a SW profile too
+                $type = (0 == $userCount) ? Constants::PROFILE_XOOPS_ONLY : Constants::PROFILE_HAS_BOTH;
+            }
+        }
+        return $type;
+    }
+
 }

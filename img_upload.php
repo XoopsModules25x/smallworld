@@ -36,14 +36,13 @@ require_once $helper->path('include/arrays.php');
 if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     $GLOBALS['xoopsLogger']->activated = false;
 
-    $id      = $GLOBALS['xoopsUser']->getVar('uid');
-    $check   = new Smallworld\User();
-    $profile = $check->checkIfProfile($id);
-    if ($profile >= Constants::PROFILE_HAS_BOTH) {
+    $id      = $GLOBALS['xoopsUser']->uid();
+    //$check   = new Smallworld\User();
+    //$profile = $check->checkIfProfile($id);
+    $profile = $helper->getHandler('SwUser')->checkIfProfile($id);
+    if (Constants::PROFILE_HAS_BOTH <= $profile) {
         $GLOBALS['xoopsTpl']->assign('check', $profile);
         $item = new Smallworld\Form();
-        //$swDB = new Smallworld\SwDatabase();
-
         // ------------ DISPLAY IMAGES ------------ //
         // ------------ IMAGE UPLOADER ------------ //
         // Image upload form

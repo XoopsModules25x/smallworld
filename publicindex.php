@@ -43,7 +43,6 @@ require_once $helper->path('include/functions.php');
 
 $set      = smallworld_checkPrivateOrPublic();
 $swDB     = new Smallworld\SwDatabase();
-$check    = new Smallworld\User();
 $id       = Constants::DEFAULT_UID;
 $username = '';
 $profile  = Constants::PROFILE_NONE;
@@ -51,12 +50,14 @@ $profile  = Constants::PROFILE_NONE;
 if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $id       = $GLOBALS['xoopsUser']->uid();
     $username = $GLOBALS['xoopsUser']->uname();
-    $profile  = $check->checkIfProfile($id);
+    //$check    = new Smallworld\User();
+    //$profile  = $check->checkIfProfile($id);
+    $profile  = $helper->getHandler('SwUser')->checkIfProfile($id);
 }
 
-$pub           = smallworld_checkUserPubPostPerm();
-$wall          = new Smallworld\PublicWallUpdates();
-$updates       = $wall->Updates(0, $pub);
+$pub     = smallworld_checkUserPubPostPerm();
+$wall    = new Smallworld\PublicWallUpdates();
+$updates = $wall->Updates(0, $pub);
 
 if ($id > 0) {
     $GLOBALS['xoopsTpl']->assign('ownerofpage', $id);

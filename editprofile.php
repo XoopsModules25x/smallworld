@@ -50,8 +50,10 @@ if (!$GLOBALS['xoopsUser'] || (!$GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
 }
 
 $id      = $GLOBALS['xoopsUser']->uid();
-$check   = new Smallworld\User();
-$profile = $check->checkIfProfile($id);
+//$check   = new Smallworld\User();
+//$profile = $check->checkIfProfile($id);
+$swUserHandler = $helper->getHandler('SwUser');
+$profile       = $swUserHandler->checkIfProfile($id);
 
 // Check if inspected userid -> redirect to userprofile and show admin countdown
 $inspect = smallworld_isInspected($id);
@@ -66,7 +68,6 @@ if (Constants::PROFILE_HAS_BOTH > $profile) {
 $GLOBALS['xoopsTpl']->assign('check', $profile);
 $item = new Smallworld\Form();
 //$swDB = new Smallworld\SwDatabase();
-$swUserHandler = $helper->getHandler('SwUser');
 $swUser        = $swUserHandler->get($id);
 if ($swUser instanceof \XoopsModules\Smallworld\SwUser) {
     $r = $swUser->getValues();

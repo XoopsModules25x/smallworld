@@ -43,6 +43,7 @@ class User
      *  1= XOOPS user but no SW profile,
      *  2= has both
      *
+     * @deprecated
      * @param int $userId  XOOPS user id
      * @return int
      */

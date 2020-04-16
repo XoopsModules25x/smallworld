@@ -37,7 +37,7 @@ $GLOBALS['xoopsLogger']->activated = false;
 /* error_reporting(E_ALL); */
 
 //$set   = smallworld_checkPrivateOrPublic();
-$check = new Smallworld\User();
+//$check = new Smallworld\User();
 //$pub   = smallworld_checkUserPubPostPerm();
 
 if (Request::hasVar('updid', 'GET') && Request::hasVar('ownerid', 'GET')) {
@@ -62,7 +62,7 @@ if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) {
 }
 
 //$friend         = $check->friendcheck($id, $ownerID);
-$profile        = $check->checkIfProfile($id);
+$profile        = $helper->getHandler('SwUser')->checkIfProfile($id);
 $menu_startpage = "<a href='" . $helper->url('publicindex.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/highrise.png') . "'>" . _SMALLWORLD_STARTPAGE . '</a>';
 $menu_home      = "<a href='" . $helper->url('index.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/house.png') . "'>" . _SMALLWORLD_HOME . '</a>';
 

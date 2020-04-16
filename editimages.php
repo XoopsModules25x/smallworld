@@ -41,8 +41,9 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
         $helper->redirect('userprofile.php?username=' . $GLOBALS['xoopsUser']->uname());
     }
 
-    $check   = new Smallworld\User();
-    $profile = $check->checkIfProfile($userID);
+    //$check   = new Smallworld\User();
+    //$profile = $check->checkIfProfile($userID);
+    $profile = $helper->getHandler('SwUser')->checkIfProfile($userID);
     if (Constants::PROFILE_HAS_BOTH <= $profile) {
         $GLOBALS['xoopsTpl']->assign('check', $profile);
         $item       = new Smallworld\Form();

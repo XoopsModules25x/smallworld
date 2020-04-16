@@ -39,8 +39,9 @@ $id      = Constants::DEFAULT_UID;
 $profile = Constants::PROFILE_NONE;
 if (($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser))) {
     $id      = $GLOBALS['xoopsUser']->uid();
-    $check   = new Smallworld\User();
-    $profile = $check->checkIfProfile($id);
+    //$check   = new Smallworld\User();
+    //$profile = $check->checkIfProfile($id);
+    $profile = $helper->getHandler('SwUser')->checkIfProfile($id);
 }
 
 if ($profile >= Constants::PROFILE_HAS_BOTH) {

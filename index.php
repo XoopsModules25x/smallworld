@@ -60,8 +60,9 @@ if (Constants::HAS_ACCESS == $set['access']) {
     $GLOBALS['xoopsTpl']->assign('usersetting', $usersettings);
 
     $username = $user->getVar('uname');
-    $check    = new Smallworld\User();
-    $profile  = Constants::DEFAULT_UID < $id ? $check->checkIfProfile($id) : Constants::PROFILE_NONE;
+    //$check    = new Smallworld\User();
+    //$profile  = Constants::DEFAULT_UID < $id ? $check->checkIfProfile($id) : Constants::PROFILE_NONE;
+    $profile  = $helper->getHandler('SwUser')->checkIfProfile($id);
 
     if ($profile >= Constants::PROFILE_HAS_BOTH) {
         $xuser = new Smallworld\Profile();
@@ -86,6 +87,7 @@ if (Constants::HAS_ACCESS == $set['access']) {
     }
 
     //Get friends invitations
+    $check          = new Smallworld\User();
     $getInvitations = $GLOBALS['xoopsUser'] ? $check->getRequests($id) : 0;
     $wall->parsePubArray($updatesarray, $id);
 

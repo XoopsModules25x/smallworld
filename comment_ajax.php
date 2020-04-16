@@ -35,9 +35,12 @@ $GLOBALS['xoopsLogger']->activated = false;
 //error_reporting(E_ALL);
 
 $page    = 'index';
+/** @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler */
+$swUserHandler = $helper->getHandler('SwUser');
 $check   = new Smallworld\User();
 $id      = $GLOBALS['xoopsUserl'] ? $GLOBALS['xoopsUserl']->getVar('uid') : Constants::DEFAULT_UID;
-$profile = $GLOBALS['xoopsUserl'] ? $check->checkIfProfile($id) : Constants::PROFILE_NONE;
+//$profile = $GLOBALS['xoopsUserl'] ? $check->checkIfProfile($id) : Constants::PROFILE_NONE;
+$profile = $swUserHandler->checkIfProfile($id);
 
 if ($profile >= Constants::PROFILE_HAS_BOTH) {
     $Xuser    = new \XoopsUser($id);

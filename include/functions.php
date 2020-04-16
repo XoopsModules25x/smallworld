@@ -1198,7 +1198,8 @@ function smallworld_isDefinedLanguage($def, $file)
 function smallworld_checkPrivateOrPublic()
 {
     $opt                   = [];
-    $set                   = \XoopsModules\Smallworld\Helper::getInstance()->getConfig('smallworldprivorpub');
+    $helper                = \XoopsModules\Smallworld\Helper::getInstance();
+    $set                   = $helper->getConfig('smallworldprivorpub');
     $opt['access']         = (0 !== $set) ? Constants::HAS_ACCESS : Constants::NO_ACCESS;
     $opt['xoopsuser']      = Constants::IS_NOT_USER;
     $opt['smallworlduser'] = Constants::IS_NOT_USER;
@@ -1206,8 +1207,10 @@ function smallworld_checkPrivateOrPublic()
     if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
         $id                    = $GLOBALS['xoopsUser']->uid();
         //$user                  = new \XoopsUser($id);
-        $check                 = new \XoopsModules\Smallworld\User();
-        $profile               = $check->checkIfProfile($id);
+        //$check                 = new \XoopsModules\Smallworld\User();
+        //$profile               = $check->checkIfProfile($id);
+        $swUserHandler         = $helper->getHandler('SwUser');
+        $profile               = $swUserHandler->checkIfProfile($id);
         $opt['xoopsuser']      = Constants::IS_USER;
         $opt['smallworlduser'] = (Constants::PROFILE_HAS_BOTH !== $profile) ? Constants::IS_NOT_USER : Constants::IS_USER;
     }
@@ -1262,8 +1265,10 @@ function smallworld_SetCoreScript()
     }
 
     // Check if USER is smallworld-registered user
-    $chkUser = new Smallworld\User();
-    $ChkProf = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? $chkUser->checkIfProfile($myid) : Constants::DEFAULT_UID;
+    //$chkUser = new Smallworld\User();
+    //$profile = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? $chkUser->checkIfProfile($myid) : Constants::DEFAULT_UID;
+    $swUserHandler = $helper->getHandler('SwUser');
+    $profile       = $swUserHandler->checkIfProfile($myId);
 
     // Check if there are requests pending
     $count_invit = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? count($chkUser->getRequests($myid)) : Constants::DEFAULT_UID;
@@ -1299,7 +1304,7 @@ function smallworld_SetCoreScript()
     $script .= 'var smallworld_urlReferer = document.referrer;' . "\n";
     $script .= "var xoops_smallworld = jQuery.noConflict();\n";
     $script .= 'var Smallworld_myID = ' . $myid . ";\n";
-    $script .= 'var Smallworld_userHasProfile = ' . $ChkProf . ";\n";
+    $script .= 'var Smallworld_userHasProfile = ' . $profile . ";\n";
     $script .= 'var smallworldTakeOverLinks = ' . $takeoverlinks . ";\n";
     $script .= 'var Smallworld_geocomplete = ' . $googlemaps . ";\n";
     $script .= "var smallworldVerString = '" . $smallworldUV . "';\n";

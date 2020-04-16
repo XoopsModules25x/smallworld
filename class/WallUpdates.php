@@ -447,11 +447,15 @@ class WallUpdates
      */
     public function parsePubArray($updatesarray, $id)
     {
-        /** @var \XoopsModules\Smallworld\Helper $helper */
+        /**
+         * @var \XoopsModules\Smallworld\Helper $helper
+         * @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler
+         */
         $helper            = Helper::getInstance();
+        $swUserHandler     = $helper->getHandler('SwUser');
         $check             = new User();
         $swDB              = new SwDatabase();
-        $profile           = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? $check->checkIfProfile($id) : Constants::PROFILE_NONE;
+        $profile           = $swUserHandler->checkIfProfile($id);
         $myavatar          = $this->Gravatar($id);
         $myavatarlink      = smallworld_getAvatarLink($id, $myavatar);
         $myavatar_size     = smallworld_getImageSize(80, 100, $myavatarlink);

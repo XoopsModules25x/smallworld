@@ -38,6 +38,8 @@ $GLOBALS['xoopsLogger']->activated = false;
 $admin = $helper->isUserAdmin() ? true: false;
 
 if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
+    /** @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler */
+    $swUserHandler = $helper->getHandler('SwUser');
     $id           = $GLOBALS['xoopsUser']->uid();
     $check        = new Smallworld\User();
     $image        = new Smallworld\Images();
@@ -54,7 +56,7 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
         $helper->redirect('userprofile.php?username=' . $GLOBALS['xoopsUser']->uname(), Constants::REDIRECT_DELAY_SHORT, _SMALLWORLD_INSPEC_usermsg);
     }
 
-    $profile = $check->checkIfProfile($id);
+    $profile = $swUserHandler->checkIfProfile($id);
     if ($profile >= Constants::PROFILE_HAS_BOTH || 2 == $userisfriend[0] || true === $admin) {
         $myusername  = $GLOBALS['xoopsUser']->uname();
         $countimages = $image->count($userID);
