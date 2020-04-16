@@ -30,7 +30,7 @@ require_once __DIR__ . '/admin_header.php';
  * Vars defined by inclusion of ./admin_header.php
  *
  * @var \XoopsModules\Smallworld\Admin $admin
- * @var \XoopsModuels\Smallworld\SwUserHandler $swUserHandler
+ * @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler
  * @var \XoopsModules\Smallworld\DoSync $d
  * @var \XoopsModules\Smallworld\User $check
  * @var \XoopsModules\Smallworld\SwDatabase $swDB
