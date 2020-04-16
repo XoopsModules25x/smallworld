@@ -1,7 +1,7 @@
 <div id="smallworld_regform1" class="smallworld_content" title='<{$smarty.const._SMALLWORLD_REGRISTATION_TITLE}>'>
     <{if $xoops_isuser}>
     <{if $check >= 1}>
-    <form id="smallworld_profileform" action="../submit.php" method="post">
+    <form id="smallworld_profileform" action="<{$xoops_url}>/modules/smallworld/submit.php" method="post">
         <fieldset title="">
             <legend><{$smarty.const._SMALLWORLD_STEP1}></legend>
 
@@ -35,10 +35,10 @@
                     <td><p><{$smarty.const._SMALLWORLD_INTERESTEDIN}></p></td>
                     <td><label for="select"></label>
                         <span id="intingender">
-                                    <{section name=i loop=$intingender}>
-                                        <{$intingender[i]}>
-                                    <{/section}>
-                                    </span>
+                            <{section name=i loop=$intingender}>
+                            <{$intingender[i]}>
+                            <{/section}>
+                        </span>
                     </td>
                 </tr>
                 <{/if}>
@@ -67,13 +67,13 @@
 
                 <{if $show_lookingfor != 'no'}>
                 <tr>
-                    <td valign="top"><p><{$smarty.const._SMALLWORLD_LOOKINGFOR}></p></td>
+                    <td class="top"><p><{$smarty.const._SMALLWORLD_LOOKINGFOR}></p></td>
                     <td><label for="select"></label>
                         <span id="searchrelat">
-                                    <{section name=i loop=$searchrelat}>
-                                        <{$searchrelat[i]}>
-                                    <{/section}>
-                                    </span>
+                            <{section name=i loop=$searchrelat}>
+                            <{$searchrelat[i]}>
+                            <{/section}>
+                        </span>
                         <br>
                     </td>
                 </tr>
@@ -130,7 +130,7 @@
                 <tr>
                     <td><p><{$smarty.const._SMALLWORLD_RELIGIOUSVIEW}></p></td>
                     <td>
-                        <lable for="select"></lable>
+                        <label for="select"></label>
                         <{section name=i loop=$religion}>
                         <{$religion[i]}>
                         <{/section}>
@@ -146,21 +146,22 @@
                 <{if $show_emails != 'no'}>
                 <tr>
                     <p class="emails">
-                        <td valign="top">
-                    <p><{$smarty.const._SMALLWORLD_EMAILS}></p></td>
-                    <td><label for="email"></label>
-                        <{section name=i loop=$emailtext}>
-                        <{$emailtext[i]}>
-                        <{/section}>
-                    </td>
+                        <td class="top"><p><{$smarty.const._SMALLWORLD_EMAILS}></p></td>
+                        <td>
+                            <label for="email"></label>
+                            <{section name=i loop=$emailtext}>
+                            <{$emailtext[i]}>
+                            <{/section}>
+                        </td>
                     </p>
                 </tr>
                 <{/if}>
 
                 <{if $show_screennames != 'no'}>
                 <tr>
-                    <td valign="top"><p><{$smarty.const._SMALLWORLD_SCREENNAMES}></p></td>
-                    <td><label for="Screenname"></label>
+                    <td class="top"><p><{$smarty.const._SMALLWORLD_SCREENNAMES}></p></td>
+                    <td>
+                        <label for="Screenname"></label>
                         <{section name=i loop=$screenname}>
                         <{$screenname[i]}>
                         <{/section}>
@@ -171,7 +172,7 @@
 
                 <{if $show_mobile != 'no'}>
                 <tr>
-                    <td valign="top"><p><{$smarty.const._SMALLWORLD_MOBILEPHONE}></p></td>
+                    <td class="top"><p><{$smarty.const._SMALLWORLD_MOBILEPHONE}></p></td>
                     <td>
                         <{section name=i loop=$mobile}>
                         <{$mobile[i]}>
@@ -182,7 +183,7 @@
 
                 <{if $show_landphone != 'no'}>
                 <tr>
-                    <td valign="top"><p><{$smarty.const._SMALLWORLD_LANDPHONE}></p></td>
+                    <td class="top"><p><{$smarty.const._SMALLWORLD_LANDPHONE}></p></td>
                     <td>
                         <{section name=i loop=$phone}>
                         <{$phone[i]}>
@@ -219,8 +220,9 @@
                             <{section name=i loop=$present_country_img}>
                             <{$present_country_img[i]}>
                             <{/section}>
+                            <div style="right:2px" id="cityflag"></div>
                         </td>
-                        <td style="right:2px" id="cityflag"></td>
+                        <{* <td style="right:2px" id="cityflag"></td> *}>
                     </div>
                 </tr>
                 <tr>
@@ -235,9 +237,8 @@
 
                 <{if $show_website != 'no'}>
                 <tr>
-                    <td valign="top"><p><{$smarty.const._SMALLWORLD_WEBSITE}></p></td>
-                    <td><textarea name="website" id="website"><{$smallworld_user_website}></textarea>
-                    </td>
+                    <td class="top"><p><{$smarty.const._SMALLWORLD_WEBSITE}></p></td>
+                    <td><textarea name="website" id="website"><{$smallworld_user_website}></textarea></td>
                 </tr>
                 <{/if}>
             </table>
@@ -276,7 +277,7 @@
                         <{section name=i loop=$tvshow}>
                         <{$tvshow[i]}>
                         <{/section}>
-                        </textarea></td>
+                    </td>
                 </tr>
                 <{/if}>
 
@@ -313,17 +314,16 @@
                 </tr>
                 <{/if}>
                 <tr>
-                    <td></td>
+                    <td colspan='2'></td>
                 </tr>
-                <br>
             </table>
-
+            <br>
         </fieldset>
 
         <fieldset>
             <legend><{$smarty.const._SMALLWORLD_STEP4}></legend>
+            <{if $show_school != 'no'}>
             <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
-                <{if $show_school != 'no'}>
                 <tr>
                     <label for="School"></label>
                     <td>
@@ -332,14 +332,14 @@
                         <{/section}>
                     </td>
                 </tr>
-                <{/if}>
             </table>
-        </fieldset>
+            <{/if}>
+            </fieldset>
 
         <fieldset>
             <legend><{$smarty.const._SMALLWORLD_STEP5}></legend>
+            <{if $show_jobs != 'no'}>
             <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
-                <{if $show_jobs != 'no'}>
                 <tr>
                     <label for="Job"></label>
                     <td>
@@ -348,16 +348,18 @@
                         <{/section}>
                     </td>
                 </tr>
-                <{/if}>
             </table>
+            <{/if}>
         </fieldset>
+        
         <fieldset>
             <legend><{$smarty.const._SMALLWORLD_STEP6}></legend>
             <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
                 <tr>
                     <label for="Submit"></label>
                     <td>
-                        <p class="smallworld_submittext"><{$smallworld_beforesubmit}>
+                        <p class="smallworld_submittext">
+                            <{$smallworld_beforesubmit}>
                             <br><br>
                         </p>
                     </td>
@@ -366,7 +368,6 @@
         </fieldset>
         <input type="hidden" name="function" value="edit">
         <input type="submit" id="smallworld_save1" value="<{$smallworld_save}>" class="smallworld_finish">
-
     </form>
 
     <{else}>
