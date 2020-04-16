@@ -36,6 +36,14 @@ interface Constants
      */
     const DISALLOW = 0;
     /**
+     * confirm not ok to take action
+     */
+    const CONFIRM_NOT_OK = 0;
+    /**
+     * confirm ok to take action
+     */
+    const CONFIRM_OK = 1;
+    /**
      * no delay XOOPS redirect delay (in seconds)
      */
     const REDIRECT_DELAY_NONE = 0;
@@ -139,6 +147,5 @@ interface Constants
      * active user limit (for dB search)
      */
     const USER_LIMIT = 20;
-
     /**#@-*/
 }
