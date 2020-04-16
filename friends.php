@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,28 +12,31 @@
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
- * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
 
+use Xmf\Request;
 use XoopsModules\Smallworld;
+use XoopsModules\Smallworld\Constants;
 
 require_once __DIR__ . '/header.php';
 
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_friends_template.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
-global $xoopsUser;
 
-if ($xoopsUser) {
-    $id        = smallworld_isset_or($_GET['username']); // Id of user wich profile you want to see
-    $yourid    = $xoopsUser->getVar('uid'); // your uid
+/** @var \XoopsModules\Smallworld\Helper $helper */
+require_once $helper->path('include/functions.php');
+require_once $helper->path('include/arrays.php');
+
+if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
+    $id        = smallworld_isset_or(Request::getString('username', '', 'GET')); // Id of user which profile you want to see
+    $yourid    = $GLOBALS['xoopsUser']->uid(); // your uid
     $Xuser     = new \XoopsUser($id);
     $Xusername = $Xuser->getVar('uname');
     $check     = new Smallworld\User();
@@ -43,53 +46,46 @@ if ($xoopsUser) {
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = smallworld_isInspected($yourid);
     if ('yes' === $inspect['inspect']) {
-        redirect_header('userprofile.php?username=' . $xoopsUser->getVar('uname'), 1);
+        $helper->redirect('userprofile.php?username=' . $GLOBALS['xoopsUser']->getVar('uname'), 1);
     }
 
-    if ($profile >= 2) {
+    if ($profile >= Constants::PROFILE_HAS_BOTH) {
         $user = new Smallworld\Profile();
         $user->showUser($id);
-        $username = $xoopsUser->getVar('uname'); //Myusername
-        if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
-            $xoopsTpl->assign('isadminuser', 'YES');
-            $xoopsTpl->assign('ownerofpage', $id);
+        $username  = $GLOBALS['xoopsUser']->getVar('uname'); //Myusername
+        $tpl_admin = 'NO';
+        if ($helper->isUserAdmin()) {
+            $tpl_admin = 'YES';
+            $GLOBALS['xoopsTpl']->assign('ownerofpage', $id);
         }
+        $GLOBALS['xoopsTpl']->assign('isadminuser', $tpl_admin);
 
         // Check status for relationship
-        $fr = $check->friendcheck($yourid, $id);
-        if (0 == $fr[0]) {
-            $friendship_text = _SMALLWORLD_JSON_ADDFR_TEXT;
-            if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
-                $xoopsTpl->assign('isuserafriend', 'yes');
-            } else {
-                $xoopsTpl->assign('isuserafriend', 'no');
-            }
-        }
-
-        if (1 == $fr[0]) {
-            $friendship_text = _SMALLWORLD_JSON_CANCELFR_TEXT;
-            if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
-                $xoopsTpl->assign('isuserafriend', 'yes');
-            } else {
-                $xoopsTpl->assign('isuserafriend', 'no');
-            }
-        }
-
-        if (2 == $fr[0]) {
-            $friendship_text = _SMALLWORLD_JSON_REMOVEFR_TEXT;
-            $xoopsTpl->assign('isuserafriend', 'yes');
+        $fr         = $check->friendcheck($yourid, $id);
+        $tpl_friend = $helper->isUserAdmin() ? 'yes' : 'no';
+        switch ($fr[0]) {
+            case 0:
+                $friendship_text = _SMALLWORLD_JSON_ADDFR_TEXT;
+                $GLOBALS['xoopsTpl']->assign('isuserafriend', $tpl_friend);
+                break;
+            case 1:
+                $friendship_text = _SMALLWORLD_JSON_CANCELFR_TEXT;
+                $GLOBALS['xoopsTpl']->assign('isuserafriend', $tpl_friend);
+                break;
+            case 2:
+                $friendship_text = _SMALLWORLD_JSON_REMOVEFR_TEXT;
+                $GLOBALS['xoopsTpl']->assign('isuserafriend', 'yes');
+                break;
+            default:
+                //@todo - figure out what to do here if it ever happens
         }
 
         // Check status for follow
-        $fl = $check->following_or($yourid, $id);
         if ($yourid == $id) {
             $following_text = _SMALLWORLD_JSON_FLYES_TEXT;
-        }
-        if (0 == $fl[0]) {
-            $following_text = _SMALLWORLD_JSON_FLYES_TEXT;
-        }
-        if (1 == $fl[0]) {
-            $following_text = _SMALLWORLD_JSON_FLNO_TEXT;
+        } else {
+            $fl             = $check->following_or($yourid, $id);
+            $following_text = (1 == $fl[0]) ? _SMALLWORLD_JSON_FLNO_TEXT : _SMALLWORLD_JSON_FLYES_TEXT;
         }
 
         // Get requests
@@ -117,104 +113,94 @@ if ($xoopsUser) {
 
         //Srinivas Tamada http://9lessons.info
         //Loading Comments link with load_updates.php
-        if (!empty($pending_array)) {
-            foreach ($pending_array as $data) {
-                $fp['friend_id']       = $data['you'];
-                $fp['friendname']      = smallworld_getName($data['you']);
-                $fp['avatar']          = $wall->Gravatar($data['you']);
-                $fp['avatar_link']     = smallworld_getAvatarLink($data['you'], $fp['avatar']);
-                $fp['avatar_size']     = smallworld_getImageSize(80, 100, $fp['avatar_link']);
-                $fp['avatar_highwide'] = smallworld_imageResize($fp['avatar_size'][0], $fp['avatar_size'][1], 50);
-                $xoopsTpl->append('pendingfriends', $fp);
-            }
-        } else {
-            $xoopsTpl->append('nouserspending', _SMALLWORLD_NOUSERS);
+        foreach ($pending_array as $data) {
+            $fp['friend_id']       = $data['you'];
+            $fp['friendname']      = smallworld_getName($data['you']);
+            $fp['avatar']          = $wall->Gravatar($data['you']);
+            $fp['avatar_link']     = smallworld_getAvatarLink($data['you'], $fp['avatar']);
+            $fp['avatar_size']     = smallworld_getImageSize(80, 100, $fp['avatar_link']);
+            $fp['avatar_highwide'] = smallworld_imageResize($fp['avatar_size'][0], $fp['avatar_size'][1], 50);
+            $GLOBALS['xoopsTpl']->append('pendingfriends', $fp);
         }
 
-        if (!empty($friends_array)) {
-            foreach ($friends_array as $data) {
-                $ff['friend_id']       = $data['you'];
-                $ff['friendname']      = smallworld_getName($data['you']);
-                $ff['avatar']          = $wall->Gravatar($data['you']);
-                $ff['avatar_link']     = smallworld_getAvatarLink($data['you'], $ff['avatar']);
-                $ff['avatar_size']     = smallworld_getImageSize(80, 100, $ff['avatar_link']);
-                $ff['avatar_highwide'] = smallworld_imageResize($ff['avatar_size'][0], $ff['avatar_size'][1], 50);
-                $xoopsTpl->append('verifiedfriends', $ff);
-            }
-        } else {
-            $xoopsTpl->append('nousersfriends', _SMALLWORLD_NOUSERS);
+        foreach ($friends_array as $data) {
+            $ff['friend_id']       = $data['you'];
+            $ff['friendname']      = smallworld_getName($data['you']);
+            $ff['avatar']          = $wall->Gravatar($data['you']);
+            $ff['avatar_link']     = smallworld_getAvatarLink($data['you'], $ff['avatar']);
+            $ff['avatar_size']     = smallworld_getImageSize(80, 100, $ff['avatar_link']);
+            $ff['avatar_highwide'] = smallworld_imageResize($ff['avatar_size'][0], $ff['avatar_size'][1], 50);
+            $GLOBALS['xoopsTpl']->append('verifiedfriends', $ff);
         }
 
-        if (!empty($following_array)) {
-            foreach ($following_array as $data) {
-                $fy['friend_id']       = $data['you'];
-                $fy['friendname']      = smallworld_getName($data['you']);
-                $fy['avatar']          = $wall->Gravatar($data['you']);
-                $fy['avatar_link']     = smallworld_getAvatarLink($data['you'], $fy['avatar']);
-                $fy['avatar_size']     = smallworld_getImageSize(80, 100, $fy['avatar_link']);
-                $fy['avatar_highwide'] = smallworld_imageResize($fy['avatar_size'][0], $fy['avatar_size'][1], 50);
-                $xoopsTpl->append('followingyou', $fy);
-            }
-        } else {
-            $xoopsTpl->append('nousersfollowingyou', _SMALLWORLD_NOUSERS);
+        foreach ($following_array as $data) {
+            $fy['friend_id']       = $data['you'];
+            $fy['friendname']      = smallworld_getName($data['you']);
+            $fy['avatar']          = $wall->Gravatar($data['you']);
+            $fy['avatar_link']     = smallworld_getAvatarLink($data['you'], $fy['avatar']);
+            $fy['avatar_size']     = smallworld_getImageSize(80, 100, $fy['avatar_link']);
+            $fy['avatar_highwide'] = smallworld_imageResize($fy['avatar_size'][0], $fy['avatar_size'][1], 50);
+            $GLOBALS['xoopsTpl']->append('followingyou', $fy);
         }
 
-        if (!empty($followingme_array)) {
-            foreach ($followingme_array as $data) {
-                $fm['friend_id']       = $data['me'];
-                $fm['friendname']      = smallworld_getName($data['me']);
-                $fm['avatar']          = $wall->Gravatar($data['me']);
-                $fm['avatar_link']     = smallworld_getAvatarLink($data['me'], $fm['avatar']);
-                $fm['avatar_size']     = smallworld_getImageSize(80, 100, $fm['avatar_link']);
-                $fm['avatar_highwide'] = smallworld_imageResize($fm['avatar_size'][0], $fm['avatar_size'][1], 50);
-                $xoopsTpl->append('followingme', $fm);
-            }
-        } else {
-            $xoopsTpl->append('nousersfollowingme', _SMALLWORLD_NOUSERS);
+        foreach ($followingme_array as $data) {
+            $fm['friend_id']       = $data['me'];
+            $fm['friendname']      = smallworld_getName($data['me']);
+            $fm['avatar']          = $wall->Gravatar($data['me']);
+            $fm['avatar_link']     = smallworld_getAvatarLink($data['me'], $fm['avatar']);
+            $fm['avatar_size']     = smallworld_getImageSize(80, 100, $fm['avatar_link']);
+            $fm['avatar_highwide'] = smallworld_imageResize($fm['avatar_size'][0], $fm['avatar_size'][1], 50);
+            $GLOBALS['xoopsTpl']->append('followingme', $fm);
         }
 
         // Create form for private settings
         $form         = new Smallworld\Form();
         $usersettings = $form->usersettings($yourid, $selected = null);
-        $xoopsTpl->assign('usersetting', $usersettings);
+        $GLOBALS['xoopsTpl']->assign('usersetting', $usersettings);
 
         // Get usermenu to template
-        $menu_home    = "<a href='" . XOOPS_URL . "/modules/smallworld/'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/house.png'>" . _SMALLWORLD_HOME . '</a>';
-        $menu_profile = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/user_silhouette.png'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
-        $menu_gallery = "<a href='" . XOOPS_URL . '/modules/smallworld/galleryshow.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/picture.png'>" . _SMALLWORLD_GALLERY . '</a>';
-        $menu_friends = "<a href='" . XOOPS_URL . '/modules/smallworld/friends.php?username=' . $Xusername . "'><img id='menuimg' src='" . XOOPS_URL . "/modules/smallworld/assets/images/group.png'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
+        $menu_home    = "<a href='" . $helper->url('index.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/house.png') . "'>" . _SMALLWORLD_HOME . '</a>';
+        $menu_profile = "<a href='" . $helper->url('userprofile.php?username=' . $Xusername) . "'><img id='menuimg' src='" . $helper->url('assets/images/user_silhouette.png') . "'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
+        $menu_gallery = "<a href='" . $helper->url('galleryshow.php?username=' . $Xusername) . "'><img id='menuimg' src='" . $helper->url('assets/images/picture.png') . "'>" . _SMALLWORLD_GALLERY . '</a>';
+        $menu_friends = "<a href='" . $helper->url('friends.php?username=' . $Xusername) . "'><img id='menuimg' src='" . $helper->url('assets/images/group.png') . "'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
         $menu_xim_js  = "javascript:chatWith('" . $id . "','" . $Xusername . "')";
-        $menu_ximme   = "<a href='javascript:void(0);' onClick=" . $menu_xim_js . "><img height='10px' width='10px' src='" . XOOPS_URL . "/modules/smallworld/assets/images/messenger.png'>" . _SMALLWORLD_XIMUSER . $Xusername . '</a>';
+        $menu_ximme   = "<a href='javascript:void(0);' onClick=" . $menu_xim_js . "><img height='10px' width='10px' src='" . $helper->url('assets/images/messenger.png') . "'>" . _SMALLWORLD_XIMUSER . $Xusername . '</a>';
 
         // Check for folder xim to add messenger user to menu items
         $hasxim = smallworld_checkForXim();
         if (true === $hasxim) {
-            $xoopsTpl->assign('sendxim', 'YES');
+            $GLOBALS['xoopsTpl']->assign('sendxim', 'YES');
             if (2 == $fr[0]) {
                 if ($yourid != $id) {
-                    $xoopsTpl->assign('menu_xim', $menu_ximme);
+                    $GLOBALS['xoopsTpl']->assign('menu_xim', $menu_ximme);
                 }
             }
         }
 
-        $xoopsTpl->assign('menu_home', $menu_home);
-        $xoopsTpl->assign('menu_profile', $menu_profile);
-        $xoopsTpl->assign('menu_friends', $menu_friends);
-        $xoopsTpl->assign('menu_gallery', $menu_gallery);
-        $xoopsTpl->assign('check', $profile);
-        $xoopsTpl->assign('friendID', $id);
-        $xoopsTpl->assign('myUid', $yourid);
-        $xoopsTpl->assign('friendship_text', $friendship_text);
-        $xoopsTpl->assign('followfriend_text', $following_text);
-        $xoopsTpl->assign('friendinvitations', $getInvitations);
-        $xoopsTpl->assign('myavatar', $myavatar);
-        $xoopsTpl->assign('myavatarlink', $myavatarlink);
-        $xoopsTpl->assign('myusername', $username);
-        $xoopsTpl->assign('username', $Xusername);
+        $GLOBALS['xoopsTpl']->assign([
+            'menu_home'           => $menu_home,
+            'menu_profile'        => $menu_profile,
+            'menu_friends'        => $menu_friends,
+            'menu_gallery'        => $menu_gallery,
+            'check'               => $profile,
+            'friendID'            => $id,
+            'myUid'               => $yourid,
+            'friendship_text'     => $friendship_text,
+            'followfriend_text'   => $following_text,
+            'friendinvitations'   => $getInvitations,
+            'myavatar'            => $myavatar,
+            'myavatarlink'        => $myavatarlink,
+            'myusername'          => $username,
+            'username'            => $Xusername,
+            'nouserspending'      => _SMALLWORLD_NOUSERS,
+            'nousersfriends'      => _SMALLWORLD_NOUSERS,
+            'nousersfollowingyou' => _SMALLWORLD_NOUSERS,
+            'nousersfollowingme'  => _SMALLWORLD_NOUSERS
+        ]);
     } else {
         $check->chkUser();
     }
 } else {
-    redirect_header(XOOPS_URL . '/user.php', 1, _NOPERM);
+    redirect_header(XOOPS_URL . '/user.php', Constants::REDIRECT_DELAY_SHORT, _NOPERM);
 }
 require_once XOOPS_ROOT_PATH . '/footer.php';
