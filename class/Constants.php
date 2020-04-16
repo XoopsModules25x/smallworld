@@ -20,8 +20,6 @@ namespace XoopsModules\Smallworld;
  * @link         https://github.com/XoopsModules25x/smallworld
  */
 
-//defined('XOOPS_ROOT_PATH') || die('Restricted access');
-
 /**
  * Constants Interface
  */

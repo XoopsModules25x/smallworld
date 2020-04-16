@@ -31,8 +31,6 @@ namespace XoopsModules\Smallworld\Common;
 use XoopsModules\Smallworld;
 use XoopsModules\Smallworld\Common;
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
-
 /**
  * Class Breadcrumb
  */

@@ -26,6 +26,12 @@ use XoopsModules\Smallworld\Constants;
  * @link         https://github.com/XoopsModules25x/smallworld
  * @since        1.0
  */
+
+/**
+ *
+ * SwDatabase to manage SW activity
+ *
+ */
 class SwDatabase
 {
     /**

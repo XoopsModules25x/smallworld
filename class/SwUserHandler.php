@@ -24,7 +24,6 @@ namespace XoopsModules\Smallworld;
  * @since        1.16
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 /**
  * Smallworld User Object Handler
  *
