@@ -2,7 +2,7 @@
 
 namespace XoopsModules\Smallworld;
 
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,31 +12,35 @@ namespace XoopsModules\Smallworld;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xmf\Request;
+use XoopsModules\Smallworld\Constants;
+
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\SmallWorld
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
- * @since        1.0
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
 class SwDatabase
 {
     /**
-     * getJobsToDiv function
+     * getJobsToDiv method
+     *
+     * @todo switch to use SwUser class methods
      * @param int $id
      * @return array
      */
     public function getJobsToDiv($id)
     {
-        global $xoopsUser, $xoopsDB;
         $msg    = [];
-        $new    = [];
-        $sql    = 'SELECT employer,position,jobstart,jobstop,description  FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
-        $result = $xoopsDB->query($sql);
-        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $sql    = 'SELECT employer,position,jobstart,jobstop,description  FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
+        $result = $GLOBALS['xoopsDB']->query($sql);
+        while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
             $employer    = unserialize($row['employer']);
             $position    = unserialize($row['position']);
             $jobstart    = unserialize($row['jobstart']);
@@ -59,16 +63,18 @@ class SwDatabase
 
     /**
      * getSchoolToDiv function
+     *
+     * @todo switch to use SwUser class methods
      * @param int $id
      * @return array
      */
     public function getSchoolToDiv($id)
     {
-        global $xoopsUser, $xoopsDB, $arr7;
+        global $arr7;
         $msg    = [];
-        $sql    = 'SELECT school_type,school,schoolstart,schoolstop FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
-        $result = $xoopsDB->query($sql);
-        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $sql    = 'SELECT school_type,school,schoolstart,schoolstop FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
+        $result = $GLOBALS['xoopsDB']->query($sql);
+        while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
             $school_type = unserialize($row['school_type']);
             $school      = unserialize($row['school']);
             $schoolstart = unserialize($row['schoolstart']);
@@ -89,16 +95,18 @@ class SwDatabase
 
     /**
      * getScreennamesToDiv function
+     *
+     * @todo switch to use SwUser class methods
      * @param int $id
      * @return array
      */
     public function getScreennamesToDiv($id)
     {
-        global $xoopsUser, $xoopsDB, $arr06;
+        global $arr06;
         $msg    = [];
-        $sql    = 'SELECT screenname_type,screenname FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
-        $result = $xoopsDB->query($sql);
-        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $sql    = 'SELECT screenname_type,screenname FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
+        $result = $GLOBALS['xoopsDB']->query($sql);
+        while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
             $screenname_type = unserialize($row['screenname_type']);
             $screenname      = unserialize($row['screenname']);
         }
@@ -116,19 +124,21 @@ class SwDatabase
 
     /**
      * getVar function
+     *
+     * @todo switch to use SwUser class methods
      * @param int    $id
      * @param string $var
      * @return array|int
      */
     public function getVar($id, $var)
     {
-        global $xoopsUser, $xoopsDB;
-        $sql    = 'SELECT ' . $var . ' FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
-        $result = $xoopsDB->queryF($sql);
-        if ($xoopsDB->getRowsNum($result) < 1) {
+        $msg = [];
+        $sql    = 'SELECT ' . $GLOBALS['xoopsDB']->escape($var) . ' FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . (int)$id . "'";
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+        if ($GLOBALS['xoopsDB']->getRowsNum($result) < 1) {
             return 0; //_SMALLWORLD_REPLY_NOTSPECIFIED;
         }
-        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
             $msg[$var] = $row[$var];
         }
 
@@ -144,10 +154,11 @@ class SwDatabase
      */
     public function updateSingleValue($table, $userid, $field, $value)
     {
-        global $xoopsUser, $xoopsDB;
         $myts   = \MyTextSanitizer::getInstance();
-        $sql    = 'UPDATE ' . $xoopsDB->prefix($table) . ' SET ' . $field . "='" . $myts->addSlashes($value) . "' WHERE userid='" . (int)$userid . "'";
-        $result = $xoopsDB->queryF($sql);
+        $sql    = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix($table) . ' SET ' . $field . "='" . $myts->addSlashes($value) . "' WHERE userid='" . (int)$userid . "'";
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+
+        return $result;
     }
 
     /**
@@ -156,10 +167,11 @@ class SwDatabase
      */
     public function saveImage($values)
     {
-        global $xoopsUser, $xoopsDB;
         $myts   = \MyTextSanitizer::getInstance();
-        $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_images') . ' VALUES (' . $values . ')';
-        $result = $xoopsDB->queryF($sql);
+        $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_images') . ' VALUES (' . $values . ')';
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+
+        return $result;
     }
 
     /**
@@ -169,10 +181,11 @@ class SwDatabase
      */
     public function deleteImage($userid, $imagename)
     {
-        global $xoopsUser, $xoopsDB;
         $myts   = \MyTextSanitizer::getInstance();
-        $sql    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE imgname = '" . stripslashes($imagename) . "' AND userid='" . $userid . "'";
-        $result = $xoopsDB->queryF($sql);
+        $sql    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_images') . " WHERE imgname = '" . stripslashes($imagename) . "' AND userid='" . (int)$userid . "'";
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+
+        return $result;
     }
 
     /**
@@ -180,27 +193,28 @@ class SwDatabase
      */
     public function handlePosts()
     {
-        global $xoopsUser, $xoopsDB;
-        $myts = \MyTextSanitizer::getInstance();
-        $uid  = $xoopsUser->getVar('uid');
-        $user = new \XoopsUser($uid);
-        $img  = new Images();
-        if ('' == $this->getVar($uid, 'userimage')) {
-            $avatar = $user->user_avatar();
+       if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
+            $uid = $GLOBALS['xoopsUser']->uid();
         } else {
-            $avatar = $this->getVar($uid, 'userimage');
+            return false;
         }
+        $uid     = ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->uid() : 0;
 
-        if ('2' != $_POST['relationship']) {
+        $img     = new Images();
+        $avatar  = $this->getVar($uid, 'userimage');
+        $partner = '';
+
+        if (empty($avatar)) {
+            $avatar = $GLOBALS['xoopsUser']->user_avatar();
+        }
+        if (Constants::RELATIONSHIP_SINGLE !== Request::getInt('relationship', Constants::RELATIONSHIP_COMPLICATED, 'POST')) {
             $partner = smallworld_sanitize($_POST['partner']);
-        } else {
-            $partner = '';
         }
 
         $regdate                = time();
-        $username               = $user->uname();
+        $username               = $GLOBALS['xoopsUser']->uname();
         $realname               = smallworld_sanitize($_POST['realname']);
-        $gender                 = isset($_POST['gender']) ? $_POST['gender'] : '';
+        $gender                 = Request::getInt('gender', '', 'POST');
         $intingender            = isset($_POST['intingender']) ? smallworld_sanitize(serialize($_POST['intingender'])) : smallworld_sanitize(serialize([0 => '3']));
         $relationship           = smallworld_sanitize($_POST['relationship']);
         $searchrelat            = isset($_POST['searchrelat']) ? smallworld_sanitize(serialize($_POST['searchrelat'])) : smallworld_sanitize(serialize([0 => '0']));
@@ -241,10 +255,65 @@ class SwDatabase
         $jobdescription         = smallworld_sanitize(serialize($_POST['description']));
 
         $sql = '';
+        $swUserHandler = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser');
 
+        //@todo find better way to terminate routine than just 'die' on error(s)
         if ('edit' === $_POST['function']) {
+            $swUserObj = $swUserHandler->get($uid);
+            if (!$swUserObj instanceof \XoopsModules\Smallworld\SwUser) {
+                return;
+            }
+            $swUserObj->setVars([
+                'realname'           => $realname,
+                'username'           => $username,
+                'userimage'          => $avatar,
+                'gender'             => $gender,
+                'intingender'        => $intingender,
+                'relationship'       => $relationship,
+                'partner'            => $partner,
+                'searchrelat'        => $searchrelat,
+                'birthday'           => $birthday,
+                'birthplace'         => $birthplace,
+                'birthplace_lat'     => (float)$birthplace_lat,
+                'birthplace_lng'     => (float)$birthplace_lng,
+                'birthplace_country' => $birthplace_country,
+                'politic'            => $politic,
+                'religion'           => $religion,
+                'emailtype'          => $emailtype,
+                'screenname_type'    => $screenname_type,
+                'screenname'         => $screenname,
+                'mobile'             => (float)$mobile,
+                'phone'              => (float)$phone,
+                'adress'             => $adress,
+                'present_city'       =>  $present_city,
+                'present_lat'        => (float)$present_lat,
+                'present_lng'        => (float)$present_lng,
+                'present_country'    => $present_country,
+                'website'            => $website,
+                'interests'          => $interests,
+                'music'              => $music,
+                'tvshow'             => $tvshow,
+                'movie'              => $movie,
+                'books'              => $books,
+                'aboutme'            => $aboutme,
+                'school_type'        => $school_type,
+                'school'             => $school,
+                'schoolstart'        => $schoolstart,
+                'schoolstop'         => $schoolstop,
+                'employer'           => $jobemployer,
+                'position'           => $jobposition,
+                'jobstart'           => $jobstart,
+                'jobstop'            => $jobstop,
+                'description'        => $jobdescription
+            ]);
+            $result = $swUserHandler->insert($swUserObj);
+            if (false === $result) {
+                die('Failed inserting User');
+            }
+            /*
+            $sql = '';
             // Update all values in user_table
-            $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_user') . ' SET ';
+            $sql    = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . ' SET ';
             $sql    .= "realname = '" . $realname . "', username= '" . $username . "', userimage = '" . $avatar . "', gender = '" . $gender . "',";
             $sql    .= "intingender = '" . $intingender . "',relationship = '" . $relationship . "', partner = '" . $partner . "', searchrelat = '" . $searchrelat . "',";
             $sql    .= "birthday = '" . $birthday . "',birthplace = '" . $birthplace . "',birthplace_lat = '" . (float)$birthplace_lat . "',";
@@ -259,26 +328,26 @@ class SwDatabase
             $sql    .= "employer = '" . $jobemployer . "', position = '" . $jobposition . "',jobstart = '" . $jobstart . "',";
             $sql    .= "jobstop = '" . $jobstop . "', description = '" . $jobdescription . "' ";
             $sql    .= "WHERE userid ='" . (int)$uid . "'";
-            $result = $xoopsDB->queryF($sql);
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
             if (false === $result) {
                 die('SQL error:' . $sql . '');
             }
-
+            */
             $this->EditAdmins($uid, $realname, $avatar);
             $img->createAlbum($uid);
         }
 
         if ('save' === $_POST['function']) {
             $sql    = 'INSERT INTO '
-                      . $xoopsDB->prefix('smallworld_user')
-                      . ' (id, userid, regdate, username, userimage, realname, gender, intingender, relationship, partner, searchrelat, birthday, birthplace, birthplace_lat, birthplace_lng, birthplace_country, politic, religion, emailtype, screenname_type, screenname, mobile, phone, adress, present_city, present_lat, present_lng, present_country, website, interests, music, tvshow, movie, books, aboutme, school_type, school, schoolstart, schoolstop, employer, position, jobstart, jobstop, description, friends, followers, admin_flag) ';
-            $sql    .= "VALUES ('','" . (int)$uid . "', '" . $regdate . "', '" . $username . "', '" . $avatar . "', '" . $realname . "', '" . $gender . "', '" . $intingender . "', '" . $relationship . "', '" . $partner . "', '" . $searchrelat . "','";
+                      . $GLOBALS['xoopsDB']->prefix('smallworld_user')
+                      . ' (userid, regdate, username, userimage, realname, gender, intingender, relationship, partner, searchrelat, birthday, birthplace, birthplace_lat, birthplace_lng, birthplace_country, politic, religion, emailtype, screenname_type, screenname, mobile, phone, adress, present_city, present_lat, present_lng, present_country, website, interests, music, tvshow, movie, books, aboutme, school_type, school, schoolstart, schoolstop, employer, position, jobstart, jobstop, description, friends, followers, admin_flag) ';
+            $sql    .= "VALUES ('" . (int)$uid . "', '" . $regdate . "', '" . $username . "', '" . $avatar . "', '" . $realname . "', '" . $gender . "', '" . $intingender . "', '" . $relationship . "', '" . $partner . "', '" . $searchrelat . "','";
             $sql    .= $birthday . "', '" . $birthplace . "', '" . (float)$birthplace_lat . "', '" . (float)$birthplace_lng . "', '" . $birthplace_country . "', '" . $politic . "', '" . $religion . "','";
             $sql    .= $emailtype . "', '" . $screenname_type . "', '" . $screenname . "', '" . (float)$mobile . "', '" . (float)$phone . "', '" . $adress . "', '" . $present_city . "', '" . (float)$present_lat . "','";
             $sql    .= (float)$present_lng . "', '" . $present_country . "', '" . $website . "', '" . $interests . "', '" . $music . "', '" . $tvshow . "', '" . $movie . "', '" . $books . "', '" . $aboutme . "', '";
             $sql    .= $school_type . "', '" . $school . "', '" . $schoolstart . "', '" . $schoolstop . "', '" . $jobemployer . "', '" . $jobposition . "', '" . $jobstart . "', '" . $jobstop . "', '" . $jobdescription . "', ";
             $sql    .= "'0', '0', '0')";
-            $result = $xoopsDB->queryF($sql);
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
             if (false === $result) {
                 die('SQL error:' . $sql . '');
             }
@@ -286,9 +355,9 @@ class SwDatabase
             $img->createAlbum($uid);
         }
     }
-
     /**
      * SetAdmins function
+     *
      * @param int    $userID
      * @param string $username
      * @param string $realname
@@ -296,28 +365,34 @@ class SwDatabase
      */
     public function setAdmins($userID, $username, $realname, $avatar)
     {
-        global $xoopsDB, $xoopsUser;
         $ip     = $_SERVER['REMOTE_ADDR'];
-        $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_admin') . ' (id,userid,username, realname,userimage,ip,complaint,inspect_start, ' . "inspect_stop) VALUES ('', '" . $userID . "', '" . $username . "','" . $realname . "', '" . $avatar . "','" . $ip . "','0','0','0')";
-        $result = $xoopsDB->queryF($sql);
+        $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . ' (id,userid,username, realname,userimage,ip,complaint,inspect_start, ' . "inspect_stop) VALUES ('', '" . (int)$userID . "', '" . $username . "','" . $realname . "', '" . $avatar . "','" . $ip . "','0','0','0')";
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+
+        return $result;
     }
 
     /**
      * EditAdmins function
+     *
      * @param int    $userID
      * @param string $realname
      * @param mixed  $avatar
      */
     public function EditAdmins($userID, $realname, $avatar)
     {
-        global $xoopsDB;
-        $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET realname = '" . $realname . "', userimage = '" . $avatar . "' WHERE userid = '" . (int)$userID . "'";
-        $result = $xoopsDB->queryF($sql);
+        // @todo need to sanitize realname and avatar
+        $sql    = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . " SET realname = '" . $realname . "', userimage = '" . $avatar . "' WHERE userid = '" . (int)$userID . "'";
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+
+        return $result;
     }
 
     /**
      * alreadycomplaint function
-     * - Check if user has already sent complaint
+     *
+     * Check if user has already sent complaint
+     *
      * @param string $msg
      * @param int    $by
      * @param int    $against
@@ -325,13 +400,12 @@ class SwDatabase
      */
     public function alreadycomplaint($msg, $by, $against)
     {
-        global $xoopsDB;
-        $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_complaints') . " WHERE byuser_id = '" . (int)$by . "' AND owner = '" . (int)$against . "' AND link = '" . addslashes($msg) . "'";
-        $result = $xoopsDB->queryF($sql);
-        $i      = $xoopsDB->getRowsNum($result);
-        if ($i < 1) {
-            $query  = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_complaints') . " (complaint_id,link,byuser_id,owner) VALUES ('', '" . addslashes($msg) . "', '" . (int)$by . "', '" . (int)$against . "')";
-            $result = $xoopsDB->queryF($query);
+        $sql    = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_complaints') . " WHERE byuser_id = '" . (int)$by . "' AND owner = '" . (int)$against . "' AND link = '" . addslashes($msg) . "'";
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+        $i      = $GLOBALS['xoopsDB']->getRowsNum($result);
+        if (1 > $i) {
+            $query  = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_complaints') . " (complaint_id,link,byuser_id,owner) VALUES ('', '" . addslashes($msg) . "', '" . (int)$by . "', '" . (int)$against . "')";
+            $result = $GLOBALS['xoopsDB']->queryF($query);
         }
 
         return $i;
@@ -339,132 +413,150 @@ class SwDatabase
 
     /**
      * updateComplaint function
+     *
      * @param int $userID
+     * @return bool true on successful update
      */
     public function updateComplaint($userID)
     {
-        global $xoopsDB;
-        $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . ' SET complaint = complaint + 1 ' . "WHERE userid = '" . (int)$userID . "'";
-        $result = $xoopsDB->queryF($sql);
+        $sql    = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . ' SET complaint = complaint + 1 ' . "WHERE userid = '" . (int)$userID . "'";
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+
+        return $result ? true : false;
     }
 
     /**
      * updateInspection function
      * @param int   $userID
      * @param int   $start
-     * @param mixed $stop
+     * @param bool
      */
     public function updateInspection($userID, $start, $stop)
     {
-        global $xoopsDB;
-        $newstop = $time() + $stop;
-        $sql     = 'UPDATE ' . $xoopsDB->prefix('smallworld_admin') . " SET inspect_start = '" . $time() . "', instect_stop = '" . $newstop . "' WHERE userid ='" . (int)$userID . "'";
-        $result  = $xoopsDB->queryF($sql);
+        $time    = time();
+        $newstop = $time + $stop;
+        $sql     = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . " SET inspect_start = '" . $time . "', instect_stop = '" . $newstop . "' WHERE userid ='" . (int)$userID . "'";
+        $result  = $GLOBALS['xoopsDB']->queryF($sql);
+
+        return $result ? true : false;
     }
 
     /**
      * handleImageEdit function
+     *
+     * @return bool true on success, false on failure
      */
     public function handleImageEdit()
     {
-        global $xoopsDB;
-        for ($i = 0, $iMax = count($_POST['id']); $i < $iMax; ++$i) {
+        //@todo need to filter $_POST['imgdesc'] array
+        $return = true;
+        $postCount = count($_POST['id']);
+        for ($i = 0, $iMax = $postCount; $i < $iMax; ++$i) {
             $id     = (int)$_POST['id'][$i];
             $desc   = $_POST['imgdesc'][$i];
-            $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_images') . " SET `desc` = '" . addslashes($desc) . "' WHERE `id`='" . $id . "'";
-            $result = $xoopsDB->queryF($sql);
+            $sql    = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_images') . " SET `desc` = '" . addslashes($desc) . "' WHERE `id`='" . $id . "'";
+            $result = $return && $GLOBALS['xoopsDB']->queryF($sql);
         }
+        return $result ? true : false;
     }
 
     /**
      * updateInspection function
-     * - insert aplication for friendship into db or delete if denied
+     *
+     * insert application for friendship into db or delete if denied
+     *
      * @param int $status
      * @param int $friendid
      * @param int $userid
+     * @return bool
      */
     public function toogleFriendInvite($status, $friendid, $userid)
     {
-        global $xoopsDB;
+        $result = true;
         if (0 == $status) {
-            $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_friends') . " (id,me,you,status,date) VALUES ('', '" . $userid . "', '" . $friendid . "', '1', UNIX_TIMESTAMP())";
-            $result = $xoopsDB->queryF($sql);
-        }
-        if ($status > 0) {
-            $sql     = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . (int)$friendid . "' AND you = '" . (int)$userid . "'";
-            $sql2    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . (int)$userid . "' AND you = '" . (int)$friendid . "'";
-            $result  = $xoopsDB->queryF($sql);
-            $result2 = $xoopsDB->queryF($sql2);
+            $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " (id,me,you,status,date) VALUES ('', '" . $userid . "', '" . $friendid . "', '1', UNIX_TIMESTAMP())";
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
+        } elseif ($status > 0) {
+            $sql     = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " WHERE me = '" . (int)$friendid . "' AND you = '" . (int)$userid . "'";
+            $sql2    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " WHERE me = '" . (int)$userid . "' AND you = '" . (int)$friendid . "'";
+            $result  = $GLOBALS['xoopsDB']->queryF($sql);
+            $result = $result && $GLOBALS['xoopsDB']->queryF($sql2);
 
             // Since friendship is canceled also following is deleted
             $this->toogleFollow(1, $userid, $friendid);
         }
+
+        return $result ? true : false;
     }
 
     /**
      * toogleFollow function
-     * - Insert following to db or delete if requested
+     *
+     * Insert following to db or delete if requested
+     *
      * @param int $following
      * @param int $myUid
      * @param int $friend
+     * @return bool true on success
      */
     public function toogleFollow($following, $myUid, $friend)
     {
-        global $xoopsDB;
         if (0 == $following) {
-            $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_followers') . " (id,me,you,status,date) VALUES ('', '" . $myUid . "', '" . $friend . "', '1', UNIX_TIMESTAMP())";
-            $result = $xoopsDB->queryF($sql);
+            $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_followers') . " (id,me,you,status,date) VALUES ('', '" . $myUid . "', '" . $friend . "', '1', UNIX_TIMESTAMP())";
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
+        } elseif ($following > 0) {
+            $sql     = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_followers') . " WHERE you = '" . (int)$friend . "'"
+                     . " AND me = '" . (int)$myUid . "'";
+            $sql2    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_followers') . " WHERE me = '" . (int)$friend . "'"
+                     . " AND you = '" . (int)$myUid . "'";
+            $result = $GLOBALS['xoopsDB']->queryF($sql2);
         }
-        if ($following > 0) {
-            $sql     = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE you = '" . (int)$friend . "'";
-            $sql     .= " AND me = '" . (int)$myUid . "'";
-            $sql2    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . (int)$friend . "'";
-            $sql2    .= " AND you = '" . (int)$myUid . "'";
-            $result2 = $xoopsDB->queryF($sql2);
-        }
+
+        return $result ? true : false;
     }
 
     /**
-     * SetFriendshitStat function
+     * Set Friendship Status in dB
+     *
      * @param int $stat
      * @param int $myUid
      * @param int $friend
+     * @return bool true on success, false on failure
      */
-    public function setFriendshitStat($stat, $myUid, $friend)
+    public function setFriendshipStat($stat, $myUid, $friend)
     {
-        global $xoopsDB;
+        $result = $result2 = false;
         if (1 == $stat) {
-            $sql    = 'UPDATE ' . $xoopsDB->prefix('smallworld_friends') . " SET status = '2' WHERE `me` = '" . $friend . "' AND `you` = '" . $myUid . "'";
-            $result = $xoopsDB->queryF($sql);
-            $query  = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_friends') . " (id,me,you,status,date) VALUES ('', '" . $myUid . "', '" . $friend . "', '2', UNIX_TIMESTAMP())";
-            $result = $xoopsDB->queryF($query);
+            $query  = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " SET status = '2' WHERE `me` = '" . $friend . "' AND `you` = '" . $myUid . "'";
+            $query2 = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " (id,me,you,status,date) VALUES ('', '" . $myUid . "', '" . $friend . "', '2', UNIX_TIMESTAMP())";
+            $result = $GLOBALS['xoopsDB']->queryF($query);
+            $result = $result && $GLOBALS['xoopsDB']->queryF($query2);
+        } elseif (0 > $stat) {
+            $query  = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " WHERE me = '" . (int)$friend . "' AND you = '" . (int)$myUid . "'";
+            $query2 = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " WHERE you = '" . (int)$friend . "' AND me = '" . (int)$myUid . "'";
+            $result = $GLOBALS['xoopsDB']->queryF($query);
+            $result = $result && $GLOBALS['xoopsDB']->queryF($query2);
         }
-        if ($stat < 0) {
-            $sql     = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . (int)$friend . "' AND you = '" . (int)$myUid . "'";
-            $sql2    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE you = '" . (int)$friend . "' AND me = '" . (int)$myUid . "'";
-            $result  = $xoopsDB->queryF($sql);
-            $result2 = $xoopsDB->queryF($sql2);
-        }
+        return $result ? true : false;
     }
 
     /**
      * deleteWallMsg function
      * @param int $id
      * @param int $smallworld_msg_id
-     * @return true
+     * @return bool
      */
     public function deleteWallMsg($id, $smallworld_msg_id)
     {
-        global $xoopsDB;
-        $query   = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE msg_id = '" . $smallworld_msg_id . "'";
-        $result  = $xoopsDB->queryF($query);
-        $query2  = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE msg_id_fk = '" . $smallworld_msg_id . "'";
-        $result2 = $xoopsDB->queryF($query2);
+        $query  = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_messages') . " WHERE msg_id = '" . $smallworld_msg_id . "'";
+        $result = $GLOBALS['xoopsDB']->queryF($query);
+        $query2 = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_comments') . " WHERE msg_id_fk = '" . $smallworld_msg_id . "'";
+        $result = $result && $GLOBALS['xoopsDB']->queryF($query2);
         //delete votes
-        $query3  = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE msg_id = '" . $smallworld_msg_id . "'";
-        $result3 = $xoopsDB->queryF($query3);
+        $query3 = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " WHERE msg_id = '" . $smallworld_msg_id . "'";
+        $result = $result && $GLOBALS['xoopsDB']->queryF($query3);
 
-        return true;
+        return $result ? true : false;
     }
 
     /**
@@ -475,84 +567,86 @@ class SwDatabase
      */
     public function deleteWallComment($smallworld_com_id)
     {
-        global $xoopsDB;
-        $query   = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE com_id = '" . $smallworld_com_id . "'";
-        $result  = $xoopsDB->queryF($query);
-        $query2  = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE com_id = '" . $smallworld_com_id . "'";
-        $result2 = $xoopsDB->queryF($query2);
+        $query   = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_comments') . " WHERE com_id = '" . $smallworld_com_id . "'";
+        $result  = $GLOBALS['xoopsDB']->queryF($query);
+        $query2  = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " WHERE com_id = '" . $smallworld_com_id . "'";
+        $result2 = $GLOBALS['xoopsDB']->queryF($query2);
 
         return true;
     }
 
     /**
-     * CountUsersRates function
-     * - Delete Comments
+     * Count Users rates
+     *
      * @param int    $userid
-     * @param string $val
+     * @param string $column
      * @return int
      */
-    public function countUsersRates($userid, $val)
+    public function countUsersRates($userid, $column)
     {
-        global $xoopsUser, $xoopsDB;
-        $query  = 'Select SUM(' . $val . ') as sum from ' . $xoopsDB->prefix('smallworld_vote') . " where owner = '" . $userid . "'";
-        $result = $xoopsDB->queryF($query);
-        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $sum    = 0;
+        // @sanitize $column - make sure it's a valid column in the vote dB table
+        $validCol = in_array($column, ['up', 'down']) ? $column : 'vote_id';
+        $query    = 'SELECT SUM(' . $validCol . ') AS sum FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " WHERE owner = '" . (int)$userid . "'";
+        $result   = $GLOBALS['xoopsDB']->queryF($query);
+        while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
             $sum = $row['sum'];
         }
-        if ('' == $sum) {
-            $sum = '0';
-        }
 
-        return $sum;
+        return (int)$sum;
     }
 
     /**
-     * deleteAccount function
-     * - Delete user account and associate rows across tables
+     * Delete user account and associate rows across tables
+     *
+     * echos string to display
+     *
      * @param int $userid
-     * @return string
+     * @return bool  true on success, false on failure
      */
     public function deleteAccount($userid)
     {
-        global $xoopsDB, $xoopsUser;
+        $userid = (int)$userid;
         $user     = new \XoopsUser($userid);
         $username = $user->uname();
-        $sql01    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "'";
-        $sql02    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "'";
-        $sql03    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_followers') . " WHERE me = '" . $userid . "' OR you = '" . $userid . "'";
-        $sql04    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_friends') . " WHERE me = '" . $userid . "' OR you = '" . $userid . "'";
-        $sql05    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userid . "'";
-        $sql06    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_messages') . " WHERE uid_fk = '" . $userid . "'";
-        $sql07    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $userid . "'";
-        $sql08    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_vote') . " WHERE user_id = '" . $userid . "'";
-        $sql09    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_complaints') . " WHERE owner = '" . $userid . "' OR byuser_id = '" . $userid . "'";
-        $sql10    = 'DELETE FROM ' . $xoopsDB->prefix('smallworld_settings') . " WHERE userid = '" . $userid . "'";
+        $sql01    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_admin') . " WHERE userid = '" . $userid . "'";
+        $sql02    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_comments') . " WHERE uid_fk = '" . $userid . "'";
+        $sql03    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_followers') . " WHERE me = '" . $userid . "' OR you = '" . $userid . "'";
+        $sql04    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_friends') . " WHERE me = '" . $userid . "' OR you = '" . $userid . "'";
+        $sql05    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_images') . " WHERE userid = '" . $userid . "'";
+        $sql06    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_messages') . " WHERE uid_fk = '" . $userid . "'";
+        $sql07    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . $userid . "'";
+        $sql08    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " WHERE user_id = '" . $userid . "'";
+        $sql09    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_complaints') . " WHERE owner = '" . $userid . "' OR byuser_id = '" . $userid . "'";
+        $sql10    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_settings') . " WHERE userid = '" . $userid . "'";
 
-        $result01 = $xoopsDB->queryF($sql01);
-        $result02 = $xoopsDB->queryF($sql02);
-        $result03 = $xoopsDB->queryF($sql03);
-        $result04 = $xoopsDB->queryF($sql04);
-        $result05 = $xoopsDB->queryF($sql05);
-        $result06 = $xoopsDB->queryF($sql06);
-        $result07 = $xoopsDB->queryF($sql07);
-        $result08 = $xoopsDB->queryF($sql08);
-        $result09 = $xoopsDB->queryF($sql09);
-        $result10 = $xoopsDB->queryF($sql10);
+        $result01 = $GLOBALS['xoopsDB']->queryF($sql01);
+        $result02 = $GLOBALS['xoopsDB']->queryF($sql02);
+        $result03 = $GLOBALS['xoopsDB']->queryF($sql03);
+        $result04 = $GLOBALS['xoopsDB']->queryF($sql04);
+        $result05 = $GLOBALS['xoopsDB']->queryF($sql05);
+        $result06 = $GLOBALS['xoopsDB']->queryF($sql06);
+        $result07 = $GLOBALS['xoopsDB']->queryF($sql07);
+        $result08 = $GLOBALS['xoopsDB']->queryF($sql08);
+        $result09 = $GLOBALS['xoopsDB']->queryF($sql09);
+        $result10 = $GLOBALS['xoopsDB']->queryF($sql10);
         // Remove picture dir
         $dirname = XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . '/' . $userid . '/';
-        $this->smallworld_remDir($userid, $dirname, $empty = false);
+        $result11 = $this->smallworld_remDir($userid, $dirname, $empty = false);
         echo $username . _AM_SMALLWORLD_ADMIN_USERDELETEDALERT;
+
+        return $result01 && $result02 && $result03 && $result04 && $result05 && $result06 && $result07 && $result08 && $result09 && $result10 && $result11;
     }
 
     /**
-     * SmallworldDeleteDirectory function
-     * - Delete images from users on delete
+     * Delete images from users on delete
+     *
      * @param int $userid
-     * @return true
+     * @return bool
      */
     public function SmallworldDeleteDirectory($userid)
     {
-        $dirname = XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . '/' . $userid . '/';
+        $dirname = XOOPS_ROOT_PATH . '/uploads/albums_smallworld' . '/' . (int)$userid . '/';
         if (is_dir($dirname)) {
             $dir_handle = opendir($dirname);
         }
@@ -575,8 +669,8 @@ class SwDatabase
     }
 
     /**
-     * smallworld_remDir function
-     * - Remove user image dir in uploads.
+     * Remove user image dir in uploads
+     *
      * @param int         $userid
      * @param string|bool $directory
      * @param bool|int    $empty
@@ -584,7 +678,9 @@ class SwDatabase
      */
     public function smallworld_remDir($userid, $directory, $empty = false)
     {
-        if ('' != $userid) {
+        //@todo verify $userid should be int and then sanitize $userid accordingly before
+        //      executing this routine
+        if (!empty($userid)) {
             if ('/' === mb_substr($directory, -1)) {
                 $directory = mb_substr($directory, 0, -1);
             }
@@ -618,35 +714,38 @@ class SwDatabase
 
     /**
      * Update private settings
-     * @param mixed $id
+     *
+     * @param mixed $id user's id
      * @param mixed $posts
+     * @return string serialized settings for this id
      */
     public function saveSettings($id, $posts)
     {
-        global $xoopsDB;
-        $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . (int)$id . '';
-        $result = $xoopsDB->queryF($sql);
-        $i      = $xoopsDB->getRowsNum($result);
+        $id = (int)$id;
+        $sql    = 'SELECT value FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_settings') . ' WHERE userid = ' . $id . '';
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+        $i      = $GLOBALS['xoopsDB']->getRowsNum($result);
         if ($i > 0) {
-            $sql = 'UPDATE ' . $xoopsDB->prefix('smallworld_settings') . " SET value = '" . $posts . "' WHERE userid = " . (int)$id . '';
+            $sql = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_settings') . " SET value = '" . $posts . "' WHERE userid = " . (int)$id . '';
         } else {
-            $sql = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_settings') . " (id,userid,value) VALUES ('', '" . $id . "', '" . $posts . "')";
+            $sql = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_settings') . " (id,userid,value) VALUES ('', '" . $id . "', '" . $posts . "')";
         }
-        $result = $xoopsDB->queryF($sql);
-        $this->getSettings($id);
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+
+        return $this->getSettings($id);
     }
 
     /**
      * Retrieve private settings
+     *
      * @param mixed $userid
      * @return string serialized string
      */
     public function getSettings($userid)
     {
-        global $xoopsDB;
-        $sql    = 'SELECT value FROM ' . $xoopsDB->prefix('smallworld_settings') . ' WHERE userid = ' . (int)$userid . '';
-        $result = $xoopsDB->queryF($sql);
-        $i      = $xoopsDB->getRowsNum($result);
+        $sql    = 'SELECT value FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_settings') . ' WHERE userid = ' . (int)$userid . '';
+        $result = $GLOBALS['xoopsDB']->queryF($sql);
+        $i      = $GLOBALS['xoopsDB']->getRowsNum($result);
         if ($i < 1) {
             $posts = serialize(
                 [
@@ -656,13 +755,15 @@ class SwDatabase
                 ]
             );
             $this->saveSettings($userid, $posts);
-            $this->getSettings($userid);
+            $retVal = $this->getSettings($userid);
         } else {
-            while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
                 $data = $row['value'];
             }
 
-            return json_encode(unserialize(stripslashes($data)));
+            $retVal = json_encode(unserialize(stripslashes($data)));
         }
+
+        return $retVal;
     }
 }
