@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,53 +12,58 @@
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
- * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
 
 use XoopsModules\Smallworld;
 
 require_once __DIR__ . '/admin_header.php';
-
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-//require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-
+/**
+ * Vars defined by inclusion of ./admin_header.php
+ *
+ * @var \XoopsModules\Smallworld\Admin $admin
+ * @var \XoopsModules\Smallworld\DoSync $d
+ * @var \XoopsModules\Smallworld\User $check
+ * @var \XoopsModules\Smallworld\SwDatabase $swDB
+ * @var \XoopsModules\Smallworld\WallUpdates $wall
+ * @var \Xmf\Module\Admin $adminObject
+ * @var \XoopsModules\Smallworld\Helper $helper
+ * @var string $moduleDirName
+ * @var string $moduleDirNameUpper
+ */
+require_once $helper->path('include/functions.php');
 require_once XOOPS_ROOT_PATH . '/class/template.php';
-if (!isset($xoopsTpl)) {
-    $xoopsTpl = new \XoopsTpl();
-}
-$xoopsTpl->caching = 0;
 
 xoops_cp_header();
 
 $admin = new Smallworld\Admin();
-$tpl   = new \XoopsTpl();
 
-// Smallworld version number
+// Smallworld version number & install date
 $installversion = $admin->ModuleInstallVersion();
-// Smallworld install date
-$installdate = $admin->ModuleInstallDate();
+$installdate    = $admin->ModuleInstallDate();
 
 //check current version of Smallworld, return desc,link,version if new available
 $installCheck = $admin->doCheckUpdate();
 
 // template assignments
-$xoopsTpl->assign('lang_moduleinfo', _AM_SMALLWORLD_MODULEINFO);
-$xoopsTpl->assign('lang_installversion', _AM_SMALLWORLD_MODULEINSTALL);
-$xoopsTpl->assign('lang_installversion_status', _AM_SMALLWORLD_UPDATE_STATUS);
-$xoopsTpl->assign('lang_installdate', _AM_SMALLWORLD_INSTALLDATE);
+$GLOBALS['xoopsTpl']->assign([
+    'lang_moduleinfo'           => _AM_SMALLWORLD_MODULEINFO,
+    'lang_installversion'       => _AM_SMALLWORLD_MODULEINSTALL,
+    'lang_installversion_status'=> _AM_SMALLWORLD_UPDATE_STATUS,
+    'lang_installdate'          => _AM_SMALLWORLD_INSTALLDATE,
+    'installversion'            => $installversion,
+    'installdate'               => $installdate,
+    'installversion_status'     => $installCheck
+]);
+$GLOBALS['xoopsTpl']->display($helper->path('templates/admin_moduleinfo.tpl'));
 
-$xoopsTpl->assign('installversion', $installversion);
-$xoopsTpl->assign('installdate', $installdate);
-$xoopsTpl->assign('installversion_status', $installCheck);
-$xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/admin_moduleinfo.html');
-
-global $xoTheme;
-$xoTheme->addStylesheet('modules/smallworld/assets/css/Admin.css');
-$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/js/adminsmallworld.js');
+$GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/SmallworldAdmin.css'));
+$GLOBALS['xoTheme']->addScript($helper->url('assets/js/adminsmallworld.js'));
 
 xoops_cp_footer();
