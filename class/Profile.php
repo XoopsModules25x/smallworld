@@ -39,13 +39,12 @@ class Profile
             $user   = new \XoopsUser($id);;
             $myName = $GLOBALS['xoopsUser']->uname(); // My name
             $swDB   = new SwDatabase();
-            $check  = new User();
             $wall   = new WallUpdates();
 
             /** @var \XoopsModules\Smallworld\Helper $helper
              * @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler
              */
-            $helper = Helper::getInstance();
+            $helper        = Helper::getInstance();
             $swUserHandler = $helper->getHandler('SwUser');
 
             $rArray = $swUserHandler->getAll(new \Criteria('userid', $id), null, false);
@@ -122,7 +121,7 @@ class Profile
                 echo $js;
 
                 $relationship = $r['relationship'];
-                $spouseExists = $check->spousexist($r['partner']);
+                $spouseExists = $swUserHandler->spouseExists($r['partner']);
 
                 switch ((int)$relationship) {
                     case Constants::RELATIONSHIP_MARRIED:

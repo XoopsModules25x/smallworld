@@ -86,4 +86,15 @@ class SwUserHandler extends \XoopsPersistableObjectHandler
 
         return $name;
     }
+    /**
+     * Does partner/spouse exist as a SwUser
+     *
+     * @param string $name
+     * @return bool
+     */
+    public function spouseExists($name)
+    {
+        $exists = $this->getCount(new \Criteria('username', $name));
+        return (0 < $exists) ? true : false;
+    }
 }

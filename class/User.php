@@ -147,6 +147,7 @@ class User
     /**
      * Get name from userid
      *
+     * @deprecated - moved to SwUser::getName() method
      * @param int $userId
      * @return string
      */
@@ -228,7 +229,9 @@ class User
     }
 
     /**
-     * @Get partner
+     * Get partner
+     *
+     * @deprecated - replaced with SwUserHandler::spouseExists() method
      * @param string $name
      * @return int
      */
