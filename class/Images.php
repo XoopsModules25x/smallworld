@@ -36,6 +36,7 @@ class Images
     /**
      * Create album folders
 	 *
+	 * @todo use \Smallworld\SysUtility::createFolder() to refactor this method
      * @param int $userId
      * @return void
      */
@@ -55,9 +56,9 @@ class Images
                 if (!mkdir($concurrentDirectory = $dir . '/' . $userId . '/thumbnails', 0777) && !is_dir($concurrentDirectory)) {
                     throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
                 }
-                smallworld_CreateIndexFiles($dir . '/');
-                smallworld_CreateIndexFiles($dir . '/' . $userId . '/');
-                smallworld_CreateIndexFiles($dir . '/' . $userId . '/thumbnails/');
+                file_put_contents("{$dir}/index.html", '<script>history.go(-1);</script>');
+                file_put_contents("{$dir}/{$userId}/index.html", '<script>history.go(-1);</script>');
+                file_put_contents("{$dir}/{$userId}/thumbnails/index.html", '<script>history.go(-1);</script>');
             }
         }
     }
