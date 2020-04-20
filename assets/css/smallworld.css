@@ -424,7 +424,7 @@ fieldset.step #realname, #partner, input[name='emailtype[]'], input[name='screen
 }
 
 li.error-image {
-    background: url('../images/error.png') no-repeat right top;
+    background: url('../assets/images/error.png') no-repeat right top;
 }
 
 ul.stepy-titles {

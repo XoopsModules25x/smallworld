@@ -1194,7 +1194,7 @@ function smallworld_DoValStart() {
                     var id = xoops_smallworld(this).attr('id');
                     xoops_smallworld("#" + id).validate({
                         expression: "if (VAL.match(/^[^\\W][a-zA-Z0-9\\_\\-\\.]+([a-zA-Z0-9\\_\\-\\.]+)*\\@[a-zA-Z0-9\\_\\-]+(\\.[a-zA-Z0-9\\_\\-]+)*\\.[a-zA-Z]{2,4}$/)) return true; else return false;",
-                        message: "<img src='images/error.png' title='" + SmallworldValidationEmailTitleErrorMsg + "'/>"
+                        message: "<img src='assets/images/error.png' title='" + SmallworldValidationEmailTitleErrorMsg + "'/>"
                     });
                 });
             }
