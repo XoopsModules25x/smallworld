@@ -36,7 +36,29 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $tpl = new \XoopsTpl();
 
     //$userid    = $GLOBALS['xoopsUser']->uid();
-    $newusers  = smallworld_Stats_newest();
+    //$newUsers  = smallworld_Stats_newest();
+/*************************************/
+    $newUsers        = [];
+    $swUserHandler   = $helper->getHandler('SwUser');
+    $criteria        = new \Criteria('');
+    $criteria->setSort('regdate');
+    $criteria->setLimit(3);
+    $criteria->order = 'DESC';
+    $swUserArray     = $swUserHandler->getAll($criteria, null, false);
+    foreach($swUserArray as $swUser) {
+        //$regdate    = date('d-m-Y', $swUser['regdate']);
+        $regdate    = date(_SHORTDATESTRING, $swUser['regdate']);
+        $newUsers[] = [
+            'userid'         => $swUser['userid'],
+            'username'       => $swUser['username'],
+            'regdate'        => $regdate,
+            'username_link'  => "<a href='" . $helper->url('userprofile.php?username=' . $swUser['username']) . "'>"
+                             . "{$swUser['username']} ({$swUser['realname']}) [{$regdate}]</a>",
+            'userimage'      => $swUser['userimage'],
+            'userimage_link' => $swUserHandler->getAvatarLink($swUser['userid'], $swUserHandler->gravatar($swUser['userid']))
+        ];
+    }
+/*************************************/
     $m_a_users = smallworld_mostactiveusers_allround();
     $br_users  = smallworld_topratedusers();
     $wo_users  = smallworld_worstratedusers();
@@ -44,7 +66,7 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $bday      = !empty($birth) ? $birth : 0;
     $sp        = smallworld_sp();
     $tpl->assign([
-        'newusers'    => $newusers,
+        'newusers'    => $newUsers,
         'mostactiveU' => $m_a_users,
         'bestratedU'  => $br_users,
         'worstratedU' => $wo_users,
