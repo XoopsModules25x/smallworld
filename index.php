@@ -29,8 +29,6 @@ require_once __DIR__ . '/header.php';
 /** @var \XoopsModules\Smallworld\Helper $helper */
 require_once $helper->path('include/functions.php');
 
-$set = smallworld_checkPrivateOrPublic();
-
 if (($GLOBALS['xoopsUser'] instanceof \XoopsUser) && !$GLOBALS['xoopsUser']->isGuest()) {
     $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
 } elseif (((!$GLOBALS['xoopsUser'] instanceof \XoopsUser) || $GLOBALS['xoopsUser']->isGuest()) && Constants::HAS_ACCESS == $set['access']) {
@@ -38,12 +36,13 @@ if (($GLOBALS['xoopsUser'] instanceof \XoopsUser) && !$GLOBALS['xoopsUser']->isG
 } else {
     redirect_header(XOOPS_URL . '/user.php', Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
 }
-
 require_once XOOPS_ROOT_PATH . '/header.php';
+
+$set = smallworld_checkPrivateOrPublic();
+
 if (Constants::HAS_ACCESS == $set['access']) {
-    $id    = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getVar('uid') : Constants::DEFAULT_UID;
-    $user  = new \XoopsUser($id);
-    //$swDB  = new Smallworld\SwDatabase();
+    $id    = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->uid() : Constants::DEFAULT_UID;
+    $user  = new \XoopsUser($id);  //creates Guest XOOPS user if not current XOOPS user
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
     $inspect = smallworld_isInspected($id);
@@ -55,43 +54,23 @@ if (Constants::HAS_ACCESS == $set['access']) {
     $GLOBALS['xoopsTpl']->assign('isadminuser', ($helper->isUserAdmin() ? 'YES' : 'NO'));
 
     // Create form for private settings
-    $form         = new  Smallworld\Form();
-    $usersettings = $form->usersettings($id, $selected = null);
-    $GLOBALS['xoopsTpl']->assign('usersetting', $usersettings);
-
-    $username = $user->getVar('uname');
-    //$check    = new Smallworld\User();
-    //$profile  = Constants::DEFAULT_UID < $id ? $check->checkIfProfile($id) : Constants::PROFILE_NONE;
+    $form     = new  Smallworld\Form();
+    //$usersettings = $form->usersettings($id, $selected = null);
+    $GLOBALS['xoopsTpl']->assign('usersetting', $form->usersettings($id));
+    $username = $user->uname();
     $profile  = $helper->getHandler('SwUser')->checkIfProfile($id);
-
-    if ($profile >= Constants::PROFILE_HAS_BOTH) {
-        $xuser = new Smallworld\Profile();
-        $xuser->showUser($id);
+    if (Constants::PROFILE_HAS_BOTH <= $profile) {
+        $profileObj = new Smallworld\Profile();
+        $profileObj->showUser($id);
         $menu_startpage = "<a href='" . $helper->url('publicindex.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/highrise.png') . "'>" . _SMALLWORLD_STARTPAGE . '</a>';
         $menu_home      = "<a href='" . $helper->url('index.php') . "'><img id='menuimg' src='" . $helper->url('assets/images/house.png') . "'>" . _SMALLWORLD_HOME . '</a>';
         $menu_profile   = "<a href='" . $helper->url('userprofile.php?username=' . $username) . "'><img id='menuimg' src='" . $helper->url('assets/images/user_silhouette.png') . "'>" . _SMALLWORLD_PROFILEINDEX . '</a>';
         $menu_gallery   = "<a href='" . $helper->url('galleryshow.php?username=' . $username) . "'><img id='menuimg' src='" . $helper->url('assets/images/picture.png') . "'>" . _SMALLWORLD_GALLERY . '</a>';
         $menu_friends   = "<a href='" . $helper->url('friends.php?username=' . $username) . "'><img id='menuimg' src='" . $helper->url('assets/images/group.png') . "'>" . _SMALLWORLD_FRIENDSPAGE . '</a>';
         $wall = new Smallworld\WallUpdates();
-    } else {
-        $wall = new Smallworld\PublicWallUpdates();
-    }
-    // Things to do with wall
-    if ($profile < Constants::PROFILE_HAS_BOTH && 1 == $set['access']) {
-        $pub          = smallworld_checkUserPubPostPerm();
-        $updatesarray = $wall->Updates(0, $pub);
-    } else {
         // Follow array here
         $followers    = smallworld_array_flatten($wall->getFollowers($id), 0);
         $updatesarray = $wall->Updates(0, $id, $followers);
-    }
-
-    //Get friends invitations
-    $check          = new Smallworld\User();
-    $getInvitations = $GLOBALS['xoopsUser'] ? $check->getRequests($id) : 0;
-    $wall->parsePubArray($updatesarray, $id);
-
-    if ($profile >= Constants::PROFILE_HAS_BOTH) {
         $GLOBALS['xoopsTpl']->assign(
             [
                 'menu_startpage' => $menu_startpage,
@@ -101,7 +80,16 @@ if (Constants::HAS_ACCESS == $set['access']) {
                 'menu_gallery'   => $menu_gallery,
             ]
         );
+    } else {
+        $wall         = new Smallworld\PublicWallUpdates();
+        $pub          = smallworld_checkUserPubPostPerm();
+        $updatesarray = $wall->Updates(0, $pub);
     }
+
+    //Get friends invitations
+    $check          = new Smallworld\User();
+    $getInvitations = $GLOBALS['xoopsUser'] ? $check->getRequests($id) : 0;
+    $wall->parsePubArray($updatesarray, $id);
     $GLOBALS['xoopsTpl']->assign(
         [
             'myusername'        => $username,
