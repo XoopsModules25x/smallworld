@@ -35,13 +35,15 @@ require_once XOOPS_ROOT_PATH . '/class/template.php';
 $GLOBALS['xoopsLogger']->activated = false;
 
 $tpl = new \XoopsTpl();
-
-$id   = smallworld_isset_or(Request::getInt('username', Constants::DEFAULT_UID, 'GET')); // Id of user which profile you want to see
-$id   = (int)$id; // smallworld_isset_or doesn't always return an integer
-
 $helper->loadLanguage('user');
+
+$username = Request::getString('username', '', 'GET');
+$id       = $helper->getHandler('SwUser')->getByName($username); // get id of user which profile you want to see
+//$id       = smallworld_isset_or(Request::getString('username', '', 'GET')); // get id of user which profile you want to see
+//$id       = (int)$id; // smallworld_isset_or doesn't always return an integer
 $thisUser = new \XoopsUser($id);
 
+/** @todo refactor using Smallworld\Helper permissions helper */
 $moduleHandler = xoops_getHandler('module');
 $gpermHandler  = xoops_getHandler('groupperm');
 $groups        = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : 0;

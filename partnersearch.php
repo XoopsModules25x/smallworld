@@ -33,6 +33,7 @@ require_once $helper->path('include/functions.php');
 
 $GLOBALS['xoopsLogger']->activated = false;
 if ($_GET) {
+    $swUserHandler = $helper->getHandler('SwUser');
     $name   = smallworld_sanitize($_GET['term']);
     $sql    = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE realname LIKE '%{$name}%' OR username LIKE '%{$name}%' ORDER BY userid LIMIT 5";
     $result = $GLOBALS['xoopsDB']->query($sql);
@@ -40,7 +41,7 @@ if ($_GET) {
 
     while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
         $user   = new \XoopsUser($row['userid']);
-        $image  = '<img src="' . smallworld_getAvatarLink($row['userid'], $row['userimage']) . '" height="20">';
+        $image  = '<img src="' . $swUserHandler->getAvatarLink($row['userid'], $row['userimage']) . '" height="20">';
         $data[] = [
             'label' => $image . ' ' . '<span class="searchusername">' . $row['realname'] . ' (' . $row['username'] . ')</span>',
             'value' => $user->uname(),

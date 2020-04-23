@@ -40,12 +40,13 @@ $admin = $helper->isUserAdmin() ? true: false;
 if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     /** @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler */
     $swUserHandler = $helper->getHandler('SwUser');
-    $id           = $GLOBALS['xoopsUser']->uid();
-    $check        = new Smallworld\User();
-    $image        = new Smallworld\Images();
-    $username     = Request::getString('username', '', 'GET');
-    $userID       = smallworld_isset_or($_GET['username']); // Id of user wich profile you want to see
-    $userisfriend = $check->friendcheck($id, $userID);
+    $id            = $GLOBALS['xoopsUser']->uid();
+    $check         = new Smallworld\User();
+    $image         = new Smallworld\Images();
+    $username      = Request::getString('username', '', 'GET');
+    $userId        = $swUserHandler->getByName($username); // gets id of user which profile you want to see
+    //$userId        = smallworld_isset_or($_GET['username']); // gets id of user which profile you want to see
+    $userisfriend  = $check->friendcheck($id, $userId);
 
     $tpl_admin = $admin ? 'YES' : 'NO';
     $GLOBALS['xoopsTpl']->assign('isadminuser', $tpl_admin);
@@ -59,10 +60,10 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     $profile = $swUserHandler->checkIfProfile($id);
     if ($profile >= Constants::PROFILE_HAS_BOTH || 2 == $userisfriend[0] || true === $admin) {
         $myusername  = $GLOBALS['xoopsUser']->uname();
-        $countimages = $image->count($userID);
+        $countimages = $image->count($userId);
 
         //$gallery = $image->viewalbum ($id, $user=$GLOBALS['xoopsUser']->getVar('uid'));
-        $gallery = $image->viewalbum($id, $userID);
+        $gallery = $image->viewalbum($id, $userId);
         $GLOBALS['xoopsTpl']->assign([
             'countimages'        => $countimages,
             'userisfriend'       => $userisfriend[0],

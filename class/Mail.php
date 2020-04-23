@@ -32,7 +32,7 @@ class Mail
 {
     /** Function to send mails to users based on certain events
      *
-     * $fromUserID = uid, $toUserID = uid
+     * $fromUserId = uid, $toUserId = uid
      * $event : 'register' = New user registration,
      * 	'complatint' = Complaint agains a wall message,
      *  'newavatar' = User has opload new avatar, 'commentToWM' = New comment to your update
@@ -41,38 +41,41 @@ class Mail
      * Itemtext is text from comments or complaints to be sent by mail..
      * Result: send mail, return true or false
      *
-     * @param int         $fromUserID
-     * @param int         $toUserID
+     * @param int         $fromUserId
+     * @param int         $toUserId
      * @param string      $event
      * @param null|string $link
      * @param array       $data
      * @throws \phpmailerException
      * @return bool  true on success, false on failure
      */
-    public function sendMails($fromUserID, $toUserID, $event, $link, array $data)
+    public function sendMails($fromUserId, $toUserId, $event, $link, array $data)
     {
         $date    = date('m-d-Y H:i:s', time());
         $mail    = new \XoopsMultiMailer();
         $wall    = new WallUpdates();
         $tpl     = new \XoopsTpl();
         $message = '';
-        /** \XoopsModules\Smallworld\Helper $helper */
-        $helper  = Helper::getInstance();
+        /**
+         * \XoopsModules\Smallworld\Helper $helper
+         * \XoopsModules\Smallworld\SwUserHandler $swUserHandler
+         */
+        $helper        = Helper::getInstance();
+        $swUserHandler = $helper->getHandler('SwUser');
 
         // From and To user ids
-        $fromUser        = new \XoopsUser($fromUserID);
-        $from_avatar     = $wall->Gravatar($fromUserID);
-        $from_avatarlink = "<img class='left' src='" . smallworld_getAvatarLink($fromUserID, $from_avatar) . "' height='90px' width='90px'>";
-        $toUser          = new \XoopsUser($toUserID);
-        $toAvatar        = $wall->Gravatar($toUserID);
-        $toAvatarlink    = "<img class='left' src='" . smallworld_getAvatarLink($toUserID, $toAvatar) . "' height='90px' width='90px'>";
-        // Senders username
-        $sendName    = $fromUser->getVar('uname');
-        $sendNameUrl = "<a href='" . $helper->url("userprofile.php?username={$sendName}") . "'>{$sendName}</a>";
-
-        // Recievers username and email
-        $recieveName    = $toUser->getVar('uname');
-        $recieveNameUrl = "<a href='" . $helper->url("userprofile.php?username={$recieveName}") . "'>{$recieveName}</a>";
+        $fromXuser       = new \XoopsUser($fromUserId);
+        $fromAvatar      = $swUserHandler->gravatar($fromUserId);
+        $fromAvatarlink  = "<img class='left' src='" . $swUserHandler->getAvatarLink($fromUserId, $fromAvatar) . "' height='90px' width='90px'>";
+        $toXuser         = new \XoopsUser($toUserId);
+        $toAvatar        = $swUserHandler->gravatar($toUserId);
+        $toAvatarlink    = "<img class='left' src='" . $swUserHandler->getAvatarLink($toUserId, $toAvatar) . "' height='90px' width='90px'>";
+        // Sender's XOOPS username
+        $sendName        = $fromXuser->getVar('uname');
+        $sendNameUrl     = "<a href='" . $helper->url("userprofile.php?username={$sendName}") . "'>{$sendName}</a>";
+        // Receiver's XOOPS username and email
+        $receiveName     = $toXuser->getVar('uname');
+        $receiveNameUrl  = "<a href='" . $helper->url("userprofile.php?username={$receiveName}") . "'>{$receiveName}</a>";
 
         // Checking content of 'event' to send right message
         switch ($event) {
@@ -80,7 +83,7 @@ class Mail
                 $subject = _SMALLWORLD_MAIL_REGISTERSUBJECT . $GLOBALS['xoopsConfig']['sitename'];
 
                 $registername  = $sendName;
-                $toAvatarlink = "<img class='left' src='" . smallworld_getAvatarLink($fromUserID, $toAvatar) . "' height='90px' width='90px'>";
+                $toAvatarlink = "<img class='left' src='" . $swUserHandler->getAvatarLink($fromUserId, $toAvatar) . "' height='90px' width='90px'>";
 
                 $tpl = new \XoopsTpl();
                 $tpl->assign([
@@ -99,7 +102,7 @@ class Mail
             case ('complaint'):
                 $subject = _SMALLWORLD_MAIL_COMPLAINT . $GLOBALS['xoopsConfig']['sitename'];
 
-                $senders_id  = $fromUserID;
+                $senders_id  = $fromUserId;
                 $sendersName = stripslashes($data['byuser']);
                 $againstUser = stripslashes($data['a_user']);
                 $time        = date('d-m-Y H:i:s', $data['time']);
@@ -127,23 +130,23 @@ class Mail
                 }
 
                 $owner           = smallworld_getOwnerFromComment($data['msg_id_fk']);
-                $ownerUser       = new \XoopsUser($owner);
-                $ownerAvatar     = $wall->Gravatar($owner);
-                $ownerAvatarlink = "<img class='left' src='" . smallworld_getAvatarLink($owner, $ownerAvatar) . "' height='90px' width='90px'>";
-                $ownerName       = $ownerUser->getVar('uname');
-                $ownerNameUrl    = "<a href='" . $helper->url("userprofile.php?username='{$ownerName}") . "'>{$ownerName}</a>";
+                $ownerXuser      = new \XoopsUser($owner);
+                $ownerAvatar     = $swUserHandler->gravatar($owner);
+                $ownerAvatarlink = "<img class='left' src='" . $swUserHandler->getAvatarLink($owner, $ownerAvatar) . "' height='90px' width='90px'>";
+                $ownerXname      = $ownerXuser->uname();
+                $ownerXnameUrl   = "<a href='" . $helper->url("userprofile.php?username='{$ownerXname}") . "'>{$ownerXname}</a>";
                 $replylink       = "<a href='" . $helper->url("permalink.php?ownerid={$owner}&updid={$data['msg_id_fk']}") . "'>" . _SMALLWORLD_SEEANDREPLYHERE . '</a>';
 
                 $tpl = new \XoopsTpl();
                 $tpl->assign([
-                    'recievename'     => $recieveName,
-                    'ownername'       => $ownerName,
-                    'ownernameurl'    => $ownerNameUrl,
+                    'receivename'     => $receiveName,
+                    'ownername'       => $ownerXname,
+                    'ownernameurl'    => $ownerXnameUrl,
                     'sendname'        => $sendName,
                     'sendnameurl'     => $sendNameUrl,
                     'sitename'        => $GLOBALS['xoopsConfig']['sitename'],
                     'ownermessage'    => $ownermessage,
-                    'from_avatarlink' => $from_avatarlink,
+                    'from_avatarlink' => $fromAvatarlink,
                     'to_avatarlink'   => $ownerAvatarlink,
                     'itemtext'        => stripslashes($data['comment']),
                     'itemtextdate'    => $date,
@@ -152,7 +155,7 @@ class Mail
                 $lnk        = $helper->path('language/' . $GLOBALS['xoopsConfig']['language'] . '/mailTpl/mail_newcomment.tpl');
                 $message    = $tpl->fetch($lnk);
                 $mail->Body = $message;
-                $toMail     = $toUser->getVar('email');
+                $toMail     = $toXuser->getVar('email');
                 break;
             case ('friendshipfollow'):
                 $subject = _SMALLWORLD_MAIL_NEWFRIENDFOLLOWER . $GLOBALS['xoopsConfig']['sitename'];
@@ -160,7 +163,7 @@ class Mail
 
                 $tpl = new \XoopsTpl();
                 $tpl->assign([
-                    'toUser'   => $recieveName,
+                    'toUser'   => $receiveName,
                     'date'     => $date,
                     'link'     => $link,
                     'sitename' => $GLOBALS['xoopsConfig']['sitename']
@@ -169,13 +172,13 @@ class Mail
                 $lnk        = $helper->url('language/' . $GLOBALS['xoopsConfig']['language'] . '/mailTpl/mail_attencionneeded.tpl');
                 $message    = $tpl->fetch($lnk);
                 $mail->Body = $message;
-                $toMail     = $toUser->getVar('email');
+                $toMail     = $toXuser->getVar('email');
                 break;
             case ('tag'):
                 $subject = _SMALLWORLD_MAIL_FRIENDTAGGEDYOU . $GLOBALS['xoopsConfig']['sitename'];
                 $tpl     = new \XoopsTpl();
                 $tpl->assign([
-                    'toUser'   => $recieveName,
+                    'toUser'   => $receiveName,
                     'fromUser' => $sendName,
                     'date'     => $date,
                     'link'     => $link,
@@ -185,7 +188,7 @@ class Mail
                 $lnk        = $helper->path('language/' . $GLOBALS['xoopsConfig']['language'] . '/mailTpl/mail_tag.tpl');
                 $message    = $tpl->fetch($lnk);
                 $mail->Body = $message;
-                $toMail     = $toUser->getVar('email');
+                $toMail     = $toXuser->getVar('email');
                 break;
         }
 

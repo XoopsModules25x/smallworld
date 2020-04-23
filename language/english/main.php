@@ -107,7 +107,7 @@ define(
 define('_SMALLWORLD_NOTYETREGISTERED_TITLE', 'Continue to finish setup');
 define('_SMALLWORLD_TEXTBEFORESUBMIT', 'Continue to save your information to the database.<br><br>After this you are able to visit your page,<br>and other users pages.<br><br>Thank you for your time.');
 define('_SMALLWORLD_FRIENDSINVITATIONS', 'Friendship requests');
-define('_SMALLWORLD_DATERECIEVED', 'Date');
+define('_SMALLWORLD_DATERECEIVED', 'Date');
 define('_SMALLWORLD_ACCEPT', 'Accept');
 define('_SMALLWORLD_DENY', 'Deny');
 define('_SMALLWORLD_LATER', 'Later');

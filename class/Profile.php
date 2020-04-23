@@ -36,12 +36,12 @@ class Profile
         global $arr04, $arr05;
         $id = (int)$id;
         if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) {
-            $user   = new \XoopsUser($id);;
             $myName = $GLOBALS['xoopsUser']->uname(); // My name
             $swDB   = new SwDatabase();
             $wall   = new WallUpdates();
 
-            /** @var \XoopsModules\Smallworld\Helper $helper
+            /**
+             * @var \XoopsModules\Smallworld\Helper $helper
              * @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler
              */
             $helper        = Helper::getInstance();
@@ -54,16 +54,16 @@ class Profile
             //while (false !== ($r = $GLOBALS['xoopsDB']->fetchArray($result))) {
                 $uname           = $r['username'];
                 $realname        = $r['realname'];
-                $membersince     = date('d-m-Y', $user->user_regdate());;
+                $membersince     = date('d-m-Y', $GLOBALS['xoopsUser']->user_regdate());;
                 $birthday        = smallworld_UsToEuroDate($r['birthday']);
                 $cnt_bday        = smallworldNextBDaySecs($r['birthday']);
                 $birthcity       = $r['birthplace'];
-                $email           = $user->email();
-                $country         = $user->user_from();
-                $signature       = $user->user_sig();
-                $messenger       = $user->user_msnm();
+                $email           = $GLOBALS['xoopsUser']->email();
+                $country         = $GLOBALS['xoopsUser']->user_from();
+                $signature       = $GLOBALS['xoopsUser']->user_sig();
+                $messenger       = $GLOBALS['xoopsUser']->user_msnm();
                 $totalposts      = $wall->countMsges($id);
-                $membersince     = date('m-d-Y', $user->user_regdate());
+                $membersince     = date('m-d-Y', $GLOBALS['xoopsUser']->user_regdate());
                 $usersratedplus  = $swDB->countUsersRates($id, 'up');
                 $usersratedminus = $swDB->countUsersRates($id, 'down');
                 $workfull        = $swDB->getJobsToDiv($id);
@@ -77,7 +77,7 @@ class Profile
                 $lng             = $r['birthplace_lng'];
                 $latt            = $r['birthplace_lat'];
                 $country         = $r['birthplace_country'];
-                $rank            = $user->rank();
+                $rank            = $GLOBALS['xoopsUser']->rank();
                 $rank_title      = $rank['title'];
                 if (isset($rank['image'])) {
                     $rank_image = "<img class='center' src='" . XOOPS_UPLOAD_URL . '/' . $rank['image'] . "'>";
@@ -86,7 +86,7 @@ class Profile
                 }
                 $commentsrating = "<img src='" . $helper->url('assets/images/like.png') . "' height='10px' width='10px'" . '> ' . $usersratedplus
                                 . " <img src='" . $helper->url('assets/images/dislike.png') . "' height='10px' width='10px'" . '> ' . $usersratedminus;
-                $lastlogin      = $user->getVar('last_login');
+                $lastlogin      = $GLOBALS['xoopsUser']->getVar('last_login');
 
                 $gender = $r['gender'];
                 if (Constants::MALE == $gender) {
@@ -101,10 +101,10 @@ class Profile
                     $heorshe  = _SMALLWORLD_HEORSHE;
                     $hisorher = _SMALLWORLD_HISHER;
                 }
-                $avatar          = $wall->Gravatar($id);
-                $avatar_size     = smallworld_getImageSize(80, 100, smallworld_getAvatarLink($id, $avatar));
+                $avatar          = $swUserHandler->gravatar($id);
+                $avatar_size     = smallworld_getImageSize(80, 100, $swUserHandler->getAvatarLink($id, $avatar));
                 $avatar_highwide = smallworld_imageResize($avatar_size[0], $avatar_size[1], 100);
-                $user_img        = "<img src='" . smallworld_getAvatarLink($id, $avatar) . "' id='smallworld_user_img' " . $avatar_highwide . '>';
+                $user_img        = "<img src='" . $swUserHandler->getAvatarLink($id, $avatar) . "' id='smallworld_user_img' " . $avatar_highwide . '>';
 
                 $currentcity = $r['present_city'];
                 $currlng     = $r['present_lng'];

@@ -49,9 +49,7 @@ if (!$GLOBALS['xoopsUser'] || (!$GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     redirect_header(XOOPS_URL . '/user.php', Constants::REDIRECT_DELAY_SHORT, _NOPERM);
 }
 
-$id      = $GLOBALS['xoopsUser']->uid();
-//$check   = new Smallworld\User();
-//$profile = $check->checkIfProfile($id);
+$id            = $GLOBALS['xoopsUser']->uid();
 $swUserHandler = $helper->getHandler('SwUser');
 $profile       = $swUserHandler->checkIfProfile($id);
 
@@ -68,13 +66,13 @@ if (Constants::PROFILE_HAS_BOTH > $profile) {
 $GLOBALS['xoopsTpl']->assign('check', $profile);
 $item = new Smallworld\Form();
 //$swDB = new Smallworld\SwDatabase();
-$swUser        = $swUserHandler->get($id);
+$swUser = $swUserHandler->get($id);
 if ($swUser instanceof \XoopsModules\Smallworld\SwUser) {
     $r = $swUser->getValues();
 /*
-$cdb    = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
-$result = $GLOBALS['xoopsDB']->queryF($cdb);
-while (false !== ($r = $GLOBALS['xoopsDB']->fetchArray($result))) {
+    $cdb    = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
+    $result = $GLOBALS['xoopsDB']->queryF($cdb);
+    while (false !== ($r = $GLOBALS['xoopsDB']->fetchArray($result))) {
 */
     // ------------ PERSONAL INFO ------------ //
 

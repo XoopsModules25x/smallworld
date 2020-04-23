@@ -28,7 +28,6 @@ interface Constants
     /**#@+
      * Constant definition
      */
-
     /**
      * Do not allow
      */
@@ -61,6 +60,22 @@ interface Constants
      * default user Id
      */
     const DEFAULT_UID = 0;
+    /**
+     * image type - jpg
+     */
+    const IMAGE_TYPE_JPG = 1;
+    /**
+     * image type - jepg
+     */
+    const IMAGE_TYPE_JPEG = 2;
+    /**
+     * image type - png
+     */
+    const IMAGE_TYPE_PNG = 3;
+    /**
+     * image type - gif
+     */
+    const IMAGE_TYPE_GIF = 4;
     /**
      * default message Id
      */

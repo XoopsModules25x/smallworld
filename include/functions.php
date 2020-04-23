@@ -22,12 +22,12 @@
  */
 
 use Xmf\FilterInput;
-use Xmf\Request;
 use XoopsModules\Smallworld;
 use XoopsModules\Smallworld\Constants;
 use XoopsModules\Smallworld\Helper;
 
 //require_once __DIR__ . '/common.php';
+include dirname(__DIR__) . '/preloads/autoloader.php';
 
 /**
  * Get array of timestamps based on the timetype configured in preferences
@@ -77,6 +77,7 @@ function smallworld_cleanup($text)
  */
 function smallworld_cleanup_string($text)
 {
+    /** @var \MyTextSanitizer $myts */
     $myts = \MyTextSanitizer::getInstance();
     $text = $myts->displayTarea($text, $html = 1, $smiley = 1, $xcode = 1, $image = 1, $br = 1);
 
@@ -85,30 +86,33 @@ function smallworld_cleanup_string($text)
 
 /**
  * Clean Array for mysql insertion
- * or send string to \XoopsModules\Smallworld\MyFunctions\sanitizeString
  *
- * @param $text
- * @return array|mixed
+ * @param string|array $text
+ * @return string|array
  */
 function smallworld_sanitize($text)
 {
-    return $GLOBALS['xoopsDB']->escape($text);
+    $retVal = [];
+    if (is_array($text) && 0 < count($text)) {
+        foreach ($text as $key => $value) {
+            $retVal[$key] = smallworld_sanitize_string($value);
+        }
+    } else {
+        $retVal = smallworld_sanitize_string($text);
+    }
+
+    return $retVal;
 }
 
 /**
+ * Santize string for insert into dB
+ *
  * @param $value
  * @return mixed
  */
 function smallworld_sanitize_string($value)
 {
-    $myts = \MyTextSanitizer::getInstance();
-    if (get_magic_quotes_gpc()) {
-        $value = $myts->stripSlashesGPC($value);
-    } else {
-        $value = $GLOBALS['xoopsDB']->escape($value);
-    }
-
-    return $value;
+    return $GLOBALS['xoopsDB']->escape($value);
 }
 
 /**
@@ -128,6 +132,11 @@ function smallworld_DateOfArray($array)
 }
 
 /**
+ * YearOfArray
+ *
+ * @todo - figure out what this is suppose to do,
+ * currently it doesn't really do anything.
+ *
  * @param $array
  * @return array
  */
@@ -142,12 +151,14 @@ function smallworld_YearOfArray($array)
 }
 
 /**
+ * Create an index file in
+ *
+ * @deprecated - no longer used
  * @param $folderUrl
  */
-function smallworld_CreateIndexFiles($folderUrl)
+function smallworld_CreateIndexFiles($folder)
 {
-    $url = FilterInput::clean($folderUrl, 'WEBURL');
-    file_put_contents($url . 'index.html', '<script>history.go(-1);</script>');
+    file_put_contents($folder . 'index.html', '<script>history.go(-1);</script>');
 }
 
 /**
@@ -210,11 +221,20 @@ function smallworld_Birthday($birth)
 }
 
 /**
+ * Get SW userid from username
+ *
+ * @deprecated - use Smallworld\SwUserHandler::getByName() method instead
  * @param $check
- * @return bool
+ * @return bool|int
  */
 function smallworld_isset_or($check)
 {
+    $depMsg = __FUNCTION__ . " is deprecated, use SwUserHandler::getByName() instead";
+    if (isset($GLOBALS['xoopsLogger'])) {
+        $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+    } else {
+        trigger_error($depMsg, E_USER_WARNING);
+    }
     $query  = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE username = '" . $check . "' LIMIT 1";
     $result = $GLOBALS['xoopsDB']->queryF($query);
     while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
@@ -296,24 +316,24 @@ function smallworld_time_stamp($session_time)
  */
 function smallworld_tolink($text, $uid)
 {
-    $ext       = mb_substr($text, -4, 4);
-    $ext2      = mb_substr($text, -5, 5);
-    $usr       = new \XoopsUser($uid);
-    $usrUname  = $usr->uname();
-    $gallery   = \XoopsModules\Smallworld\Helper::getInstance()->url('galleryshow.php?username=' . $usrUname());
+    $ext        = mb_substr($text, -4, 4);
+    $ext2       = mb_substr($text, -5, 5);
+    $xUser      = new \XoopsUser($uid);
+    $xUserUname = $xUser->uname();
+    $gallery    = \XoopsModules\Smallworld\Helper::getInstance()->url('galleryshow.php?username=' . $xUserUname());
 
-    if (in_array($ext, ['.jpg', '.bmp', '.gif', '.png']) || in_array($ext, ['.JPG', '.BMP', '.GIF', '.PNG']) || in_array($ext2, ['.jpeg'])) {
+    if (in_array(strtolower($ext), ['.jpg', '.bmp', '.gif', '.png']) || in_array(strtolower($ext2), ['.jpeg'])) {
         if (false !== mb_strpos($text, 'UPLIMAGE')) {
             $text = str_replace('UPLIMAGE', '', $text);
             $text = preg_replace(
                 '/(((f|ht){1}tp:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
-                '<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $usrUname . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
+                '<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $xUserUname . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
                 $text
             );
             $text = preg_replace('/(((f|ht){1}tps:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i', '<a href="\\1">lala</a>', $text);
             $text = preg_replace(
                 '/([[:space:]()[{}])(www.[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
-                '\\1<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="//\\2"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $usrUname . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
+                '\\1<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="//\\2"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $xUserUname . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
                 $text
             );
             $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
@@ -471,12 +491,19 @@ function smallworld_GetModuleOption($option = null, $repmodule = 'smallworld', $
  * Check image extension and users gender.
  *
  * If image is legal image extension return avatar, else return default gender based image
+ * @deprecated
  * @param int    $userid
  * @param string $image
  * @return string
  */
 function smallworld_getAvatarLink($userid, $image)
 {
+    $depMsg = __FUNCTION__ . " is deprecated use SwUserHandler::getAvatarLink() instead.";
+    if (isset($GLOBALS['xoopsLogger'])) {
+        $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+    } else {
+        trigger_error($depMsg, E_USER_WARNING);
+    }
     $ext     = pathinfo(mb_strtolower($image), PATHINFO_EXTENSION);
     $sql     = 'SELECT gender FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . (int)$userid . "'";
     $result  = $GLOBALS['xoopsDB']->queryF($sql);
@@ -570,7 +597,7 @@ function smallworld_XIMversion()
 function smallworld_getOwnerFromComment($msg_id_fk)
 {
     $owner = false;
-    //@todo looks like this should have LIMIT set to 1 to reduce execute time & possible ambiguity
+    /** @todo looks like this should have LIMIT set to 1 to reduce execution time & possible ambiguity */
     $sql    = 'SELECT uid_fk FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_messages') . " WHERE msg_id = '" . $msg_id_fk . "'";
     $result = $GLOBALS['xoopsDB']->queryF($sql);
     while (false !== ($r = $GLOBALS['xoopsDB']->fetchArray($result))) {
@@ -589,6 +616,13 @@ function smallworld_getOwnerFromComment($msg_id_fk)
  */
 function smallworld_getName($userID)
 {
+    $depMsg = __FUNCTION__ . " is deprecated, use SwUserHandler::getName() instead";
+    if (isset($GLOBALS['xoopsLogger'])) {
+        $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+    } else {
+        trigger_error($depMsg, E_USER_WARNING);
+    }
+
     $name = [];
     $sql    = 'SELECT username FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . (int)$userID . "'";
     $result = $GLOBALS['xoopsDB']->queryF($sql);
@@ -705,12 +739,21 @@ function smallworld_countUsersMessages($id)
     return $total;
 }
 
-// Get the three newest members to array
 /**
+ * Get the three newest members to array
+ *
+ * @deprecated - no longer used
  * @return array
  */
 function smallworld_Stats_newest()
 {
+    $depMsg = __FUNCTION__ . " is deprecated";
+    if (isset($GLOBALS['xoopsLogger'])) {
+        $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+    } else {
+        trigger_error($depMsg, E_USER_WARNING);
+    }
+    $swUserHandler = Helper::getInstance()->getHandler('SwUser');
     $nu     = [];
     $sql    = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . ' ORDER BY regdate DESC LIMIT 3';
     $result = $GLOBALS['xoopsDB']->queryF($sql);
@@ -720,10 +763,10 @@ function smallworld_Stats_newest()
             $nu[$i]['userid']         = $r['userid'];
             $nu[$i]['username']       = $r['username'];
             $nu[$i]['regdate']        = date('d-m-Y', $r['regdate']);
-            $nu[$i]['username_link']  = "<a href = '" . Helper::getInstance()->url('userprofile.php?username=' . $r['username']) . "'>";
+            $nu[$i]['username_link']  = "<a href = '" . $helper->url('userprofile.php?username=' . $r['username']) . "'>";
             $nu[$i]['username_link']  .= $r['username'] . ' (' . $r['realname'] . ') [' . $nu[$i]['regdate'] . '] </a>';
             $nu[$i]['userimage']      = $r['userimage'];
-            $nu[$i]['userimage_link'] = smallworld_getAvatarLink($r['userid'], smallworld_Gravatar($r['userid']));
+            $nu[$i]['userimage_link'] = $swUserHandler->getAvatarLink($r['userid'], $swUserHandler->gravatar($r['userid']));
             ++$i;
         }
     }
@@ -733,11 +776,18 @@ function smallworld_Stats_newest()
 
 //Avatar Image
 /**
+ * @deprecated - use Smallworld\SwUserHandler::gravatar()
  * @param $uid
  * @return string
  */
 function smallworld_Gravatar($uid)
 {
+    $depMsg = __FUNCTION__ . " is deprecated use SwUserHandler::gravatar() instead.";
+    if (isset($GLOBALS['xoopsLogger'])) {
+        $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+    } else {
+        trigger_error($depMsg, E_USER_WARNING);
+    }
     $image  = '';
     $sql    = 'SELECT userimage FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . (int)$uid . "'";
     $result = $GLOBALS['xoopsDB']->queryF($sql);
@@ -784,14 +834,16 @@ function smallworld_mostactiveusers_allround()
     $counter = $GLOBALS['xoopsDB']->getRowsNum($result);
     if ($counter < 1) {
     } else {
+        $helper        = Helper::getInstance();
+        $swUserHandler = $helper->getHandler('SwUser');
         $counter = 1;
         while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
             $msg[$counter]['counter']       = $counter;
-            $msg[$counter]['img']           = smallworld_getAvatarLink($row['uid_fk'], smallworld_Gravatar($row['uid_fk']));
+            $msg[$counter]['img']           = $swUserHandler->getAvatarLink($row['uid_fk'], $swUserHandler->gravatar($row['uid_fk']));
             $msg[$counter]['msgs']          = _SMALLWORLD_TOTALPOSTS . ' : ' . $row['cnt'];
             $msg[$counter]['cnt']           = $row['cnt'];
             $msg[$counter]['username']      = $GLOBALS['xoopsUser']->getUnameFromId($row['uid_fk']);
-            $msg[$counter]['username_link'] = "<a href = '" . Helper::getInstance()->url('userprofile.php?username=' . $msg[$counter]['username']) . "'>";
+            $msg[$counter]['username_link'] = "<a href = '" . $helper->url('userprofile.php?username=' . $msg[$counter]['username']) . "'>";
             $msg[$counter]['username_link'] .= $msg[$counter]['username'] . ' (' . $msg[$counter]['msgs'] . ')</a>';
             ++$counter;
         }
@@ -806,6 +858,7 @@ function smallworld_mostactiveusers_allround()
  */
 function smallworld_worstratedusers()
 {
+    $swUserHandler = Helper::getInstance()->getHandler('SwUser');
     $array   = [];
     $counter = 1;
     $sql     = 'SELECT owner, (';
@@ -816,7 +869,7 @@ function smallworld_worstratedusers()
     $result  = $GLOBALS['xoopsDB']->queryF($sql);
     while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
         $array[$counter]['counter']   = $counter;
-        $array[$counter]['img']       = smallworld_getAvatarLink($row['owner'], smallworld_Gravatar($row['owner']));
+        $array[$counter]['img']       = $swUserHandler->getAvatarLink($row['owner'], $swUserHandler->gravatar($row['owner']));
         $array[$counter]['user']      = $GLOBALS['xoopsUser']->getUnameFromId($row['owner']);
         $array[$counter]['rating']    = $row['total'];
         $array[$counter]['user_link'] = "<a href = '" . Helper::getInstance()->url('userprofile.php?username=' . $array[$counter]['user']) . "'>";
@@ -833,6 +886,7 @@ function smallworld_worstratedusers()
  */
 function smallworld_topratedusers()
 {
+    $swUserHandler = Helper::getInstance()->getHandler('SwUser');
     $array   = [];
     $counter = 1;
     $sql     = 'SELECT owner, (';
@@ -843,10 +897,10 @@ function smallworld_topratedusers()
     $result  = $GLOBALS['xoopsDB']->queryF($sql);
     while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
         $array[$counter]['counter']   = $counter;
-        $array[$counter]['img']       = smallworld_getAvatarLink($row['owner'], smallworld_Gravatar($row['owner']));
+        $array[$counter]['img']       = $swUserHandler->getAvatarLink($row['owner'], $swUserHandler->gravatar($row['owner']));
         $array[$counter]['user']      = $GLOBALS['xoopsUser']->getUnameFromId($row['owner']);
         $array[$counter]['rating']    = $row['total'];
-        $array[$counter]['user_link'] = "<a href = '" . Helper::getInstance()->url('userprofile.php?username=' . $array[$counter]['user']) . "'>";
+        $array[$counter]['user_link'] = "<a href = '" . $helper->url('userprofile.php?username=' . $array[$counter]['user']) . "'>";
         $array[$counter]['user_link'] .= $array[$counter]['user'] . ' (' . $array[$counter]['rating'] . ')</a>';
         ++$counter;
     }
@@ -859,9 +913,10 @@ function smallworld_topratedusers()
  */
 function smallworld_nextBirthdays()
 {
-    $now     = date('d-m');
-    $res     = [];
-    $sql     = 'SELECT userid, username, userimage, realname, birthday, CURDATE(),'
+    $swUserHandler = Helper::getInstance()->getHandler('SwUser');
+    $now       = date('d-m');
+    $res       = [];
+    $sql       = 'SELECT userid, username, userimage, realname, birthday, CURDATE(),'
                . ' DATE_FORMAT(birthday, "%d / %m") AS daymon , '
                . ' (YEAR(CURDATE())-YEAR(birthday))'
                . ' - (RIGHT(CURDATE(),5)<RIGHT(birthday,5))'
@@ -871,17 +926,17 @@ function smallworld_nextBirthdays()
                . ' WHERE right(birthday,5) = right(CURDATE(),5)'
                . ' ORDER BY MONTH( birthday ) , DAY( birthday ) '
                . ' LIMIT 10 ';
-    $result  = $GLOBALS['xoopsDB']->queryF($sql);
-    $counter = $GLOBALS['xoopsDB']->getRowsNum($result);
-    $i       = 0;
+    $result    = $GLOBALS['xoopsDB']->queryF($sql);
+    $counter   = $GLOBALS['xoopsDB']->getRowsNum($result);
+    $i         = 0;
     while (false !== ($r = $GLOBALS['xoopsDB']->fetchArray($result))) {
         $res[$i]['amount']        = $counter;
         $res[$i]['userid']        = $r['userid'];
-        $res[$i]['userimage']     = smallworld_getAvatarLink($r['userid'], smallworld_Gravatar($r['userid']));
+        $res[$i]['userimage']     = $swUserHandler->getAvatarLink($r['userid'], $swUserHandler->gravatar($r['userid']));
         $res[$i]['birthday']      = $r['daymon'];
         $res[$i]['agenow']        = $r['age_now'];
         $res[$i]['username']      = $GLOBALS['xoopsUser']->getUnameFromId($r['userid']);
-        $res[$i]['username_link'] = "<a href = '" . Helper::getInstance()->url('userprofile.php?username=' . $res[$i]['username']) . "'>";
+        $res[$i]['username_link'] = "<a href = '" . $helper->url('userprofile.php?username=' . $res[$i]['username']) . "'>";
         $res[$i]['username_link'] .= $res[$i]['username'] . ' (' . $r['daymon'] . ') ' . $r['age_now'] . ' ' . _SMALLWORLD_BDAY_YEARS;
         $res[$i]['username_link'] .= '</a>';
         ++$i;
@@ -957,11 +1012,13 @@ function smallworldCheckPriv($id)
     return $priv;
 }
 
-// Function to calculate remaining seconds until user's birthday
-// Input $d : date('Y-m-d') format
-// return seconds until date at midnight, or
-// return 0 if date ('Y-m-d') is equal to today
 /**
+ * Function to calculate remaining seconds until user's birthday
+ *
+ * Input $d : date('Y-m-d') format
+ * return seconds until date at midnight, or
+ * return 0 if date ('Y-m-d') is equal to today
+ *
  * @param $d
  * @return bool|int|string
  */
@@ -1002,15 +1059,13 @@ function smallworldNextBDaySecs($d)
  */
 function smallworldGetValfromArray($key, $array)
 {
-    $ar  = smallworld_GetModuleOption($array, $repmodule = 'smallworld');
     $ret = 0;
+    $ar  = Helper::getInstance()->getConfig($array);
     if (in_array($key, $ar, true)) {
         $ret = 1;
-
-        return $ret;
     }
 
-    return 0;
+    return $ret;
 }
 
 /**
@@ -1220,13 +1275,29 @@ function smallworld_checkPrivateOrPublic()
 }
 
 /**
- * @return array of groups
- * return array
+ * Get an array of all Users
+ *
+ * @todo move this to Smallworld\SwUserHandler class
+ * @return array 'userid' as keys, 'username' as values
  */
 function smallworld_xv_getGroupd()
 {
+    /** @var \XoopsModules\Smallworld\Helper $helper */
+    $helper          = Helper::getInstance();
+    $helper->loadLanguage('modinfo');
+    $swUserHandler   = $helper->getHandler('SwUser');
+    $criteria        = new \Criteria('');
+    $criteria->setSort('userid');
+    $criteria->order = 'ASC';
+    $userObjArray    = $swUserHandler->getAll($criteria, ['userid', 'username'], false);
+    $retArray        = [0 => _MI_SMALLWORLD_ALL]; // initialize the array
+    foreach ($userObjArray as $swUser) {
+        $retArray[$swUser['userid']] = $swUser['username'];
+    }
+
+    return $retArray;
+    /*
     $db     = \XoopsDatabaseFactory::getDatabaseConnection();
-    $myts   = \MyTextSanitizer::getInstance();
     $sql    = 'SELECT userid, username FROM ' . $db->prefix('smallworld_user') . ' ORDER BY userid';
     $result = $db->queryF($sql);
     $num    = $db->getRowsNum($result);
@@ -1240,6 +1311,7 @@ function smallworld_xv_getGroupd()
     }
 
     return $ndata;
+    */
 }
 
 /**
@@ -1252,27 +1324,27 @@ function smallworld_SetCoreScript()
     $helper = Helper::getInstance();
 
     // IF logged in define xoops / smallworld user id
-    $myid = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? $GLOBALS['xoopsUser']->uid() : Constants::DEFAULT_UID;
+    $myId = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? $GLOBALS['xoopsUser']->uid() : Constants::DEFAULT_UID;
 
     // Check if option is et to allow public reading
     $pub    = smallworld_checkPrivateOrPublic();
     $access = $pub['access'];
 
     // GET various variables from language folder
-    if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/' . $GLOBALS['xoopsConfig']['language'] . '/js/variables.js')) {
+    if (file_exists($helper->path('language/' . $GLOBALS['xoopsConfig']['language'] . '/js/variables.js'))) {
         $GLOBALS['xoTheme']->addScript($helper->url('language/' . $GLOBALS['xoopsConfig']['language'] . '/js/variables.js'));
     } else {
         $GLOBALS['xoTheme']->addScript($helper->url('language/english/js/variables.js'));
     }
 
     // Check if USER is smallworld-registered user
-    //$chkUser = new Smallworld\User();
-    //$profile = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? $chkUser->checkIfProfile($myid) : Constants::DEFAULT_UID;
+    $chkUser = new Smallworld\User();
+    //$profile = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? $chkUser->checkIfProfile($myId) : Constants::DEFAULT_UID;
     $swUserHandler = $helper->getHandler('SwUser');
     $profile       = $swUserHandler->checkIfProfile($myId);
 
     // Check if there are requests pending
-    $count_invit = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? count($chkUser->getRequests($myid)) : Constants::DEFAULT_UID;
+    $count_invit = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? count($chkUser->getRequests($myId)) : Constants::DEFAULT_UID;
 
     // Get module config for validation and place in javascript
     $validate = $helper->getConfig('validationstrength');
@@ -1304,7 +1376,7 @@ function smallworld_SetCoreScript()
     $script .= "var smallworld_uploaddir = '" . $xoops_url . '/uploads/avatars/' . "';\n";
     $script .= 'var smallworld_urlReferer = document.referrer;' . "\n";
     $script .= "var xoops_smallworld = jQuery.noConflict();\n";
-    $script .= 'var Smallworld_myID = ' . $myid . ";\n";
+    $script .= 'var Smallworld_myID = ' . $myId . ";\n";
     $script .= 'var Smallworld_userHasProfile = ' . $profile . ";\n";
     $script .= 'var smallworldTakeOverLinks = ' . $takeoverlinks . ";\n";
     $script .= 'var Smallworld_geocomplete = ' . $googlemaps . ";\n";
@@ -1460,10 +1532,11 @@ function smallworld_includeScripts()
 function smallworld_checkUserPubPostPerm()
 {
 
-    $check      = new Smallworld\User();
-    $userPerPub = Helper::getInstance()->getConfig('smallworldshowPoPubPage');
-    $pub = (0 != $userPerPub[0]) ? $userPerPub : $check->allUsers();
+    $helper     = Helper::getInstance();
+    $userPerPub = $helper->getConfig('smallworldshowPoPubPage');
+    $pub = (0 !== $userPerPub[0]) ? $userPerPub : $helper->getHandler('SwUser')->allUsers();
     /*
+    $check      = new Smallworld\User();
     $userPerPub = smallworld_GetModuleOption('smallworldshowPoPubPage');
     $allUsers   = $check->allUsers();
     if (0 != $userPerPub[0]) {

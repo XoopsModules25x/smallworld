@@ -34,6 +34,7 @@ require_once $helper->path('include/arrays.php');
 
 $GLOBALS['xoopsLogger']->activated = false;
 if (isset($_GET) && !empty($_GET)) {
+    $swUserHandler = $helper->getHandler('SwUser');
     $q      = smallworld_sanitize(Request::getString('term', '', 'GET'));
     $sql    = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE realname LIKE '%" . $q . "%' OR username LIKE '%" . $q . "%' ORDER BY userid LIMIT 5";
     $result = $GLOBALS['xoopsDB']->query($sql);
@@ -41,7 +42,7 @@ if (isset($_GET) && !empty($_GET)) {
 
     while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
         $user  = new \XoopsUser($row['userid']);
-        $image = '<img src="' . smallworld_getAvatarLink($row['userid'], $row['userimage']) . '" height="20" >';
+        $image = '<img src="' . $swUserHandler->getAvatarLink($row['userid'], $row['userimage']) . '" height="20" >';
 
         //@todo figure out where the $imageSize[] array comes from
         $imageHw = smallworld_imageResize($imageSize[0], $imageSize[1], 30);

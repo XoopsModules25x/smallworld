@@ -70,15 +70,23 @@ class SwDatabase
     /**
      * getSchoolToDiv function
      *
-     * @todo switch to use SwUser class methods
-     * @param int $id
+     * @param int $userId smallworld `userid`
      * @return array
      */
-    public function getSchoolToDiv($id)
+    public function getSchoolToDiv($userId)
     {
         global $arr7;
-        $msg    = [];
-        $sql    = 'SELECT school_type,school,schoolstart,schoolstop FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
+        $msg         = [];
+        $school_type = [];
+        $swUser = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser')->getByUserId($userId);
+        if ($swUser instanceof \XoopsModules\Smallworld\SwUser) {
+            $school_type = $swUser->getVar('school_type');
+            $school      = $swUser->getVar('school');
+            $schoolstart = $swUser->getVar('schoolstart');
+            $schoolstop  = $swUser->getVar('schoolstop');
+        }
+        /*
+        $sql    = 'SELECT school_type,school,schoolstart,schoolstop FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid ='" . $userId . "'";
         $result = $GLOBALS['xoopsDB']->query($sql);
         while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
             $school_type = unserialize($row['school_type']);
@@ -86,14 +94,15 @@ class SwDatabase
             $schoolstart = unserialize($row['schoolstart']);
             $schoolstop  = unserialize($row['schoolstop']);
         }
+        */
         $start = 0;
-        $end   = count($school_type) - 1;
-        while ($start <= $end) {
+        $end   = count($school_type);
+        while ($start < $end) {
             $msg[$start]['school_type'] = $school_type[$start];
             $msg[$start]['school']      = $arr7[$school[$start]];
             $msg[$start]['schoolstart'] = $schoolstart[$start];
             $msg[$start]['schoolstop']  = $schoolstop[$start];
-            $start++;
+            ++$start;
         }
 
         return $msg;
@@ -102,23 +111,30 @@ class SwDatabase
     /**
      * getScreennamesToDiv function
      *
-     * @todo switch to use SwUser class methods
-     * @param int $id
+     * @param int $userId smallworld `userid`
      * @return array
      */
-    public function getScreennamesToDiv($id)
+    public function getScreennamesToDiv($userId)
     {
         global $arr06;
-        $msg    = [];
-        $sql    = 'SELECT screenname_type,screenname FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid ='" . $id . "'";
+        $msg             = [];
+        $screenname_type = [];
+        $swUser = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser')->getByUserId($userId);
+        if ($swUser instanceof \XoopsModules\Smallworld\SwUser) {
+            $screenname_type = $swUser->getVar('screenname_type');
+            $screenname      = $swUser->getVar('screenname');
+        }
+        /*
+        $sql    = 'SELECT screenname_type,screenname FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid ='" . $userId . "'";
         $result = $GLOBALS['xoopsDB']->query($sql);
         while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
             $screenname_type = unserialize($row['screenname_type']);
             $screenname      = unserialize($row['screenname']);
         }
+        */
         $start = 0;
-        $end   = count($screenname_type) - 1;
-        while ($start <= $end) {
+        $end   = count($screenname_type);
+        while ($start < $end) {
             $msg[$start]['screenname']      = $screenname_type[$start];
             $msg[$start]['screenname_type'] = $arr06[$screenname[$start]];
             $msg[$start]['link']            = "<span class='smallworld_website'>" . smallworld_sociallinks($screenname[$start], $msg[$start]['screenname']);
@@ -131,15 +147,19 @@ class SwDatabase
     /**
      * getVar function
      *
-     * @todo switch to use SwUser class methods
-     * @param int    $id
+     * @todo deprecate this method and use SwUser::getVar instead
+     * @param int    $userId smallworld `userid`
      * @param string $var
-     * @return array|int
+     * @return mixed
      */
-    public function getVar($id, $var)
+    public function getVar($userId, $var)
     {
+        $swUser = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser')->getByUserId($userId);
+
+        return [$swUser->getVar($var)];
+        /*
         $msg = [];
-        $sql    = 'SELECT ' . $GLOBALS['xoopsDB']->escape($var) . ' FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . (int)$id . "'";
+        $sql    = 'SELECT ' . $GLOBALS['xoopsDB']->escape($var) . ' FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . (int)$userId . "'";
         $result = $GLOBALS['xoopsDB']->queryF($sql);
         if ($GLOBALS['xoopsDB']->getRowsNum($result) < 1) {
             return 0; //_SMALLWORLD_REPLY_NOTSPECIFIED;
@@ -149,6 +169,7 @@ class SwDatabase
         }
 
         return $msg[$var];
+        */
     }
 
     /**
@@ -220,7 +241,7 @@ class SwDatabase
         $regdate                = time();
         $username               = $GLOBALS['xoopsUser']->uname();
         $realname               = smallworld_sanitize($_POST['realname']);
-        $gender                 = Request::getInt('gender', '', 'POST');
+        $gender                 = Request::getInt('gender', Constants::GENDER_UNKNOWN, 'POST');
         $intingender            = isset($_POST['intingender']) ? smallworld_sanitize(serialize($_POST['intingender'])) : smallworld_sanitize(serialize([0 => '3']));
         $relationship           = smallworld_sanitize($_POST['relationship']);
         $searchrelat            = isset($_POST['searchrelat']) ? smallworld_sanitize(serialize($_POST['searchrelat'])) : smallworld_sanitize(serialize([0 => '0']));
@@ -260,7 +281,6 @@ class SwDatabase
         $jobstop                = smallworld_sanitize(serialize(smallworld_YearOfArray($_POST['jobstop'])));
         $jobdescription         = smallworld_sanitize(serialize($_POST['description']));
 
-        $sql = '';
         $swUserHandler = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser');
 
         //@todo find better way to terminate routine than just 'die' on error(s)
@@ -317,7 +337,6 @@ class SwDatabase
                 die('Failed inserting User');
             }
             /*
-            $sql = '';
             // Update all values in user_table
             $sql    = 'UPDATE ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . ' SET ';
             $sql    .= "realname = '" . $realname . "', username= '" . $username . "', userimage = '" . $avatar . "', gender = '" . $gender . "',";

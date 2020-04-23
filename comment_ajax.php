@@ -53,9 +53,9 @@ if ($profile >= Constants::PROFILE_HAS_BOTH) {
     if (isset($_POST['comment'])) {
         $tpl->assign('isadminuser', $helper->isUserAdmin() ? 'YES' : 'NO');
 
-        $followers = smallworld_array_flatten($wall->getFollowers($id), 0);
-        $myavatar  = $wall->Gravatar($id);
-        $myavatarlink = smallworld_getAvatarLink($id, $myavatar);
+        $followers    = smallworld_array_flatten($wall->getFollowers($id), 0);
+        $myavatar     = $swUserHandler->gravatar($id);
+        $myavatarlink = $swUserHandler->getAvatarLink($id, $myavatar);
 
         // Get posted items
         $comment = Request::getString('comment', '', 'POST');
@@ -83,11 +83,11 @@ if ($profile >= Constants::PROFILE_HAS_BOTH) {
             $wc['uid']             = $data['uid_fk'];
             $wc['myavatar']        = $myavatar;
             $wc['myavatar_link']   = $myavatarlink;
-            $wc['cface']           = $wall->Gravatar($data['uid_fk']);
-            $wc['avatar_link']     = smallworld_getAvatarLink($data['uid_fk'], $wc['cface']);
+            $wc['cface']           = $swUserHandler->gravatar($data['uid_fk']);
+            $wc['avatar_link']     = $swUserHandler->getAvatarLink($data['uid_fk'], $wc['cface']);
             $wc['avatar_size']     = smallworld_getImageSize(80, 100, $wc['myavatar_link']);
             $wc['avatar_highwide'] = smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);
-            $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . smallworld_getOwnerFromComment($data['msg_id_fk']);
+            $wc['compl_msg_lnk']   = "<a href='" . $helper->url('permalink.php?ownerid=' . smallworld_getOwnerFromComment($data['msg_id_fk']));
             $wc['compl_msg_lnk']   .= '&updid=' . $data['msg_id_fk'] . '#' . $data['com_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
             $wc['vote_up']         = $wall->countVotesCom('com', 'up', $data['msg_id_fk'], $data['com_id']);
             $wc['vote_down']       = $wall->countVotesCom('com', 'down', $data['msg_id_fk'], $data['com_id']);

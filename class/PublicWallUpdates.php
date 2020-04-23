@@ -174,6 +174,13 @@ class PublicWallUpdates
      */
     public function Gravatar($uid)
     {
+        $depMsg = get_class() . __FUNCTION__ . " is deprecated use SwUserHandler::gravatar() instead.";
+        if (isset($GLOBALS['xoopsLogger'])) {
+            $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+        } else {
+            trigger_error($depMsg, E_USER_WARNING);
+        }
+
         $image  = $avatar = '';
         $swUserHandler = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser');
         $criteria = new \Criteria('userid', (int)$uid);
@@ -190,10 +197,10 @@ class PublicWallUpdates
         }
         */
         if ('blank.gif' === $image) {
-            $image = smallworld_getAvatarLink($uid, $image);
+            $image = $swUserHandler->getAvatarLink($uid, $image);
         }
 
-        //$image = ($image == '' || $image == 'blank.gif') ? smallworld_getAvatarLink($uid, $image) : $image;
+        //$image = ($image == '' || $image == 'blank.gif') ? $swUserHandler->getAvatarLink($uid, $image) : $image;
 
         $type = [
             1 => 'jpg',
@@ -394,12 +401,13 @@ class PublicWallUpdates
         $wm                = [];
         $check             = new User();
         $swDB              = new SwDatabase();
-        $profile           = $helper->getHandler('SwUser')->checkIfProfile($id);
-        $myavatar          = $this->Gravatar($id);
-        $myavatarlink      = smallworld_getAvatarLink($id, $myavatar);
+        $swUserHandler     = $helper->getHandler('SwUser');
+        $profile           = $swUserHandler->checkIfProfile($id);
+        $myavatar          = $swUserHandler->gravatar($id);
+        $myavatarlink      = $swUserHandler->getAvatarLink($id, $myavatar);
         $myavatar_size     = smallworld_getImageSize(80, 100, $myavatarlink);
         $myavatar_highwide = smallworld_imageResize($myavatar_size[0], $myavatar_size[1], 100);
-        $user_img          = "<img src='" . smallworld_getAvatarLink($id, $myavatar) . "' id='smallworld_user_img' " . $myavatar_highwide . '>';
+        $user_img          = "<img src='" . $swUserHandler->getAvatarLink($id, $myavatar) . "' id='smallworld_user_img' " . $myavatar_highwide . '>';
 
         $GLOBALS['xoopsTpl']->assign([
             'myavatar'          => $myavatar,
@@ -428,8 +436,8 @@ class PublicWallUpdates
             $wm['username']        = $data['username'];
             $wm['uid_fk']          = $data['uid_fk'];
             $wm['priv']            = $data['priv'];
-            $wm['avatar']          = $this->Gravatar($data['uid_fk']);
-            $wm['avatar_link']     = smallworld_getAvatarLink($data['uid_fk'], $wm['avatar']);
+            $wm['avatar']          = $swUserHandler->gravatar($data['uid_fk']);
+            $wm['avatar_link']     = $swUserHandler->getAvatarLink($data['uid_fk'], $wm['avatar']);
             $wm['avatar_size']     = smallworld_getImageSize(80, 100, $wm['avatar_link']);
             $wm['avatar_highwide'] = smallworld_imageResize($wm['avatar_size'][0], $wm['avatar_size'][1], 50);
             $wm['vote_up']         = $this->countVotes('msg', 'up', $data['msg_id']);
@@ -475,12 +483,12 @@ class PublicWallUpdates
                 $wc['time']            = smallworld_time_stamp($cdata['created']);
                 $wc['username']        = $cdata['username'];
                 $wc['uid']             = $cdata['uid_fk'];
-                $wc['myavatar']        = $this->Gravatar($id);
-                $wc['myavatar_link']   = $myavatarlink;
+                $wc['myavatar']        = $swUserHandler->gravatar($id);
+                $wc['myavatar_link']   = $swUserHandler->getAvatarLink($id, $wc['myavatar']);
                 $wc['avatar_size']     = smallworld_getImageSize(80, 100, $wc['myavatar_link']);
                 $wc['avatar_highwide'] = smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);
-                $wc['cface']           = $this->Gravatar($cdata['uid_fk']);
-                $wc['avatar_link']     = smallworld_getAvatarLink($cdata['uid_fk'], $wc['cface']);
+                $wc['cface']           = $swUserHandler->gravatar($cdata['uid_fk']);
+                $wc['avatar_link']     = $swUserHandler->getAvatarLink($cdata['uid_fk'], $wc['cface']);
                 $wc['vote_up']         = $this->countVotesCom('com', 'up', $cdata['msg_id_fk'], $cdata['com_id']);
                 $wc['vote_down']       = $this->countVotesCom('com', 'down', $cdata['msg_id_fk'], $cdata['com_id']);
 

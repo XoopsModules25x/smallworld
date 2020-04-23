@@ -39,16 +39,19 @@ $GLOBALS['xoopsLogger']->activated = false;
 
 if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     SmallworldDeleteOldInspects();
-    $id     = smallworld_isset_or(addslashes(Request::getString('username', '', 'GET'))); // Id of user which profile you want to see
-    $id     = (int)$id;
-    $yourid = $GLOBALS['xoopsUser']->uid(); // this user's uid
-    $Xuser      = new \XoopsUser($id);
-    $Xusername  = (($Xuser instanceof \XoopsUser) && !$Xuser->isNew() && !$Xuser->isGuest()) ? $Xuser->getVar('uname') : '';
-    $check      = new Smallworld\User();
-    $profile    = $helper->getHandler('SwUser')->checkIfProfile($yourid);
-    $userNumMsg = smallworld_countUserWallMsges($id);
-    $fr[0]      = '';
-    $fl[0]      = '';
+    $swUserHandler = $helper->getHandler('SwUser');
+    $username      = Request::getString('username', '', 'GET');
+    $id            = $swUserHandler->getByName(addslashes($username));
+    //$id            = smallworld_isset_or(addslashes(Request::getString('username', '', 'GET'))); // Id of user which profile you want to see
+    //$id            = (int)$id;
+    $yourid        = $GLOBALS['xoopsUser']->uid(); // this user's uid
+    $Xuser         = new \XoopsUser($id);
+    $Xusername     = (($Xuser instanceof \XoopsUser) && !$Xuser->isNew() && !$Xuser->isGuest()) ? $Xuser->getVar('uname') : '';
+    $check         = new Smallworld\User();
+    $profile       = $swUserHandler->checkIfProfile($yourid);
+    $userNumMsg    = smallworld_countUserWallMsges($id);
+    $fr[0]         = '';
+    $fl[0]         = '';
 
     $GLOBALS['xoopsTpl']->assign('isadminuser', $helper->isUserAdmin() ? 'YES' : 'NO');
 
@@ -99,8 +102,8 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
         // Things to do with wall
         $wall = new Smallworld\WallUpdates();
 
-        $visitorAvatar          = $wall->Gravatar($yourid);
-        $visitorAvatarlink      = smallworld_getAvatarLink($yourid, $visitorAvatar);
+        $visitorAvatar          = $swUserHandler->gravatar($yourid);
+        $visitorAvatarlink      = $swUserHandler->getAvatarLink($yourid, $visitorAvatar);
         $visitorAvatar_size     = smallworld_getImageSize(80, 100, $visitorAvatarlink);
         $visitorAvatar_highwide = smallworld_imageResize($visitorAvatar_size[0], $visitorAvatar_size[1], 35);
 

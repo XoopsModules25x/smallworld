@@ -620,7 +620,7 @@
         <tr>
             <th><{$smarty.const._SMALLWORLD_REALNAME}></th>
             <th></th>
-            <th><{$smarty.const._SMALLWORLD_DATERECIEVED}></th>
+            <th><{$smarty.const._SMALLWORLD_DATERECEIVED}></th>
             <th></th>
             <th> <{$smarty.const._SMALLWORLD_ACTION}></th>
             <th></th>

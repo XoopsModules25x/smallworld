@@ -55,7 +55,8 @@ if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $username = $GLOBALS['xoopsUser']->uname();
     /** {@internal not used}}
     if ($helper->userIsAdmin()) {
-        $pub = $check->allUsers();
+        $pub = $helper->getHandler('SwUser')->allUsers();
+        //$pub = $check->allUsers();
         $GLOBALS['xoopsTpl']->assign('ownerofpage', $id); - not used
     }
     */

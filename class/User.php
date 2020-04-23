@@ -49,6 +49,12 @@ class User
      */
     public function checkIfProfile($userId)
     {
+        $depMsg = get_class() . __FUNCTION__ . " is deprecated, use SwUserHandler::" . __FUNCTION__ . " instead";
+        if (isset($GLOBALS['xoopsLogger'])) {
+            $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+        } else {
+            trigger_error($depMsg, E_USER_WARNING);
+        }
         $userId = (int)$userId;
         $type   = Constants::PROFILE_NONE; // init profile type
         if (Constants::DEFAULT_UID < $userId) {
@@ -147,12 +153,18 @@ class User
     /**
      * Get name from userid
      *
-     * @deprecated - moved to SwUser::getName() method
+     * @deprecated - moved to SwUserHandler::getName() method
      * @param int $userId
      * @return string
      */
     public function getName($userId)
     {
+        $depMsg = get_class() . __FUNCTION__ . " is deprecated, use SwUserHandler::" . __FUNCTION__ . " instead";
+        if (isset($GLOBALS['xoopsLogger'])) {
+            $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+        } else {
+            trigger_error($depMsg, E_USER_WARNING);
+        }
         $name = '';
         $swUserHandler = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser');
         $criteria = new \Criteria('userid', (int)$userId);
@@ -209,13 +221,17 @@ class User
         $result   = $GLOBALS['xoopsDB']->queryF($sql);
         //$i        = $GLOBALS['xoopsDB']->getRowsNum($result);
         //$swDB     = new \XoopsModules\Smallworld\SwDatabase();
-        $wall     = new \XoopsModules\Smallworld\WallUpdates();
-        $myavatar = $wall->Gravatar($userId);
-        $start    = 0;
+        //$wall     = new \XoopsModules\Smallworld\WallUpdates();
+        /**
+         * @var \XoopsModules\Smallworld\Helper $helper
+         * @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler
+         */
+        $helper        = \XoopsModules\Smallworld\Helper::getInstance();
+        $swUserHandler = $helper->getHandler('SwUser');
+        $start         = 0;
         while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result)) && $start <= count($row)) {
-            //$msg[$start]['friendname']  = $this->getName($row['me']);
-            $msg[$start]['friendname']  = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser')->getName($row['me']);
-            $msg[$start]['img']         = $wall->Gravatar($row['me']);
+            $msg[$start]['friendname']  = $swUserHandler->getName($row['me']);
+            $msg[$start]['img']         = $swUserHandler->gravatar($row['me']);
             $msg[$start]['friendimage'] = "<img src='" . XOOPS_UPLOAD_URL . '/' . $msg[$start]['img'] . "' height='40px'>";
             $msg[$start]['frienddate']  = date('d-m-Y', $row['date']);
             $msg[$start]['accept']      = '<a class="smallworldrequestlink" id = "smallworldfriendrequest_' . $msg[$start]['friendname'] . '" href = "javascript:Smallworld_AcceptDenyFriend(1,' . $row['me'] . ',' . $row['you'] . ',' . $start . ');">' . _SMALLWORLD_ACCEPT . '</a>';
@@ -237,6 +253,12 @@ class User
      */
     public function spousexist($name)
     {
+        $depMsg = get_class() . __FUNCTION__ . " is deprecated, use SwUserHandler::" . __FUNCTION__ . " instead";
+        if (isset($GLOBALS['xoopsLogger'])) {
+            $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+        } else {
+            trigger_error($depMsg, E_USER_WARNING);
+        }
         $swUserHandler = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser');
         $exists = $swUserHandler->getCount(new \Criteria('username', $name));
         return $exists ? 1 : 0;
@@ -252,10 +274,17 @@ class User
     /**
      * Get all users
      *
+     * @deprecated - functionality moved to SwUserHandler::allUsers()
      * @return array
      */
     public function allUsers()
     {
+        $depMsg = get_class() . __FUNCTION__ . " is deprecated, use SwUserHandler::" . __FUNCTION__ . " instead";
+        if (isset($GLOBALS['xoopsLogger'])) {
+            $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+        } else {
+            trigger_error($depMsg, E_USER_WARNING);
+        }
         $retVal = [];
         $sql    = 'SELECT userid FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . ' ORDER BY userid';
         $result = $GLOBALS['xoopsDB']->queryF($sql);

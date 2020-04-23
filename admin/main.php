@@ -97,7 +97,7 @@ if (!empty($allusers_inspect)) {
         $ai['userid']                = $data['userid'];
         $ai['username']              = $data['username'];
         $ai['realname']              = $data['realname'];
-        $ai['userimage']             = smallworld_getAvatarLink($data['userid'], $data['userimage']);
+        $ai['userimage']             = $swUserHandler->getAvatarLink($data['userid'], $data['userimage']);
         $ai['avatar_size']           = smallworld_getImageSize(80, 100, $ai['userimage']);
         $ai['avatar_highwide']       = smallworld_imageResize($ai['avatar_size'][0], $ai['avatar_size'][1], 50);
         $ai['ip']                    = $data['ip'];
@@ -117,7 +117,7 @@ if (!empty($allusers_noinspect)) {
         $ani['userid']                = $data['userid'];
         $ani['username']              = $data['username'];
         $ani['realname']              = $data['realname'];
-        $ani['userimage']             = smallworld_getAvatarLink($data['userid'], $data['userimage']);
+        $ani['userimage']             = $swUserHandler->getAvatarLink($data['userid'], $data['userimage']);
         $ani['avatar_size']           = smallworld_getImageSize(80, 100, $ani['userimage']);
         $ani['avatar_highwide']       = smallworld_imageResize($ani['avatar_size'][0], $ani['avatar_size'][1], 50);
         $ani['ip']                    = $data['ip'];

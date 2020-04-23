@@ -111,7 +111,7 @@ define(
     "Continuez en cliquant sur Enregistrer pour enregistrer vos informations dans la base de données.<br><br>Après cela, vous serez en mesure de visiter votre page, <br>et les pages des autres utilisateurs.<br><br>En vous remerciant d'avoir pris le temps de remplir ce formulaire."
 );
 define('_SMALLWORLD_FRIENDSINVITATIONS', 'Ajouter en ami');
-define('_SMALLWORLD_DATERECIEVED', 'Date');
+define('_SMALLWORLD_DATERECEIVED', 'Date');
 define('_SMALLWORLD_ACCEPT', 'Accepter');
 define('_SMALLWORLD_DENY', 'Refuser');
 define('_SMALLWORLD_LATER', 'Reporter à plus tard');

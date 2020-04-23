@@ -41,7 +41,8 @@ if (($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser))) {
     $id      = $GLOBALS['xoopsUser']->uid();
     //$check   = new Smallworld\User();
     //$profile = $check->checkIfProfile($id);
-    $profile = $helper->getHandler('SwUser')->checkIfProfile($id);
+    $swUserHandler = $helper->getHandler('SwUser');
+    $profile = $swUserHandler->checkIfProfile($id);
 }
 
 if ($profile >= Constants::PROFILE_HAS_BOTH) {
@@ -55,8 +56,8 @@ if ($profile >= Constants::PROFILE_HAS_BOTH) {
         $tpl->assign('isadminuser', $helper->isUserAdmin() ? 'YES' : 'NO');
         $priv              = Request::getInt('priv', 0, 'POST');
         //$followers         = smallworld_array_flatten($wall->getFollowers($id), 0);
-        $myavatar          = $wall->Gravatar($id);
-        $myavatarlink      = smallworld_getAvatarLink($id, $myavatar);
+        $myavatar          = $swUserHandler->gravatar($id);
+        $myavatarlink      = $swUserHandler->getAvatarLink($id, $myavatar);
         $myavatar_size     = smallworld_getImageSize(80, 100, $myavatarlink);
         $myavatar_highwide = smallworld_imageResize($myavatar_size[0], $myavatar_size[1], 35);
         $update            = $_POST['update']; // sanitized by Wall::insertUpdate()
@@ -79,8 +80,8 @@ if ($profile >= Constants::PROFILE_HAS_BOTH) {
                 $wm['username']        = $data['username'];
                 $wm['uid_fk']          = $data['uid_fk'];
                 $wm['priv']            = $data['priv'];
-                $wm['avatar']          = $wall->Gravatar($data['uid_fk']);
-                $wm['avatar_link']     = smallworld_getAvatarLink($data['uid_fk'], $wm['avatar']);
+                $wm['avatar']          = $swUserHandler->gravatar($data['uid_fk']);
+                $wm['avatar_link']     = $swUserHandler->getAvatarLink($data['uid_fk'], $wm['avatar']);
                 $wm['avatar_size']     = smallworld_getImageSize(80, 100, $wm['avatar_link']);
                 $wm['avatar_highwide'] = smallworld_imageResize($wm['avatar_size'][0], $wm['avatar_size'][1], 50);
                 $wm['compl_msg_lnk']   = "<a href='" . $helper->url('permalink.php?ownerid=' . $data['uid_fk']);
@@ -127,9 +128,9 @@ if ($profile >= Constants::PROFILE_HAS_BOTH) {
                     $wc['myavatar_link']   = $myavatarlink;
                     $wc['avatar_size']     = smallworld_getImageSize(80, 100, $wc['myavatar_link']);
                     $wc['avatar_highwide'] = smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);
-                    $wc['cface']           = $wall->Gravatar($cdata['uid_fk']);
-                    $wc['avatar_link']     = smallworld_getAvatarLink($cdata['uid_fk'], $wc['cface']);
-                    $wc['compl_msg_lnk']   = "<a href='" . XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . smallworld_getOwnerFromComment($cdata['msg_id_fk'])
+                    $wc['cface']           = $swUserHandler->gravatar($cdata['uid_fk']);
+                    $wc['avatar_link']     = $swUserHandler->getAvatarLink($cdata['uid_fk'], $wc['cface']);
+                    $wc['compl_msg_lnk']   = "<a href='" . $helper->url('permalink.php?ownerid=' . smallworld_getOwnerFromComment($cdata['msg_id_fk']))
                                            . '&updid=' . $cdata['msg_id_fk'] . '#' . $cdata['com_id'] . "'>" . _SMALLWORLD_COMP_MSG_LNK_DESC . '</a>';
                     $wc['vote_up']         = $wall->countVotesCom('com', 'up', $cdata['msg_id_fk'], $cdata['com_id']);
                     $wc['vote_down']       = $wall->countVotesCom('com', 'down', $cdata['msg_id_fk'], $cdata['com_id']);

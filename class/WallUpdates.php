@@ -127,11 +127,19 @@ class WallUpdates
     /**
      * Get user image based on uid
      *
+     * @deprecated
      * @param int $uid
      * @return string
      */
     public function Gravatar($uid)
     {
+        $depMsg = get_class() . __FUNCTION__ . " is deprecated use SwUserHandler::gravatar() instead.";
+        if (isset($GLOBALS['xoopsLogger'])) {
+            $GLOBALS['xoopsLogger']->addDeprecated($depMsg);
+        } else {
+            trigger_error($depMsg, E_USER_WARNING);
+        }
+
         $image  = $avatar = '';
         $swUserHandler = \XoopsModules\Smallworld\Helper::getInstance()->getHandler('SwUser');
         $criteria = new \Criteria('userimage', (int)$uid);
@@ -148,7 +156,7 @@ class WallUpdates
             $image = $r['userimage'];
         }
         */
-        $image = ('' == $image || 'blank.gif' === $image) ? smallworld_getAvatarLink($uid, $image) : $image;
+        $image = ('' == $image || 'blank.gif' === $image) ? $swUserHandler->getAvatarLink($uid, $image) : $image;
 
         $type = [
             1 => 'jpg',
@@ -456,8 +464,8 @@ class WallUpdates
         $check             = new User();
         $swDB              = new SwDatabase();
         $profile           = $swUserHandler->checkIfProfile($id);
-        $myavatar          = $this->Gravatar($id);
-        $myavatarlink      = smallworld_getAvatarLink($id, $myavatar);
+        $myavatar          = $swUserHandler->gravatar($id);
+        $myavatarlink      = $swUserHandler->getAvatarLink($id, $myavatar);
         $myavatar_size     = smallworld_getImageSize(80, 100, $myavatarlink);
         $myavatar_highwide = smallworld_imageResize($myavatar_size[0], $myavatar_size[1], 35);
 
@@ -487,13 +495,13 @@ class WallUpdates
             $wm['username']        = $data['username'];
             $wm['uid_fk']          = $data['uid_fk'];
             $wm['priv']            = $data['priv'];
-            $wm['avatar']          = $this->Gravatar($data['uid_fk']);
-            $wm['avatar_link']     = smallworld_getAvatarLink($data['uid_fk'], $wm['avatar']);
+            $wm['avatar']          = $swUserHandler->gravatar($data['uid_fk']);
+            $wm['avatar_link']     = $swUserHandler->getAvatarLink($data['uid_fk'], $wm['avatar']);
             $wm['avatar_size']     = smallworld_getImageSize(80, 100, $wm['avatar_link']);
             $wm['avatar_highwide'] = smallworld_imageResize($wm['avatar_size'][0], $wm['avatar_size'][1], 50);
             $wm['vote_up']         = $this->countVotes('msg', 'up', $data['msg_id']);
             $wm['vote_down']       = $this->countVotes('msg', 'down', $data['msg_id']);
-            $wm['sharelinkurl']    = XOOPS_URL . '/modules/smallworld/smallworldshare.php?ownerid=' . $data['uid_fk'];
+            $wm['sharelinkurl']    = $helper->url("smallworldshare.php?ownerid={$data['uid_fk']}");
             $wm['sharelinkurl']    .= '&updid=' . $data['msg_id'] . '';
             $wm['usernameTitle']   = $wm['username'] . _SMALLWORLD_UPDATEONSITEMETA . $GLOBALS['xoopsConfig']['sitename'];
             if (1 == $USW['posts'] || $profile >= Constants::PROFILE_HAS_BOTH) {
@@ -507,8 +515,8 @@ class WallUpdates
             } else {
                 $wm['sharediv'] = $this->getSharingDiv($wm['msg_id'], 1, $wm['sharelinkurl'], $wm['orimessage'], $wm['usernameTitle']);
             }
-            $wm['linkimage']     = XOOPS_URL . '/modules/smallworld/assets/images/link.png';
-            $wm['permalink']     = XOOPS_URL . '/modules/smallworld/permalink.php?ownerid=' . $data['uid_fk'] . '&updid=' . $data['msg_id'];
+            $wm['linkimage']     = $helper->url('assets/images/link.png');
+            $wm['permalink']     = $helper->url("permalink.php?ownerid={$data['uid_fk']}&updid={$data['msg_id']}");
             $wm['commentsarray'] = $this->Comments($data['msg_id']);
 
             if (2 == $frU[0] || 1 == $USW['posts']) {
@@ -534,12 +542,12 @@ class WallUpdates
                 $wc['time']            = smallworld_time_stamp($cdata['created']);
                 $wc['username']        = $cdata['username'];
                 $wc['uid']             = $cdata['uid_fk'];
-                $wc['myavatar']        = $this->Gravatar($id);
+                $wc['myavatar']        = $myavatar;
                 $wc['myavatar_link']   = $myavatarlink;
                 $wc['avatar_size']     = smallworld_getImageSize(80, 100, $wc['myavatar_link']);
                 $wc['avatar_highwide'] = smallworld_imageResize($wc['avatar_size'][0], $wc['avatar_size'][1], 35);
-                $wc['cface']           = $this->Gravatar($cdata['uid_fk']);
-                $wc['avatar_link']     = smallworld_getAvatarLink($cdata['uid_fk'], $wc['cface']);
+                $wc['cface']           = $swUserHandler->gravatar($cdata['uid_fk']);
+                $wc['avatar_link']     = $swUserHandler->getAvatarLink($cdata['uid_fk'], $wc['cface']);
                 $wc['vote_up']         = $this->countVotesCom('com', 'up', $cdata['msg_id_fk'], $cdata['com_id']);
                 $wc['vote_down']       = $this->countVotesCom('com', 'down', $cdata['msg_id_fk'], $cdata['com_id']);
 

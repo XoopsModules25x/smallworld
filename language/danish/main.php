@@ -106,7 +106,7 @@ define(
 <br>Tryk på OK for at fortsætte til registrering eller tryk annuller<br> for at gå tilbage til indekssiden '
 ) . define('_SMALLWORLD_NOTYETREGISTERED_TITLE', 'Fortsæt for at afslutte registrering');
 define('_SMALLWORLD_TEXTBEFORESUBMIT', 'Fortsæt for at gemme dine oplysninger til databasen.<br> Efter dette er du er i stand til at besøge din profil, andre brugeres sider.<br>Tak for din tid ') . define('_SMALLWORLD_FRIENDSINVITATIONS', 'Venskabsanmodninger');
-define('_SMALLWORLD_DATERECIEVED', 'Dato');
+define('_SMALLWORLD_DATERECEIVED', 'Dato');
 define('_SMALLWORLD_ACCEPT', 'Accepter');
 define('_SMALLWORLD_DENY', 'Afvis');
 define('_SMALLWORLD_LATER', 'senere');

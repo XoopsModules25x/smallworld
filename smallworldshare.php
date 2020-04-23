@@ -49,8 +49,9 @@ $GLOBALS['xoopsTpl']->caching = 0;
 
 if ($perm <= 0) {
     // Things to do with wall
-    $wall         = new Smallworld\WallUpdates();
-    $updatesarray = $wall->updatesSharelink($updID, $ownerID);
+    $wall          = new Smallworld\WallUpdates();
+    $swUserHandler = $helper->getHandler('SwUser');
+    $updatesarray  = $wall->updatesSharelink($updID, $ownerID);
     //Srinivas Tamada http://9lessons.info
     //Loading Comments link with load_updates.php
     foreach ($updatesarray as $data) {
@@ -61,11 +62,11 @@ if ($perm <= 0) {
         $wm['username']   = $data['username'];
         $wm['uid_fk']     = $data['uid_fk'];
         $wm['priv']       = $data['priv'];
-        $wm['avatar']     = $wall->Gravatar($data['uid_fk']);
+        $wm['avatar']     = $swUserHandler->gravatar($data['uid_fk']);
         if (1 !== $helper->getConfig('smallworldbookmarkavatar')) {
             $wm['avatar_link'] = $helper->url('assets/images/smallworld.png');
         } else {
-            $wm['avatar_link'] = smallworld_getAvatarLink($data['uid_fk'], $wm['avatar']);
+            $wm['avatar_link'] = $swUserHandler->getAvatarLink($data['uid_fk'], $wm['avatar']);
         }
         $wm['avatar_size']     = smallworld_getImageSize(80, 100, $wm['avatar_link']);
         $wm['avatar_highwide'] = smallworld_imageResize($wm['avatar_size'][0], $wm['avatar_size'][1], 50);

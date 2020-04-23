@@ -60,8 +60,11 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     //$profile  = $check->checkIfProfile($id);
     $profile  = $sWUserHandler->checkIfProfile($id);
     if ($isAdmin) {
+        $pub = $swUserHandler->allUsers();
+        /*
         $check = new Smallworld\User();
         $pub   = $check->allUsers();
+        */
     }
 }
 
