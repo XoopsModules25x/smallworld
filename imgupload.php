@@ -10,20 +10,16 @@
  * http://creativecommons.org/licenses/MIT/
  */
 
+use XoopsModules\Smallworld;
 
-use Xmf\Request;
-use Xoopsmodules\smallworld;
 require_once __DIR__ . '/header.php';
 
-global $xoopsUser, $xoopsLogger;
-require_once __DIR__ . '/../../mainfile.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/UploadHandler.php';
-if ($xoopsUser) {
-    $xoopsLogger->activated = false;
-    $img                    = new smallworld\SmallWorldImages;
-    $userID                 = $xoopsUser->getVar('uid');
-    $user                   = new XoopsUser($userID);
-    $uploadHandler          = new smallworld\UploadHandler();
+/** @var \XoopsModules\Smallworld\Helper $helper */
+require_once $helper->path('include/functions.php');
+if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
+    $GLOBALS['xoopsLogger']->activated = false;
+    $img                    = new Smallworld\Images();
+    $userID                 = $GLOBALS['xoopsUser']->getVar('uid');
+    $user                   = new \XoopsUser($userID);
+    $uploadHandler          = new Smallworld\UploadHandler();
 }

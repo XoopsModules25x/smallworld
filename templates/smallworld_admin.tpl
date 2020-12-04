@@ -36,6 +36,8 @@
                     <td class="smallworldadmin"><{$topusertoday[i].cnt}></td>
                     <td class="smallworldadmin"><{$lang_messages}></td>
                 </tr>
+                <{sectionelse}>
+                <tr><td colspan="5"><{$smarty.const._AM_SMALLWORLD_NO}></td></tr>
                 <{/section}>
             </table>
             <p class="smallworldadmin"><{$lang_topchatters}></p>
@@ -48,6 +50,8 @@
                     <td class="smallworldadmin"><{$topuser[i].cnt}></td>
                     <td class="smallworldadmin"><{$lang_messages}></td>
                 </tr>
+                <{sectionelse}>
+                <tr><td colspan="5"><{$smarty.const._AM_SMALLWORLD_NO}></td></tr>
                 <{/section}>
             </table>
             <p class="smallworldadmin"><{$lang_toprated}></p>
@@ -60,6 +64,8 @@
                     <td class="smallworldadmin"><{$topratedusers[i].cnt}></td>
                     <td class="smallworldadmin"><img height="8px" width="8px" src="../assets/images/like.png"></td>
                 </tr>
+                <{sectionelse}>
+                <tr><td colspan="5"><{$smarty.const._AM_SMALLWORLD_NO}></td></tr>
                 <{/section}>
             </table>
             <p class="smallworldadmin"><{$lang_bottomrated}></p>
@@ -72,6 +78,8 @@
                     <td class="smallworldadmin"><{$bottomratedusers[i].cnt}></td>
                     <td class="smallworldadmin"><img height="8px" width="8px" src="../assets/images/dislike.png"></td>
                 </tr>
+                <{sectionelse}>
+                <tr><td colspan="5"><{$smarty.const._AM_SMALLWORLD_NO}></td></tr>
                 <{/section}>
             </table>
 

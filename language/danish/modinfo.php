@@ -41,8 +41,8 @@ define('_MI_SMALLWORLD_MSGTOSHOW', 'Beskeder der skal vises ?');
 define('_MI_SMALLWORLD_MSGTOSHOW_DESC', 'Hvor mange beskeder (updates) skal vises på profil og indexside.');
 
 // Use validation
-define('_MI_SMALLWORLD_VALIDATIONSTRENGHT', 'Validation af trin');
-define('_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC', 'Brug validation ved registrering og ved edit profil.<br><br>Mulighederne er:<br><br>Nej: Ingen validation<br>Ja: *vigtige* felter skal validated ');
+define('_MI_SMALLWORLD_VALIDATIONSTRENGTH', 'Validation af trin');
+define('_MI_SMALLWORLD_VALIDATIONSTRENGTH_DESC', 'Brug validation ved registrering og ved edit profil.<br><br>Mulighederne er:<br><br>Nej: Ingen validation<br>Ja: *vigtige* felter skal validated ');
 
 // Smallworld take-over user name links ?
 define('_MI_SMALLWORLD_TAKEOVERLINKS', 'Konverter brugernavne-links til smallworld');
