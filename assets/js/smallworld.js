@@ -13,7 +13,7 @@
  */
 xoops_smallworld(function () {
     //Attach function for avatar
-    Smallworld_attachAvatarOpen();
+    smallworld_attachAvatarOpen();
 
     // Get page url and page title (index.php)
     var smallworld_pageUrl = window.location.pathname;
@@ -80,7 +80,7 @@ xoops_smallworld(function () {
                 width: 1150,
                 modal: true,
                 closeOnEscape: true,
-                position: { my: "top", at: "center", of: window },
+                position: 'center',
                 open: function (event, ui) {
                     smallworld_DoValStart();
                     xoops_smallworld("input#realname").val();
@@ -88,9 +88,6 @@ xoops_smallworld(function () {
                         background: 'none repeat scroll 0 0 #222222',
                         opacity: 0.89
                     });
-					xoops_smallworld('.ui-dialog').css({
-						zIndex: '9999'
-					});
                 },
                 beforeClose: function (event, ui) {
                     xoops_smallworld('#smallworld_regform1').hide();
@@ -233,7 +230,7 @@ xoops_smallworld(function () {
         changeYear: true,
         dateFormat: 'dd-mm-yy',
         showOn: "button",
-        buttonImage: "images/calendar.gif",
+        buttonImage: "assets/images/calendar.gif",
         buttonImageOnly: true,
         onClose: function () {
             this.focus();
@@ -278,16 +275,14 @@ xoops_smallworld(function () {
         xoops_smallworld(document).ready(function () {
             if (xoops_smallworld("#birthplace").length > 0) {
                 if (typeof xoops_smallworld('#birthplace').val() != "undefined") {
-                    xoops_smallworld('#birthplace').OsmLiveSearchBirth();
+                    xoops_smallworld('#birthplace').geo_autocomplete();
                 }
             }
-            
-			if (xoops_smallworld("#present_city").length > 0) {
+            if (xoops_smallworld("#present_city").length > 0) {
                 if (typeof xoops_smallworld('#present_city').val() != "undefined") {
-                    xoops_smallworld('#present_city').OsmLiveSearchNow();
+                    xoops_smallworld('#present_city').geo_autocomplete_now();
                 }
             }
-			
         });
     }
 
@@ -488,7 +483,7 @@ xoops_smallworld(function () {
         if (smallworld_PageName == 'register.php' || smallworld_PageName == 'editprofile.php') {
             var sw_data;
             xoops_smallworld.ajax({
-                url: smallworld_url + "include/getSelects.php?" + Math.random(),
+                url: smallworld_url + "include/get_selects.php?" + Math.random(),
                 cache: false,
                 dataType: "json",
                 success: function (sw_data) {
@@ -770,10 +765,8 @@ xoops_smallworld(function () {
                         xoops_smallworld('#_smallworld_birthplace_map').hide();
                     },
                     onComplete: function () {
-                        //Smallworld_initialize_birthplace(smallworld_birthlng, smallworld_birthlatt);
-						
+                        Smallworld_initialize_birthplace(smallworld_birthlng, smallworld_birthlatt);
                         xoops_smallworld('#_smallworld_birthplace_map').show();
-						doMapBirth(smallworld_birthlatt, smallworld_birthlng);
                     },
                     title: function () {
                         var title = xoops_smallworld("#_smallworld_birthplace_map").attr('title');
@@ -784,24 +777,6 @@ xoops_smallworld(function () {
             }
         }
     });
-
-	function doMapBirth(lat, lon) {
-        var map = L.map('_smallworld_birthplace_map').setView([lat, lon], 13);
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
-        var marker = L.marker([lat, lon]).addTo(map);
-        var popup = marker.bindPopup(cityname);
-    }
-	
-	function doMapNow(lat, lon) {
-        var map = L.map('_smallworld_present_map').setView([lat, lon], 13);
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
-        var marker = L.marker([lat, lon]).addTo(map);
-        var popup = marker.bindPopup(cityname);
-    }
 
     //Function to show images in present location input
     xoops_smallworld('#_smallworld_present_maplink').on('click', function (event) {
@@ -817,10 +792,8 @@ xoops_smallworld(function () {
                         xoops_smallworld('#_smallworld_present_map').hide();
                     },
                     onComplete: function () {
-                        //Smallworld_initialize_currplace(smallworld_currlng, smallworld_currlatt);
-						
+                        Smallworld_initialize_currplace(smallworld_currlng, smallworld_currlatt);
                         xoops_smallworld('#_smallworld_present_map').show();
-						doMapNow(smallworld_currlatt, smallworld_currlng);
                     },
                     title: function () {
                         var title = xoops_smallworld("#_smallworld_present_map").attr('title');
@@ -846,7 +819,7 @@ xoops_smallworld(function () {
                 return Smallworld_oldurl;
             } else {
                 var Smallworld_tempArray = xoops_smallworld(this).attr("href").split("/");
-                var Smallworld_baseURL = Smallworld_tempArray[0];
+                var Smallworld_baseURL = smallworld_tempArray[0];
                 this.href = this.href.replace(Smallworld_oldurl, smallworld_url + "userprofile.php?username=" + Smallworld_uname);
             }
         });
@@ -1000,14 +973,47 @@ function smallworldCheckNumDivs() {
 
 
 // Open custom boomark window
-function Smallworld_customBookmark(id, display, url) {
+function smallworld_customBookmark(id, display, url) {
     window.open(url, '_blank',
         'width=600,height=400,menubar=no,toolbar=no,scrollbars=yes');
 }
 
+// Init birthplace_map
+function smallworld_initialize_birthplace(smallworld_birthlng, smallworld_birthlatt) {
+
+    var birth_myLatlng = new google.maps.LatLng(smallworld_birthlatt, smallworld_birthlng);
+    var birth_myOptions = {
+        zoom: 8,
+        center: birth_myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var birth_map = new google.maps.Map(document.getElementById("_smallworld_birthplace_map"), birth_myOptions);
+    var birth_marker = new google.maps.Marker({
+        position: birth_myLatlng,
+        map: birth_map,
+        title: "Culex.dk"
+    });
+}
+
+// Init currentcity_map
+function smallworld_initialize_currplace(smallworld_currlng, smallworld_currlatt) {
+    var currplace_myLatlng = new google.maps.LatLng(smallworld_currlatt, smallworld_currlng);
+    var currplace_myOptions = {
+        zoom: 8,
+        center: currplace_myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var currplace_map = new google.maps.Map(document.getElementById("_smallworld_present_map"), currplace_myOptions);
+    var currplace_marker = new google.maps.Marker({
+        position: currplace_myLatlng,
+        map: currplace_map,
+        title: "Culex.dk"
+    });
+}
+
 // Function to send invitation of friendship to userid
 //get friends email ids and message to send invitation
-function Smallworld_inviteFriends(friendID, myuid) {
+function smallworld_inviteFriends(friendID, myuid) {
     xoops_smallworld('#resultMsg').hide();
     var txtMsgModal = xoops_smallworld('#friendship').text().replace(/\t/g, '');
     var frNa = xoops_smallworld('#smallworld_capname').text();
@@ -1035,7 +1041,7 @@ function Smallworld_inviteFriends(friendID, myuid) {
 }
 
 // function to follow / unfollow friends
-function Smallworld_FollowFriend(friendID, myuid) {
+function smallworld_FollowFriend(friendID, myuid) {
     xoops_smallworld('#resultMsgFollow').hide();
     xoops_smallworld.ajax({
         type: 'POST',
@@ -1089,7 +1095,7 @@ function SmallworldGetMoreMsg() {
 }
 
 // function to Accept / deny friendships
-function Smallworld_AcceptDenyFriend(stat, friendID, myuid, targetID) {
+function smallworld_AcceptDenyFriend(stat, friendID, myuid, targetID) {
     xoops_smallworld.ajax({
         type: 'POST',
         url: smallworld_url + 'friendinvite.php?' + Math.random(),
@@ -1114,7 +1120,7 @@ function smallworldRefresh() {
 
 function smallworld_getCountFriendMessagesEtcJS() {
     xoops_smallworld.ajax({
-        url: smallworld_url + "Get_Count.php?SmallworldGetUserMsgCount=1" + "&rndnum=" + Math.floor(Math.random() * 101),
+        url: smallworld_url + "include/get_count.php?SmallworldGetUserMsgCount=1" + "&rndnum=" + Math.floor(Math.random() * 101),
         cache: false,
         dataType: "json",
         success: function (data) {
@@ -1149,7 +1155,7 @@ function smallworld_getCountFriendMessagesEtcJS() {
 function smallworld_DoValStart() {
     xoops_smallworld(document).ready(function () {
         // Attact validation to registeration parts in register form
-        if (smallworldvalidationstrenght != 0) {
+        if (smallworldvalidationstrength != 0) {
             xoops_smallworld("#smallworld_profileform-next-0").hide();
             xoops_smallworld("#smallworld_profileform-next-1").hide();
 
@@ -1188,7 +1194,7 @@ function smallworld_DoValStart() {
                     var id = xoops_smallworld(this).attr('id');
                     xoops_smallworld("#" + id).validate({
                         expression: "if (VAL.match(/^[^\\W][a-zA-Z0-9\\_\\-\\.]+([a-zA-Z0-9\\_\\-\\.]+)*\\@[a-zA-Z0-9\\_\\-]+(\\.[a-zA-Z0-9\\_\\-]+)*\\.[a-zA-Z]{2,4}$/)) return true; else return false;",
-                        message: "<img src='images/error.png' title='" + SmallworldValidationEmailTitleErrorMsg + "'/>"
+                        message: "<img src='assets/images/error.png' title='" + SmallworldValidationEmailTitleErrorMsg + "'/>"
                     });
                 });
             }
@@ -1252,7 +1258,7 @@ function smallworld_DoValStart() {
     return false;
 }
 
-function Smallworld_attachAvatarOpen() {
+function smallworld_attachAvatarOpen() {
     // Open comment and update avatar imagen in new window on click
     xoops_smallworld(function () {
         xoops_smallworld('.smallworld_big_face, .smallworld_small_face, .smallworldAttImg').css('cursor', 'pointer');
