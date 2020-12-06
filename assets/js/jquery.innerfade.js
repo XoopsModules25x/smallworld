@@ -24,7 +24,7 @@
  *	  timeout: Time between the fades in milliseconds (Default: '2000'), 
  *	  type: Type of slideshow: 'sequence', 'random' or 'random_start' (Default: 'sequence'), 
  * 		containerheight: Height of the containing element in any css-height-value (Default: 'auto'),
- *	  runningclass: CSS-Class which the container getâ€™s applied (Default: 'innerfade'),
+ *	  runningclass: CSS-Class which the container get’s applied (Default: 'innerfade'),
  *	  children: optional children selector (Default: null)
  *  }); 
  *

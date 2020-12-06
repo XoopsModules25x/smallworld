@@ -6,7 +6,7 @@
 
 <{else}>
 <div id="smallworld_notyetregistered" title="<{$smarty.const._SMALLWORLD_NOTYETREGISTERED_TITLE}>">
-    <table class="smallworld_table bnone" cellspacing="0" cellpadding="0">
+    <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
         <tr>
             <label for="register"></label>
             <td><p id="smallworld_notyetusercontent"><{$notyetusercontent}></p></td>
@@ -54,11 +54,11 @@
                 <{if $username == $myusername}>
                 <br>
                 <p class="smallworld_useredits_menu">
-                    <img height="10px" width="10px" src="<{$xoops_url}>/modules/smallworld/assets/images/editavatar.png">
+                    <img height="10px" width="10px" src="assets/images/editavatar.png">
                     <a href="javascript:void(0);" id="smallworld_changeAvatar"><{$smarty.const._SMALLWORLD_CHANGEAVATAR}></a><br>
-                    <img height="10px" width="10px" src="<{$xoops_url}>/modules/smallworld/assets/images/edituserprofile.png">
+                    <img height="10px" width="10px" src="assets/images/edituserprofile.png">
                     <a href="editprofile.php" id="smallworld_changeEditProfile"><{$smarty.const._SMALLWORLD_EDITPROFILE}></a><br>
-                    <img height="10px" width="10px" src="<{$xoops_url}>/modules/smallworld/assets/images/preferences.png">
+                    <img height="10px" width="10px" src="assets/images/preferences.png">
                     <a href="javascript:void(0);" id="smallworld_changePersSettings"><{$smarty.const._SMALLWORLD_MENU_PRIVSET}></a>
                     <br>
                 </p>
@@ -71,7 +71,7 @@
                 <{/if}>
                 <br>
                 <p class="smallworld_useredits_menu">
-                    <img width="10px" height="10px" src="<{$xoops_url}>/modules/smallworld/assets/images/statistics.png">
+                    <img width='10px' height='10px' src="<{$xoops_url}>/modules/smallworld/assets/images/statistics.png">
                     <a href="javascript:void(0);" id="smallworld_statistics_lnk"><{$smarty.const._SMALLWORLD_STATS}></a><br>
                 </p>
                 <br>
@@ -97,7 +97,7 @@
                             <{section name=i loop=$pendingfriends}>
                             <div class="smallworld_friends_body">
                                 <div class="smallworld_friendpageimg">
-                                    <img src="<{$pendingfriends[i].avatar_link}>" class="smallworld_small_face" <{$pendingfriends[i].avatar_highwide}>>
+                                    <img src="<{$pendingfriends[i].avatar_link}>" class='smallworld_small_face' <{$pendingfriends[i].avatar_highwide}>>
                                 </div>
                                 <div class="Friends_holder">
                                     <a class="Friends_links" href="<{$xoops_url}>/modules/smallworld/userprofile.php?username=<{$pendingfriends[i].friendname}>">
@@ -107,7 +107,7 @@
                             </div>
                             <{/section}>
                             <{if $pendingfriends == ''}>
-                            <{$nouserspending}>
+                            <{$smarty.const._SMALLWORLD_NOUSERS}>
                             <{/if}>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                             <{section name=i loop=$verifiedfriends}>
                             <div class="smallworld_friends_body">
                                 <div class="smallworld_friendpageimg">
-                                    <img src="<{$verifiedfriends[i].avatar_link}>" class="smallworld_small_face" <{$verifiedfriends[i].avatar_highwide}>>
+                                    <img src="<{$verifiedfriends[i].avatar_link}>" class='smallworld_small_face' <{$verifiedfriends[i].avatar_highwide}>>
                                 </div>
                                 <div class="Friends_holder">
                                     <a class="Friends_links" href="<{$xoops_url}>/modules/smallworld/userprofile.php?username=<{$verifiedfriends[i].friendname}>">
@@ -129,7 +129,7 @@
                             </div>
                             <{/section}>
                             <{if $verifiedfriends == ''}>
-                            <{$nousersfriends}>
+                            <{$smarty.const._SMALLWORLD_NOUSERS}>
                             <{/if}>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                             <{section name=i loop=$followingyou}>
                             <div class="smallworld_friends_body">
                                 <div class="smallworld_friendpageimg">
-                                    <img src="<{$followingyou[i].avatar_link}>" class="smallworld_small_face" <{$followingyou[i].avatar_highwide}>>
+                                    <img src="<{$followingyou[i].avatar_link}>" class='smallworld_small_face' <{$followingyou[i].avatar_highwide}>>
                                 </div>
                                 <div class="Friends_holder">
                                     <a class="Friends_links" href="<{$xoops_url}>/modules/smallworld/userprofile.php?username=<{$followingyou[i].friendname}>">
@@ -150,7 +150,7 @@
                             </div>
                             <{/section}>
                             <{if $followingyou == ''}>
-                            <{$nousersfollowingyou}>
+                            <{$smarty.const._SMALLWORLD_NOUSERS}>
                             <{/if}>
                         </div>
                     </div>
@@ -162,7 +162,7 @@
                             <{section name=i loop=$followingme}>
                             <div class="smallworld_friends_body">
                                 <div class="smallworld_friendpageimg">
-                                    <img src="<{$followingme[i].avatar_link}>" class="smallworld_small_face" <{$followingme[i].avatar_highwide}>>
+                                    <img src="<{$followingme[i].avatar_link}>" class='smallworld_small_face' <{$followingme[i].avatar_highwide}>>
                                 </div>
                                 <div class="Friends_holder">
                                     <a class="Friends_links" href="<{$xoops_url}>/modules/smallworld/userprofile.php?username=<{$followingme[i].friendname}>">
@@ -172,7 +172,7 @@
                             </div>
                             <{/section}>
                             <{if $followingme == ''}>
-                            <{$nousersfollowingme}>
+                            <{$smarty.const._SMALLWORLD_NOUSERS}>
                             <{/if}>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                 <{/if}>
                 <{if $isuserafriend == 'no'}>
                 <div class="smallworld_nofrienddiv">
-                    <span class="smallworld_nofrienddivtext"><{$friendship_text}></span>
+                    <span class="smallworld_nofrienddivtext"><{$smarty.const._SMALLWORLD_NOFRIENDTEXT}></span>
                 </div>
                 <{/if}>
 
@@ -200,7 +200,7 @@
     <fieldset>
         <label><{$smarty.const._SMALLWORLD_WORKFULL_TITLE}></label><br>
         <{section name=i loop=$workfull}>
-        <table class="smallworld_table bnone" cellspacing="0" cellpadding="0">
+        <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
             <p class="smallworld_clonebreaker">
                 <tr>
                     <td><{$smarty.const._SMALLWORLD_EMPLOYER}></td>
@@ -236,7 +236,7 @@
     <fieldset>
         <label><{$smarty.const._SMALLWORLD_SCHOOLFULL_TITLE}></label><br>
         <{section name=i loop=$educationfull}>
-        <table class="smallworld_table bnone" cellspacing="0" cellpadding="0">
+        <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
             <tr>
                 <p class="smallworld_clonebreaker"></tr>
             <tr>
@@ -266,7 +266,7 @@
 
 <div id="interestsandmore" title="<{$smarty.const._SMALLWORLD_INTERESTS_TITLE}>">
     <fieldset>
-        <table class="smallworld_table bnone" cellspacing="0" cellpadding="0">
+        <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
             <tr>
                 <td><label><{$username}> - <{$smarty.const._SMALLWORLD_INTERESTS_DESC}></label></td>
             </tr>
@@ -274,7 +274,7 @@
     </fieldset>
 
     <fieldset>
-        <table class="smallworld_table bnone" cellspacing="0" cellpadding="0">
+        <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
             <tr>
                 <h3><label><{$smarty.const._SMALLWORLD_BELIEFS}></label></h3>
             </tr>
@@ -292,7 +292,7 @@
     </fieldset>
 
     <fieldset>
-        <table class="smallworld_table bnone" cellspacing="0" cellpadding="0">
+        <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
             <tr>
                 <h3><label><{$smarty.const._SMALLWORLD_FAVOURITETHINGS}></label></h3>
             </tr>
@@ -325,7 +325,7 @@
     </fieldset>
 
     <fieldset>
-        <table class="smallworld_table bnone" cellspacing="0" cellpadding="0">
+        <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
             <tr>
                 <h3><label><{$smarty.const._SMALLWORLD_CONTACTS}></label></h3>
             </tr>
@@ -363,7 +363,7 @@
     </fieldset>
 
     <fieldset>
-        <table class="smallworld_table bnone" cellspacing="0" cellpadding="0">
+        <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
             <tr><h3><label><{$smarty.const._SMALLWORLD_ADRESS}></label></h3></tr>
             <tr>
                 <td><{$smarty.const._SMALLWORLD_ADRESS}>:</td>
@@ -393,11 +393,11 @@
 <div id="resultMsgFollow" title="<{$smarty.const._SMALLWORLD_FRIENDSHIPFOLLOW}> <{$username}>">
 </div>
 <div id="friendInvitations_box" title="<{$smarty.const._SMALLWORLD_FRIENDSINVITATIONS}>">
-    <table class="smallworld_invitetable bnone" cellspacing="0" cellpadding="0">
+    <table border="0" class="smallworld_invitetable" cellspacing="0" cellpadding="0">
         <tr>
             <th><{$smarty.const._SMALLWORLD_REALNAME}></th>
             <th></th>
-            <th><{$smarty.const._SMALLWORLD_DATERECEIVED}></th>
+            <th><{$smarty.const._SMALLWORLD_DATERECIEVED}></th>
             <th></th>
             <th> <{$smarty.const._SMALLWORLD_ACTION}></th>
             <th></th>

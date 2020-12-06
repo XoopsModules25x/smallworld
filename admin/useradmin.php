@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,114 +12,109 @@
 /**
  * SmallWorld
  *
- * @package      \XoopsModules\SmallWorld
- * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @link         https://github.com/XoopsModules25x/smallworld
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
  * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
 require_once __DIR__ . '/admin_header.php';
-/**
- * Vars defined by inclusion of ./admin_header.php
- *
- * @var \XoopsModules\Smallworld\Admin $admin
- * @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler
- * @var \XoopsModules\Smallworld\DoSync $d
- * @var \XoopsModules\Smallworld\User $check
- * @var \XoopsModules\Smallworld\SwDatabase $swDB
- * @var \XoopsModules\Smallworld\WallUpdates $wall
- * @var \Xmf\Module\Admin $adminObject
- * @var \XoopsModules\Smallworld\Helper $helper
- * @var string $moduleDirName
- * @var string $moduleDirNameUpper
- */
-require_once $helper->path('include/functions.php');
-require_once XOOPS_ROOT_PATH . '/class/template.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
 
-$GLOBALS['xoopsTpl']->caching = false;
+require_once XOOPS_ROOT_PATH . '/class/template.php';
+if (!isset($xoopsTpl)) {
+    $xoopsTpl = new XoopsTpl();
+}
+$xoopsTpl->caching = 0;
 
 xoops_cp_header();
 
-$ai    = [];
-$ani   = [];
+//$admin = new SmallworldAdmin();
+$tpl = new XoopsTpl();
 
-/** @var Xmf\Module\Admin $adminObject */
-$adminObject->displayNavigation(basename(__FILE__));
+$ai = [];
+$ani = [];
 
 $allusers_inspect = $admin->getAllUsers('yes');
-foreach ($allusers_inspect as $data) {
-    $ai['id']                    = $data['id'];
-    $ai['userid']                = $data['userid'];
-    $ai['username']              = $data['username'];
-    $ai['realname']              = $data['realname'];
-    $ai['userimage']             = $swUserHandler->getAvatarLink($data['userid'], $data['userimage']);
-    $ai['avatar_size']           = smallworld_getImageSize(80, 100, $ai['userimage']);
-    $ai['avatar_highwide']       = smallworld_imageResize($ai['avatar_size'][0], $ai['avatar_size'][1], 50);
-    $ai['ip']                    = $data['ip'];
-    $ai['complaint']             = $data['complaint'];
-    $ai['inspect_start']         = $data['inspect_start'];
-    $ai['inspect_stop']          = $data['inspect_stop'];
-    $ai['userinspect_timetotal'] = ($data['inspect_start'] + $data['inspect_stop']) - time();
-    $GLOBALS['xoopsTpl']->append('allusersinspect', $ai);
+if (!empty($allusers_inspect)) {
+    foreach ($allusers_inspect as $data) {
+        $ai['id'] = $data['id'];
+        $ai['userid'] = $data['userid'];
+        $ai['username'] = $data['username'];
+        $ai['realname'] = $data['realname'];
+        $ai['userimage'] = smallworld_getAvatarLink($data['userid'], $data['userimage']);
+        $ai['avatar_size'] = smallworld_getImageSize(80, 100, $ai['userimage']);
+        $ai['avatar_highwide'] = smallworld_imageResize($ai['avatar_size'][0], $ai['avatar_size'][1], 50);
+        $ai['ip'] = $data['ip'];
+        $ai['complaint'] = $data['complaint'];
+        $ai['inspect_start'] = $data['inspect_start'];
+        $ai['inspect_stop'] = $data['inspect_stop'];
+        $ai['userinspect_timetotal'] = ($data['inspect_start'] + $data['inspect_stop']) - time();
+        $xoopsTpl->append('allusersinspect', $ai);
+    }
 }
-$GLOBALS['xoopsTpl']->assign('allusersinspectcounter', count($ai));
+$xoopsTpl->assign('allusersinspectcounter', count($ai));
 
 $allusers_noinspect = $admin->getAllUsers('no');
-foreach ($allusers_noinspect as $data) {
-    $ani['id']                    = $data['id'];
-    $ani['userid']                = $data['userid'];
-    $ani['username']              = $data['username'];
-    $ani['realname']              = $data['realname'];
-    $ani['userimage']             = $swUserHandler->getAvatarLink($data['userid'], $data['userimage']);
-    $ani['avatar_size']           = smallworld_getImageSize(80, 100, $ani['userimage']);
-    $ani['avatar_highwide']       = smallworld_imageResize($ani['avatar_size'][0], $ani['avatar_size'][1], 50);
-    $ani['ip']                    = $data['ip'];
-    $ani['complaint']             = $data['complaint'];
-    $ani['inspect_start']         = '';
-    $ani['inspect_stop']          = '';
-    $ani['userinspect_timetotal'] = '';
-    $GLOBALS['xoopsTpl']->append('allusersnoinspect', $ani);
+if (!empty($allusers_noinspect)) {
+    foreach ($allusers_noinspect as $data) {
+        $ani['id'] = $data['id'];
+        $ani['userid'] = $data['userid'];
+        $ani['username'] = $data['username'];
+        $ani['realname'] = $data['realname'];
+        $ani['userimage'] = smallworld_getAvatarLink($data['userid'], $data['userimage']);
+        $ani['avatar_size'] = smallworld_getImageSize(80, 100, $ani['userimage']);
+        $ani['avatar_highwide'] = smallworld_imageResize($ani['avatar_size'][0], $ani['avatar_size'][1], 50);
+        $ani['ip'] = $data['ip'];
+        $ani['complaint'] = $data['complaint'];
+        $ani['inspect_start'] = '';
+        $ani['inspect_stop'] = '';
+        $ani['userinspect_timetotal'] = '';
+        $xoopsTpl->append('allusersnoinspect', $ani);
+    }
 }
-$GLOBALS['xoopsTpl']->assign('allusersnoinspectcounter', count($ani));
+$xoopsTpl->assign('allusersnoinspectcounter', count($ani));
 // ---------------- end of tabs ---------------- //
 
 // template assignments
 // tab titles
-$GLOBALS['xoopsTpl']->assign('lang_useradmin', _AM_SMALLWORLD_USERADMIN_TITLE);
+$xoopsTpl->assign('lang_useradmin', _AM_SMALLWORLD_USERADMIN_TITLE);
 
 // help file from admin
-$GLOBALS['xoopsTpl']->display($helper->path('templates/admin_useradmin.tpl'));
+$xoopsTpl->display(XOOPS_ROOT_PATH . '/modules/smallworld/templates/admin_useradmin.tpl');
 
+global $xoTheme;
 //Check Language
-$lang = $GLOBALS['xoopsConfig']['language'];
+$lang = $xoopsConfig['language'];
 // GET various variables from language folder
-if (file_exists($helper->path('language/' . $lang . '/js/variables.js'))) {
-    $GLOBALS['xoTheme']->addScript($helper->url('language/' . $lang . '/js/variables.js'));
+if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/js/' . $lang . '/variables.js')) {
+    $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/' . $lang . '/js/variables.js');
 } else {
-    $GLOBALS['xoTheme']->addScript($helper->url('language/english/js/variables.js'));
+    $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/english/js/variables.js');
 }
 
 $adminscript = <<<SCRIPT
         var smallworld_url="XOOPS_URL/modules/smallworld/";
         //var $ = jQuery();
 SCRIPT;
-$GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/SmallworldAdmin.css'));
-$GLOBALS['xoTheme']->addScript(XOOPS_URL . '/browse.php?Frameworks/jquery/jquery.js');
-$GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery-ui-1.8.11.custom.js'));
-$GLOBALS['xoTheme']->addScript($helper->url('assets/js/smallworld_tabs.js'));
-$GLOBALS['xoTheme']->addScript('', '', $adminscript);
-$GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.form.js'));
-$GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.countdown.js'));
-if (file_exists($helper->path('language/assets/' . $lang . '/js/jquery.ui.datepicker-language.js'))) {
-    $GLOBALS['xoTheme']->addScript($helper->url('language/' . $lang . '/js/jquery.ui.datepicker-language.js'));
-    $GLOBALS['xoTheme']->addScript($helper->url('language/' . $lang . '/js/jquery.countdown.js'));
+$xoTheme->addStylesheet('modules/smallworld/assets/css/SmallworldAdmin.css');
+$xoTheme->addScript(XOOPS_URL . '/browse.php?Frameworks/jquery/jquery.js');
+$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery-ui-1.8.11.custom.js');
+$xoTheme->addScript('modules/smallworld/assets/js/smallworld_tabs.js');
+$xoTheme->addScript('', '', $adminscript);
+$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.form.js');
+$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.countdown.js');
+if (file_exists(XOOPS_ROOT_PATH . '/modules/smallworld/language/assets/js/' . $lang . '/jquery.ui.datepicker-language.js')) {
+    $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/' . $lang . '/js/jquery.ui.datepicker-language.js');
+    $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/' . $lang . '/js/jquery.countdown.js');
 } else {
-    $GLOBALS['xoTheme']->addScript($helper->url('language/english/js/jquery.ui.datepicker-language.js'));
-    $GLOBALS['xoTheme']->addScript($helper->url('language/english/js/jquery.countdown.js'));
+    $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/english/js/jquery.ui.datepicker-language.js');
+    $xoTheme->addScript(XOOPS_URL . '/modules/smallworld/language/english/js/jquery.countdown.js');
 }
-$GLOBALS['xoTheme']->addScript($helper->url('assets/js/adminsmallworld.js'));
+$xoTheme->addScript(XOOPS_URL . '/modules/smallworld/assets/js/adminsmallworld.js');
 
-require_once __DIR__ . '/admin_footer.php';
+xoops_cp_footer();

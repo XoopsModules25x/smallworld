@@ -12,7 +12,7 @@ xoops_smallworld(function () {
                 return false;
             }
             //status.text('............');
-            status.html('<img src="' + smallworld_url + 'assets/images/ajaxloader.gif" height="16" width="16">');
+            status.html('<img src="assets/images/ajaxloader.gif" height="16" width="16">');
         },
         onComplete: function (file, response) {
             //On completion clear the status

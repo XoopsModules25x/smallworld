@@ -17,7 +17,7 @@ $(document).ready(function () {
                     $(this).prev('#smallworld_addmoretime').toggle();
                     return false;
                 } else {
-                    $(this).prev("#smallworld_addmoretime").fadeIn(800).html('<img id="ajaxloader" src="../images/ajaxloader.gif" alt=""/>');
+                    $(this).prev("#smallworld_addmoretime").fadeIn(800).html('<img id="ajaxloader" src="../assets/images/ajaxloader.gif" alt=""/>');
                     $.ajax({
                         type: "POST",
                         url: "admintool.php",

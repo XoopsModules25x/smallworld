@@ -2,7 +2,7 @@
     <{if $isadminuser == 'YES' or $username == $myusername}>
     <div class="smallworld_imageownermenu">
         <ul>
-            <li><a class="img_upload_menu" href="./img_upload.php" id="smallworld_uploadimgmenu"><{$smarty.const._SMALLWORLD_GOTOUPLOADIMAGE}></a></li>
+            <li><a class="img_upload_menu" href="img_upload.php" id="smallworld_uploadimgmenu"><{$smarty.const._SMALLWORLD_GOTOUPLOADIMAGE}></a></li>
         </ul>
     </div>
     <br>

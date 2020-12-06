@@ -26,7 +26,6 @@ define('_MI_SMALLWORLD_ADMENU', 'Administration');
 define('_MI_SMALLWORLDMENU_INDEX', 'Home');
 define('_MI_SMALLWORLDMENU_STATS', 'Statistics');
 define('_MI_SMALLWORLDMENU_USERADMIN', 'User Admin');
-define('_MI_SMALLWORLDMENU_FEEDBACK', 'Feedback');
 define('_MI_SMALLWORLDMENU_HELP', 'Help');
 define('_MI_SMALLWORLDMENU_ABOUT', 'About');
 
@@ -41,8 +40,8 @@ define('_MI_SMALLWORLD_MSGTOSHOW', 'Messages to show ?');
 define('_MI_SMALLWORLD_MSGTOSHOW_DESC', 'How many messages (updates) to show from the beginning on profile and index page.');
 
 // Use validation
-define('_MI_SMALLWORLD_VALIDATIONSTRENGTH', 'Validation of steps');
-define('_MI_SMALLWORLD_VALIDATIONSTRENGTH_DESC', 'Use validation on register and edit profile.<br><br>Options are:<br><br>No: No validation<br>Yes: Most *important* fields must be validated ');
+define('_MI_SMALLWORLD_VALIDATIONSTRENGHT', 'Validation of steps');
+define('_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC', 'Use validation on register and edit profile.<br><br>Options are:<br><br>No: No validation<br>Yes: Most *important* fields must be validated ');
 
 // Smallworld take-over user name links ?
 define('_MI_SMALLWORLD_TAKEOVERLINKS', 'Convert username links to smallworld');
@@ -77,7 +76,7 @@ define('_MI_SMALLWORLD_EMAILS', 'Emails');
 define('_MI_SMALLWORLD_SCREENNAMES', 'screennames');
 define('_MI_SMALLWORLD_MOBILE', 'mobile');
 define('_MI_SMALLWORLD_LANDPHONE', 'landphone');
-define('_MI_SMALLWORLD_STREETADRESS', 'street address');
+define('_MI_SMALLWORLD_STREETADRESS', 'street adress');
 define('_MI_SMALLWORLD_PRESENTCITY', 'present city');
 define('_MI_SMALLWORLD_COUNTRY', 'country');
 define('_MI_SMALLWORLD_WEBSITE', 'website');
@@ -97,19 +96,16 @@ define('_MI_SMALLWORLD_PRIVATEMODULE_DESC', 'If "yes" then all visiters can read
 // Limit users access to public posting
 
 define('_MI_SHOWPUBLICPAGE', 'Limit the posting to public to these users.');
-define(
-    '_MI_SHOWPUBLICPAGE_DESC',
-    'Default is "All users" wich means that all users will have their "public" posts shown on publicindex.php.<br>
+define('_MI_SHOWPUBLICPAGE_DESC', 'Default is "All users" wich means that all users will have their "public" posts shown on publicindex.php.<br>
     If you use a limiter and not newer users are shown here, do a smallworld module update in administration to <br>
     show the latest users.
-        '
-);
+        ');
 define('_MI_SMALLWORLD_ALL', 'All users');
 
 //1.16
 //Help
 define('_MI_SMALLWORLD_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('_MI_SMALLWORLD_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
+define('_MI_SMALLWORLD_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
 define('_MI_SMALLWORLD_BACK_2_ADMIN', 'Back to Administration of ');
 define('_MI_SMALLWORLD_OVERVIEW', 'Overview');
 

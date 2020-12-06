@@ -23,22 +23,22 @@
         <{if $post.username == $myusername}>
         <div class="smallworld_stcommentvote">
             <span id="smallworld_votenum"><{$post.vote_up}></span>
-            <img class="smallworld_voteimg" src="../assets/images/like.png">
+            <img class="smallworld_voteimg" src="assets/images/like.png">
 
             <span id="smallworld_votenum"><{$post.vote_down}></span>
-            <img class="smallworld_voteimg" src="../assets/images/dislike.png">
+            <img class="smallworld_voteimg" src="assets/images/dislike.png">
 
         </div>
         <{else}>
         <div class="smallworld_stcommentvote">
             <span id="smallworld_votenum"><{$post.vote_up}></span> <a href="javascript:void(0)" owner="<{$post.uid_fk}>" name="up" class="smallworld_stcomment_vote" id="<{$post.msg_id}>" type="msg">
-            <img class="smallworld_voteimg" src="../assets/images/like.png">
+            <img class="smallworld_voteimg" src="assets/images/like.png">
         </a>
             <span id="smallworld_votenum"><{$post.vote_down}></span> <a href="javascript:void(0)" owner="<{$post.uid_fk}>" name="down" class="smallworld_stcomment_vote" id="<{$post.msg_id}>" type="msg">
-            <img class="smallworld_voteimg" src="../assets/images/dislike.png">
+            <img class="smallworld_voteimg" src="assets/images/dislike.png">
         </a>
             <a href="javascript:void(0)" by_user="<{$myusername}>" a_user="<{$post.username}>" name="complaint" class="smallworld_comment_complaint" id="<{$post.compl_msg_lnk}>">
-                <img class="smallworld_voteimg" src="../assets/images/complaint.png">
+                <img class="smallworld_voteimg" src="assets/images/complaint.png">
             </a>
         </div>
         <{/if}>
@@ -70,24 +70,24 @@
                     <{if $comm[i].username == $myusername}>
                     <div class="smallworld_stcommentvote">
                         <span id="smallworld_votenum"><{$comm[i].vote_up}></span>
-                        <img class="smallworld_voteimg" src="../assets/images/like.png">
+                        <img class="smallworld_voteimg" src="assets/images/like.png">
 
 
                         <span id="smallworld_votenum"><{$comm[i].vote_down}></span>
-                        <img class="smallworld_voteimg" src="../assets/images/dislike.png">
+                        <img class="smallworld_voteimg" src="assets/images/dislike.png">
 
                     </div>
                     <{else}>
                     <div class="smallworld_stcommentvote">
                         <span id="smallworld_votenum"><{$comm[i].vote_up}></span> <a href="javascript:void(0)" owner="<{$comm[i].uid}>" name="up" class="smallworld_stcomment_vote" id="<{$comm[i].com_id}>" type="com" type2="<{$comm[i].msg_id_fk}>">
-                        <img class="smallworld_voteimg" src="../assets/images/like.png">
+                        <img class="smallworld_voteimg" src="assets/images/like.png">
                     </a>
 
                         <span id="smallworld_votenum"><{$comm[i].vote_down}></span> <a href="javascript:void(0)" owner="<{$comm[i].uid}>" name="down" class="smallworld_stcomment_vote" id="<{$comm[i].com_id}>" type="com" type2="<{$comm[i].msg_id_fk}>">
-                        <img class="smallworld_voteimg" src="../assets/images/dislike.png">
+                        <img class="smallworld_voteimg" src="assets/images/dislike.png">
                     </a>
                         <a href="javascript:void(0)" by_user="<{$myusername}>" a_user="<{$comm[i].username}>" name="complaint" class="smallworld_comment_complaint" id="<{$comm[i].compl_msg_lnk}>">
-                            <img class="smallworld_voteimg" src="../assets/images/complaint.png">
+                            <img class="smallworld_voteimg" src="assets/images/complaint.png">
                         </a>
                     </div>
                     <{/if}>
@@ -113,7 +113,7 @@
 <{/foreach}>
 
 <div id="smallworld_moremsg_ajax" style="display:none">
-    <img src="../assets/images/loader.gif">
+    <img src="assets/images/loader.gif">
 </div>
 
 <{if $sCountResp >= $msgtoshow}>

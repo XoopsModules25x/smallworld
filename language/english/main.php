@@ -46,7 +46,7 @@ define('_SMALLWORLD_EMAILS', 'Emails');
 /*--------------- contact info -----------------*/
 define('_SMALLWORLD_MOBILEPHONE', 'Mobile phone (numbers only)');
 define('_SMALLWORLD_LANDPHONE', 'Land phone (numbers only)');
-define('_SMALLWORLD_ADRESS', 'Street Address');
+define('_SMALLWORLD_ADRESS', 'Street Adress');
 define('_SMALLWORLD_CITY', 'City');
 
 /*-------------- interests ---------------------*/
@@ -99,15 +99,12 @@ define('_SMALLWORLD_MOREINFO', 'More info click here');
 
 /*--------------------- Messages and boxes -----------------------------*/
 define('_SMALLWORLD_NOTYETUSER_GREETING', 'Welcome');
-define(
-    '_SMALLWORLD_NOTYETUSER_BOXTEXT',
-    "In order to use this module, you'll need to fill out an extra profile-form.
-		<br><br>Press ok to continue to registration or press cancel<br><br>to go back to your index page."
-);
+define('_SMALLWORLD_NOTYETUSER_BOXTEXT', "In order to use this module, you'll need to fill out an extra profile-form.
+		<br><br>Press ok to continue to registration or press cancel<br><br>to go back to your index page.");
 define('_SMALLWORLD_NOTYETREGISTERED_TITLE', 'Continue to finish setup');
 define('_SMALLWORLD_TEXTBEFORESUBMIT', 'Continue to save your information to the database.<br><br>After this you are able to visit your page,<br>and other users pages.<br><br>Thank you for your time.');
 define('_SMALLWORLD_FRIENDSINVITATIONS', 'Friendship requests');
-define('_SMALLWORLD_DATERECEIVED', 'Date');
+define('_SMALLWORLD_DATERECIEVED', 'Date');
 define('_SMALLWORLD_ACCEPT', 'Accept');
 define('_SMALLWORLD_DENY', 'Deny');
 define('_SMALLWORLD_LATER', 'Later');
@@ -257,7 +254,7 @@ define('_SMALLWORLD_MORE', '..more');
 /*-------------- Upload form --------------------*/
 define(
     '_SMALLWORLD_UPLOAD_HOWTO',
-    'All images from your album are shown here, and you can use this tool to upload or delete images<br><br>Press the green upload file(s), Select your pictures and upload either:<br>1) One by one using the <img src="assets/images/icon_start.PNG" style="display: inline-block;height:13px;"> icon.<br>2) Select multiple by browsing or Drag* files onto the green upload (* does currently not work in IE) and press start all<br><br>Note: If you choose other filetypes than image files the script wil break. Image size is maximum 5 MBytes<br>'
+       'All images from your album is shown here, and you can use this tool to upload or delete images<br><br>Press the green upload file(s), Select your pictures and upload either:<br>1) One by one using the <img src="images/icon_start.PNG" style="display: inline-block;height:13px;"> icon.<br>2) Select multible by browsing or Drag* files onto the green upload (* does currently not work in IE) and press start all<br><br>Note: If you choose other filetypes than image files the script wil break. Image size is maximum 5 MBytes<br>'
 );
 define('_SMALLWORLD_UPLOADTITLE', 'Image title');
 define('_SMALLWORLD_UPLOADDESC', 'Image description');
@@ -278,13 +275,10 @@ define('_SMALLWORLD_IMAGES_CANCELALL', 'Cancel All');
 define('_SMALLWORLD_IMAGES_DELETEALL', 'Delete All');
 define('_SMALLWORLD_IMAGES_ADDFILES', 'Add files...');
 define('_SMALLWORLD_IMAGES_DEMONOTES', 'Demo notes');
-define(
-    '_SMALLWORLD_IMAGES_INSTRUCTIONS',
-    '<li>The maximum file size for uploads in this demo is <strong>5 MB</strong> (default file size is unlimited).</li>
+define('_SMALLWORLD_IMAGES_INSTRUCTIONS', '<li>The maximum file size for uploads in this demo is <strong>5 MB</strong> (default file size is unlimited).</li>
                     <li>Only image files (<strong>JPG, GIF, PNG</strong>) are allowed in this demo (by default there is no file type restriction).</li>
                     <li>Uploaded files will be deleted automatically after <strong>5 minutes</strong> (demo setting).</li>
-                    <li>You can <strong>drag & drop</strong> files from your desktop on this webpage with Google Chrome, Mozilla Firefox and Apple Safari.</li>'
-);
+                    <li>You can <strong>drag & drop</strong> files from your desktop on this webpage with Google Chrome, Mozilla Firefox and Apple Safari.</li>');
 
 /*-------------- Image gallery -------------*/
 define('_SMALLWORLD_ALBUMTITLETEXT', 'Close album');
@@ -365,7 +359,7 @@ define('_SMALLWORLD_MOREBUTTONLINK', 'More');
 define('_SMALLWORLD_FRIENDPAGE', 'Friends');
 define('_SMALLWORLD_PENDINGUSERS', ' is waiting accepts from these users');
 define('_SMALLWORLD_ALREADYFRIENDS', "'s friends");
-define('_SMALLWORLD_YOUFOLLOW', ' is following these users');
+define('_SMALLWORLD_YOUFOLLOW', ' are following these users');
 define('_SMALLWORLD_FOLLOWINGYOU', 'These users are following ');
 define('_SMALLWORLD_NOUSERS', 'No users in this category');
 

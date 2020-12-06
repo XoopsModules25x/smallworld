@@ -1,4 +1,4 @@
-<script type="text/javascript" src="../assets/js/jquery.innerfade.js"></script>
+<script type="text/javascript" src="assets/js/jquery.innerfade.js"></script>
 <ul id="smallworld_stats_scroller">
     <li>
         <span id="smallworld_Stats_title"><{$smarty.const._SMALLWORLD_STATS_NEWESTUSERS}></span>

@@ -52,15 +52,15 @@ div.photo-index {
 }
 
 div.navigation a.prev {
-    background-image: url('../images/prevPageArrow.gif');
+    background-image: url('../assets/images/prevPageArrow.gif');
 }
 
 div.navigation a.next {
-    background-image: url('../images/nextPageArrow.gif');
+    background-image: url('../assets/images/nextPageArrow.gif');
 }
 
 div.loader {
-    background-image: url('../images/loader.gif');
+    background-image: url('../assets/images/loader.gif');
 }
 
 div.slideshow img {

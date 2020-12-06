@@ -100,18 +100,15 @@ define('_SMALLWORLD_MOREINFO', "Pour plus d'informations, cliquez ici");
 
 /*--------------------- Messages and boxes -----------------------------*/
 define('_SMALLWORLD_NOTYETUSER_GREETING', 'Bienvenue');
-define(
-    '_SMALLWORLD_NOTYETUSER_BOXTEXT',
-    "Afin d'utiliser ce module, vous devez remplir un formulaire de profil supplémentaire.
-		<br><br>Cliquez sur S'enregister pour continuer l'enregistrement ou cliquez sur Annuler<br>pour revenir à la page d'accueil."
-);
+define('_SMALLWORLD_NOTYETUSER_BOXTEXT', "Afin d'utiliser ce module, vous devez remplir un formulaire de profil supplémentaire.
+		<br><br>Cliquez sur S'enregister pour continuer l'enregistrement ou cliquez sur Annuler<br>pour revenir à la page d'accueil.");
 define('_SMALLWORLD_NOTYETREGISTERED_TITLE', "Continuez pour terminer l'enregistrement");
 define(
     '_SMALLWORLD_TEXTBEFORESUBMIT',
-    "Continuez en cliquant sur Enregistrer pour enregistrer vos informations dans la base de données.<br><br>Après cela, vous serez en mesure de visiter votre page, <br>et les pages des autres utilisateurs.<br><br>En vous remerciant d'avoir pris le temps de remplir ce formulaire."
+       "Continuez en cliquant sur Enregistrer pour enregistrer vos informations dans la base de données.<br><br>Après cela, vous serez en mesure de visiter votre page, <br>et les pages des autres utilisateurs.<br><br>En vous remerciant d'avoir pris le temps de remplir ce formulaire."
 );
 define('_SMALLWORLD_FRIENDSINVITATIONS', 'Ajouter en ami');
-define('_SMALLWORLD_DATERECEIVED', 'Date');
+define('_SMALLWORLD_DATERECIEVED', 'Date');
 define('_SMALLWORLD_ACCEPT', 'Accepter');
 define('_SMALLWORLD_DENY', 'Refuser');
 define('_SMALLWORLD_LATER', 'Reporter à plus tard');
@@ -261,7 +258,7 @@ define('_SMALLWORLD_MORE', ' .. tous les détails');
 /*-------------- Upload form --------------------*/
 define(
     '_SMALLWORLD_UPLOAD_HOWTO',
-    'Toutes les images de votre album sont affichées ici. Vous pouvez utiliser cet outil pour télécharger ou supprimer des images<br><br>Cliquez sur les fichiers de téléchargement vert, Sélectionnez vos images à télécharger&thinsp;: <br> 1) Une par une à l\'aide des - src="images/icon_start.PNG" style="display: inline-block;height:13px;">icônes.<br> 2)Sélectionnez-en plusieurs en parcourant ou * en faisant glisser les fichiers sur le téléchargement vert (* ne fonctionne pas sous IE) et cliquez sur Démarrer <br> Remarque&thinsp;:. Si vous choisissez d\'autres types de fichiers autres que des fichiers d\'image, le script échouera. La taille de l\'image peut aller jusqu\'à 5 Mo <br> '
+       'Toutes les images de votre album sont affichées ici. Vous pouvez utiliser cet outil pour télécharger ou supprimer des images<br><br>Cliquez sur les fichiers de téléchargement vert, Sélectionnez vos images à télécharger&thinsp;: <br> 1) Une par une à l\'aide des - src="images/icon_start.PNG" style="display: inline-block;height:13px;">icônes.<br> 2)Sélectionnez-en plusieurs en parcourant ou * en faisant glisser les fichiers sur le téléchargement vert (* ne fonctionne pas sous IE) et cliquez sur Démarrer <br> Remarque&thinsp;:. Si vous choisissez d\'autres types de fichiers autres que des fichiers d\'image, le script échouera. La taille de l\'image peut aller jusqu\'à 5 Mo <br> '
 );
 define('_SMALLWORLD_UPLOADTITLE', 'Titre de l\'image');
 define('_SMALLWORLD_UPLOADDESC', 'Description de l\'image');
@@ -282,13 +279,10 @@ define('_SMALLWORLD_IMAGES_CANCELALL', 'Tout annuler');
 define('_SMALLWORLD_IMAGES_DELETEALL', 'Tout supprimer');
 define('_SMALLWORLD_IMAGES_ADDFILES', 'Ajout de fichiers...');
 define('_SMALLWORLD_IMAGES_DEMONOTES', 'Notes de démonstration');
-define(
-    '_SMALLWORLD_IMAGES_INSTRUCTIONS',
-    "<li>La taille maximale des fichiers pour les téléchargements dans cette démo est de <strong>5 MB</strong> (la taille des fichiers par défaut est illimitée).</li>
+define('_SMALLWORLD_IMAGES_INSTRUCTIONS', "<li>La taille maximale des fichiers pour les téléchargements dans cette démo est de <strong>5 MB</strong> (la taille des fichiers par défaut est illimitée).</li>
                     <li>Seuls les fichiers d'image (<strong>JPG, GIF, PNG</strong>) sont autorisés dans cette démo (par défaut il n'y a pas de restriction de type de fichier)</li>
                     <li>Les fichiers téléchargés seront supprimés automatiquement après <strong>5 minutes</strong> (réglage de démonstration).</li>
-                    <li>Vous pouvez <strong>glisser & déposer</strong> les fichiers de votre bureau vers cette page internet avec Google Chrome, Mozilla Firefox and Apple Safari.</li>"
-);
+                    <li>Vous pouvez <strong>glisser & déposer</strong> les fichiers de votre bureau vers cette page internet avec Google Chrome, Mozilla Firefox and Apple Safari.</li>");
 
 /*-------------- Image gallery -------------*/
 define('_SMALLWORLD_ALBUMTITLETEXT', "Fermer l'album");

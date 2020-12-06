@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -14,45 +14,43 @@
  *
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      \XoopsModules\SmallWorld
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
 use Xmf\Request;
-use XoopsModules\Smallworld;
-
+use Xoopsmodules\smallworld;
 require_once __DIR__ . '/header.php';
 
+require_once __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
-
-/** @var \XoopsModules\Smallworld\Helper $helper */
-require_once $helper->path('include/functions.php');
-require_once $helper->path('include/arrays.php');
-
-$GLOBALS['xoopsLogger']->activated = false;
-if (isset($_GET) && !empty($_GET)) {
-    $swUserHandler = $helper->getHandler('SwUser');
-    $q      = smallworld_sanitize(Request::getString('term', '', 'GET'));
-    $sql    = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE realname LIKE '%" . $q . "%' OR username LIKE '%" . $q . "%' ORDER BY userid LIMIT 5";
-    $result = $GLOBALS['xoopsDB']->query($sql);
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
+global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsDB;
+$xoopsLogger->activated = false;
+if ($_GET) {
+    $q      = Smallworld_sanitize($_GET['term']);
+    $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE realname LIKE '%" . $q . "%' OR username LIKE '%" . $q . "%' ORDER BY userid LIMIT 5";
+    $result = $xoopsDB->query($sql);
     $data   = [];
 
-    while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
-        $user  = new \XoopsUser($row['userid']);
-        $image = '<img src="' . $swUserHandler->getAvatarLink($row['userid'], $row['userimage']) . '" height="20" >';
+    while ($row = $xoopsDB->fetchArray($result)) {
+        $user  = new xoopsUser($row['userid']);
+        $image = '<img src="' . smallworld_getAvatarLink($row['userid'], $row['userimage']) . '" height="20" >';
 
-        //@todo figure out where the $imageSize[] array comes from
         $imageHw = smallworld_imageResize($imageSize[0], $imageSize[1], 30);
         $data[]  = [
             'label' => $image . ' ' . '<span class="searchusername">' . $row['realname'] . ' (' . $row['username'] . ')</span>',
-            'value' => $user->uname(),
+            'value' => $user->uname()
         ];
     }
     // jQuery wants JSON data
     echo json_encode($data);
 
     flush();
+} else {
 }

@@ -149,7 +149,7 @@ xoops_smallworld(document).ready(function () {
             var span = xoops_smallworld(this).prev('span#smallworld_votenum');
 
             if (name == 'up') {
-                xoops_smallworld(this).fadeIn(200).html('<img height="10px" width="10px" src="../images/loader.gif" />').fadeOut(500);
+                xoops_smallworld(this).fadeIn(200).html('<img height="10px" width="10px" src="assets/images/loader.gif" />').fadeOut(500);
                 xoops_smallworld.ajax({
                     type: "POST",
                     url: "up_vote.php",
@@ -161,7 +161,7 @@ xoops_smallworld(document).ready(function () {
                 });
             }
             if (name == 'down') {
-                xoops_smallworld(this).fadeIn(200).html('<img height="10px" width="10px" src="../images/loader.gif" />').fadeOut(500);
+                xoops_smallworld(this).fadeIn(200).html('<img height="10px" width="10px" src="assets/images/loader.gif" />').fadeOut(500);
                 xoops_smallworld.ajax({
                     type: "POST",
                     url: "down_vote.php",
@@ -193,7 +193,7 @@ xoops_smallworld(document).ready(function () {
             var parent = xoops_smallworld(this);
 
             if (name == 'complaint') {
-                xoops_smallworld(this).fadeIn(200).html('<img height="10px" width="10px" src="../images/loader.gif" />').fadeOut(500);
+                xoops_smallworld(this).fadeIn(200).html('<img height="10px" width="10px" src="assets/images/loader.gif" />').fadeOut(500);
                 xoops_smallworld.ajax({
                     type: "POST",
                     url: "complaint.php",
