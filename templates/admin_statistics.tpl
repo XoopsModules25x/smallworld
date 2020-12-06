@@ -37,7 +37,7 @@
                     <td class="smallworldadmin"><{$topratedusers[i].counter}></td>
                     <td class="smallworldadmin"><{$topratedusers[i].user}></td>
                     <td class="smallworldadmin"><{$topratedusers[i].cnt}></td>
-                    <td class="smallworldadmin"><img height="8px" width="8px" src="./assets/images/like.png"></td>
+                    <td class="smallworldadmin"><img height="8px" width="8px" src="../assets/images/like.png"></td>
                 </tr>
                 <{/section}>
             </table>
@@ -49,7 +49,7 @@
                     <td class="smallworldadmin"><{$bottomratedusers[i].counter}></td>
                     <td class="smallworldadmin"><{$bottomratedusers[i].user}></td>
                     <td class="smallworldadmin"><{$bottomratedusers[i].cnt}></td>
-                    <td class="smallworldadmin"><img height="8px" width="8px" src="./assets/images/dislike.png"></td>
+                    <td class="smallworldadmin"><img height="8px" width="8px" src="../assets/images/dislike.png"></td>
                 </tr>
                 <{/section}>
             </table>

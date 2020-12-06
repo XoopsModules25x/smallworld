@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -14,33 +14,32 @@
  *
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      \XoopsModules\SmallWorld
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
  * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use XoopsModules\Smallworld;
-
+use Xmf\Request;
+use Xoopsmodules\smallworld;
 require_once __DIR__ . '/header.php';
 
-/** @var \XoopsModules\Smallworld\Helper $helper */
-require_once $helper->path('include/functions.php');
+require_once __DIR__ . '/../../mainfile.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+global $xoopsUser, $xoopsLogger;
+$xoopsLogger->activated = false;
+$db                     = new smallworld\SmallWorldDB;
+$mail                   = new smallworld\SmallWorldMail;
 
-$GLOBALS['xoopsLogger']->activated = false;
-$swDB = new Smallworld\SwDatabase();
-$mail = new Smallworld\Mail();
-
-$swDB->handlePosts();
+$db->handlePosts();
 
 // Create user albums etc
-if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) {
-    $img    = new Smallworld\Images();
-    $userID = $GLOBALS['xoopsUser']->uid();
-    if ('edit' !== $_POST['function']) {
-        $img->createAlbum($userID);
-        if (1 == $helper->getConfig('smallworldusemailnotis')) {
-            $mail->sendMails($userID, $userID, 'register', $link = null, []);
-        }
+$img    = new smallworld\SmallWorldImages;
+$userID = $xoopsUser->getVar('uid');
+if ('edit' !== $_POST['function']) {
+    $img->createAlbum($userID);
+    if (0 != smallworld_GetModuleOption('smallworldusemailnotis', $repmodule = 'smallworld')) {
+        $mail->sendMails($userID, $userID, 'register', $link = null, []);
     }
 }

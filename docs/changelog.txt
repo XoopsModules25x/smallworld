@@ -1,31 +1,15 @@
-<h5>1.16 Beta 2  [WORK IN PROGRESS - NOT RELEASED]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.4
-<!--
-TODO:
-- change smallworld_array_flatten() preserve key to bool
-- Update all js and css libraries
-- Refactor Google location code. Google changed so now requires API key(s)
-- Reorganize upload folders
--- move from /uploads/albums_smallworld to /uploads/smallworld/albums
-- Change smallworld_user table column types:
--- relationship TEXT -> TINYINT (UNSIGNED)
--- gender TEXT -> TINYINT (UNSIGNED)
--- politic TEXT -> TINYINT (UNSIGNED)
--- religion TEXT -> TINYINT (UNSIGNED)
--- userid TEXT -> INT (UNSIGNED)
-- delete ./include/getSelects.php on update, it's been renamed to ./include/get_selects.php
-- delete ./Get_Count.php on update, it's been renamed to ./include/get_count.php
-- modify smallworld_user table. `id` is unnecessary `userid` should be index / autoincrement column
--->
+<h5>1.17 Beta 1  [NOT RELEASED]</h5>
 <hr>
-- XOOPS 2.5.10, PHP 7 (mamba / zyspec)
-- Added SwUser/SwUserHandler classes (zyspec)
-- changed from smallworld_getAvatarLink() to SwUserHandler::getAvatarLink() (zyspec)
-- changed to use SwUserHandler::gravatar() (zyspec)
--- changed from smallworld_gravatar() to SwUserHandler::gravatar()
--- changed from Wallupdates::Gravatar() to SwUserHandler::gravatar()
--- changed from PublicWallUpdates::Gravatar() to SwUserHandler::gravatar()
+- upgrade script from admin / side. Alter some tables to fix mysql errors with reserved names
+- multible changes, some to namespaces and some to calls to classes now renamed
+- upload avatar minor changes
+- updated mysql to default no value instead of "not null". Database is automaticly altered by log in as admin
+- Removing html and adding tpl templates
+
+<h5>1.16 Beta 1  [NOT RELEASED]</h5>
+<hr>
+- XOOPS 2.5.9, PHP 7 (mamba)
 - removed @version (mamba)
-- phpDoc cleanup (zyspec)
 - PSR-2 code cosmetics (mamba)
 - addNavigation(basename(__FILE__))  (mamba)
 - dirname(__FILE__) to __DIR__ (mamba)
@@ -46,12 +30,10 @@ TODO:
 - short array syntax (mamba)
 - Yoda notation (mamba)
 - namespaces (mamba)
-    &nbsp;&nbsp;- removed ./class/class_collector.php usage (mamba / zyspec)
 - started conversion to XMF (mamba)
     &nbsp;&nbsp;- updated addInfoBoxLine entries (mamba)
     &nbsp;&nbsp;- displayNavigation(basename(__FILE__))  (mamba)
     &nbsp;&nbsp;- changed to ->displayButton('left') (mamba)
-    &nbsp;&nbsp;- changed to use Xmf\Request to sanitize vars (zyspec)
 
 ------------------------------
 Changelog v.1.15 RC 20
@@ -59,7 +41,7 @@ Changelog v.1.15 RC 20
 Date 01. October 2013 19:11 Rev: 12114
 
 NEW : When entering admin automaticly rename user avatars set as blank.gif to void.
-NEW : Parsing array from walls in respective classes clearing multiple lines of code
+NEW : Parsing array from walls in respective classes clearing multible lines of code
 NEW : smallworld_referer to return after various pages
 NEW : Count all msg in wall
 
@@ -170,7 +152,7 @@ Changelog v.1.15 RC 11
 
 NEW: Added upgraded image upload
 NEW: Added upgraded mail class
-NEW: class/WallUpdates.php, publicindex.php, templates for public postings
+NEW: class/PublicWallUpdates.php, publicindex.php, templates for public postings
 
 Bugfix: Missing image
 Bugfix: Making new jquery work with existing code
@@ -319,7 +301,7 @@ Changelog v.1.12 RC 4
 
 07 Marts 2012
 - Bugfix: Crossdomain problem in ajax. Fixed by assigning var to function replaced Xoops_IRl based on request url.
-- Bugfix: preloads are multiple loaded.
+- Bugfix: preloads are multible loaded.
 - Bugfix: Merging a few css files into smallworld.css
 - Bugfix: Correction language/danish/js/bookmark.js
 - Bugfix: Calculating age in profile was (-1 year) when month == this month. Now only if day < this day
@@ -360,7 +342,7 @@ Changelog v.1.11 RC 3
 - land_diff: see docs/lang_diff.txt for 2 changes in lang/js/variables.js (djculex)
 
 14. February
-- Bugfix: Apply function to only run getSelects.php on register and editprofile.php. (djculex)
+- Bugfix: Aply function to only run getSelects.php on register and editprofile.php. (djculex)
 - Bugfix: removed anoying pop up [object, object] error (djculex)
 - Change: adjusted jSon returned from checks (djculex)
 
@@ -387,7 +369,7 @@ Changelog v.1.11 RC 3
 - Bugfix: Discovered jquery was 1.5.1 -> Updated to 1.7.1
 - Bugfix: Jquery 1.7.1 revealed bugs in show more/less on updates (djculex)
 - Bugfix: changed selector name .finish to .smallworld_finish
-- Bugfix: Changed multiple return false to e.preventDefault()
+- Bugfix: Changed multible return false to e.preventDefault()
 - Changed: css, jquery for new addions
 - Changed: claning up code etc
 
@@ -434,7 +416,7 @@ Changelog v.1.10 RC 2
 
 24. januar 2012
 - Trolls stole code changes... bringing back verification php array to javascript array (djculex)
-- fixing cURL problem in Admin.php (beckmi)
+- fixing cURL problem in SmallworldAdmin.php (beckmi)
 - code clean-up (beckmi)
 
 23. januar 2012

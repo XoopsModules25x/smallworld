@@ -10,16 +10,16 @@
         </blockquote>
         <br>
         <!-- The file upload form used as target for the file upload widget -->
-        <form id="fileupload" action="../imgupload.php" method="POST" enctype="multipart/form-data">
+        <form id="fileupload" action="imgupload.php" method="POST" enctype="multipart/form-data">
             <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
             <div class="row fileupload-buttonbar">
                 <div class="span7">
                     <!-- The fileinput-button span is used to style the file input field as button -->
                     <span class="btn btn-success fileinput-button">
-                        <i class="icon-plus icon-white"></i>
-                        <span><{$smarty.const._SMALLWORLD_IMAGES_ADDFILES}></span>
-                        <input type="file" name="files[]" multiple>
-                    </span>
+                    <i class="icon-plus icon-white"></i>
+                    <span><{$smarty.const._SMALLWORLD_IMAGES_ADDFILES}></span>
+                    <input type="file" name="files[]" multiple>
+                </span>
                     <button type="submit" class="btn btn-primary start">
                         <i class="icon-upload icon-white"></i>
                         <span><{$smarty.const._SMALLWORLD_IMAGES_START}></span>
@@ -56,7 +56,7 @@
         <div class="well">
             <h3><{$smarty.const._SMALLWORLD_IMAGES_DEMONOTES}></h3>
             <ul>
-                <li><{$smarty.const._SMALLWORLD_IMAGES_INSTRUCTIONS}></li>
+                <{$smarty.const._SMALLWORLD_IMAGES_INSTRUCTIONS}>
             </ul>
         </div>
     </div>

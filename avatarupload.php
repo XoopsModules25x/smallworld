@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,29 +12,31 @@
 /**
  * SmallWorld
  *
- * @package      \XoopsModules\Smallworld
- * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @link         https://github.com/XoopsModules25x/smallworld
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
  * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
-use XoopsModules\Smallworld;
-
+use Xmf\Request;
+use Xoopsmodules\smallworld;
 require_once __DIR__ . '/header.php';
 
-/** @var \XoopsModules\Smallworld\Helper $helper */
-require_once $helper->path('include/functions.php');
-if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
-    $prevLogStat           = $GLOBALS['xoopsLogger']->activated;
-    $GLOBALS['xoopsLogger']->activated = false;
-    $userID                 = $GLOBALS['xoopsUser']->getVar('uid');
-    $swDB                   = new Smallworld\SwDatabase();
+global $xoopsUser, $xoopsLogger;
+require_once __DIR__ . '/../../mainfile.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+if ($xoopsUser) {
+    $xoopsLogger->activated = false;
+    $userID                 = $xoopsUser->getVar('uid');
+    $user                   = new XoopsUser($userID);
+    $db                     = new smallworld\SmallWorldDB;
 
     $uploaddir = XOOPS_ROOT_PATH . '/uploads/avatars/';
-    //$file      = $uploaddir . basename($_FILES['smallworld_uploadfile']['name']);
+    $file      = $uploaddir . basename($_FILES['smallworld_uploadfile']['name']);
+    $newname   = time() . mt_rand(0, 99999);
 
     // Generate new name for file
     $f       = explode('.', basename(stripslashes($_FILES['smallworld_uploadfile']['name'])));
@@ -42,8 +44,8 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     $newfile = $uploaddir . basename($newname);
     // Save new name to users profile in DB
     $dbuserimage = 'avatars/' . basename(stripslashes($newfile));
-    $swDB->updateSingleValue('smallworld_user', $userID, 'userimage', $dbuserimage);
-    $swDB->updateSingleValue('smallworld_admin', $userID, 'userimage', $dbuserimage);
+    $db->updateSingleValue('smallworld_user', $userID, 'userimage', $dbuserimage);
+    $db->updateSingleValue('smallworld_admin', $userID, 'userimage', $dbuserimage);
 
     // Return json array [0] = succes text and [1]= basename of the new file name...
     if (move_uploaded_file($_FILES['smallworld_uploadfile']['tmp_name'], $newfile)) {
@@ -51,6 +53,4 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     } else {
         echo 'error';
     }
-    // now restore the logger
-    $GLOBALS['xoopsLogger']->activated = $prevLogStat;
 }

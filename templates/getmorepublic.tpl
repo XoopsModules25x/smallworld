@@ -21,10 +21,10 @@
         <{$post.sharediv}>
         <div class="smallworld_stcommentvote">
             <span id="smallworld_votenum"><{$post.vote_up}></span>
-            <img class="smallworld_voteimg" src="../assets/images/like.png">
+            <img class="smallworld_voteimg" src="assets/images/like.png">
 
             <span id="smallworld_votenum"><{$post.vote_down}></span>
-            <img class="smallworld_voteimg" src="../assets/images/dislike.png">
+            <img class="smallworld_voteimg" src="assets/images/dislike.png">
 
         </div>
 
@@ -51,11 +51,11 @@
                     </div>
                     <div class="smallworld_stcommentvote">
                         <span id="smallworld_votenum"><{$comm[i].vote_up}></span>
-                        <img class="smallworld_voteimg" src="../assets/images/like.png">
+                        <img class="smallworld_voteimg" src="assets/images/like.png">
 
 
                         <span id="smallworld_votenum"><{$comm[i].vote_down}></span>
-                        <img class="smallworld_voteimg" src="../assets/images/dislike.png">
+                        <img class="smallworld_voteimg" src="assets/images/dislike.png">
 
                     </div>
                 </div>
@@ -80,7 +80,7 @@
 <{/foreach}>
 
 <div id="smallworld_moremsg_ajax" style="display:none">
-    <img src="../assets/images/loader.gif">
+    <img src="assets/images/loader.gif">
 </div>
 
 <{if $sCountResp >= $msgtoshow}>

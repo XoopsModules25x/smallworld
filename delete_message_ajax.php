@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,34 +12,32 @@
 /**
  * SmallWorld
  *
- * @package      \XoopsModules\Smallworld
- * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @link         https://github.com/XoopsModules25x/smallworld
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
  * @since        1.0
+ * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
 use Xmf\Request;
-use XoopsModules\Smallworld;
-
+use Xoopsmodules\smallworld;
 require_once __DIR__ . '/header.php';
 
-/** @var \XoopsModules\Smallworld\Helper $helper */
-require_once $helper->path('include/functions.php');
+require_once __DIR__ . '/../../mainfile.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+global $xoopsUser, $xoopsModule, $xoopsLogger;
+$xoopsLogger->activated = false;
+$id                     = $xoopsUser->getVar('uid');
+$msgowner               = $_POST['msgowner'];
 
-$prevLogger = $GLOBALS['xoopsLogger']->activated;
-$GLOBALS['xoopsLogger']->activated = false; // disable logger
-
-$id       = ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
-$msgowner = Request::getInt('msgowner', 0, 'POST');
-
-if ($helper->isUserAdmin() || ($id == $msgowner && 0 !== $msgowner)) {
-    $swDB = new Smallworld\SwDatabase();
-    if (Request::hasVar('smallworld_msg_id', 'POST')) {
-        $smallworld_msg_id = Request::getInt('smallworld_msg_id', 0, 'POST');
-        $data              = $swDB->deleteWallMsg($id, $smallworld_msg_id);
+if ($xoopsUser) {
+    if ($xoopsUser->isAdmin($xoopsModule->getVar('mid')) || $id == $msgowner) {
+        $db = new smallworld\SmallWorldDB;
+        if (isset($_POST['smallworld_msg_id'])) {
+            $smallworld_msg_id = $_POST['smallworld_msg_id'];
+            $data              = $db->deleteWallMsg($id, $smallworld_msg_id);
+        }
     }
 }
-$GLOBALS['xoopsLogger']->activated = $prevLogger; // restore logger to previous state

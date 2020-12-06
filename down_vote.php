@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,55 +12,55 @@
 /**
  * SmallWorld
  *
- * @package      \XoopsModules\Smallworld
- * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @link         https://github.com/XoopsModules25x/smallworld
+ * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @package      SmallWorld
+ * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
 use Xmf\Request;
-use XoopsModules\Smallworld;
-
+use Xoopsmodules\smallworld;
 require_once __DIR__ . '/header.php';
 
+require_once __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
+require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
 
-/** @var \XoopsModules\Smallworld\Helper $helper */
-require_once $helper->path('include/functions.php');
-require_once $helper->path('include/arrays.php');
-
-$GLOBALS['xoopsLogger']->activated = false;
-$wall                   = new Smallworld\WallUpdates();
-if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
-    if (Request::hasVar('id', 'POST')) {
-        $id       = Request::getInt('id', 0, 'POST');
+global $xoopsUser, $xoTheme, $xoopsTpl, $xoopsLogger, $xoopsDB;
+$xoopsLogger->activated = false;
+$Wall                   = new smallworld\WallUpdates();
+if ($xoopsUser) {
+    if ($_POST['id']) {
+        $id       = (int)$_POST['id'];
         $type     = $GLOBALS['xoopsDB']->escape($_POST['type']);
         $type2    = $GLOBALS['xoopsDB']->escape($_POST['type2']);
         $owner    = $GLOBALS['xoopsDB']->escape($_POST['owner']);
-        $userid   = $GLOBALS['xoopsUser']->getVar('uid');
-        $hasvoted = $wall->hasVoted($userid, $type, $type2, $id);
+        $userid   = $xoopsUser->getVar('uid');
+        $hasvoted = $Wall->HasVoted($userid, $type, $type2, $id);
         if ('msg' === $type) {
             if ($hasvoted > 0) {
                 echo "<script type='text/javascript'>";
                 echo "alert('" . _SMALLWORLD_JS_ALREADYVOTED . "');";
                 echo '</script>';
             } else {
-                $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '0', '" . $userid . "', '" . $owner . "', '0', '1')";
-                $result = $GLOBALS['xoopsDB']->queryF($sql);
+                $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES (null, '" . $id . "', '0', '" . $userid . "', '" . $owner . "', '0', '1')";
+                $result = $xoopsDB->queryF($sql);
             }
-            $newvote = $wall->countVotes($type, 'down', $id);
+            $newvote = $Wall->countVotes($type, 'down', $id);
         }
 
         if ('com' === $type) {
             if ($hasvoted > 0) {
                 echo "<script type='text/javascript'>alert('" . _SMALLWORLD_JS_ALREADYVOTED . "');</script>";
             } else {
-                $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES ('', '" . $id . "', '" . $type2 . "', '" . $userid . "', '" . $owner . "', '0', '1')";
-                $result = $GLOBALS['xoopsDB']->queryF($sql);
+                $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_vote') . " (vote_id,msg_id,com_id,user_id,owner,up,down) VALUES (null, '" . $id . "', '" . $type2 . "', '" . $userid . "', '" . $owner . "', '0', '1')";
+                $result = $xoopsDB->queryF($sql);
             }
-            $newvote = $wall->countVotesCom($type, 'down', $type2, $id);
+            $newvote = $Wall->countVotesCom($type, 'down', $type2, $id);
         }
     }
     $link = '<span id ="smallworld_votenum">' . $newvote . '</span> <a href="javascript:void(0)" name="down" class="smallworld_stcomment_vote"';

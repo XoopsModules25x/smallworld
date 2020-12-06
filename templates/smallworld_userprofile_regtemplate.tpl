@@ -34,10 +34,10 @@
                     <td><p><{$smarty.const._SMALLWORLD_INTERESTEDIN}></p></td>
                     <td><label for="select"></label>
                         <span id="intingender">
-                            <{section name=i loop=$intingender}>
-                            <{$intingender[i]}>
-                            <{/section}>
-                        </span>
+                                    <{section name=i loop=$intingender}>
+                                        <{$intingender[i]}>
+                                    <{/section}>
+                                    </span>
                     </td>
                 </tr>
                 <{/if}>
@@ -66,13 +66,13 @@
 
                 <{if $show_lookingfor != 'no'}>
                 <tr>
-                    <td class="top"><p><{$smarty.const._SMALLWORLD_LOOKINGFOR}></p></td>
+                    <td valign="top"><p><{$smarty.const._SMALLWORLD_LOOKINGFOR}></p></td>
                     <td><label for="select"></label>
                         <span id="searchrelat">
-                            <{section name=i loop=$searchrelat}>
-                            <{$searchrelat[i]}>
-                            <{/section}>
-                        </span>
+                                    <{section name=i loop=$searchrelat}>
+                                        <{$searchrelat[i]}>
+                                    <{/section}>
+                                    </span>
                         <br>
                     </td>
                 </tr>
@@ -129,7 +129,7 @@
                 <tr>
                     <td><p><{$smarty.const._SMALLWORLD_RELIGIOUSVIEW}></p></td>
                     <td>
-                        <label for="select"></label>
+                        <lable for="select"></lable>
                         <{section name=i loop=$religion}>
                         <{$religion[i]}>
                         <{/section}>
@@ -144,7 +144,7 @@
             <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
                 <{if $show_emails != 'no'}>
                 <tr>
-                    <td class="top"><p><{$smarty.const._SMALLWORLD_EMAILS}></p></td>
+                    <td valign="top"><p><{$smarty.const._SMALLWORLD_EMAILS}></p></td>
                     <td><label for="email"></label>
                         <{section name=i loop=$emailtext}>
                         <{$emailtext[i]}>
@@ -155,30 +155,32 @@
 
                 <{if $show_screennames != 'no'}>
                 <tr>
-                    <td class="top"><p><{$smarty.const._SMALLWORLD_SCREENNAMES}></p></td>
+                    <td valign="top"><p><{$smarty.const._SMALLWORLD_SCREENNAMES}></p></td>
                     <td><label for="Screenname"></label>
                         <{section name=i loop=$screenname}>
                         <{$screenname[i]}>
                         <{/section}>
+
                     </td>
                 </tr>
                 <{/if}>
 
                 <{if $show_mobile != 'no'}>
                 <tr>
-                    <td class="top"><p><{$smarty.const._SMALLWORLD_MOBILEPHONE}></p></td>
+                    <td valign="top"><p><{$smarty.const._SMALLWORLD_MOBILEPHONE}></p></td>
 
                     <td>
                         <{section name=i loop=$mobile}>
                         <{$mobile[i]}>
                         <{/section}>
+
                     </td>
                 </tr>
                 <{/if}>
 
                 <{if $show_landphone != 'no'}>
                 <tr>
-                    <td class="top"><p><{$smarty.const._SMALLWORLD_LANDPHONE}></p></td>
+                    <td valign="top"><p><{$smarty.const._SMALLWORLD_LANDPHONE}></p></td>
                     <td>
                         <{section name=i loop=$phone}>
                         <{$phone[i]}>
@@ -232,12 +234,15 @@
 
                 <{if $show_website != 'no'}>
                 <tr>
-                    <td class="top"><p><{$smarty.const._SMALLWORLD_WEBSITE}></p></td>
-                    <td><textarea name="website" id="website">http://</textarea></td>
+                    <td valign="top"><p><{$smarty.const._SMALLWORLD_WEBSITE}></p></td>
+                    <td><textarea name="website" id="website">http://</textarea>
+
+                    </td>
                 </tr>
                 <{/if}>
             </table>
             <br>
+
         </fieldset>
 
         <fieldset>
@@ -272,7 +277,7 @@
                         <{section name=i loop=$tvshow}>
                         <{$tvshow[i]}>
                         <{/section}>
-                    </td>
+                        </textarea></td>
                 </tr>
                 <{/if}>
 
@@ -310,16 +315,17 @@
                 </tr>
                 <{/if}>
                 <tr>
-                    <td colspan='2'></td>
+                    <td></td>
                 </tr>
+                <br>
             </table>
-            <br>
+
         </fieldset>
 
         <fieldset>
             <legend><{$smarty.const._SMALLWORLD_STEP4}></legend>
-            <{if $show_school != 'no'}>
             <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
+                <{if $show_school != 'no'}>
                 <tr>
                     <label for="School"></label>
                     <td>
@@ -327,31 +333,29 @@
                             <{section name=i loop=$school}>
                             <{$school[i]}>
                             <{/section}>
-                        </p>
                     </td>
                 </tr>
+                <{/if}>
             </table>
-            <{/if}>
-        </fieldset>
 
+        </fieldset>
         <fieldset>
             <legend><{$smarty.const._SMALLWORLD_STEP5}></legend>
-            <{if $show_jobs != 'no'}>
             <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">
                 <tr>
+                    <{if $show_jobs != 'no'}>
                     <label for="Job"></label>
                     <td>
                         <p class="smallworld_clone4">
                             <{section name=i loop=$job}>
                             <{$job[i]}>
                             <{/section}>
-                        </p>
                     </td>
                 </tr>
+                <{/if}>
             </table>
-            <{/if}>
-        </fieldset>
 
+        </fieldset>
         <fieldset>
             <legend><{$smarty.const._SMALLWORLD_STEP6}></legend>
             <table border="0" class="smallworld_table" cellspacing="0" cellpadding="0">

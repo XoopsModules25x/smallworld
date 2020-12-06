@@ -16,7 +16,7 @@
         }
 
         h4 {
-            font-family: Puritan20Normal, sans-serif;
+            font-family: 'Puritan20Normal';
             font-weight: normal;
             color: #1f1f1f;
             margin-bottom: 10px;
@@ -39,7 +39,7 @@
             line-height: 20px;
             background-color: #33FFFF;
             border-style: groove;
-            border-color: #00ffff;
+            border-color: aqua;
             border-width: medium;
         }
 
@@ -102,7 +102,7 @@
 <!-- Begin Wrapper -->
 <div id="wrapper">
     <br>
-    <p class="greeting">Hello <{$receivename}>,</p>
+    <p class="greeting">Hello <{$recievename}>,</p>
     <p class="infotext"><{$sendname}> commented your wall-update on <{$sitename}></p>
     <div id="news">
         <!-- Begin News Navigation -->
