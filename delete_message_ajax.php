@@ -41,3 +41,4 @@ if ($xoopsUser) {
         }
     }
 }
+$GLOBALS['xoopsLogger']->activated = $prevLogger; // restore logger to previous state
