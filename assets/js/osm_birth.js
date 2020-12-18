@@ -1,59 +1,55 @@
 (function() {
-    var searchSel;
-    var dataFetchXhr = null;
-    var lastQueryResult;
-    var lastQuery;
-    var lat;
-    var lon;
-    var cityname;
-    var country;
-    var zip;
-    var dataarray;
+    var searchSel_birth;
+    var dataFetchXhr_birth = null;
+    var lastQueryResult_birth;
+    var lastQuery_birth;
+    var lat_birth;
+    var lon_birth;
+    var cityname_birth;
+    var dataarray_birth;
 
     xoops_smallworld.fn.OsmLiveSearchBirth = function() {
 		
-        searchSel = this;
-        searchSel.addClass('osm-location-picker-birth');
-        searchSel.focus(function() {
-            if (lastQuery && lastQueryResult) {
+        searchSel_birth = this;
+        searchSel_birth.addClass('osm-location-picker-birth');
+        searchSel_birth.focus(function() {
+            if (lastQuery_birth && lastQueryResult_birth) {
                 removeResult();
-                handleDataResp(lastQueryResult, lastQuery);
+                handleDataResp(lastQueryResult_birth, lastQuery_birth);
             }
         });
-        searchSel.blur(function() {
+        searchSel_birth.blur(function() {
             setTimeout(function() {
                 removeResult();
             }, 200);
         });
     };
 
-    
-
-    xoops_smallworld(document).on('keyup', searchSel, function() {
-        var value = searchSel.val();
-        var apiUrl =
-            'https://nominatim.openstreetmap.org/search?q=' + value + '&format=json&addressdetails=1&extratags=1&namedetails=1';
+    xoops_smallworld(document).on('keyup', searchSel_birth, function() {
+        var value = searchSel_birth.val();
+        var apiUrl = 'https://photon.komoot.io/api/?q=' + value + '&limit=1'; // using this instead of nominatim.org api
         if (value.trim().length === 0) {
             var resultSel = xoops_smallworld('.osm-location-picker-result-birth');
             resultSel.remove();
         } else {
-            if (dataFetchXhr) {
+            if (dataFetchXhr_birth) {
                 /* Abort if there is any previous request for new request */
-                dataFetchXhr.abort();
+                dataFetchXhr_birth.abort();
             }
-            dataFetchXhr = xoops_smallworld.ajax({
+            dataFetchXhr_birth = xoops_smallworld.ajax({
                 url: apiUrl,
-                type: 'get',
-                contentType: 'application/json',
+                type: 'GET',
+				cache: true,
+                contentType: 'text/plain',
                 complete: function() {
-                    dataFetchXhr = null;
+                    dataFetchXhr_birth = null;
                 },
-                success: function(resp) {
+                success: function(resp) {					
                     removeResult();
-                    var value = searchSel.val();
-                    if (value.trim().length > 0 && resp.length > 0) {
-                        dataarray = resp;
-                        handleDataResp(resp, value);
+                    var value = searchSel_birth.val();
+                    if (value.trim().length > 0 && resp.features.length > 0) { // goddam json arrays!! 8-/
+                        dataarray_birth = resp;
+                        handleDataResp(resp.features, value);
                     }
                 }
             });
@@ -62,80 +58,37 @@
 
     xoops_smallworld(document).on('click', '.map-list-item-birth', function() {
         var text = xoops_smallworld(this).data('text');
-        searchSel.val(text);
+        searchSel_birth.val(text);
         removeResult();
-        cityname = text;
-        lat = getlat(dataarray, cityname);
-        lon = getlon(dataarray, cityname);
-
-        country = getCountry(dataarray, cityname);
-        zip = getZip(dataarray, cityname);
-        //doMap(lat, lon, cityname);
-        //xoops_smallworld('input[name="birthplace_lat"]').val("hej");
-
-        //alert (lat + " " + lon + country + " " + zip);
+        cityname_birth = text;
+		xoops_smallworld('#birthplace').attr('value', dataarray_birth.features[0].properties.name); // using attr instead of trigger() since value not changing
+		xoops_smallworld('input[name="birthplace_lat"]').val(dataarray_birth.features[0].geometry.coordinates[1]).trigger('change');
+		xoops_smallworld('input[name="birthplace_lng"]').val(dataarray_birth.features[0].geometry.coordinates[0]).trigger('change');
+		xoops_smallworld('input[name="birthplace_country"]').val(dataarray_birth.features[0].properties.country).trigger('change');
     });
-
-    function getlat(da, cn) {
-        xoops_smallworld.map(da, function(value, key) {
-            if (value.display_name == cn) {
-                //alert(value.lat);
-                xoops_smallworld('input[name="birthplace_lat"]').val(value.lat);
-                return value.lat;
-            }
-        })
-    }
-
-    function getlon(da, cn) {
-        xoops_smallworld.map(da, function(value, key) {
-            if (value.display_name == cn) {
-                //alert(value.lon);
-                xoops_smallworld('input[name="birthplace_lng"]').val(value.lon);
-                return value.lon;
-            }
-        })
-    }
-
-    function getCountry(da, cn) {
-        xoops_smallworld.map(da, function(value, key) {
-            if (value.display_name == cn) {
-                //alert(value.lon);
-                xoops_smallworld('input[name="birthplace_country"]').val(value.address.country_code);
-                return value.address.country_code;
-            }
-        })
-    }
-
-    function getZip(da, cn) {
-        xoops_smallworld.map(da, function(value, key) {
-            if (value.display_name == cn) {
-                //alert(value.lon);
-                return value.address.postcode;
-            }
-        })
-    }
 
     function removeResult() {
         var resultSel = xoops_smallworld('.osm-location-picker-result-birth');
         resultSel.remove();
     }
 
-    function handleDataResp(data, searchText) {
-        lastQuery = searchText;
-        lastQueryResult = data;
+    function handleDataResp(data, searchText) {		
+        lastQuery_birth = searchText;
+        lastQueryResult_birth = data;
         var listHtml = '';
         var iconHtml = "";
         if (data && data.length > 0) {
             data.forEach(function(d) {
-                var finalText = formatResultText(d.display_name, searchText);
+				console.log(d.properties.name);
+                var finalText = formatResultText(d.properties.name + ", " + d.properties.state + ", " + d.properties.country, searchText);
                 if (finalText) {
-                    //var iconHtml = '⚐&nbsp;';
+                    //var iconHtml = '?&nbsp;';
                     iconHtml = (d.icon != undefined) ? "<img src='" + d.icon + "'/> " : " ";
-                    lat += d.lat;
-                    lon += d.lon;
+                    lat_birth += d.geometry.coordinates[1];
+                    lon_birth += d.geometry.coordinates[0];
                     listHtml +=
                         '<li class="map-list-item-birth" data-text="' +
-                        d.namedetails.name + 
+                        d.properties.name + 
                         '">' +
                         iconHtml +
                         finalText +
@@ -144,7 +97,7 @@
             });
         }
         var finalHtml = '<ul class="map-list-birth">' + listHtml + '</ul>';
-        searchSel.after('<div class="osm-location-picker-result-birth"></div>');
+        searchSel_birth.after('<div class="osm-location-picker-result-birth"></div>');
         var resultSel = xoops_smallworld('.osm-location-picker-result-birth');
         resultSel.html(finalHtml);
     }
@@ -171,13 +124,13 @@
         return finalTextArr.join(', ');
     }
 
-    function doMap(lat, lon, cityname) {
-        var map = L.map('mapid').setView([lat, lon], 13);
+    function doMap(lat_birth, lon_birth, cityname_birth) {
+        var map = L.map('mapid').setView([lat_birth, lon_birth], 13);
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap'
+            attribution: '� OpenStreetMap'
         }).addTo(map);
-        var marker = L.marker([lat, lon]).addTo(map);
-        var popup = marker.bindPopup(cityname);
+        var marker = L.marker([lat_birth, lon_birth]).addTo(map);
+        var popup = marker.bindPopup(cityname_birth);
     }
 
 })();
