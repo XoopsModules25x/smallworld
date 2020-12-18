@@ -66,8 +66,8 @@ $modversion = [
     'module_website_name' => 'XOOPS Project',
     // ------------------- Min Requirements -------------------
     'min_php'             => '7.0',
-    'min_xoops'           => '2.5.11',
-    'min_admin'           => '2.15',
+    'min_xoops'           => '2.5.10',
+    'min_admin'           => '1.2',
     'min_db'              => ['mysql' => '7.0'],
     // ------------------- Admin Menu -------------------
     'system_menu'         => 1,
