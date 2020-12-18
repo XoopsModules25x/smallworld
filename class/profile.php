@@ -1,5 +1,8 @@
 <?php
-/**
+
+namespace XoopsModules\Smallworld;
+
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -9,156 +12,146 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use XoopsModules\Smallworld\Constants;
+
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
- * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
-class SmallWorldProfile
+class Profile
 {
     /**
      * @Show user
-     * @param  int $id
-     * @return void
+     * @param int $id
      */
-    public function ShowUser($id)
+    public function showUser($id)
     {
-        global $xoopsUser, $xoTheme, $xoopsTpl, $arr04, $arr05, $xoopsDB;
-        if ($xoopsUser) {
-            $moduleHandler = xoops_getHandler('module');
-            $module        = $moduleHandler->getByDirname('smallworld');
-            $configHandler = xoops_getHandler('config');
-            $moduleConfig  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
+        global $arr04, $arr05;
+        $id = (int)$id;
+        if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) {
+            $myName = $GLOBALS['xoopsUser']->uname(); // My name
+            $swDB   = new SwDatabase();
+            $wall   = new WallUpdates();
+			$GLOBALS['xoopsLogger']->activated = true;
+            /**
+             * @var \XoopsModules\Smallworld\Helper $helper
+             * @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler
+             */
+            $helper        = Helper::getInstance();
+            $swUserHandler = $helper->getHandler('SwUser');
 
-            $user   = new XoopsUser($id);
-            $myName = $xoopsUser->getUnameFromId($xoopsUser->getVar('uid')); // My name
-            $db     = new SmallWorldDB;
-            $check  = new SmallWorldUser;
-            $Wall   = new Wall_Updates();
-
-            $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
-            $result = $xoopsDB->queryF($cdb);
-            $cnt    = $xoopsDB->getRowsNum($result);
-            while ($r = $xoopsDB->fetchArray($result)) {
+            $rArray = $swUserHandler->getAll(new \Criteria('userid', $id), null, false);
+            foreach ($rArray as $r) {
+            //$cdb    = 'SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
+            //$result = $GLOBALS['xoopsDB']->queryF($cdb);
+            //while (false !== ($r = $GLOBALS['xoopsDB']->fetchArray($result))) {
                 $uname           = $r['username'];
                 $realname        = $r['realname'];
-                $membersince     = date('d-m-Y', $user->user_regdate());
-                $birthday        = Smallworld_UsToEuroDate($r['birthday']);
-                $cnt_bday        = smallworldNextBdaySecs($r['birthday']);
+                $membersince     = date('d-m-Y', $GLOBALS['xoopsUser']->user_regdate());;
+                $birthday        = smallworld_UsToEuroDate($r['birthday']);
+                $cnt_bday        = smallworldNextBDaySecs($r['birthday']);
                 $birthcity       = $r['birthplace'];
-                $email           = $user->email();
-                $country         = $user->user_from();
-                $signature       = $user->user_sig();
-                $messenger       = $user->user_msnm();
-                $totalposts      = $Wall->CountMsges($id);
-                $membersince     = date('m-d-Y', $user->user_regdate());
-                $usersratedplus  = $db->CountUsersRates($id, 'up');
-                $usersratedminus = $db->CountUsersRates($id, 'down');
-                $workfull        = $db->getJobsToDiv($id);
-                $workArray       = unserialize($r['employer']);
-                $work            = "<a href='javascript:void(0)' id='_smallworld_workmore'>" . $workArray[0] . ' (' . _SMALLWORLD_MORE . ')</a>';
-                $educationfull   = $db->getSchoolToDiv($id);
-                $educationArray  = unserialize($r['school_type']);
-                $education       = "<a href='javascript:void(0)' id='_smallworld_educationmore'>" . $educationArray[0] . ' (' . _SMALLWORLD_MORE . ')</a>';
+                $email           = $GLOBALS['xoopsUser']->email();
+                $country         = $GLOBALS['xoopsUser']->user_from();
+                $signature       = $GLOBALS['xoopsUser']->user_sig();
+                $messenger       = $GLOBALS['xoopsUser']->user_msnm();
+                $totalposts      = $wall->countMsges($id);
+                $membersince     = date('m-d-Y', $GLOBALS['xoopsUser']->user_regdate());
+                $usersratedplus  = $swDB->countUsersRates($id, 'up');
+                $usersratedminus = $swDB->countUsersRates($id, 'down');
+                $workfull        = $swDB->getJobsToDiv($id);
+                //$workArray       = unserialize($r['employer']);
+                //$work            = "<a href='javascript:void(0)' id='_smallworld_workmore'>" . $workArray[0] . ' (' . _SMALLWORLD_MORE . ')</a>';
+                $work            = "<a href='javascript:void(0)' id='_smallworld_workmore'>" . $r['employer'][0] . ' (' . _SMALLWORLD_MORE . ')</a>';
+                $educationfull   = $swDB->getSchoolToDiv($id);
+                //$educationArray  = unserialize($r['school_type']);
+                //$education       = "<a href='javascript:void(0)' id='_smallworld_educationmore'>" . $educationArray[0] . ' (' . _SMALLWORLD_MORE . ')</a>';
+                $education       = "<a href='javascript:void(0)' id='_smallworld_educationmore'>" . $r['school_type'][0] . ' (' . _SMALLWORLD_MORE . ')</a>';
                 $lng             = $r['birthplace_lng'];
                 $latt            = $r['birthplace_lat'];
                 $country         = $r['birthplace_country'];
-                $rank            = $user->rank();
+                $rank            = $GLOBALS['xoopsUser']->rank();
                 $rank_title      = $rank['title'];
                 if (isset($rank['image'])) {
-                    $rank_image = "<img align='center' src='" . XOOPS_UPLOAD_URL . '/' . $rank['image'] . "'>";
+                    $rank_image = "<img class='center' src='" . XOOPS_UPLOAD_URL . '/' . $rank['image'] . "'>";
                 } else {
                     $rank_image = '';
                 }
-                $commentsrating = "<img src='" . XOOPS_URL . "/modules/smallworld/assets/images/like.png' height='10px' width='10px'" . '> ' . $usersratedplus;
-                $commentsrating .= " <img src='" . XOOPS_URL . "/modules/smallworld/assets/images/dislike.png' height='10px' width='10px'" . '> ' . $usersratedminus;
-                $lastlogin      = $user->getVar('last_login');
+                $commentsrating = "<img src='" . $helper->url('assets/images/like.png') . "' height='10px' width='10px'" . '> ' . $usersratedplus
+                                . " <img src='" . $helper->url('assets/images/dislike.png') . "' height='10px' width='10px'" . '> ' . $usersratedminus;
+                $lastlogin      = $GLOBALS['xoopsUser']->getVar('last_login');
 
                 $gender = $r['gender'];
-                if (2 == $gender) {
+                if (Constants::MALE == $gender) {
                     $heorshe  = _SMALLWORLD_HE;
                     $hisorher = _SMALLWORLD_HIS;
                 }
-                if (1 == $gender) {
+                if (Constants::FEMALE == $gender) {
                     $heorshe  = _SMALLWORLD_SHE;
                     $hisorher = _SMALLWORLD_HER;
                 }
-                if ('' == $gender || 0 == $gender) {
+                if (Constants::GENDER_UNKNOWN == (int)$gender) {
                     $heorshe  = _SMALLWORLD_HEORSHE;
                     $hisorher = _SMALLWORLD_HISHER;
                 }
-                $avatar          = $Wall->Gravatar($id);
-                $avatar_size     = smallworld_getImageSize(80, 100, smallworld_getAvatarLink($id, $avatar));
+                $avatar          = $swUserHandler->gravatar($id);
+                $avatar_size     = smallworld_getImageSize(80, 100, $swUserHandler->getAvatarLink($id, $avatar));
                 $avatar_highwide = smallworld_imageResize($avatar_size[0], $avatar_size[1], 100);
-                $user_img        = "<img src='" . smallworld_getAvatarLink($id, $avatar) . "' id='smallworld_user_img' " . $avatar_highwide . '>';
+                $user_img        = "<img src='" . $swUserHandler->getAvatarLink($id, $avatar) . "' id='smallworld_user_img' " . $avatar_highwide . '>';
 
                 $currentcity = $r['present_city'];
                 $currlng     = $r['present_lng'];
                 $currlatt    = $r['present_lat'];
                 $currcountry = $r['present_country'];
+				$cityname	 = $r['birthplace'];
 
                 // experimental. Set javascript var using php getVar()
                 $js = "<script type='text/javascript'>";
                 $js .= 'var smallworld_currlng = ' . $currlng . "\n";
                 $js .= 'var smallworld_currlatt = ' . $currlatt . "\n";
+				//$js .= 'var smallworld_currcity = ' . $currentcity . "\n";
                 $js .= 'var smallworld_birthlng = ' . $lng . "\n";
                 $js .= 'var smallworld_birthlatt = ' . $latt . "\n";
+				$js .= "var cityname_birth = '" . $cityname . "'\n";
                 $js .= '</script>';
                 echo $js;
 
                 $relationship = $r['relationship'];
-                $spouseExists = $check->spousexist($r['partner']);
+                $spouseExists = $swUserHandler->spouseExists($r['partner']);
 
-                if (2 == $relationship) {
-                    $status = _SMALLWORLD_ISSINGLE;
-                    $spouse = '';
+                switch ((int)$relationship) {
+                    case Constants::RELATIONSHIP_MARRIED:
+                        $status = _SMALLWORLD_ISMARRIED;
+                        $spouse = ($spouseExists > 0) ? "<a href='" . $helper->url('userprofile.php?username=' . $r['partner']) . "' target='_self'>" . $r['partner'] . '</a>' : $r['partner'];
+                        break;
+                    case Constants::RELATIONSHIP_ENGAGED:
+                        $status = _SMALLWORLD_ISENGAGED;
+                        $spouse = ($spouseExists > 0) ? "<a href='" . $helper->url('userprofile.php?username=' . $r['partner']) . "' target='_self'>" . $r['partner'] . '</a>' : $r['partner'];
+                        break;
+                    case Constants::RELATIONSHIP_SINGLE:
+                        $status = _SMALLWORLD_ISSINGLE;
+                        $spouse = '';
+                        break;
+                    case Constants::RELATIONSHIP_ISIN:
+                        $status = _SMALLWORLD_INRELATIONSHIP;
+                        $spouse = ($spouseExists > 0) ? "<a href='" . $helper->url('userprofile.php?username=' . $r['partner']) . "' target='_self'>" . $r['partner'] . '</a>' : $r['partner'];
+                        break;
+                    case Constants::RELATIONSHIP_OPEN:
+                        $status = _SMALLWORLD_OPENRELATIONSHIP;
+                        $spouse = ($spouseExists > 0) ? "<a href='" . $helper->url('userprofile.php?username=' . $r['partner']) . "' target='_self'>" . $r['partner'] . '</a>' : $r['partner'];
+                        break;
+                    case Constants::RELATIONSHIP_COMPLICATED:
+                        $status = _SMALLWORLD_ISCOMPLICATED;
+                        $spouse = ($spouseExists > 0) ? "<a href='" . $helper->url('userprofile.php?username=' . $r['partner']) . "' target='_self'>" . $r['partner'] . '</a>' : $r['partner'];
+                        break;
                 }
-                if (3 == $relationship) {
-                    $status = _SMALLWORLD_INRELATIONSHIP;
-                    if ($spouseExists > 0) {
-                        $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
-                    } else {
-                        $spouse = $r['partner'];
-                    }
-                }
-                if (0 == $relationship) {
-                    $status = _SMALLWORLD_ISMARRIED;
-                    if ($spouseExists > 0) {
-                        $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
-                    } else {
-                        $spouse = $r['partner'];
-                    }
-                }
-                if (1 == $relationship) {
-                    $status = _SMALLWORLD_ISENGAGED;
-                    if ($spouseExists > 0) {
-                        $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
-                    } else {
-                        $spouse = $r['partner'];
-                    }
-                }
-                if (5 == $relationship) {
-                    $status = _SMALLWORLD_ISCOMPLICATED;
-                    if ($spouseExists > 0) {
-                        $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
-                    } else {
-                        $spouse = $r['partner'];
-                    }
-                }
-                if (4 == $relationship) {
-                    $status = _SMALLWORLD_OPENRELATIONSHIP;
-                    if ($spouseExists > 0) {
-                        $spouse = "<a href='" . XOOPS_URL . '/modules/smallworld/userprofile.php?username=' . $r['partner'] . "' target='_self'>" . $r['partner'] . '</a>';
-                    } else {
-                        $spouse = $r['partner'];
-                    }
-                }
-
                 //Personal info
                 $aboutme  = $r['aboutme'];
                 $religion = $arr05[$r['religion']];
@@ -172,87 +165,78 @@ class SmallWorldProfile
                 $favinterests = $r['interests'];
 
                 // Contact and adresses
-                $email      = unserialize($r['emailtype']);
-                $screenname = $db->getScreennamesToDiv($id);
-                if ('' == $r['phone'] || 0 == $r['phone']) {
-                    $phone = 'xxx-xxx-xxxx';
-                } else {
-                    $phone = $r['phone'];
-                }
-
-                if ('' == $r['mobile'] || 0 == $r['mobile']) {
-                    $gsm = 'xxx-xxx-xxxx';
-                } else {
-                    $gsm = $r['mobile'];
-                }
-
-                $adress  = $r['adress'];
-                $website = $r['website'];
-                $age     = Smallworld_Birthday($r['birthday']);
+                //$email      = unserialize($r['emailtype']);
+                $email      = $r['emailtype'];
+                $screenname = $swDB->getScreennamesToDiv($id);
+                $phone      = ('' == $r['phone'] || 0 == $r['phone']) ? 'xxx-xxx-xxxx' : $r['phone'];
+                $gsm        = ('' == $r['mobile'] || 0 == $r['mobile']) ? 'xxx-xxx-xxxx' : $r['mobile'];
+                $adress     = $r['adress'];
+                $website    = $r['website'];
+                $age        = smallworld_Birthday($r['birthday']);
             }
 
-            //SW_CheckIfUser ($userid);
-            $xoopsTpl->assign('userid', $id);
-
+            //SW_CheckIfUser ($userid);;
+            $GLOBALS['xoopsTpl']->assign([
+                'userid'        => $id,
             // ----- LANG DEFINES ------
-            $xoopsTpl->assign('username', $uname);
-            $xoopsTpl->assign('MyUserName', $myName);
-            $xoopsTpl->assign('avatar', $user_img);
-            $xoopsTpl->assign('realname', $realname);
-            $xoopsTpl->assign('birthday', $birthday);
-            $xoopsTpl->assign('nextBDay', $cnt_bday);
-
-            $xoopsTpl->assign('usersratinf', $commentsrating);
-
-            $xoopsTpl->assign('age', $age);
-            $xoopsTpl->assign('birthcity', $birthcity);
-            $xoopsTpl->assign('country', $country);
-            $xoopsTpl->assign('heorshe', $heorshe);
-            $xoopsTpl->assign('hisorher', $hisorher);
-
-            $xoopsTpl->assign('membersince', $membersince);
-            $xoopsTpl->assign('msn', $messenger);
-            $xoopsTpl->assign('website', $website);
-            $xoopsTpl->assign('totalposts', $totalposts);
-            $xoopsTpl->assign('ranktitle', $rank_title);
-            $xoopsTpl->assign('rankimage', $rank_image);
-            $xoopsTpl->assign('lastlogin', date('d-m-Y', $lastlogin));
-            $xoopsTpl->assign('signature', $signature);
-            $xoopsTpl->assign('currentcity', $currentcity);
-            $xoopsTpl->assign('currcity', $currentcity);
-            $xoopsTpl->assign('currcountry', $currcountry);
-
-            $xoopsTpl->assign('education', $education);
-            $xoopsTpl->assign('educationfull', $educationfull);
-
-            $xoopsTpl->assign('work', $work);
-            $xoopsTpl->assign('workfull', $workfull);
-
-            $xoopsTpl->assign('relationship', $status);
-            $xoopsTpl->assign('status', $status);
-            $xoopsTpl->assign('spouse', $spouse);
-            $xoopsTpl->assign('aboutme', $aboutme);
-            $xoopsTpl->assign('lang.avatar', _SMALLWORLD_AVATAR);
-
+                'username'      => $uname,
+                'MyUserName'    => $myName,
+                'avatar'        => $user_img,
+                'realname'      => $realname,
+                'birthday'      => $birthday,
+                'nextBDay'      => $cnt_bday,
+            //
+                'usersratinf'   => $commentsrating,
+            //
+                'age'           => $age,
+                'birthcity'     => $birthcity,
+                'country'       => $country,
+                'heorshe'       => $heorshe,
+                'hisorher'      => $hisorher,
+            //
+                'membersince'   => $membersince,
+                'msn'           => $messenger,
+                'website'       => $website,
+                'totalposts'    => $totalposts,
+                'ranktitle'     => $rank_title,
+                'rankimage'     => $rank_image,
+                'lastlogin'     => date('d-m-Y', $lastlogin),
+                'signature'     => $signature,
+                'currentcity'   => $currentcity,
+                'currcity'      => $currentcity,
+                'currcountry'   => $currcountry,
+            //
+                'education'     => $education,
+                'educationfull' => $educationfull,
+            //
+                'work'          => $work,
+                'workfull'      => $workfull,
+            //
+                'relationship'  => $status,
+                'status'        => $status,
+                'spouse'        => $spouse,
+                'aboutme'       => $aboutme,
+                'lang.avatar'   => _SMALLWORLD_AVATAR,
             // Pers info language define
-            $xoopsTpl->assign('politic', $politic);
-            $xoopsTpl->assign('religion', $religion);
+                'politic'       => $politic,
+                'religion'      => $religion,
+            //
+                'favbook'       => $favbook,
+                'favmusic'      => $favmusic,
+                'favmovie'      => $favmovie,
+                'favtvshow'     => $favtvshow,
+                'favinterests'  => $favinterests,
 
-            $xoopsTpl->assign('favbook', $favbook);
-            $xoopsTpl->assign('favmusic', $favmusic);
-            $xoopsTpl->assign('favmovie', $favmovie);
-            $xoopsTpl->assign('favtvshow', $favtvshow);
-            $xoopsTpl->assign('favinterests', $favinterests);
-
-            $xoopsTpl->assign('email', $email);
-            $xoopsTpl->assign('screenname', $screenname);
-            $xoopsTpl->assign('phone', $phone);
-            $xoopsTpl->assign('mobile', $gsm);
-            $xoopsTpl->assign('adress', $adress);
-
-            $xoopsTpl->assign('website', $website);
-            $xoopsTpl->assign('addsomeinfo', _SMALLWORLD_ADDSOMEINFO);
-            $xoopsTpl->assign('pagename', 'profile');
+                'email'         => $email,
+                'screenname'    => $screenname,
+                'phone'         => $phone,
+                'mobile'        => $gsm,
+                'adress'        => $adress,
+            //
+                'website'       => $website,
+                'addsomeinfo'   => _SMALLWORLD_ADDSOMEINFO,
+                'pagename'      => 'profile'
+            ]);
         }
     }
 }
