@@ -1451,12 +1451,12 @@ html:first-child .bookmark_list { /* Opera */
 
 /* ------------ Auto search osm ---------- */
 
-.osm-location-picker-present, .osm-location-picker-birth {
+.osm-location-picker-now, .osm-location-picker-birth {
   width: 100%;
   border-radius: 0px;
 }
 
-.osm-location-picker-result-present, .osm-location-picker-result-birth {
+.osm-location-picker-result-now, .osm-location-picker-result-birth {
   background: #fff;
   max-height: 250px;
   overflow: auto;
@@ -1464,21 +1464,21 @@ html:first-child .bookmark_list { /* Opera */
   margin: 2px;
 }
 
-.map-list-item-present, .map-list-item-birth {
+.map-list-item-now, .map-list-item-birth {
   padding: 5px;
   cursor: pointer;
   border-bottom: 1px solid #ccc;
 }
-.map-list-item-present:hover, .map-list-item-birth:hover {
+.map-list-item-now:hover, .map-list-item-birth:hover {
   background: #eee;
 }
-.map-list-present, .map-list-birth {
+.map-list-now, .map-list-birth {
   list-style: none;
   margin: 0px;
   padding: 0px;
 }
 
-.result-text-present, .result-text-birth {
+.result-text-now, .result-text-birth {
   text-transform: capitalize;
 }
 
