@@ -1,37 +1,34 @@
 <?php
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  :            {@link https://xoops.org 2001-2017 XOOPS Project}
- * @license    :                {@link http://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
- * @module     :                Smallworld
- * @Author     :                Michael Albertsen (http://culex.dk) <culex@culex.dk>
- * @copyright  :            2011 Culex
- * @Repository path:        $HeadURL: https://svn.code.sf.net/p/xoops/svn/XoopsModules/smallworld/trunk/smallworld/search.php $
- * @Last       committed:        $Revision: 12175 $
- * @Last       changed by:        $Author: djculex $
- * @Last       changed date:    $Date: 2013-10-15 19:41:43 +0200 (ti, 15 okt 2013) $
- * @ID         :                    $Id: search.php 12175 2013-10-15 17:41:43Z djculex $
+ */
+
+ /**
+ * @package    \XoopsModules\Smallworld
+ * @license    {@link https://www.fsf.org/copyleft/gpl.html GNU public license 2.0 or later}
+ * @Author     Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @copyright  2011 Culex
+ * @copyright  {@link https://xoops.org 2001-2020 XOOPS Project}
+ * @link       https://github.com/XoopsModules25x/smallworld
  **/
 
-use Xmf\Request;
-use Xoopsmodules\smallworld;
+use XoopsModules\Smallworld;
+
 require_once __DIR__ . '/header.php';
 
-include_once __DIR__ . '/../../mainfile.php';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/class/class_collector.php';
-include_once XOOPS_ROOT_PATH . '/modules/smallworld/include/arrays.php';
-global $xoopsUser, $xoTheme, $xoopsLogger, $xoopsDB;
-$xoopsLogger->activated = false;
+/** @var \XoopsModules\Smallworld\Helper $helper */
+include_once $helper->path('include/functions.php');
+include_once $helper->path('include/arrays.php');
+
+$GLOBALS['xoopsLogger']->activated = false;
 if ($_GET) {
-    $q = Smallworld_sanitize($_GET['term']);
+    $q = smallworld_sanitize($_GET['term']);
     //check $q, get results from your database and put them in $arr
     $arr[] = 'Afghanistan';
     $arr[] = 'Albania';
@@ -92,7 +89,7 @@ if ($_GET) {
     $arr[] = 'Cuba';
     $arr[] = 'Cyprus';
     $arr[] = 'Czech Republic';
-    $arr[] = 'Côte d’Ivoire';
+    $arr[] = 'C?te d?Ivoire';
     $arr[] = 'Denmark';
     $arr[] = 'Djibouti';
     $arr[] = 'Dominica';
@@ -226,8 +223,8 @@ if ($_GET) {
     $arr[] = 'Romania';
     $arr[] = 'Russia';
     $arr[] = 'Rwanda';
-    $arr[] = 'Réunion';
-    $arr[] = 'Saint Barthélemy';
+    $arr[] = 'R?union';
+    $arr[] = 'Saint Barth?lemy';
     $arr[] = 'Saint Helena';
     $arr[] = 'Saint Kitts and Nevis';
     $arr[] = 'Saint Lucia';
@@ -259,7 +256,7 @@ if ($_GET) {
     $arr[] = 'Sweden';
     $arr[] = 'Switzerland';
     $arr[] = 'Syria';
-    $arr[] = 'São Tomé and Príncipe';
+    $arr[] = 'S?o Tom? and Pr?ncipe';
     $arr[] = 'Taiwan';
     $arr[] = 'Tajikistan';
     $arr[] = 'Tanzania';
@@ -296,10 +293,13 @@ if ($_GET) {
     $arr[] = 'Yemen';
     $arr[] = 'Zambia';
     $arr[] = 'Zimbabwe';
-    $arr[] = 'Åland Islands';
+    $arr[] = '?land Islands';
 }
 
 /**
+ * Convert array to json string
+ *
+ * @todo consider moving this to ./include/functions.php
  * @param $array
  * @return bool|string
  */
@@ -313,7 +313,6 @@ function array_to_json($array)
     if ($associative) {
         $construct = [];
         foreach ($array as $key => $value) {
-
             // We first copy each key/value pair into a staging array,
             // formatting each key and value properly as we go.
 
@@ -337,10 +336,8 @@ function array_to_json($array)
         // Then we collapse the staging array into the JSON form:
         $result = '{ ' . implode(', ', $construct) . ' }';
     } else { // If the array is a vector (not associative):
-
         $construct = [];
         foreach ($array as $value) {
-
             // Format the value:
             if (is_array($value)) {
                 $value = array_to_json($value);
@@ -360,9 +357,10 @@ function array_to_json($array)
 }
 
 $result = [];
+//@todo - check this. $key is always numeric so strip_tags is unnecessary, perhaps strip_tags on $value was intended?
 foreach ($arr as $key => $value) {
-    if (false !== stripos($key, $q)) {
-        array_push($result, ['id' => $value, 'label' => $key, 'value' => strip_tags($key)]);
+    if (false !== mb_stripos($key, $q)) {
+        $result[] = ['id' => $value, 'label' => $key, 'value' => strip_tags($key)];
     }
     if (count($result) > 11) {
         break;

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -12,31 +12,31 @@
 /**
  * SmallWorld
  *
+ * @package      \XoopsModules\Smallworld
+ * @license      GNU GPL (https://www.gnu.org/licenses/gpl-2.0.html/)
  * @copyright    The XOOPS Project (https://xoops.org)
  * @copyright    2011 Culex
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
- * @package      SmallWorld
- * @since        1.0
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
+ * @link         https://github.com/XoopsModules25x/smallworld
+ * @since        1.0
  */
-
 require_once XOOPS_ROOT_PATH . '/modules/smallworld/include/functions.php';
 
 $moduleDirName = basename(__DIR__);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => 1.17,
-    'module_status'       => 'Beta 1',
-    'release_date'        => '2020/04/14',
+    'version'             => 1.16,
+    'module_status'       => 'Beta 2',
+    'release_date'        => '2020/04/23',
     'name'                => _MI_SMALLWORLD_MODULE_NAME,
     'description'         => _MI_SMALLWORLD_MODULE_DESC,
     'official'            => 0,
     //1 indicates official XOOPS module supported by XOOPS Dev Team, 0 means 3rd party supported
     'author'              => 'Michael Albertsen',
     'nickname'            => 'Culex',
-    'credits'             => 'XOOPS Development Team, Mariane, Mrsculex, Mamba, Rune, Zth, Cesag, Flipse, Dante',
-    'author_mail'         => 'author-email',
+    'credits'             => 'XOOPS Development Team, Mariane, Mrsculex, Mamba, Rune, Zth, Cesag, Flipse, Dante, ZySpec',
+    'author_mail'         => 'culex@culex.dk',
     'author_website_url'  => 'www.culex.dk',
     'author_website_name' => 'www.culex.dk',
     'license'             => 'GPL 2.0 or later',
@@ -45,7 +45,7 @@ $modversion = [
     // ------------------- Folders & Files -------------------
     'release_info'        => 'Changelog',
     'release_file'        => XOOPS_URL . "/modules/$moduleDirName/docs/changelog.txt",
-    //
+
     'manual'              => 'link to manual file',
     'manual_file'         => XOOPS_URL . "/modules/$moduleDirName/docs/install.txt",
     // images
@@ -65,8 +65,8 @@ $modversion = [
     'module_website_url'  => 'www.xoops.org',
     'module_website_name' => 'XOOPS Project',
     // ------------------- Min Requirements -------------------
-    'min_php'             => '5.5',
-    'min_xoops'           => '2.5.9',
+    'min_php'             => '5.6',
+    'min_xoops'           => '2.5.10',
     'min_admin'           => '1.2',
     'min_db'              => ['mysql' => '5.5'],
     // ------------------- Admin Menu -------------------
@@ -78,21 +78,21 @@ $modversion = [
     'hasMain'             => 1,
 
     // ------------------- Install/Update -------------------
-//    'onInstall'           => 'include/oninstall.php',
+    //    'onInstall'           => 'include/oninstall.php',
     'onUpdate'            => 'include/onupdate.php',
     //  'onUninstall'         => 'include/onuninstall.php',
     // -------------------  PayPal ---------------------------
     'paypal'              => [
-        'business'      => 'foundation@xoops.org',
+        'business'      => 'xoopsfoundation@gmail.com',
         'item_name'     => 'Donation : ' . _MI_SMALLWORLD_MODULE_NAME,
         'amount'        => 0,
-        'currency_code' => 'USD'
+        'currency_code' => 'USD',
     ],
     // ------------------- Search ---------------------------
     'hasSearch'           => 1,
     'search'              => [
         'file' => 'include/search.inc.php',
-        'func' => 'smallworld_search'
+        'func' => 'smallworld_search',
     ],
 
     // ------------------- Mysql -----------------------------
@@ -108,7 +108,7 @@ $modversion = [
         $moduleDirName . '_' . 'user',
         $moduleDirName . '_' . 'vote',
         $moduleDirName . '_' . 'complaints',
-        $moduleDirName . '_' . 'settings'
+        $moduleDirName . '_' . 'settings',
     ],
 ];
 
@@ -119,7 +119,6 @@ $modversion['helpsection'] = [
     ['name' => _MI_SMALLWORLD_LICENSE, 'link' => 'page=license'],
     ['name' => _MI_SMALLWORLD_SUPPORT, 'link' => 'page=support'],
 ];
-
 
 // Templates
 
@@ -135,7 +134,7 @@ $modversion['templates'] = [
     ['file' => 'smallworld_permalink.tpl', 'description' => ''],
     ['file' => 'smallworld_admin.tpl', 'description' => ''],
     ['file' => 'smallworld_share.tpl', 'description' => ''],
-    ['file' => 'smallworld_publicindex.tpl', 'description' => '']
+    ['file' => 'smallworld_publicindex.tpl', 'description' => ''],
 ];
 
 // Blocks
@@ -155,17 +154,15 @@ $modversion['config'][] = [
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 5,
-
 ];
 
 $modversion['config'][] = [
-    'name'        => 'validationstrenght',
-    'title'       => '_MI_SMALLWORLD_VALIDATIONSTRENGHT',
-    'description' => '_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC',
+    'name'        => 'validationstrength',
+    'title'       => '_MI_SMALLWORLD_VALIDATIONSTRENGTH',
+    'description' => '_MI_SMALLWORLD_VALIDATIONSTRENGTH_DESC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
     'default'     => 1,
-
 ];
 
 $modversion['config'][] = [
@@ -174,8 +171,7 @@ $modversion['config'][] = [
     'description' => '_MI_SMALLWORLD_TAKEOVERLINKS_DESC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1,
-
+    'default'     => 0,
 ];
 
 $modversion['config'][] = [
@@ -265,8 +261,8 @@ $modversion['config'][] = [
         'favouritebooks',
         'aboutme',
         'education',
-        'employment'
-    ]
+        'employment',
+    ],
 ];
 
 // Mandatory fields
@@ -317,7 +313,7 @@ $modversion['config'][] = [
         'screennames',
         'streetadress',
         'presentcity',
-        'country'
+        'country',
     ],
 ];
 
@@ -334,7 +330,6 @@ $modversion['config'][] = [
 /**
  * Authorized groups to upload
  */
-
 $obj                    = smallworld_xv_getGroupd();
 $modversion['config'][] = [
     'name'        => 'smallworldshowPoPubPage',
@@ -344,7 +339,6 @@ $modversion['config'][] = [
     'valuetype'   => 'array',
     'default'     => 0,
     'options'     => array_flip($obj),
-
 ];
 
 $modversion['config'][] = [
@@ -355,4 +349,3 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
