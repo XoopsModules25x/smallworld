@@ -1,4 +1,6 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php 
+
+namespace XoopsModules\Smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -28,6 +30,7 @@ class SmallWorldProfile
      */
     public function ShowUser($id)
     {
+		//echo $id;
         global $xoopsUser, $xoTheme, $xoopsTpl, $arr04, $arr05, $xoopsDB;
         if ($xoopsUser) {
             $moduleHandler = xoops_getHandler('module');
@@ -92,7 +95,7 @@ class SmallWorldProfile
                     $heorshe  = _SMALLWORLD_HEORSHE;
                     $hisorher = _SMALLWORLD_HISHER;
                 }
-                $avatar          = $Wall->Gravatar($id);
+                $avatar          = $swUserHandler->gravatar($id);
                 $avatar_size     = smallworld_getImageSize(80, 100, smallworld_getAvatarLink($id, $avatar));
                 $avatar_highwide = smallworld_imageResize($avatar_size[0], $avatar_size[1], 100);
                 $user_img        = "<img src='" . smallworld_getAvatarLink($id, $avatar) . "' id='smallworld_user_img' " . $avatar_highwide . '>';
