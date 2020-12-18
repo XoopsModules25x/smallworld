@@ -233,7 +233,7 @@ xoops_smallworld(function () {
         changeYear: true,
         dateFormat: 'dd-mm-yy',
         showOn: "button",
-        buttonImage: "images/calendar.gif",
+        buttonImage: "assets/images/calendar.gif",
         buttonImageOnly: true,
         onClose: function () {
             this.focus();
@@ -791,7 +791,7 @@ xoops_smallworld(function () {
             attribution: '© OpenStreetMap'
         }).addTo(map);
         var marker = L.marker([lat, lon]).addTo(map);
-        var popup = marker.bindPopup(cityname);
+        var popup = marker.bindPopup(cityname_birth);
     }
 	
 	function doMapNow(lat, lon) {
@@ -800,7 +800,7 @@ xoops_smallworld(function () {
             attribution: '© OpenStreetMap'
         }).addTo(map);
         var marker = L.marker([lat, lon]).addTo(map);
-        var popup = marker.bindPopup(cityname);
+        var popup = marker.bindPopup(cityname_birth);
     }
 
     //Function to show images in present location input
@@ -1149,7 +1149,7 @@ function smallworld_getCountFriendMessagesEtcJS() {
 function smallworld_DoValStart() {
     xoops_smallworld(document).ready(function () {
         // Attact validation to registeration parts in register form
-        if (smallworldvalidationstrenght != 0) {
+        if (smallworldvalidationstrength != 0) {
             xoops_smallworld("#smallworld_profileform-next-0").hide();
             xoops_smallworld("#smallworld_profileform-next-1").hide();
 
