@@ -40,7 +40,7 @@
 }
 
 .progress-animated .bar {
-    background: url(../img/progressbar.gif) !important;
+    background: url(../images/progressbar.gif) !important;
     filter: none;
 }
 
@@ -49,7 +49,7 @@
     left: 50%;
     width: 128px;
     height: 128px;
-    background: url(../img/loading.gif) center no-repeat;
+    background: url(../images/loading.gif) center no-repeat;
     display: none;
 }
 
