@@ -97,3 +97,4 @@ define('_AM_SMALLWORLD_FOLDERS_DELETED_OK', 'Upload Folders have been deleted');
 define('_AM_SMALLWORLD_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
 define('_AM_SMALLWORLD_ERROR_BAD_REMOVE', 'Could not delete %s');
 define('_AM_SMALLWORLD_ERROR_NO_PLUGIN', 'Could not load plugin');
+define('_AM_SMALLWORLD_ERROR_INVALID_ENTRY', 'Invalid Entry %s');

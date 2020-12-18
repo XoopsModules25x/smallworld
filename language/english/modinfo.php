@@ -26,6 +26,7 @@ define('_MI_SMALLWORLD_ADMENU', 'Administration');
 define('_MI_SMALLWORLDMENU_INDEX', 'Home');
 define('_MI_SMALLWORLDMENU_STATS', 'Statistics');
 define('_MI_SMALLWORLDMENU_USERADMIN', 'User Admin');
+define('_MI_SMALLWORLDMENU_FEEDBACK', 'Feedback');
 define('_MI_SMALLWORLDMENU_HELP', 'Help');
 define('_MI_SMALLWORLDMENU_ABOUT', 'About');
 
