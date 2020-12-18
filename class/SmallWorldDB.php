@@ -1,4 +1,6 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php 
+
+namespace Xoopsmodules\smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -152,8 +154,10 @@ class SmallWorldDB
     public function saveImage($values)
     {
         global $xoopsUser, $xoopsDB;
+		$GLOBALS['xoopsLogger']->activated = true;
         $myts   = \MyTextSanitizer::getInstance();
-        $sql    = 'INSERT INTO ' . $xoopsDB->prefix('smallworld_images') . ' VALUES (' . $values . ')';
+        $sql    = "INSERT INTO " . $xoopsDB->prefix('smallworld_images') . " VALUES (" . $values . ")";
+		echo $sql;
         $result = $xoopsDB->queryF($sql);
     }
 
