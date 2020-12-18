@@ -26,9 +26,9 @@ $moduleDirName = basename(__DIR__);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => 1.16,
-    'module_status'       => 'Beta 2',
-    'release_date'        => '2020/04/23',
+    'version'             => 1.21,
+    'module_status'       => 'Beta 3',
+    'release_date'        => '2020/12/18',
     'name'                => _MI_SMALLWORLD_MODULE_NAME,
     'description'         => _MI_SMALLWORLD_MODULE_DESC,
     'official'            => 0,
@@ -65,10 +65,10 @@ $modversion = [
     'module_website_url'  => 'www.xoops.org',
     'module_website_name' => 'XOOPS Project',
     // ------------------- Min Requirements -------------------
-    'min_php'             => '5.6',
-    'min_xoops'           => '2.5.10',
-    'min_admin'           => '1.2',
-    'min_db'              => ['mysql' => '5.5'],
+    'min_php'             => '7.0',
+    'min_xoops'           => '2.5.11',
+    'min_admin'           => '2.15',
+    'min_db'              => ['mysql' => '7.0'],
     // ------------------- Admin Menu -------------------
     'system_menu'         => 1,
     'hasAdmin'            => 1,
