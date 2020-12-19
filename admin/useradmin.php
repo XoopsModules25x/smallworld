@@ -67,6 +67,7 @@ foreach ($allusers_inspect as $data) {
 }
 $GLOBALS['xoopsTpl']->assign('allusersinspectcounter', count($ai));
 
+
 $allusers_noinspect = $admin->getAllUsers('no');
 foreach ($allusers_noinspect as $data) {
     $ani['id']                    = $data['id'];
