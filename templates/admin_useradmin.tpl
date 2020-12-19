@@ -26,7 +26,7 @@
                 <script type='text/javascript'>
                     (function ($) {
                         $(function () {
-                            $('#clock-<{$post.userid}>').countdown({onExpiry: SmallworldCountdownliftOff, until: + < {$post.userinspect_timetotal} >
+                            $('#clock-<{$post.userid}>').countdown({onExpiry: SmallworldCountdownliftOff, until: + <{$post.userinspect_timetotal}>
                         })
                         });
                     })(jQuery);
@@ -97,7 +97,7 @@
                                     <{/section}>
                                 </select>
                                 </span>
-                <img id="smallworld_addtime_img" rel="<{$posts.userid}>" height="16px" width="16px" src="../assets/images/time_add.png">
+                <img id="smallworld_addtime_img" rel="<{$posts.userid}>" height="16px" width="16px" src="../assets/images/time_add.png"/>
             </td>
             <td>
                 <img id="smallworld_deletetime_img" rel="<{$posts.userid}>" height="16px" width="16px" src="../assets/images/time_delete.png">

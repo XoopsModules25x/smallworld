@@ -22,10 +22,10 @@
         <td>
                                 <span id="clock-<{$post.userid}>">
                                 </span>
-            <script type='text/javascript'>
+            <script type="text/javascript">
                 (function ($) {
                     $(function () {
-                        $('#clock-<{$post.userid}>').countdown({onExpiry: SmallworldCountdownliftOff, until: + < {$post.userinspect_timetotal} >
+                        $('#clock-<{$post.userid}>').countdown({onExpiry: SmallworldCountdownliftOff, until: + <{$post.userinspect_timetotal}>
                     })
                     });
                 })(jQuery);
