@@ -277,14 +277,21 @@ xoops_smallworld(function () {
     if (Smallworld_geocomplete == 1) {
         xoops_smallworld(document).ready(function () {
             if (xoops_smallworld("#birthplace").length > 0) {
-                if (typeof xoops_smallworld('#birthplace').val() != "undefined") {
-                    xoops_smallworld('#birthplace').OsmLiveSearchBirth();
+				if (typeof xoops_smallworld('#birthplace').val() != "undefined") {
+					// Additional check to not react on all input focus, check page url contains string
+					if ((window.location.href.indexOf("editprofile.php") > -1) || (window.location.href.indexOf("register.php") > -1)){
+					  xoops_smallworld('#birthplace').OsmLiveSearchBirth();
+					}  
                 }
             }
             
 			if (xoops_smallworld("#present_city").length > 0) {
                 if (typeof xoops_smallworld('#present_city').val() != "undefined") {
-                    xoops_smallworld('#present_city').OsmLiveSearchNow();
+					// Additional check to not react on all input focus, check page url contains string
+					if ((window.location.href.indexOf("editprofile.php") > -1) || (window.location.href.indexOf("register.php") > -1)){
+						xoops_smallworld('#present_city').OsmLiveSearchNow();
+					}
+                    
                 }
             }
 			
