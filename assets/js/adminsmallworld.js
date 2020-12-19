@@ -69,7 +69,7 @@ $(document).ready(function () {
                         cache: false,
                         success: function (html) {
                             $('#smallworld_admin_allusers').load('div_useradmin.php').fadeIn("slow");
-                            alert(html);
+                            
                         }
                     });
                 }
