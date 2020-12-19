@@ -1,5 +1,5 @@
 <?php 
-namespace Xoopsmodules\smallworld;
+namespace XoopsModules\Smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -54,7 +54,10 @@ class SmallWorldImages
         global $xoopsUser, $xoopsDB, $xoopsTpl;
         $post        = [];
         $checkFriend = new SmallWorldUser;
-        if (0 != $checkFriend->friendcheck($userID, $user)) {
+		        //$checkFriend = new SmallWorldUser;
+        $usr     = new \XoopsUser($userID);
+        $isadmin = $usr->isAdmin();
+        if (0 != $checkFriend->friendcheck($userID, $user) || $isadmin == true) {
             // check friend is good to go
             $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $user . "'";
             $result = $xoopsDB->query($sql);
