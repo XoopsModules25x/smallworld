@@ -1386,7 +1386,7 @@ html:first-child .bookmark_list { /* Opera */
 /* -------------- countdown -------------- */
 .hasCountdown {
     width: 250px;
-    margin: 15px 15% 0;
+    margin: 15px 30% 0;
 }
 
 .countdown_rtl {
