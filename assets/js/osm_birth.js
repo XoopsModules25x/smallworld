@@ -1,4 +1,5 @@
 (function() {
+if ((window.location.href.indexOf("editprofile.php") > -1) || (window.location.href.indexOf("register.php") > -1)){
     var searchSel_birth;
     var dataFetchXhr_birth = null;
     var lastQueryResult_birth;
@@ -132,5 +133,5 @@
         var marker = L.marker([lat_birth, lon_birth]).addTo(map);
         var popup = marker.bindPopup(cityname_birth);
     }
-
+}
 })();
