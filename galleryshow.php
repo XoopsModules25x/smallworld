@@ -47,7 +47,7 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     $userId        = $swUserHandler->getByName($username); // gets id of user which profile you want to see
     //$userId        = smallworld_isset_or($_GET['username']); // gets id of user which profile you want to see
     $userisfriend  = $check->friendcheck($id, $userId);
-
+	
     $tpl_admin = $admin ? 'YES' : 'NO';
     $GLOBALS['xoopsTpl']->assign('isadminuser', $tpl_admin);
 
@@ -61,7 +61,6 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     if ($profile >= Constants::PROFILE_HAS_BOTH || 2 == $userisfriend[0] || true === $admin) {
         $myusername  = $GLOBALS['xoopsUser']->uname();
         $countimages = $image->count($userId);
-
         //$gallery = $image->viewalbum ($id, $user=$GLOBALS['xoopsUser']->getVar('uid'));
         $gallery = $image->viewalbum($id, $userId);
         $GLOBALS['xoopsTpl']->assign([
