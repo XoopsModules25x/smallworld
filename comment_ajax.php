@@ -38,7 +38,7 @@ $page    = 'index';
 /** @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler */
 $swUserHandler = $helper->getHandler('SwUser');
 $check   = new Smallworld\User();
-$id      = $GLOBALS['xoopsUserl'] ? $GLOBALS['xoopsUserl']->getVar('uid') : Constants::DEFAULT_UID;
+$id      = $GLOBALS['xoopsUser'] ? $GLOBALS['xoopsUser']->getVar('uid') : Constants::DEFAULT_UID;
 //$profile = $GLOBALS['xoopsUserl'] ? $check->checkIfProfile($id) : Constants::PROFILE_NONE;
 $profile = $swUserHandler->checkIfProfile($id);
 
