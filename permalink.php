@@ -48,7 +48,7 @@ if (Request::hasVar('updid', 'GET') && Request::hasVar('ownerid', 'GET')) {
 }
 
 $id = 0;
-$is_admin   = $helper->userIsAdmin() ? 'YES' : 'NO';
+$is_admin   = $helper->isUserAdmin() ? 'YES' : 'NO';
 $username   = '';
 if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $id       = $GLOBALS['xoopsUser']->uid();
