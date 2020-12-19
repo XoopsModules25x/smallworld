@@ -1346,7 +1346,7 @@ html:first-child .bookmark_list { /* Opera */
 }
 
 .bookmark_list span.bookmark_icons {
-    background: url(../assets/images/bookmarks.png) no-repeat center;
+    background: url(../images/bookmarks.png) no-repeat center;
 }
 
 .bookmark_list img {
