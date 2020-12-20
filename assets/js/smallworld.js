@@ -871,8 +871,8 @@ xoops_smallworld(function () {
 
     // Return jSon with count of friends
     smallworld_getCountFriendMessagesEtcJS();
-
-    // Sharing bookmarks defines
+/*
+    // ------ Sharing bookmarks defines --------- 
     xoops_smallworld(function () {
         xoops_smallworld('body').on('click', '.share', function (e) {
             e.preventDefault();
@@ -882,6 +882,10 @@ xoops_smallworld(function () {
             var username = xoops_smallworld('span[name="' + id + '"]').attr('rel2');
             xoops_smallworld('[name="' + id + '"]').toggle();
             xoops_smallworld('span[name="' + id + '"]').bookmark({
+				sites: 
+					['tumblr', 'blogger', 'facebook', 'vk', 'printfriendly', 'twitter'],
+				
+				compact:false,
                 onSelect: Smallworld_customBookmark,
                 url: ref,
                 description: desc,
@@ -890,6 +894,33 @@ xoops_smallworld(function () {
             //xoops_smallworld(".ui-dialog-titlebar").hide();
         });
     });
+*/	
+	
+
+
+xoops_smallworld(function () {
+	xoops_smallworld('body').on('click', '.share', function (e) {		
+		e.preventDefault();	
+		var id = xoops_smallworld(this).attr('id');
+		var ref = xoops_smallworld('span[name="' + id + '"]').attr('rel');
+		var desc = xoops_smallworld('span[name="' + id + '"]').attr('rel1').replace('UPLIMAGE ','');
+		if (ref == desc) {
+			desc = ".....";
+		}
+		var username = xoops_smallworld('span[name="' + id + '"]').attr('rel2');
+		xoops_smallworld('[name="' + id + '"]').toggle();
+
+		xoops_smallworld('span[name="' + id + '"]').jsSocials({
+			url: ref,
+			text: desc,
+			showLabel: true,
+			showCount: false, //"inside",
+			shares: ["twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "vkontakte","email"]
+		}).dialog({height:'auto', width:'auto'});
+	});
+});
+
+
 
     // Donation
     xoops_smallworld(function () {

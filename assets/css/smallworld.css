@@ -1272,116 +1272,63 @@ hr {
 }
 
 /* ---------------- Share social networks ----------- */
-/* jQuery Bookmark styles v1.4.0 */
-.bookmark_popup_text img {
-    border: none;
-    vertical-align: bottom;
-}
+.jssocials-shares {
+  margin: 0.2em 0; }
 
-.bookmark_popup {
-    display: none;
-    position: absolute;
-    z-index: 100;
-}
+.jssocials-shares * {
+  box-sizing: border-box; }
 
-.bookmark_popup ul {
-    float: left;
-    width: 320px;
-    border: 1px solid #aaa;
-}
+.jssocials-share {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0.3em 0.6em 0.3em 0; }
 
-.bookmark_list {
-    display: inline-block;
-    float: left;
-    list-style-type: none;
-    font-size: 80%;
-    margin: 0px;
-    padding: 0px;
-}
+.jssocials-share:last-child {
+  margin-right: 0; }
 
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-    /* Safari3/Opera9 */
-    .bookmark_list {
-        font-size: 100%;
-    }
-}
+.jssocials-share-logo {
+  width: 1em;
+  vertical-align: middle;
+  font-size: 1.5em; }
 
-html:first-child .bookmark_list { /* Opera */
-    font-size: 80%;
-}
+img.jssocials-share-logo {
+  width: auto;
+  height: 1em; }
 
-.bookmark_list li {
-    float: left;
-    width: 23%;
-    margin: 0px 1px;
-    padding: 1px;
-    background-color: #eee;
-    border: 1px outset;
-}
+.jssocials-share-link {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1; }
+  .jssocials-share-link.jssocials-share-link-count {
+    padding-top: .2em; }
+    .jssocials-share-link.jssocials-share-link-count .jssocials-share-count {
+      display: block;
+      font-size: .6em;
+      margin: 0 -.5em -.8em -.5em; }
+  .jssocials-share-link.jssocials-share-no-count {
+    padding-top: .5em; }
+    .jssocials-share-link.jssocials-share-no-count .jssocials-share-count {
+      height: 1em; }
 
-.bookmark_compact {
-    background-color: #eee;
-    border: 1px outset;
-}
+.jssocials-share-label {
+  padding-left: 0.3em;
+  vertical-align: middle; }
 
-.bookmark_compact li {
-    width: 16px;
-    height: 16px;
-    margin: 0px;
-    padding: 2px;
-    background-color: transparent;
-    border: none;
-}
+.jssocials-share-count-box {
+  display: inline-block;
+  height: 1.5em;
+  padding: 0 0.3em;
+  line-height: 1;
+  vertical-align: middle;
+  cursor: default; }
+  .jssocials-share-count-box.jssocials-share-no-count {
+    display: none; }
 
-.bookmark_list a {
-    display: block;
-    text-decoration: none;
-    cursor: pointer;
-}
+.jssocials-share-count {
+  line-height: 1.5em;
+  vertical-align: middle; }
 
-.bookmark_list span {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-}
-
-.bookmark_list span.bookmark_icons {
-    background: url(../images/bookmarks.png) no-repeat center;
-}
-
-.bookmark_list img {
-    border: none;
-    vertical-align: text-top;
-    *vertical-align: middle; /* IE7 and below */
-}
-
-#bookmark_all {
-    display: none;
-    position: fixed;
-    z-index: 100;
-    background: #fff;
-    border: 2px solid #888;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-}
-
-#bookmark_all p {
-    margin: 0em;
-    padding: 0.5em;
-}
-
-#bookmark_all ul {
-    width: 24em;
-    height: 20em;
-    overflow: auto;
-}
-
-#bookmark_all li {
-    width: 48%;
-    background-color: transparent;
-    border: none;
-}
 
 /* -------------- countdown -------------- */
 .hasCountdown {

@@ -1431,7 +1431,10 @@ function smallworld_includeScripts()
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/wall.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/ajaxupload.3.5.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.avatar_helper.js'));
-            $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.bookmark.js'));
+            $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.min.js'));
+			$GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.js'));
+
+			$GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/jssocials-theme-minima.css'));
             $GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/oembed.css'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.colorbox.js'));
             $GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/smallworld.css'));
@@ -1443,7 +1446,10 @@ function smallworld_includeScripts()
             $GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/smallworld.css'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.innerfade.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.elastic.source.js'));
-            $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.bookmark.js'));
+            $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.min.js'));
+			$GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.js'));
+			$GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.shares.js'));
+			$GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/jssocials-theme-minima.css'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.colorbox.js'));
             break;
         case 'index':
@@ -1452,7 +1458,10 @@ function smallworld_includeScripts()
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/wall.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/ajaxupload.3.5.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.avatar_helper.js'));
-            $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.bookmark.js'));
+            $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.min.js'));
+			$GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.js'));
+
+			$GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/jssocials-theme-minima.css'));
             $GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/oembed.css'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.colorbox.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/tag-it.js'));
@@ -1516,7 +1525,10 @@ function smallworld_includeScripts()
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.oembed.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/wall.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.innerfade.js'));
-            $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.bookmark.js'));
+            $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.min.js'));
+			$GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.js'));
+
+			$GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/jssocials-theme-minima.css'));
             $GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/oembed.css'));
             $GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/smallworld.css'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.colorbox.js'));
@@ -1529,7 +1541,10 @@ function smallworld_includeScripts()
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/wall.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/ajaxupload.3.5.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.avatar_helper.js'));
-            $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.bookmark.js'));
+            $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.min.js'));
+			$GLOBALS['xoTheme']->addScript($helper->url('assets/js/jssocials.js'));
+
+			$GLOBALS['xoTheme']->addStylesheet($helper->url('assets/css/jssocials-theme-minima.css'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.colorbox.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.elastic.source.js'));
             $GLOBALS['xoTheme']->addScript($helper->url('assets/js/jquery.countdown.js'));
