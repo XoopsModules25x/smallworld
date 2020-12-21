@@ -26,8 +26,8 @@
 * Admin has access to all profiles.
 * Choose wich user's updates to display on public index
 * Edit all comments / updates on every page.
-* Take down users for inspections (i.e. if users get complaints).
-  * Choose time for inspection and regular users will see a countdown until this time is up.
+* Take down users for inspections (ie if users get complaints).
+* Choose time for inspection and regular users will see a countdown until this time is up.
 * See extended statistics for system
 
 [![Tutorial Available](https://xoops.org/images/tutorial-available-blue.svg)](https://www.gitbook.com/book/xoops/smallworld-tutorial/) Tutorial: see [GitBook](https://www.gitbook.com/book/xoops/smallworld-tutorial/).
