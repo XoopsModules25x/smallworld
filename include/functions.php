@@ -937,7 +937,7 @@ function smallworld_nextBirthdays()
         $res[$i]['birthday']      = $r['daymon'];
         $res[$i]['agenow']        = $r['age_now'];
         $res[$i]['username']      = $GLOBALS['xoopsUser']->getUnameFromId($r['userid']);
-        $res[$i]['username_link'] = "<a href = '" . $helper->url('userprofile.php?username=' . $res[$i]['username']) . "'>";
+        $res[$i]['username_link'] = "<a href = '" . Helper::getInstance()->url('userprofile.php?username=' . $res[$i]['username']) . "'>";
         $res[$i]['username_link'] .= $res[$i]['username'] . ' (' . $r['daymon'] . ') ' . $r['age_now'] . ' ' . _SMALLWORLD_BDAY_YEARS;
         $res[$i]['username_link'] .= '</a>';
         ++$i;
