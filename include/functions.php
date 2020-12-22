@@ -901,7 +901,7 @@ function smallworld_topratedusers()
         $array[$counter]['img']       = $swUserHandler->getAvatarLink($row['owner'], $swUserHandler->gravatar($row['owner']));
         $array[$counter]['user']      = $GLOBALS['xoopsUser']->getUnameFromId($row['owner']);
         $array[$counter]['rating']    = $row['total'];
-        $array[$counter]['user_link'] = "<a href = '" . $helper->url('userprofile.php?username=' . $array[$counter]['user']) . "'>";
+        $array[$counter]['user_link'] = "<a href = '" . Helper::getInstance()->url('userprofile.php?username=' . $array[$counter]['user']) . "'>";
         $array[$counter]['user_link'] .= $array[$counter]['user'] . ' (' . $array[$counter]['rating'] . ')</a>';
         ++$counter;
     }
