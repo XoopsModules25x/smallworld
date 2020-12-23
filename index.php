@@ -29,9 +29,9 @@ require_once __DIR__ . '/header.php';
 /** @var \XoopsModules\Smallworld\Helper $helper */
 require_once $helper->path('include/functions.php');
 
-if (($GLOBALS['xoopsUser'] instanceof \XoopsUser) && !$GLOBALS['xoopsUser']->isGuest()) {
+if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
-} elseif (((!$GLOBALS['xoopsUser'] instanceof \XoopsUser) || $GLOBALS['xoopsUser']->isGuest()) && Constants::HAS_ACCESS == $set['access']) {
+} elseif (((!$GLOBALS['xoopsUser'] instanceof \XoopsUser)) || Constants::HAS_ACCESS == $set['access']) {
     $GLOBALS['xoopsOption']['template_main'] = 'smallworld_publicindex.tpl';
 } else {
     redirect_header(XOOPS_URL . '/user.php', Constants::REDIRECT_DELAY_MEDIUM, _NOPERM);
