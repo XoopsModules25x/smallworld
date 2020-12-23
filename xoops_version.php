@@ -158,8 +158,8 @@ $modversion['config'][] = [
 
 $modversion['config'][] = [
     'name'        => 'validationstrength',
-    'title'       => '_MI_SMALLWORLD_VALIDATIONSTRENGTH',
-    'description' => '_MI_SMALLWORLD_VALIDATIONSTRENGTH_DESC',
+    'title'       => '_MI_SMALLWORLD_VALIDATIONSTRENGHT',
+    'description' => '_MI_SMALLWORLD_VALIDATIONSTRENGHT_DESC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
     'default'     => 1,
