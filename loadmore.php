@@ -58,7 +58,7 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     $id       = $GLOBALS['xoopsUser']->uid();
     $username = $GLOBALS['xoopsUser']->uname();
     //$profile  = $check->checkIfProfile($id);
-    $profile  = $sWUserHandler->checkIfProfile($id);
+    $profile  = $swUserHandler->checkIfProfile($id);
     if ($isAdmin) {
         $pub = $swUserHandler->allUsers();
         /*
@@ -87,6 +87,9 @@ if (Constants::DEFAULT_UID >= $id || ('publicindex' === $page) && (Constants::HA
 
 if (Constants::DEFAULT_UID >= $id && Constants::HAS_ACCESS == $set['access']) {
     $followers = $pub;
+} elseif ($id > 0 && Constants::HAS_ACCESS == $set['access'] && 'publicindex' === $page) {
+    //$pub = $check->allUsers();
+    $followers = $pub;	
 } else {
     $followers = smallworld_array_flatten($wall->getFollowers($id), 0);
 }
