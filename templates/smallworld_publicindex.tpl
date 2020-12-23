@@ -94,12 +94,6 @@
                                         </div>
                                     <div id="smallworld_content">
                                      <{foreach item=post from=$walldata}>
-                                    <{php}>
-                                        if ( count($post.msg_id) < 1 ) {
-                                            echo _SMALLWORLD_EMPTYMSG;
-                                        }
-                                        
-                                    <{/php}>
                                     <div class="smallworld_stbody" id="smallworld_stbody<{$post.msg_id}>">
                                         <script type="text/javascript">
                                                 xoops_smallworld(document).ready(function () {
