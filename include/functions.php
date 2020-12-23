@@ -1565,10 +1565,11 @@ function smallworld_includeScripts()
  */
 function smallworld_checkUserPubPostPerm()
 {
-
+	$check      = new Smallworld\SmallWorldUser();
     $helper     = Helper::getInstance();
     $userPerPub = $helper->getConfig('smallworldshowPoPubPage');
-    $pub = (0 !== $userPerPub[0]) ? $userPerPub : $helper->getHandler('SwUser')->allUsers();
+	$number = number_format($userPerPub[0], 0);  // userPerPub for some reason returned int as string ?!?!
+    $pub = ($number > 0) ? $number : $check->allUsers();
     /*
     $check      = new Smallworld\User();
     $userPerPub = smallworld_GetModuleOption('smallworldshowPoPubPage');
