@@ -26,12 +26,12 @@ $moduleDirName = basename(__DIR__);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => 1.22,
-    'module_status'       => 'Beta 3',
-    'release_date'        => '2020/12/20',
+    'version'             => 1.24,
+    'module_status'       => 'Final',
+    'release_date'        => '2020/12/25',
     'name'                => _MI_SMALLWORLD_MODULE_NAME,
     'description'         => _MI_SMALLWORLD_MODULE_DESC,
-    'official'            => 0,
+    'official'            => 1,
     //1 indicates official XOOPS module supported by XOOPS Dev Team, 0 means 3rd party supported
     'author'              => 'Michael Albertsen',
     'nickname'            => 'Culex',
@@ -40,7 +40,7 @@ $modversion = [
     'author_website_url'  => 'www.culex.dk',
     'author_website_name' => 'www.culex.dk',
     'license'             => 'GPL 2.0 or later',
-    'license_url'         => 'www.gnu.org/licenses/gpl-2.0.html/',
+    'license_url'         => 'http://www.gnu.org/licenses/gpl-3.0.en.html',
     'help'                => 'page=help',
     // ------------------- Folders & Files -------------------
     'release_info'        => 'Changelog',
