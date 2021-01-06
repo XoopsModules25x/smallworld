@@ -155,7 +155,7 @@ class Admin
         $i   = 1;
         while (false !== ($row = $GLOBALS['xoopsDB']->fetchArray($result))) {
             $msg['counter'][$i] = $i;
-            $msg['img'][$i]     = (3 < $i) ? "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>" : '';
+            $msg['img'][$i]     = (3 >= $i) ? "<img style='margin:0px 5px;' src = '../assets/images/" . $i . ".png'>" : '';
             $msg['cnt'][$i]     = $row['cnt'];
             $msg['from'][$i]    = $GLOBALS['xoopsUser']->getUnameFromId($row['uid_fk']);
             ++$i;
