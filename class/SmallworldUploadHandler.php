@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\smallworld;
+<?php namespace Xoopsmodules\Smallworld;
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -124,7 +124,7 @@ class SmallworldUploadHandler
      * @param $size
      * @param $type
      * @param $error
-     * @return \Xoopsmodules\smallworld|\stdClass
+     * @return \Xoopsmodules\Smallworld|\stdClass
      */
     private function handle_file_upload($uploaded_file, $name, $size, $type, $error)
     {
