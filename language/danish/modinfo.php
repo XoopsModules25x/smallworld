@@ -27,6 +27,7 @@ define('_MI_SMALLWORLD_ADMENU', 'Administration');
 define('_MI_SMALLWORLDMENU_INDEX', 'Hjem');
 define('_MI_SMALLWORLDMENU_STATS', 'Statistik');
 define('_MI_SMALLWORLDMENU_USERADMIN', 'brugeradmin');
+define('_MI_SMALLWORLDMENU_FEEDBACK', 'Feedback');
 define('_MI_SMALLWORLDMENU_HELP', 'Hjælp');
 define('_MI_SMALLWORLDMENU_ABOUT', 'Om');
 
@@ -93,3 +94,26 @@ define('_MI_SMALLWORLD_EMPLOYMENT', 'Arbejde');
 //Private or public module
 define('_MI_SMALLWORLD_PRIVATEMODULE', 'Vis offentlige indlæg ?');
 define('_MI_SMALLWORLD_PRIVATEMODULE_DESC', 'Hvis "ja" kan alle offentlige indlæg skrevet af forfatter med autorisation læses af alle besøgende. Dog skal bruger stadig været logget ind for at (stemme / kommentere osv).');
+
+// Limit users access to public posting
+
+define('_MI_SHOWPUBLICPAGE', 'Begræns poster til offentlig visning for disse brugere.');
+define('_MI_SHOWPUBLICPAGE_DESC', 'Standard er "Alle brugere", hvilket betyder, at alle brugere får deres "offentlige" indlæg vist på publicindex.php. <br>
+     Hvis du begrænser en bruger, og nyere brugere ikke vises her, skal du opdatere smallworld-modulet i administration for <br>
+     at vise de nyeste brugere.
+        ');
+define('_MI_SMALLWORLD_ALL', 'Alle brugere');
+
+//1.16
+//Help
+define('_MI_SMALLWORLD_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_SMALLWORLD_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
+define('_MI_SMALLWORLD_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_SMALLWORLD_OVERVIEW', 'Overview');
+
+//define('_MI_SMALLWORLD_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_SMALLWORLD_DISCLAIMER', 'Ansvarsfraskrivelse');
+define('_MI_SMALLWORLD_LICENSE', 'Licens');
+define('_MI_SMALLWORLD_SUPPORT', 'Support');

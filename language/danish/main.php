@@ -314,6 +314,7 @@ define('_SMALLWORLD_JS_COMPLAINTSENT', 'Din klage er blevet sendt til en moderat
 define('_SMALLWORLD_JS_COMPLAINT_ALREADY_SENT', 'Du har allerede lavet en klaget over dette indlæg!');
 
 /* ----------- Indexpage menu -------------- */
+define('_SMALLWORLD_STARTPAGE', 'Startside');
 define('_SMALLWORLD_HOME', 'Hjem');
 define('_SMALLWORLD_PROFILEINDEX', 'Profil');
 define('_SMALLWORLD_FRIENDSPAGE', 'Venner');
