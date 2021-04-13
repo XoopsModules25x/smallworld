@@ -84,8 +84,8 @@ class Images
                     'id'      => stripslashes($sqlfetch['id']),
                     'userid'  => stripslashes($sqlfetch['userid']),
                     'imgurl'  => stripslashes($sqlfetch['imgurl']),
-                    'desc'    => SwFunc\cleanupString($sqlfetch['desc']),
-                    'alt'     => SwFunc\cleanupString($sqlfetch['desc']),
+                    'desc'    => smallworld_cleanup_string($sqlfetch['desc']),
+                    'alt'     => smallworld_cleanup_string($sqlfetch['desc']),
                     'time'    => stripslashes($sqlfetch['time']),
                     'editimg' => "<span class='smallworld_edit_imgdesc_holder'><img src='" . Helper::getInstance()->url('images/edit_icon.png') . "'></span> <a class='smallworld_edit_imgdesc' href='editimages.php'>" . _SMALLWORLD_EDITDESCRIPTION . '</a>'
                 ];
