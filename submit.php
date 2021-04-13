@@ -20,13 +20,13 @@
  * @author       Michael Albertsen (http://culex.dk) <culex@culex.dk>
  */
 
+use Xmf\Request;
 use XoopsModules\Smallworld;
-
+use XoopsModules\Smallworld\Constants;
 require_once __DIR__ . '/header.php';
 
 /** @var \XoopsModules\Smallworld\Helper $helper */
 require_once $helper->path('include/functions.php');
-
 $GLOBALS['xoopsLogger']->activated = false;
 $swDB = new Smallworld\SwDatabase();
 $mail = new Smallworld\Mail();
@@ -35,7 +35,7 @@ $swDB->handlePosts();
 
 // Create user albums etc
 if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) {
-    $img    = new Smallworld\SmallWorldImages();
+    $img    = new Smallworld\Images;
     $userID = $GLOBALS['xoopsUser']->uid();
     if ('edit' !== $_POST['function']) {
         $img->createAlbum($userID);
