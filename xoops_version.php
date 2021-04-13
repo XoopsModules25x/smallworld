@@ -26,7 +26,7 @@ $moduleDirName = basename(__DIR__);
 
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version'             => 1.26,
+    'version'             => 1.28,
     'module_status'       => 'Final',
     'release_date'        => '2021/01/06',
     'name'                => _MI_SMALLWORLD_MODULE_NAME,
@@ -140,9 +140,9 @@ $modversion['templates'] = [
 // Blocks
 $modversion['blocks'][] = [
     'file'        => 'smallworld_block.php',
-    'name'        => 'Block for empty module',
-    'description' => 'This is a Block for the empty module',
-    'show_func'   => 'smallworld_block',
+    'name'        => 'Smallworld',
+    'description' => 'This is a Block for SmallWorld',
+    'show_func'   => 'smallworld_blocklist',
     'template'    => 'smallworld_block.tpl',
 ];
 //Module Configs
