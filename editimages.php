@@ -46,8 +46,8 @@ if ($xoopsUser) {
     $profile = $check->CheckIfProfile($userID);
     if ($profile > 0) {
         $xoopsTpl->assign('check', $profile);
-        $item = new smallworld\SmallWorldForm;
-        $db   = new smallworld\SmallWorldDB;
+        $item = new smallworld\Form;
+        $db   = new Smallworld\SwDatabase;
 
         $editimages = '';
         $sql        = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_images') . " WHERE userid = '" . $userID . "'";

@@ -34,7 +34,7 @@ global $xoopsUser, $xoopsTpl, $xoopsDB, $xoTheme;
 
 if ($xoopsUser) {
     $id      = $xoopsUser->getVar('uid');
-    $check   = new smallworld\SmallWorldUser;
+    $check   = new smallworld\user;
     $profile = $check->CheckIfProfile($id);
 
     // Check if inspected userid -> redirect to userprofile and show admin countdown
@@ -45,8 +45,8 @@ if ($xoopsUser) {
 
     if (2 == $profile) {
         $xoopsTpl->assign('check', $profile);
-        $item = new smallworld\SmallWorldForm;
-        $db   = new smallworld\SmallWorldDB;
+        $item = new smallworld\Form;
+        $db   = new Smallworld\SwDatabase();
 
         $cdb    = 'SELECT * FROM ' . $xoopsDB->prefix('smallworld_user') . " WHERE userid = '" . $id . "'";
         $result = $xoopsDB->queryF($cdb);

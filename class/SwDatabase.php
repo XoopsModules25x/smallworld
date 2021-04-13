@@ -211,7 +211,7 @@ class SwDatabase
         }
         $uid     = ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->uid() : 0;
 
-        $img     = new SmallWorldImages();
+        $img     = new Images;
         $avatar  = $this->getVar($uid, 'userimage');
         $partner = '';
 
@@ -520,7 +520,7 @@ class SwDatabase
                      . " AND me = '" . (int)$myUid . "'";
             $sql2    = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('smallworld_followers') . " WHERE me = '" . (int)$friend . "'"
                      . " AND you = '" . (int)$myUid . "'";
-            $result = $GLOBALS['xoopsDB']->queryF($sql2);
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
         }
 
         return $result ? true : false;

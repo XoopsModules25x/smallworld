@@ -33,7 +33,7 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 /** @var \XoopsModules\Smallworld\Helper $helper */
 require_once $helper->path('include/functions.php');
 
-$GLOBALS['xoopsLogger']->activated = true;
+$GLOBALS['xoopsLogger']->activated = false;
 
 $admin = $helper->isUserAdmin() ? true: false;
 
@@ -41,8 +41,8 @@ if ($GLOBALS['xoopsUser'] && ($GLOBALS['xoopsUser'] instanceof \XoopsUser)) {
     /** @var \XoopsModules\Smallworld\SwUserHandler $swUserHandler */
     $swUserHandler = $helper->getHandler('SwUser');
     $id            = $GLOBALS['xoopsUser']->uid();
-    $check         = new Smallworld\SmallWorldUser();
-    $image         = new Smallworld\SmallWorldImages();
+    $check         = new Smallworld\User();
+    $image         = new Smallworld\Images;
     $username      = Request::getString('username', '', 'GET');
     $userId        = $swUserHandler->getByName($username); // gets id of user which profile you want to see
     //$userId        = smallworld_isset_or($_GET['username']); // gets id of user which profile you want to see
