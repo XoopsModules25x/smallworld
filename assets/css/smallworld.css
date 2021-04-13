@@ -212,6 +212,7 @@ div.xoopsCode {
 
 .smallworld_biotable th, .smallworld_biotable td {
     padding: 0.5em;
+	vertical-align: top;
 }
 
 .smallworld_biotable td.center {
@@ -1260,7 +1261,7 @@ ul#smallworld_avatarfiles li img {
 }
 
 hr {
-    background: url("../assets/images/hr.png") repeat-x scroll 25% 50% transparent;
+    background: url("../images/hr.png") repeat-x scroll 25% 50% transparent;
     border: 0 none;
     height: 10px;
     margin: 2px auto 2px auto;
