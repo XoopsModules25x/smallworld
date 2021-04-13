@@ -42,7 +42,24 @@ class SmallworldCorePreload extends \XoopsPreloadItem
     {
         //Load language if not defined
         smallworld_isDefinedLanguage('_SMALLWORLD_SYSERROR', 'main.php');
-
+		
+		// Include jquery new or framework ?
+		$jq  = "if(jQuery.fn.jquery.split('.')" . "\n";
+		$jq .= ".map(function(i){return('0'+i).slice(-2)})" . "\n";
+		$jq .= "		.join('.') > '01.08.03')" . "\n";
+		$jq .= "	{" . "\n";
+		$jq .= "		console.log('yes! Version is ' + jQuery.fn.jquery);" . "\n";
+		$jq .= "	}" . "\n";
+		$jq .= "	else" . "\n";
+		$jq .= "	{" . "\n";
+		$jq .= "		console.log('no! Version is ' + jQuery.fn.jquery);" . "\n";
+		$jq .= "		var script = document.createElement('script');" . "\n";
+		$jq .= "		script.src = 'https://code.jquery.com/jquery-latest.min.js';" . "\n";
+		$jq .= "		script.type = 'text/javascript';" . "\n";
+		$jq .= "		document.getElementsByTagName('head')[0].appendChild(script);" . "\n";
+		$jq .= "	};";
+		//$GLOBALS['xoTheme']->addScript(null, array( 'type' => 'text/javascript' ), $jq, 'CheckJquery');
+		
         //$GLOBALS['xoTheme']->addScript("http://code.jquery.com/jquery-1.9.1.js");
         $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jquery.min.js');
         $GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/smallworld/assets/js/jqueryui.min.js');
