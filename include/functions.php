@@ -327,11 +327,11 @@ function smallworld_tolink($text, $uid)
         if (false !== mb_strpos($text, 'UPLIMAGE')) {
             $text = str_replace('UPLIMAGE', '', $text);
             $text = preg_replace(
-                '/(((f|ht){1}tp:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
+                '/(((f|ht){1}tps?:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
                 '<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="\\1"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $xUserUname . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
                 $text
             );
-            $text = preg_replace('/(((f|ht){1}tps:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i', '<a href="\\1">lala</a>', $text);
+            //$text = preg_replace('/(((f|ht){1}tps:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i', '<a href="\\1">lala</a>', $text);
             $text = preg_replace(
                 '/([[:space:]()[{}])(www.[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/i',
                 '\\1<span class="smallworldUplImgTxt"><br><img class="smallworldAttImg" src="//\\2"><br><br><a id="smallworldUplImgLnk" href="' . $gallery . '" target="_SELF">' . $xUserUname . _SMALLWORLD_UPLOADEDSOMEIMAGES . '</a><br></span>',
@@ -1565,7 +1565,7 @@ function smallworld_includeScripts()
  */
 function smallworld_checkUserPubPostPerm()
 {
-	$check      = new Smallworld\SmallWorldUser();
+	$check      = new Smallworld\User;
     $helper     = Helper::getInstance();
     $userPerPub = $helper->getConfig('smallworldshowPoPubPage');
 	$number = number_format($userPerPub[0], 0);  // userPerPub for some reason returned int as string ?!?!
