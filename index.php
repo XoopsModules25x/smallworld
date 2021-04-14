@@ -28,6 +28,7 @@ require_once __DIR__ . '/header.php';
 
 /** @var \XoopsModules\Smallworld\Helper $helper */
 require_once $helper->path('include/functions.php');
+require_once $helper->path('include/arrays.php');
 
 if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $GLOBALS['xoopsOption']['template_main'] = 'smallworld_index.tpl';
